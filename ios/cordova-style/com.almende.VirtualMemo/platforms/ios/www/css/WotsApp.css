@@ -1,0 +1,49 @@
+
+.exhibitorLogo {
+	width:100%;
+}
+
+body.phonegap-ios-7 {
+	  margin-top: 20px;
+} 
+
+body.phonegap-ios-7 .ui-header-fixed {
+	padding-top:21px;
+}
+
+body.phonegap-ios-7 .ui-btn-left {
+	top:23px;
+}
+
+body.phonegap-ios-7 #statusBarFill {
+	height:20px;
+	clear:both;
+}
+
+#memoNote {
+	margin:0 auto;
+	background-color:yellow;
+	width:80%;
+	height:16em;
+}
+
+/*
+#memoNote {
+	background-color:yellow;
+	height:16em;
+	position:absolute;
+	top:50%;
+	margin-top:-8em;
+	left:50%;
+	margin-left:-40%;
+	width:80%;
+}
+*/
+
+#virtualMemoPage * {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}

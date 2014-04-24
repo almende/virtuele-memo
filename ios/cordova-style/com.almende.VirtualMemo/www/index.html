@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=device-dpi" />
+        <!--link rel="stylesheet" type="text/css" href="css/index.css" / -->
+        <!--<link rel="stylesheet" href="css/jquery.mobile.custom.structure.min.css" />-->
+        <!--<link rel="stylesheet" href="css/jquery.mobile.custom.theme.min.css" />-->
+        <link rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/WotsApp.css" />
+        <script src="js/jquery-1.9.1.min.js"></script>
+				<script type='application/javascript' src='js/fastclick.js'></script>
+        <script type="text/javascript">
+					var wotsAppNofInits = 0;
+
+					function nextInit() {
+						wotsAppNofInits++;
+						$( ".ui-body-a" ).pagecontainer({ defaults: true });
+						if(wotsAppNofInits == 2) {
+							var activePage = $.mobile.activePage;
+							if($(activePage).attr('id') == 'exhibitorListPage')
+								$('#exhibitorList').listview('refresh');
+							FastClick.attach(document.body);
+						}
+					}
+					$(document).on("mobileinit", function() { nextInit(); });
+				</script>
+        <script src="js/jquery.mobile-1.4.2.min.js"></script>
+        <title>Virtuele Memo</title>
+    </head>
+    <body class="ui-body-a">
+
+			<!-- Exhibitor List Page -->
+        <div data-role="page" id="exhibitorListPage">
+					<div data-role="header" data-position='fixed'>
+							<h1 class="ui-title" role="heading" aria-level="1">Opdrachten</h1>
+					</div>
+
+					<div role="main">
+							<ul data-role="listview" id="exhibitorList">
+									<li><a href="#exhibitorDetailsPage" data-transition="slide">Test opdracht</a></li>
+							</ul>
+					</div>
+					
+					<div data-role="footer" data-id="footer1" data-position="fixed">
+						<div data-role="navbar">
+							<ul>
+								<li><a href="#exhibitorListPage" class="ui-btn-active ui-state-persist virtualMemoTab" data-icon="heart" data-transition="none">WOTS Opdracht</a></li>
+								<li><a href="#virtualMemoPage" class="virtualMemoTab" data-icon="mail" data-transition="none">Virtuele Memo</a></li>
+							</ul>
+						</div>
+					</div>
+        </div>
+        
+
+				<!-- Exhibitor Details Page -->
+        <div data-role="page" id="exhibitorDetailsPage">
+            <div data-role="header" data-add-back-btn="true" data-position='fixed'>
+            	<h1 class="ui-title" role="heading" aria-level="1">Almende</h1>
+            </div>
+
+						<div>
+							<img class="exhibitorLogo" src="logos/600-width/almendedefRGB.png" id="exhibitorLogo"></img>
+						</div>
+            
+					<div data-role="footer" data-id="footer1" data-position="fixed">
+						<div data-role="navbar">
+							<ul>
+								<li><a href="#exhibitorListPage" class="ui-btn-active ui-state-persist virtualMemoTab" data-icon="heart" data-transition="none">WOTS Opdracht</a></li>
+								<li><a href="#virtualMemoPage" class="virtualMemoTab" data-icon="mail" data-transition="none">Virtuele Memo</a></li>
+							</ul>
+						</div>
+					</div>
+        </div>
+
+
+				<!-- Virtual Memo Page -->
+				<div data-role="page" id="virtualMemoPage">
+
+					<div role="main" class="ui-content" style="padding:0px">
+						<div id="memoNote">
+							Hi
+						</div>
+					</div>
+
+					<div data-role="footer" data-id="footer1" data-position="fixed">
+						<div data-role="navbar">
+							<ul>
+								<li><a href="#exhibitorListPage" class="virtualMemoTab" data-icon="heart" data-transition="none">WOTS Opdracht</a></li>
+								<li><a href="#virtualMemoPage" class="ui-btn-active ui-state-persist virtualMemoTab" data-icon="mail" data-transition="none">Virtuele Memo</a></li>
+							</ul>
+						</div>
+
+					</div>
+
+					<div data-role="panel" id="virtualMemoPanel" data-display="reveal" data-theme="b">
+						<div id="statusBarFill"></div>
+						<ul data-role="listview">
+							<li><a href="">Alle magneten</a></li>
+							<li><a href="">Magneet beheren</a></li>
+						</ul>
+					</div>
+
+
+				</div>
+
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/WotsApp.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+						wotsApp = new WotsApp();
+						wotsApp.start();
+        </script>
+    </body>
+</html>
