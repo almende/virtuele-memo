@@ -40,7 +40,7 @@ Make sure in that case that you have a udev rule with the group "plugdev":
 
     $> cat /etc/udev/rules.d/50-android.rules 
     SUBSYSTEM=="usb", ATTR{idVendor}=="18d1", MODE="0666", GROUP="plugdev"
-    sudo udevadm contro --reload-rules
+    sudo udevadm control --reload-rules
     sudo service udev restart
 
 And make sure adb is in the right group.
