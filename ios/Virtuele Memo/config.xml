@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="Virtual Memo" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Virtuele Memo</name>
+    <description>
+        A sample Apache Cordova application that responds to the deviceready event.
+    </description>
+    <author email="stefan@almende.com" href="http://www.almende.com">
+				Stefan Kroon (Almende)
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+</widget>
