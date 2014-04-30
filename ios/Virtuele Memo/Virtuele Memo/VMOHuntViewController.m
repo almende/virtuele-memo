@@ -12,7 +12,9 @@
 
 @end
 
-@implementation VMOHuntViewController
+@implementation VMOHuntViewController {
+    CDVViewController* cordovaVC;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,6 +29,11 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    cordovaVC = [CDVViewController new];
+    cordovaVC.wwwFolderName = @"www";
+    cordovaVC.view.frame = self.view.frame;
+    [self.view addSubview:cordovaVC.view];
 }
 
 - (void)didReceiveMemoryWarning

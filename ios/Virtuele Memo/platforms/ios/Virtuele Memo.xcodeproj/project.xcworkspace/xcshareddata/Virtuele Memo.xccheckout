@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>CF9426AD-8D8C-43A4-BECF-18BF894BC9C0</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Virtuele Memo</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>15411644-E213-426D-8DE1-8BFE03C7FC28</key>
+		<string>https://github.com/almende/virtuele-memo</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ios/Virtuele Memo/platforms/ios/Virtuele Memo.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>15411644-E213-426D-8DE1-8BFE03C7FC28</key>
+		<string>../../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/almende/virtuele-memo</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>15411644-E213-426D-8DE1-8BFE03C7FC28</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>15411644-E213-426D-8DE1-8BFE03C7FC28</string>
+			<key>IDESourceControlWCCName</key>
+			<string>virtuele-memo</string>
+		</dict>
+	</array>
+</dict>
+</plist>
