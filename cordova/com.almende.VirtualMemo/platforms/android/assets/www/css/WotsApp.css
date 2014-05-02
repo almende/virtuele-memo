@@ -47,3 +47,83 @@ body.phonegap-ios-7 #statusBarFill {
 	-o-user-select: none;
 	user-select: none;
 }
+
+#exhibitorDetailsPage {
+}
+
+#questionShield {
+	background-image:url(images/QuestionShield.png);
+	width:69px;
+	height:77px;
+}
+
+#questionLayer {
+	background-color:#f0ea22;
+	padding:15px;
+}
+
+#hangmanTextInput {
+	text-align:center;	
+	height:40px;
+}
+
+#hangmanTextInput input {
+	border:none;
+	position:absolute;
+	text-align:center;
+	background-color: rgba(0,0,0,0.0);
+	border-bottom:1px solid black;
+	border-radius:0px;
+	-webkit-border-radius:0px;
+	-moz-border-radius:0px;
+}
+
+#exhibitorList > li > a {
+	height:4em;
+	background-image:url(images/ExhibitorDoneNone.png);
+	background-repeat:no-repeat;
+	background-size:70px 122px;
+	background-position:10px;
+	padding-left:90px;
+}
+
+#exhibitorList > li > a > p {
+	white-space:normal;
+	margin-top:0px;
+}
+
+#exhibitorList > li.taskDisabled > a > span {
+	display:none;
+}
+
+#exhibitorList > li.taskDisabled > a > p {
+	display:none;
+}
+
+#exhibitorList > li.taskDisabled > a:after {
+	background:none;
+}
+
+#exhibitorList > li.taskHalfEnabled > a > span {
+	opacity:0.3;
+}
+
+#exhibitorList > li.taskHalfEnabled > a > p {
+	opacity:0.3;
+}
+
+#exhibitorList > li.taskDoneSelf > a {
+	background-image:url(images/ExhibitorDoneSelf.png);
+}
+
+#exhibitorList > li.taskDoneBoth > a {
+	background-image:url(images/ExhibitorDoneBoth.png);
+}
+
+#exhibitorList > li.taskDoneUp > a {
+	background-image:url(images/ExhibitorDoneUp.png);
+}
+
+#exhibitorList > li.taskDoneDown > a {
+	background-image:url(images/ExhibitorDoneDown.png);
+}

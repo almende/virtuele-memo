@@ -58,7 +58,6 @@
 
 					<div role="main">
 							<ul data-role="listview" id="exhibitorList">
-									<li><a href="#exhibitorDetailsPage" data-transition="slide">Test opdracht</a></li>
 							</ul>
 					</div>
 					
@@ -78,6 +77,19 @@
             <div data-role="header" data-add-back-btn="true" data-position='fixed'>
             	<h1 class="ui-title" role="heading" aria-level="1">Almende</h1>
             </div>
+
+						<div id="questionLayer">
+							<div id="questionShield"></div>
+							<h2>Vraag</h2>
+							<p id="questionParagraph">In welke stad is Almende gevestigd?</p>
+								<div id="hangmanTextInput">
+									<input type="text" class="hangman" value="" size="2" data-role="none" style=""></input>
+									<input type="text" class="hangman" value="" size="2" data-role="none" style=""></input>
+									<input type="text" class="hangman" value="" size="2" data-role="none" style=""></input>
+									<input type="text" class="hangman" value="" size="2" data-role="none" style=""></input>
+								</div>
+						</div>
+						<canvas id="triangle" height="100" width="100%">Triangle</canvas>
 
 						<div>
 							<img class="exhibitorLogo" src="logos/600-width/almendedefRGB.png" id="exhibitorLogo"></img>
@@ -126,6 +138,7 @@
 
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/hangman.js"></script>
         <script type="text/javascript" src="js/WotsApp.js"></script>
         <script type="text/javascript">
             app.initialize();

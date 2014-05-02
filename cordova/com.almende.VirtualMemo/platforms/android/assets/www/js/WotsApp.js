@@ -8,21 +8,74 @@ WotsApp.prototype = {
 	start:function() {
 		var wots = this;
 
+		$.ajaxSetup({ cache: false });
+
 		$('#exhibitorListPage').on('pagecreate', function() {
 			$.getJSON('data/exhibitors.js', function(data) {
 				var exhibitorList = $('#exhibitorList');
 				//$('#exhibitorList li').remove();
 				wots.exhibitors = data;
-				wots.exhibitors.forEach(function(exhibitor) {
+				var prevExhibitor = null;
+				var nextExhibitor = null;
+				var nextNextExhibitor = null;
+				var pastSomeDone = false;
+				for(var c = 0; c < wots.exhibitors.length; c++) {
+					var exhibitor = wots.exhibitors[c];
+					if(typeof exhibitor.status == 'undefined')
+						exhibitor.status = "open";
+					if(typeof exhibitor.oneliner == 'undefined')
+						exhibitor.oneliner = '';
+				}
+				for(var c = 0; c < wots.exhibitors.length; c++) {
+					var exhibitor = wots.exhibitors[c];
 					wots.exhibitorsById[exhibitor.id] = exhibitor;
-					$(exhibitorList).append($('<li/>').
-						append($('<a/>', {
+					if(c + 1 < wots.exhibitors.length)
+						nextExhibitor = wots.exhibitors[c + 1];
+					else
+						nextExhibitor = null;
+					if(c + 2 < wots.exhibitors.length)
+						nextNextExhibitor = wots.exhibitors[c + 2];
+					else
+						nextNextExhibitor = null;
+					var doneClass = "";
+					var enabledClass = "taskDisabled";
+					if(exhibitor.status == "done") {
+						pastSomeDone = true;
+						enabledClass = 'taskEnabled';
+						if(prevExhibitor && prevExhibitor.status == "done") {
+							if(nextExhibitor && nextExhibitor.status == "done")
+								doneClass = "taskDoneBoth";
+							else
+								doneClass = "taskDoneUp";
+						}
+						else {
+							if(nextExhibitor && nextExhibitor.status == "done")
+								doneClass = "taskDoneDown";
+							else
+								doneClass = "taskDoneSelf";
+						}
+					}
+					else {
+						if(pastSomeDone || nextExhibitor && nextExhibitor.status == "done")
+							enabledClass = "taskEnabled";
+						else {
+							if(nextNextExhibitor && nextNextExhibitor.status == "done")
+								enabledClass = "taskHalfEnabled";
+						}
+					}
+					$(exhibitorList).append($('<li/>', { "class":doneClass + ' ' + enabledClass })
+						//.append($('<div/>')).
+						.append($('<a/>', {
 							'href':'#exhibitorDetailsPage',
-							'text':exhibitor.name,
 							'data-transition':'slide',
 							'data-id':exhibitor.id
-						})));
-				}, wots);
+						})
+						.append('<span>' + exhibitor.name + '</span>')
+						.append('<p>' + exhibitor.oneliner + '</p>'))
+						//append($('<p>oneliner</p>'))
+					);
+					prevExhibitor = exhibitor;
+				} // End for-loop
 				$('#exhibitorList').listview('refresh');
 			});
 		});
@@ -42,7 +95,55 @@ WotsApp.prototype = {
 					if(exhibitor.name)
 						$('#exhibitorDetailsPage .ui-title').text(exhibitor.name);
 
+					if(exhibitor.questions) {
+						if(typeof exhibitor.activeQuestion == 'undefined') {
+							var index = Math.floor(Math.random() * exhibitor.questions.length);
+							exhibitor.activeQuestion = exhibitor.questions[index];
+						}
+						var questionText = "Er is geen vraag gevonden.";
+						if(typeof exhibitor.activeQuestion != 'undefined') {
+							questionText = exhibitor.activeQuestion.question;
+							generateHangman(exhibitor.activeQuestion.type, exhibitor.activeQuestion.length);
+						}
+						$('#questionParagraph').text(questionText);
+
+					}
 				}
+
+				var canvas = document.getElementById('triangle');
+				var context = canvas.getContext('2d');
+				var height = 30;
+				var width = 30;
+				context.canvas.width = window.innerWidth;
+				context.canvas.height = height;
+				context.beginPath();
+				var startX = (window.innerWidth / 2) - (width / 2);
+				context.moveTo(startX, 0);
+				context.lineTo(startX + width, 0);
+				context.lineTo(startX + (width / 2), height);
+				context.closePath();
+				context.fillStyle = "rgb(240, 234, 34)";
+				context.fill();
+
+
+/*
+				$('#hangmanTextInput input').on('keydown',  function(event) {
+					var keyChar = event.which;
+					console.log("keypress: " + keyChar);
+					if(keyChar == 8) {
+						var lastElement = null;
+						$('#hangmanTextInput input').each(function(index, element) {
+							if(element == event.target) {
+								if(lastElement) {
+									$(lastElement).val('');
+									$(lastElement).trigger('touchstart');
+								}
+							}
+							lastElement = element;
+						});
+					}
+				});
+*/
 		});
 
 		$('#virtualMemoPage').on('swiperight', function(event) {
