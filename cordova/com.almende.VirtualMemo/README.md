@@ -67,7 +67,7 @@ However, I can't be bothered much, because it is easy to install it manually:
 
 Get the name of the activity to launch:
 
-    $> apt dump badging platforms/android/ant-build/VirtualMemo-debug.apk | grep activity
+    $> aapt dump badging platforms/android/ant-build/VirtualMemo-debug.apk | grep activity
     launchable-activity: name='com.almende.VirtualMemo.VirtualMemo'  label='VirtualMemo' icon=''
 
 And run it:
