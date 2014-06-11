@@ -15,10 +15,35 @@
                     ]
                 }
             }
+        },
+        "framework": {
+            "CoreBluetooth.framework": {
+                "false": 1
+            },
+            "AudioToolbox.framework": {
+                "true": 1
+            }
+        },
+        "config.xml": {
+            "/*": {
+                "<feature name=\"BluetoothLePlugin\"><param name=\"ios-package\" value=\"BluetoothLePlugin\" /></feature>": 1,
+                "<feature name=\"Notification\"><param name=\"ios-package\" value=\"CDVNotification\" /></feature>": 1
+            }
+        },
+        "*-Info.plist": {
+            "UIBackgroundModes": {
+                "<array><string>bluetooth-central</string></array>": 1
+            }
         }
     },
     "installed_plugins": {
         "org.apache.cordova.device": {
+            "PACKAGE_NAME": "com.almende.VirtualMemo"
+        },
+        "com.randdusing.bluetoothle": {
+            "PACKAGE_NAME": "com.almende.VirtualMemo"
+        },
+        "org.apache.cordova.dialogs": {
             "PACKAGE_NAME": "com.almende.VirtualMemo"
         }
     },

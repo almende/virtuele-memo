@@ -31,6 +31,7 @@
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/js/hangman.js \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/js/jquery.mobile.custom.min.js \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/js/fastclick.min.js \
+/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/js/ble.js \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/js/jquery-1.9.1.min.js \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/js/jquery.mobile.custom.js \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/js/index.js \
@@ -257,7 +258,15 @@
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/css/images/icons-svg/arrow-u-white.svg \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/css/images/icons-svg/arrow-u-black.svg \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/css/images/icons-svg/plus-black.svg \
+/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/plugins/org.apache.cordova.dialogs \
+/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/plugins/com.randdusing.bluetoothle \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/plugins/org.apache.cordova.device \
+/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/plugins/org.apache.cordova.dialogs/www \
+/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/plugins/org.apache.cordova.dialogs/www/android \
+/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/plugins/org.apache.cordova.dialogs/www/notification.js \
+/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/plugins/org.apache.cordova.dialogs/www/android/notification.js \
+/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/plugins/com.randdusing.bluetoothle/www \
+/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/plugins/com.randdusing.bluetoothle/www/bluetoothle.js \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/plugins/org.apache.cordova.device/www \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/plugins/org.apache.cordova.device/www/device.js \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/ant-build/AndroidManifest.xml \

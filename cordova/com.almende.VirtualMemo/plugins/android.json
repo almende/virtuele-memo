@@ -3,7 +3,31 @@
         "installed": [],
         "uninstalled": []
     },
-    "config_munge": {},
-    "installed_plugins": {},
+    "config_munge": {
+        "res/xml/config.xml": {
+            "/*": {
+                "<feature name=\"BluetoothLePlugin\"><param name=\"android-package\" value=\"com.randdusing.bluetoothle.BluetoothLePlugin\" /></feature>": 1,
+                "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>": 1,
+                "<feature name=\"Notification\"><param name=\"android-package\" value=\"org.apache.cordova.dialogs.Notification\" /></feature>": 1
+            }
+        },
+        "AndroidManifest.xml": {
+            "/manifest": {
+                "<uses-permission android:name=\"android.permission.BLUETOOTH\" />": 1,
+                "<uses-permission android:name=\"android.permission.BLUETOOTH_ADMIN\" />": 1
+            }
+        }
+    },
+    "installed_plugins": {
+        "com.randdusing.bluetoothle": {
+            "PACKAGE_NAME": "com.almende.VirtualMemo"
+        },
+        "org.apache.cordova.device": {
+            "PACKAGE_NAME": "com.almende.VirtualMemo"
+        },
+        "org.apache.cordova.dialogs": {
+            "PACKAGE_NAME": "com.almende.VirtualMemo"
+        }
+    },
     "dependent_plugins": {}
 }

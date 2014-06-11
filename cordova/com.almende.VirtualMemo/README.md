@@ -79,3 +79,18 @@ And to get rid of it:
     $> adb uninstall com.almende.VirtualMemo
     Success
 
+## BluetoothLE
+
+To support Bluetooth LE, we used a plugin:
+
+    cordova plugin add https://github.com/randdusing/BluetoothLE.git
+
+To know on which type of device we or working, we use another plugin:
+
+    cordova plugin add org.apache.cordova.device
+
+Notifications are added as plugin as well:
+
+    cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-dialogs.git
+
+This should automatically adjust your platform-specific configuration files as specified on [cordova.apache.org](https://cordova.apache.org/docs/en/3.0.0/cordova_notification_notification.md.html).

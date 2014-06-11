@@ -8,6 +8,8 @@ WotsApp.prototype = {
 	start:function() {
 		var wots = this;
 
+		var ble = new BLEHandler();
+
 		$.ajaxSetup({ cache: false });
 
 		$('#exhibitorListPage').on('pagecreate', function() {
@@ -19,24 +21,28 @@ WotsApp.prototype = {
 				var nextExhibitor = null;
 				var nextNextExhibitor = null;
 				var pastSomeDone = false;
-				for(var c = 0; c < wots.exhibitors.length; c++) {
+				for (var c = 0; c < wots.exhibitors.length; c++) {
 					var exhibitor = wots.exhibitors[c];
-					if(typeof exhibitor.status == 'undefined')
+					if (typeof exhibitor.status == 'undefined') {
 						exhibitor.status = "open";
-					if(typeof exhibitor.oneliner == 'undefined')
+					}
+					if (typeof exhibitor.oneliner == 'undefined') {
 						exhibitor.oneliner = '';
+					}
 				}
-				for(var c = 0; c < wots.exhibitors.length; c++) {
+				for (var c = 0; c < wots.exhibitors.length; c++) {
 					var exhibitor = wots.exhibitors[c];
 					wots.exhibitorsById[exhibitor.id] = exhibitor;
-					if(c + 1 < wots.exhibitors.length)
+					if (c + 1 < wots.exhibitors.length) {
 						nextExhibitor = wots.exhibitors[c + 1];
-					else
+					} else {
 						nextExhibitor = null;
-					if(c + 2 < wots.exhibitors.length)
+					}
+					if (c + 2 < wots.exhibitors.length) {
 						nextNextExhibitor = wots.exhibitors[c + 2];
-					else
+					} else {
 						nextNextExhibitor = null;
+					}
 					var doneClass = "";
 					var enabledClass = "taskDisabled";
 					if(exhibitor.status == "done") {
@@ -64,16 +70,16 @@ WotsApp.prototype = {
 						}
 					}
 					$(exhibitorList).append($('<li/>', { "class":doneClass + ' ' + enabledClass })
-						//.append($('<div/>')).
-						.append($('<a/>', {
-							'href':'#exhibitorDetailsPage',
+							//.append($('<div/>')).
+							.append($('<a/>', {
+								'href':'#exhibitorDetailsPage',
 							'data-transition':'slide',
 							'data-id':exhibitor.id
-						})
-						.append('<span>' + exhibitor.name + '</span>')
-						.append('<p>' + exhibitor.oneliner + '</p>'))
-						//append($('<p>oneliner</p>'))
-					);
+							})
+								.append('<span>' + exhibitor.name + '</span>')
+								.append('<p>' + exhibitor.oneliner + '</p>'))
+							//append($('<p>oneliner</p>'))
+							);
 					prevExhibitor = exhibitor;
 				} // End for-loop
 				$('#exhibitorList').listview('refresh');
@@ -88,78 +94,85 @@ WotsApp.prototype = {
 
 
 		$('#exhibitorDetailsPage').on("pagebeforeshow", function( event, ui ) {
-				var exhibitor = wots.exhibitorsById[wots.selectedExhibitorId];
-				if(exhibitor) {
-					if(exhibitor.logo)
-						$('#exhibitorLogo').attr('src', 'logos/600-width/' + exhibitor.logo);
-					if(exhibitor.name)
-						$('#exhibitorDetailsPage .ui-title').text(exhibitor.name);
-
-					if(exhibitor.questions) {
-						if(typeof exhibitor.activeQuestion == 'undefined') {
-							var index = Math.floor(Math.random() * exhibitor.questions.length);
-							exhibitor.activeQuestion = exhibitor.questions[index];
-						}
-						var questionText = "Er is geen vraag gevonden.";
-						if(typeof exhibitor.activeQuestion != 'undefined') {
-							questionText = exhibitor.activeQuestion.question;
-							generateHangman(exhibitor.activeQuestion.type, exhibitor.activeQuestion.length);
-						}
-						$('#questionParagraph').text(questionText);
-
-					}
+			var exhibitor = wots.exhibitorsById[wots.selectedExhibitorId];
+			if (exhibitor) {
+				if (exhibitor.logo) {
+					$('#exhibitorLogo').attr('src', 'logos/600-width/' + exhibitor.logo);
+				}
+				if (exhibitor.name) {
+					$('#exhibitorDetailsPage .ui-title').text(exhibitor.name);
 				}
 
-				var canvas = document.getElementById('triangle');
-				var context = canvas.getContext('2d');
-				var height = 30;
-				var width = 30;
-				context.canvas.width = window.innerWidth;
-				context.canvas.height = height;
-				context.beginPath();
-				var startX = (window.innerWidth / 2) - (width / 2);
-				context.moveTo(startX, 0);
-				context.lineTo(startX + width, 0);
-				context.lineTo(startX + (width / 2), height);
-				context.closePath();
-				context.fillStyle = "rgb(240, 234, 34)";
-				context.fill();
-
-
-/*
-				$('#hangmanTextInput input').on('keydown',  function(event) {
-					var keyChar = event.which;
-					console.log("keypress: " + keyChar);
-					if(keyChar == 8) {
-						var lastElement = null;
-						$('#hangmanTextInput input').each(function(index, element) {
-							if(element == event.target) {
-								if(lastElement) {
-									$(lastElement).val('');
-									$(lastElement).trigger('touchstart');
-								}
-							}
-							lastElement = element;
-						});
+				if (exhibitor.questions) {
+					if (typeof exhibitor.activeQuestion == 'undefined') {
+						var index = Math.floor(Math.random() * exhibitor.questions.length);
+						exhibitor.activeQuestion = exhibitor.questions[index];
 					}
-				});
-*/
+					var questionText = "Er is geen vraag gevonden.";
+					if (typeof exhibitor.activeQuestion != 'undefined') {
+						questionText = exhibitor.activeQuestion.question;
+						generateHangman(exhibitor.activeQuestion.type, exhibitor.activeQuestion.length);
+					}
+					$('#questionParagraph').text(questionText);
+				}
+			}
+
+			var canvas = document.getElementById('triangle');
+			var context = canvas.getContext('2d');
+			var height = 30;
+			var width = 30;
+			context.canvas.width = window.innerWidth;
+			context.canvas.height = height;
+			context.beginPath();
+			var startX = (window.innerWidth / 2) - (width / 2);
+			context.moveTo(startX, 0);
+			context.lineTo(startX + width, 0);
+			context.lineTo(startX + (width / 2), height);
+			context.closePath();
+			context.fillStyle = "rgb(240, 234, 34)";
+			context.fill();
+
+
+			/*
+			   $('#hangmanTextInput input').on('keydown',  function(event) {
+			   var keyChar = event.which;
+			   console.log("keypress: " + keyChar);
+			   if(keyChar == 8) {
+			   var lastElement = null;
+			   $('#hangmanTextInput input').each(function(index, element) {
+			   if(element == event.target) {
+			   if(lastElement) {
+			   $(lastElement).val('');
+			   $(lastElement).trigger('touchstart');
+			   }
+			   }
+			   lastElement = element;
+			   });
+			   }
+			   });
+			   */
 		});
 
 		$('#virtualMemoPage').on('swiperight', function(event) {
 			$('#virtualMemoPanel').panel("open");
 		});
 
-		$('#virtualMemoPage').on('pageshow',function(e,data){    
-				var windowHeight = $(window).height();
-				var headerHeight = $('[data-role=header]').height();
-				var footerHeight = $('.ui-footer').height();
-				var memoHeight = $('#memoNote').outerHeight();
-				//var marginTop = (windowHeight - headerHeight - footerHeight - memoHeight)/2;
-				var marginTop = (windowHeight - memoHeight - footerHeight)/2;
-				console.log('windowHeight: ' + windowHeight + ', headerHeight: ' + headerHeight + ', footerHeight: ' + footerHeight + ', memoHeight: ' + memoHeight + ', marginTop: ' + marginTop);
-			  $('#memoNote').css('margin-top',marginTop);
+		$('#virtualMemoPage').on('pageshow',function(e,data) { 
+			var windowHeight = $(window).height();
+			var headerHeight = $('[data-role=header]').height();
+			var footerHeight = $('.ui-footer').height();
+			var memoHeight = $('#memoNote').outerHeight();
+			//var marginTop = (windowHeight - headerHeight - footerHeight - memoHeight)/2;
+			var marginTop = (windowHeight - memoHeight - footerHeight)/2;
+			console.log('windowHeight: ' + windowHeight + ', headerHeight: ' + headerHeight + ', footerHeight: ' + footerHeight + ', memoHeight: ' + memoHeight + ', marginTop: ' + marginTop);
+			$('#memoNote').css('margin-top',marginTop);
+
+			// set up bluetooth connection
+			ble.init();
+
 		});
+
+
 	}
 }
 

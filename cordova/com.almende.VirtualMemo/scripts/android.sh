@@ -12,6 +12,10 @@ upload() {
 	adb shell am start -n com.almende.VirtualMemo/.VirtualMemo
 }
 
+log() {
+	adb logcat
+}
+
 case "$cmd" in 
 	build)
 		build
@@ -19,7 +23,10 @@ case "$cmd" in
 	upload)
 		upload
 		;;
+	log)
+		log
+		;;
 	*)
-		echo $"Usage: $0 {build|upload}"
+		echo $"Usage: $0 {build|upload|log}"
 		exit 1
 esac

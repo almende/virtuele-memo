@@ -33,4 +33,10 @@
     <access origin="*" />
     <preference name="StatusBarOverlaysWebView" value="true" />
     <preference name="UIWebViewBounce" value="false" />
+    <feature name="BluetoothLePlugin">
+        <param name="ios-package" value="BluetoothLePlugin" />
+    </feature>
+    <feature name="Notification">
+        <param name="ios-package" value="CDVNotification" />
+    </feature>
 </widget>
