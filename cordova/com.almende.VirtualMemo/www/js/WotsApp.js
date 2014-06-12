@@ -169,10 +169,12 @@ WotsApp.prototype = {
 
 			// set up bluetooth connection
 			ble.init();
-
 		});
 
-
+		$('#sendAlert').on('click', function(event) {
+			console.log('Click event received');
+			ble.readLinkLoss();
+		});
 	}
 }
 
