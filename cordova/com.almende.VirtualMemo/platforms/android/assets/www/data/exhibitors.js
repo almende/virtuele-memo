@@ -6,7 +6,7 @@
 		"oneliner":"Electronics, human powered",
 		"description":"SallandElectronics onderzoekt, ontwikkelt en produceert, elektronische producten voor diverse markten. Voorbeelden zijn: een slimme bureaustoel, mobiele communicatie apparaat, ondergrondse container besturingen, RFID oplossingen, toegangsverleningssystemen, detectie apparatuur etc.",
 		"questions": [
-			{ "question":"Wie bij SallandElectronics is verantwoordelijk voor het ontwerp van de Virtuele Memo Gadget?", "answer":"joost", "type":"text", "length":5 }
+			{ "question": "Wie bij SallandElectronics is verantwoordelijk voor het ontwerp van de Virtuele Memo Gadget?", "answer":"joost", "type":"text", "length":5 }
 		]
 	},
 	{
@@ -19,7 +19,7 @@
 			{ "question": "In welk jaar is Almende opgericht?", "answer": "2001", "type": "number", "length": 4 },
 			{ "question": "Hoeveel dochter bedrijven heeft Almende?", "answer": "6", "type": "number", "length": 2 },
 			{ "question": "Wie was de oprichter van Almende?", "answer": "hans", "type": "text", "length": 4 },
-			{ "question": "Met hoeveel univerisiteiten werkt Almende samen?", "answer": "30", "type": "number", "length": 2 }
+			{ "question": "Met hoeveel universiteiten werkt Almende samen?", "answer": "30", "type": "number", "length": 2 }
 		]
 	},
 	{
@@ -39,7 +39,6 @@
 		"name":"Ask CS",
 		"description":"ASK is expert in het ontwikkelen van applicaties die dit mogelijk maken! Uw personen kunnen met ASK onderling de planning afstemmen. Daarbij hebben ze tegelijkertijd de relevante informatie bij de hand om het werk efficienter uit te voeren.",
 		"logo":"ask_logo_transparant.png",
-		"status":"done",
 		"questions": [
 			{ "question": "Welk communicatiemiddel werd als eerste door Ask ondersteund?", "answer": "telefoon", "type": "text", "length": 8 },
 			{ "question": "Waar stond oorspronkelijke de letter 'k' voor in de afkorting ASK?", "answer": "knowledge", "type": "text", "length": 9 }
@@ -51,7 +50,7 @@
 		"oneliner":"It's in the name. Groups of bots searching, cooperating, grazing and negotiating.",
 		"description":"DoBots are modeled after nature where colonies, flocks, and swarms of animals show intelligent behaviour together.",
 		"logo":"DObots.png",
-		"status":"done",
+		"status": "done",
 		"questions": [
 			{ "question": "Met welke robot heeft DoBots als eerste geexperimenteerd?", "answer": "nabaztag", "type": "text", "length": 8},
 			{ "question": "Op welke verdieping bij Almende is DoBots gevestigd?", "answer": "2", "type": "number", "length": 2 }

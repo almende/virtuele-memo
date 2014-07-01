@@ -2,6 +2,7 @@ function WotsApp() {
 	this.exhibitors = [];
 	this.exhibitorsById = {};
 	this.selectedExhibitorId = null;
+	this.guide = [];
 }
 
 WotsApp.prototype = {
@@ -12,10 +13,12 @@ WotsApp.prototype = {
 
 		$.ajaxSetup({ cache: false });
 
+		// this loads exhibitor information from a local .js data file, but doesn't know how to store state
+		// information...
 		$('#exhibitorListPage').on('pagecreate', function() {
 			$.getJSON('data/exhibitors.js', function(data) {
 				var exhibitorList = $('#exhibitorList');
-				//$('#exhibitorList li').remove();
+				// store exhibitors in global variable, lost after application restart...
 				wots.exhibitors = data;
 				var prevExhibitor = null;
 				var nextExhibitor = null;
@@ -48,6 +51,7 @@ WotsApp.prototype = {
 					if(exhibitor.status == "done") {
 						pastSomeDone = true;
 						enabledClass = 'taskEnabled';
+						// set css such that the graphical elements can be combined
 						if(prevExhibitor && prevExhibitor.status == "done") {
 							if(nextExhibitor && nextExhibitor.status == "done")
 								doneClass = "taskDoneBoth";
@@ -70,16 +74,16 @@ WotsApp.prototype = {
 						}
 					}
 					$(exhibitorList).append($('<li/>', { "class":doneClass + ' ' + enabledClass })
-							//.append($('<div/>')).
-							.append($('<a/>', {
-								'href':'#exhibitorDetailsPage',
+						//.append($('<div/>')).
+						.append($('<a/>', {
+							'href':'#exhibitorDetailsPage',
 							'data-transition':'slide',
 							'data-id':exhibitor.id
-							})
-								.append('<span>' + exhibitor.name + '</span>')
-								.append('<p>' + exhibitor.oneliner + '</p>'))
-							//append($('<p>oneliner</p>'))
-							);
+						})
+						.append('<span>' + exhibitor.name + '</span>')
+						.append('<p>' + exhibitor.oneliner + '</p>'))
+						//append($('<p>oneliner</p>'))
+						);
 					prevExhibitor = exhibitor;
 				} // End for-loop
 				$('#exhibitorList').listview('refresh');
@@ -92,7 +96,7 @@ WotsApp.prototype = {
 			event.preventDefault();
 		});
 
-
+		// we can show details of the exhibitor and some questions, but do not know how to cope with the answer yet
 		$('#exhibitorDetailsPage').on("pagebeforeshow", function( event, ui ) {
 			var exhibitor = wots.exhibitorsById[wots.selectedExhibitorId];
 			if (exhibitor) {
@@ -104,6 +108,7 @@ WotsApp.prototype = {
 				}
 
 				if (exhibitor.questions) {
+					// we pick a random question to show to the user
 					if (typeof exhibitor.activeQuestion == 'undefined') {
 						var index = Math.floor(Math.random() * exhibitor.questions.length);
 						exhibitor.activeQuestion = exhibitor.questions[index];
@@ -153,6 +158,8 @@ WotsApp.prototype = {
 			   */
 		});
 
+		// on Android horizontal swipe distance might be too wide, you'll have to swipe far and fast...
+		// do something about it!
 		$('#virtualMemoPage').on('swiperight', function(event) {
 			$('#virtualMemoPanel').panel("open");
 		});
@@ -171,10 +178,75 @@ WotsApp.prototype = {
 			ble.init();
 		});
 
+		// coupling with a button is simple through an on-click event through jQuery
 		$('#sendAlert').on('click', function(event) {
 			console.log('Click event received');
 			ble.readLinkLoss();
 		});
+
+		$('#guideMemo').on('pagecreate', function() {
+			console.log("Create first guide page");
+			$.getJSON('data/guide.js', function(data) {
+				//var exhibitorList = $('#exhibitorList');
+				// store exhibitors in global variable, lost after application restart...
+				wots.guide = data;
+				var page_cnt = 3;
+				console.log("Create status bar");
+				for (var i = 0; i < page_cnt; i++) {
+					//console.log("Create status bar item " + i);
+					var list_item = $('<li/>', {'class': 'guidePageBtn pageDisabled', 'id': i});
+					list_item.on('click', function(event) {
+						id=$(this).attr ( "id" );
+						guidePage(id);
+					});
+					$(guideStatusBar).append(list_item);
+				}
+				guidePage('0');
+			});
+		});
+
+		guidePage = function(p) {
+			console.log("Go to page " + p);
+			var page = parseInt(p);
+			switch(page) {
+				case 0: $('#guidePage').css('background-image', 'url(css/images/Route.png)' );
+					$('.guidePageBtn#' + page).removeClass('pageDisabled').addClass('pageEnabled');
+					$('.guidePageBtn#1').removeClass('pageEnabled').addClass('pageDisabled');
+					$('.guidePageBtn#2').removeClass('pageEnabled').addClass('pageDisabled');
+					var explanation = $('<p/>').text(wots.guide[page].description);
+					$('#guideExplanation').empty().append(explanation);
+					break;
+				case 1: $('#guidePage').css('background-image', 'url(css/images/RouteVisited.png)' );
+					$('.guidePageBtn#0').removeClass('pageDisabled').addClass('pageEnabled');
+					$('.guidePageBtn#' + page).removeClass('pageDisabled').addClass('pageEnabled');
+					$('.guidePageBtn#2').removeClass('pageEnabled').addClass('pageDisabled');
+					var explanation = $('<p/>').text(wots.guide[page].description);
+					$('#guideExplanation').empty().append(explanation);
+					break;
+				case 2: $('#guidePage').css('background-image', 'url(css/images/RouteGift.png)' );
+					$('.guidePageBtn#0').removeClass('pageDisabled').addClass('pageEnabled');
+					$('.guidePageBtn#1').removeClass('pageDisabled').addClass('pageEnabled');
+					$('.guidePageBtn#' + page).removeClass('pageDisabled').addClass('pageEnabled');
+					var explanation = $('<p/>').text(wots.guide[page].description);
+					$('#guideExplanation').empty().append(explanation);
+					var btn= $('<input type="button" class="bottomButton" value="start nu"/>');
+					btn.on('click', function(event) {
+						registerPage();
+					});
+					var center = $('<div id="explanationButton" align="center"></div>');
+					$('#guideExplanation').append(center);
+					center.append(btn);
+					break;
+				default: 
+					console.log('Outside of page bounds');
+			}
+			
+		}
+
+		registerPage = function() {
+			console.log("Register new user");
+		}
+		
 	}
 }
 

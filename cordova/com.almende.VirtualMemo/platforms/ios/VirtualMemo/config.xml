@@ -19,8 +19,14 @@
     <feature name="LocalStorage">
         <param name="ios-package" value="CDVLocalStorage" />
     </feature>
+    <feature name="BluetoothLePlugin">
+        <param name="ios-package" value="BluetoothLePlugin" />
+    </feature>
     <feature name="Device">
         <param name="ios-package" value="CDVDevice" />
+    </feature>
+    <feature name="Notification">
+        <param name="ios-package" value="CDVNotification" />
     </feature>
     <name>VirtualMemo</name>
     <description>
@@ -33,10 +39,4 @@
     <access origin="*" />
     <preference name="StatusBarOverlaysWebView" value="true" />
     <preference name="UIWebViewBounce" value="false" />
-    <feature name="BluetoothLePlugin">
-        <param name="ios-package" value="BluetoothLePlugin" />
-    </feature>
-    <feature name="Notification">
-        <param name="ios-package" value="CDVNotification" />
-    </feature>
 </widget>
