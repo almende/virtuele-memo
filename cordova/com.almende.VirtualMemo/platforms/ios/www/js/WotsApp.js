@@ -3,6 +3,8 @@ function WotsApp() {
 	this.exhibitorsById = {};
 	this.selectedExhibitorId = null;
 	this.guide = [];
+	this.username = "";
+	this.email = "";
 }
 
 WotsApp.prototype = {
@@ -243,8 +245,74 @@ WotsApp.prototype = {
 			
 		}
 
+		$('#registerPage').on('pagecreate', function() {
+			console.log("Create register page");
+			var registerText = "Registreer jezelf, zodat je later deze applicatie ook thuis kan gebruiken!";
+			var explanation = $('<p/>').text(registerText);
+			$('#registerExplanation').empty().append(explanation);
+			var btn= $('<input type="button" class="bottomButton" value="start nu"/>');
+			btn.on('click', function(event) {
+				var username = $('#username').val();
+				var email = $('#email').val();
+				registerNow(username, email);
+			});
+			var center = $('<div id="explanationButton" align="center"></div>');
+			$('#registerExplanation').append(center);
+			center.append(btn);
+
+		});
+
+		registerNow = function(username, email) {
+			console.log("Register " + username + " with email address " + email);
+			wots.username = username;
+			wots.email = email;
+			var db = window.openDatabase("memo", "1.0", "Memo", 1000000);
+			db.transaction(populateDB, errorCB, successCB);
+			db.transaction(queryDB, errorCB);
+		}
+
+		populateDB = function(tx) {
+			tx.executeSql('DROP TABLE IF EXISTS MEMO');
+			tx.executeSql('CREATE TABLE IF NOT EXISTS MEMO (name, email)');
+			tx.executeSql('INSERT INTO MEMO (name, email) VALUES ("' + wots.username + '","' + wots.email + '")');
+			//tx.executeSql('CREATE TABLE IF NOT EXISTS MEMO (id unique, name, email)');
+			//tx.executeSql('INSERT INTO MEMO (id, data) VALUES (1, "Name", "Email")');
+		}
+
+		function errorCB(tx, err) {
+			console.log("Error processing SQL:", err);
+		}
+
+		function successCB() {
+			console.log("Successful SQL query");
+		}
+
+		function queryDB(tx) {
+			tx.executeSql('SELECT * FROM MEMO', [], querySuccess, errorCB);
+		}
+
+		function querySuccess(tx, results) {
+			var len = results.rows.length;
+			console.log("Returned rows = " + len);
+			if (!results.rowsAffected) {
+				console.log('No rows affected in a select statement');
+				for (var i=0; i<len; i++) {
+					console.log("Row = " + i + " name = " + results.rows.item(i).name + " email =  " + results.rows.item(i).email);
+				}
+				return false;
+			}
+			// for an insert statement, this property will return the ID of the last inserted row
+			console.log("Last inserted row ID = " + results.insertId);
+		}
+
 		registerPage = function() {
 			console.log("Register new user");
+			$.mobile.changePage("#registerPage", {transition:'slide', hashChange:true});
+		}
+
+		wotsPage = function() {
+			console.log("Go to main page for WOTS during exhibitor list");
+			$.mobile.changePage("#exhibitorListPage", {transition:'slide', hashChange:true});
 		}
 		
 	}
