@@ -206,6 +206,29 @@ WotsApp.prototype = {
 				guidePage('0');
 			});
 		});
+		
+		$('#guideMemo').on('swipeleft', function() {
+			// get first disabled button, if no disabled buttons left, cp becomes undefined
+			var cp = $('.guidePageBtn.pageDisabled').attr('id');
+			if (!cp) {
+				registerPage();
+			} else {
+				var page = parseInt(cp);
+				console.log("Go to page" + page);
+				guidePage(page);
+			}
+		});
+
+		$('#guideMemo').on('swipeleft', function() {
+			var cp = $('.guidePageBtn.pageDisabled').attr('id');
+			if (!cp) {
+				registerPage();
+			} else {
+				var page = parseInt(cp);
+				console.log("Go to page" + page);
+				guidePage(page);
+			}
+		});
 
 		guidePage = function(p) {
 			console.log("Go to page " + p);
@@ -244,13 +267,14 @@ WotsApp.prototype = {
 			}
 			
 		}
-
+		
 		$('#registerPage').on('pagecreate', function() {
 			console.log("Create register page");
 			var registerText = "Registreer jezelf, zodat je later deze applicatie ook thuis kan gebruiken!";
 			var explanation = $('<p/>').text(registerText);
 			$('#registerExplanation').empty().append(explanation);
-			var btn= $('<input type="button" class="bottomButton" value="start nu"/>');
+			var btnText = "registreer";
+			var btn= $('<input type="button" class="bottomButton" value="' + btnText + '"/>');
 			btn.on('click', function(event) {
 				var username = $('#username').val();
 				var email = $('#email').val();
@@ -277,21 +301,24 @@ WotsApp.prototype = {
 			tx.executeSql('INSERT INTO MEMO (name, email) VALUES ("' + wots.username + '","' + wots.email + '")');
 			//tx.executeSql('CREATE TABLE IF NOT EXISTS MEMO (id unique, name, email)');
 			//tx.executeSql('INSERT INTO MEMO (id, data) VALUES (1, "Name", "Email")');
+			
+			//wotsPage();
+			calcRoutePage();
 		}
 
-		function errorCB(tx, err) {
+		errorCB = function(tx, err) {
 			console.log("Error processing SQL:", err);
 		}
 
-		function successCB() {
+		successCB = function() {
 			console.log("Successful SQL query");
 		}
 
-		function queryDB(tx) {
+		queryDB = function(tx) {
 			tx.executeSql('SELECT * FROM MEMO', [], querySuccess, errorCB);
 		}
 
-		function querySuccess(tx, results) {
+		querySuccess = function(tx, results) {
 			var len = results.rows.length;
 			console.log("Returned rows = " + len);
 			if (!results.rowsAffected) {
@@ -310,11 +337,30 @@ WotsApp.prototype = {
 			$.mobile.changePage("#registerPage", {transition:'slide', hashChange:true});
 		}
 
+		calcRoutePage = function() {
+			console.log("Go to calculating route page");
+			$.mobile.changePage("#calculatingPage", {transition:'slide', hashChange:true});
+		}
+
 		wotsPage = function() {
 			console.log("Go to main page for WOTS during exhibitor list");
 			$.mobile.changePage("#exhibitorListPage", {transition:'slide', hashChange:true});
 		}
 		
+		$('#calculatingPage').on('pagecreate', function() {
+			console.log("Create calculating page");
+			var img_src = "css/images/CalculatingRoute.png";
+			var center = $('<div align="center"></div>');
+			var calc = $('#calculating');
+			calc.append(center);
+			center.append($('<img>', {
+				src: img_src
+			}));
+			var text = $('<p>').text("Er wordt nu een route berekend die u langs zes standhouders voert.");
+			center.append(text);
+			var timeoutMillis = 5000;
+			setTimeout( wotsPage, timeoutMillis );
+		});
 	}
 }
 

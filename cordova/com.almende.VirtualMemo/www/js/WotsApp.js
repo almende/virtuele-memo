@@ -3,6 +3,7 @@ function WotsApp() {
 	this.exhibitorsById = {};
 	this.selectedExhibitorId = null;
 	this.guide = [];
+	this.guidePageCnt = 0;
 	this.username = "";
 	this.email = "";
 }
@@ -186,15 +187,21 @@ WotsApp.prototype = {
 			ble.readLinkLoss();
 		});
 
+		// very important statement to make swiping work: 
+		// https://stackoverflow.com/questions/12838443/swipe-with-jquery-mobile-1-2-phonegap-2-1-and-android-4-0-4-not-working-properl
+		document.ontouchmove = function(event) {    
+		        event.preventDefault();
+		};
+
 		$('#guideMemo').on('pagecreate', function() {
 			console.log("Create first guide page");
 			$.getJSON('data/guide.js', function(data) {
 				//var exhibitorList = $('#exhibitorList');
 				// store exhibitors in global variable, lost after application restart...
 				wots.guide = data;
-				var page_cnt = 3;
+				wots.guidePageCnt = 3;
 				console.log("Create status bar");
-				for (var i = 0; i < page_cnt; i++) {
+				for (var i = 0; i < wots.guidePageCnt; i++) {
 					//console.log("Create status bar item " + i);
 					var list_item = $('<li/>', {'class': 'guidePageBtn pageDisabled', 'id': i});
 					list_item.on('click', function(event) {
@@ -203,8 +210,30 @@ WotsApp.prototype = {
 					});
 					$(guideStatusBar).append(list_item);
 				}
-				guidePage('0');
+				guidePage(0);
 			});
+		});
+		
+		$('#guideMemo').on('swipeleft', function() {
+			// get first disabled button, if no disabled buttons left, cp becomes undefined
+			var np = $('.guidePageBtn.pageDisabled').attr('id');
+			if (!np) {
+				registerPage();
+			} else {
+				var page = parseInt(np);
+				console.log("Go to page" + page);
+				guidePage(page);
+			}
+		});
+
+		$('#guideMemo').on('swiperight', function() {
+			var cp = $('.guidePageBtn.pageEnabled').last().attr('id');
+			var page = parseInt(cp);
+			if (page != 0) {
+				page--;	
+				console.log("Go to page" + page);
+				guidePage(page);
+			}
 		});
 
 		guidePage = function(p) {
@@ -244,13 +273,14 @@ WotsApp.prototype = {
 			}
 			
 		}
-
+		
 		$('#registerPage').on('pagecreate', function() {
 			console.log("Create register page");
 			var registerText = "Registreer jezelf, zodat je later deze applicatie ook thuis kan gebruiken!";
 			var explanation = $('<p/>').text(registerText);
 			$('#registerExplanation').empty().append(explanation);
-			var btn= $('<input type="button" class="bottomButton" value="start nu"/>');
+			var btnText = "registreer";
+			var btn= $('<input type="button" class="bottomButton" value="' + btnText + '"/>');
 			btn.on('click', function(event) {
 				var username = $('#username').val();
 				var email = $('#email').val();
@@ -260,6 +290,16 @@ WotsApp.prototype = {
 			$('#registerExplanation').append(center);
 			center.append(btn);
 
+		});
+		
+		$('#registerPage').on('swipeleft', function() {
+			calcRoutePage();
+		});
+
+		$('#registerPage').on('swiperight', function() {
+			$.mobile.changePage("#guideMemo", {transition:'slide', hashChange:true});
+			var lastPage = wots.guidePageCnt - 1;
+			guidePage(lastPage);
 		});
 
 		registerNow = function(username, email) {
@@ -277,7 +317,9 @@ WotsApp.prototype = {
 			tx.executeSql('INSERT INTO MEMO (name, email) VALUES ("' + wots.username + '","' + wots.email + '")');
 			//tx.executeSql('CREATE TABLE IF NOT EXISTS MEMO (id unique, name, email)');
 			//tx.executeSql('INSERT INTO MEMO (id, data) VALUES (1, "Name", "Email")');
-			wotsPage();
+			
+			//wotsPage();
+			calcRoutePage();
 		}
 
 		errorCB = function(tx, err) {
@@ -311,11 +353,35 @@ WotsApp.prototype = {
 			$.mobile.changePage("#registerPage", {transition:'slide', hashChange:true});
 		}
 
+		calcRoutePage = function() {
+			console.log("Go to calculating route page");
+			$.mobile.changePage("#calculatingPage", {transition:'slide', hashChange:true});
+		}
+
 		wotsPage = function() {
 			console.log("Go to main page for WOTS during exhibitor list");
 			$.mobile.changePage("#exhibitorListPage", {transition:'slide', hashChange:true});
 		}
 		
+		$('#calculatingPage').on('pagecreate', function() {
+			console.log("Create calculating page");
+			var img_src = "css/images/CalculatingRoute.png";
+			var center = $('<div align="center"></div>');
+			var calc = $('#calculating');
+			calc.append(center);
+			center.append($('<img>', {
+				src: img_src
+			}));
+			var text = $('<p>').text("Er wordt nu een route berekend die u langs zes standhouders voert.");
+			center.append(text);
+		});
+
+		$('#calculatingPage').on('pageshow', function() {
+			console.log("Wait 4 seconds and move on to the WOTS page");
+			var timeoutMillis = 4000;
+			setTimeout( wotsPage, timeoutMillis );
+		});
+
 	}
 }
 

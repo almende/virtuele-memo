@@ -66,6 +66,7 @@
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/css/images/ExhibitorDoneUp.png \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/css/images/QuestionShield.png \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/css/images/ExhibitorDoneBoth.png \
+/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/css/images/c.png \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/css/images/icons-png/arrow-u-black.png \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/css/images/icons-png/camera-white.png \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/css/images/icons-png/carat-r-black.png \
