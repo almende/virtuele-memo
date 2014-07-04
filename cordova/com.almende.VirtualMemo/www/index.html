@@ -76,6 +76,8 @@
 				<div id="registerEntry">
 					<input type="text" name="name" id="username" value="Your name"/>
 					<input type="text" name="email" id="email" value="Email"/>
+					<div id="hangmanTextInput1">
+					</div>
 				</div>
 			</div>
 			<div id="registerExplanation"></div>
@@ -122,14 +124,18 @@
 
 			<div id="questionLayer">
 				<div id="questionShield"></div>
-				<h2>Vraag</h2>
-				<p id="questionParagraph">In welke stad is Almende gevestigd?</p>
+				<div id="questionItself">
+					<h2>IJsbrekervraag</h2>
+					<p id="questionParagraph">In welke stad is Almende gevestigd?</p>
+				</div>
+				<h2>Pincode</h2>
 				<div id="hangmanTextInput">
 					<input type="text" class="hangman" value="" size="2" data-role="none" style=""></input>
 					<input type="text" class="hangman" value="" size="2" data-role="none" style=""></input>
 					<input type="text" class="hangman" value="" size="2" data-role="none" style=""></input>
 					<input type="text" class="hangman" value="" size="2" data-role="none" style=""></input>
 				</div>
+				<p id="questionExplanation">Vul de pincode die je van de standhouder krijgt hierboven in.</p>
 			</div>
 			<canvas id="triangle" height="100" width="100%">Triangle</canvas>
 
