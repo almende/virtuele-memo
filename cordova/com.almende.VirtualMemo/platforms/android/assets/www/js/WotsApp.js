@@ -8,7 +8,8 @@ function WotsApp() {
 	this.username = "";
 	this.email = "";
 	this.db = null;
-	this.code = "";
+	this.participantCode = "";
+	this.password = "";
 	this.calculated = false;
 }
 
@@ -40,12 +41,12 @@ WotsApp.prototype = {
 		});
 
 		accountCheckFinished = function() {
-			console.log("Account refreshed, now check if we have the code");
-			if (!wots.code) {
-				alert("We don't have the right code available, sorry you have to enter it again!");
+			console.log("Account refreshed, now check if we have the participantCode");
+			if (!wots.participantCode) {
+				alert("We don't have the right participantCode available, sorry you have to enter it again!");
 				registerPage();
 			} else {
-				interpretCode(wots.code);
+				interpretCode(wots.participantCode);
 				standsDB(updateList);
 			}
 		}
@@ -123,26 +124,17 @@ WotsApp.prototype = {
 					if (!prevExhibitor) 
 						enabledClass = "taskEnabled";
 				}
-//				if (enabledClass == "taskEnabled") {
-					$(exhibitorList)
-						.append($('<li/>', { "class":doneClass + ' ' + enabledClass })
-							.append($('<a/>', {
-								'href':'#exhibitorDetailsPage',
-								'data-transition':'slide',
-								'data-id':exhibitor.id
-								})
-								.append('<span>' + exhibitor.name + '</span>')
-								.append('<p>' + exhibitor.oneliner + '</p>')
-							)
-						);
-/*				} else {
-					$(exhibitorList)
-						.append($('<li/>', { "class":doneClass + ' ' + enabledClass })
+				$(exhibitorList)
+					.append($('<li/>', { "class":doneClass + ' ' + enabledClass })
+						.append($('<a/>', {
+							'href':'#exhibitorDetailsPage',
+							'data-transition':'slide',
+							'data-id':exhibitor.id
+							})
 							.append('<span>' + exhibitor.name + '</span>')
-							.append('<p>' + exhibitor.oneliner + '</p>'))
-						;
-				} */
-
+							.append('<p>' + exhibitor.oneliner + '</p>')
+						)
+					);
 				prevExhibitor = exhibitor;
 			} // End for-loop
 			$('#exhibitorList').listview('refresh');
@@ -331,8 +323,8 @@ WotsApp.prototype = {
 				var username = $('#username').val();
 				var email = $('#email').val();
 				if (interpretCode()) {
-					var code = wots.code;
-					registerNow(username, email, code);
+					var participantCode = wots.participantCode;
+					registerNow(username, email, participantCode);
 				}
 			});
 			var center = $('<div id="explanationButton" align="center"></div>');
@@ -352,30 +344,42 @@ WotsApp.prototype = {
 			guidePage(lastPage);
 		});
 
-		interpretCode = function(code) {
-			if (!code) {
-				// no code as argument, than try to get it
+		// check the participant code 
+		interpretCode = function(participantCode) {
+			if (!participantCode) {
+				// no participantCode as argument, than try to get it
 				hangman.hangman_dosubmit();
-				code = wots.code;
+				participantCode = wots.participantCode;
 			}
 
-			console.log("Check code: " + code);
-			if (code.length != 14) {
-				console.log("Code should be 14 tokens, but is " + code.length);
+			console.log("Check participantCode: " + participantCode);
+			if (participantCode.length != 14) {
+				console.log("Code should be 14 tokens, but is " + participantCode.length);
 				return false;
 			}
 			for (var c = 0; c < 6; ++c) {
-				var letter = code[c*2+3];
+				var loc = c*2+3;
+				var letter = participantCode[loc];
 				var ascii = letter.charCodeAt(0) - 65 + 10; // 'A' = 65, cast to numeric '10'
 				console.log("Letter " + letter + " becomes " + ascii);
 				if (ascii < 10 || ascii > 36) {
-					var loc = c*2+3;
 					alert('Incorrect symbol at location ' + loc + '!');
 					return false;
 				}
 				wots.route[c] = letter;
 				console.log('Added to the route stand "' + wots.route[c] + '"');
 			}
+			for (var c = 0; c < 5; ++c) {
+				var loc = c*2+4;
+				var letter = participantCode[loc];
+				var ascii = letter.charCodeAt(0) - 48;
+				console.log("Number " + letter + " becomes " + ascii);
+				if (ascii < 0 || ascii > 9) {
+					alert('Incorrect symbol at location ' + loc + '!');
+					return false;
+				}
+			}
+
 			if (wots.route.length != 6) {
 				console.log("Route should have had 6 stops, but has " + wots.route.length);
 				return false;
@@ -383,11 +387,79 @@ WotsApp.prototype = {
 			return true;	
 		}
 
-		registerNow = function(username, email, code) {
+		// check the password
+		checkPassword = function(letter, password) {
+			if (wots.participantCode.length != 14) {
+				console.log("Participant code is not of length 14");
+				return false
+			} else {
+				console.log("Code is: " + wots.participantCode);
+			}
+			if (password.length != 4) {
+				console.log("Password is not of length 4");
+				return false;
+			}
+			var ascii = letter.charCodeAt(0) - 65 + 10;
+			console.log("Stand letter " + letter + " becomes " + ascii);
+			var blue = wots.participantCode[10].charCodeAt(0) - 48;
+			var red = wots.participantCode[12].charCodeAt(0) - 48;
+			var SSBR = ascii * 100 + blue * 10 + red;
+			console.log("Code becomes: " + SSBR); 
+			var expPincode = (SSBR * 16981) % 10000;
+
+			var pincode = 0;
+			for (var p = 0; p < 4; ++p) {
+				var dp = password.charCodeAt(p) - 48;
+				pincode *= 10;
+				pincode += dp;
+			}
+			if (pincode != expPincode) {
+				console.log("Help! " + pincode + " should have been " + expPincode);
+				return false;
+			}
+
+			// now do a checksum
+			var expChecksum = 0;
+			for (var c = 0; c < 3; ++c) {
+				var loc = c*2+4;
+				var letter = wots.participantCode[loc];
+				var dn = letter.charCodeAt(0) - 48;
+				expChecksum *= 10;
+				expChecksum += dn;
+			}
+			console.log("Expected checksum is :" + expChecksum);
+
+			var insanely_large_number = 0;
+			for (var c = 0; c < 14; ++c) {
+				if ((c == 2) || (c == 4) || (c==6) || (c==8)) continue;
+				//if (c == 12) continue; // also skip penultimate number
+				var ascii = 0;
+				if (c && !(c % 2)) { // even, but excluding c==0
+					ascii = wots.participantCode[c].charCodeAt(0) - 48;
+					insanely_large_number *= 10;
+					insanely_large_number += ascii;
+				} else {
+					ascii = wots.participantCode[c].charCodeAt(0) - 65 + 10;
+					insanely_large_number *= 100;
+					insanely_large_number += ascii;
+				}
+			}
+			console.log("The insanely large number became (however this is not printed right!!): " + insanely_large_number);
+			var checksum = insanely_large_number % 997;
+			console.log("Calculated checksum: " + checksum);
+
+			if (checksum != expChecksum) {
+				console.log("Help! checksums do not match");
+				return false;
+			}
+			return true;
+		}
+
+		registerNow = function(username, email, participantCode) {
 			console.log("Register " + username + " with email address " + email);
 			wots.username = username;
 			wots.email = email;
-			wots.code = code;
+			wots.participantCode = participantCode;
 			accountDB(calcRoutePage);
 		}
 
@@ -469,40 +541,43 @@ WotsApp.prototype = {
 
 		queryAccountSuccess = function(tx, results) {
 			var len = results.rows.length;
-			console.log("Returned rows = " + len);
 			if (!results.rowsAffected) {
-				
 				if (!len) {
 					console.log("Nothing in database yet, write account data to it");
 					// write entries to database
 					tx.executeSql('INSERT INTO MEMO (name, email, code) VALUES ("' 
-						+ wots.username + '","' + wots.email +  '","' + wots.code + '")');
+						+ wots.username + '","' + wots.email +  '","' + wots.participantCode + '")');
 					return false;
 				}
 
 				var i = len - 1; // most recent added entry
 				wots.username = results.rows.item(i).name;
 				wots.email = results.rows.item(i).email;
-				var code = results.rows.item(i).code;
-				// if code is different, replace it...
+				var participantCode = results.rows.item(i).code;
+				// if participantCode is different, replace it...
 				// todo: same with username and email
-				if ((!code && wots.code && wots.code != "") || (code && wots.code != "" && wots.code != code)) {
-					console.log('Code was not yet stored, or was different, replace "' + code + '" with new code "' + wots.code + '"' );
-					code = wots.code;
+				var newOneAvailable = wots.participantCode && wots.participantCode != "";
+				if ((!participantCode && newOneAvailable) || (newOneAvailable && (wots.participantCode != participantCode))) {
+					console.log('Code was not yet stored, or was different, replace "' + participantCode + '" with new participantCode "' + wots.participantCode + '"' );
+					participantCode = wots.participantCode;
 					tx.executeSql('DROP TABLE IF EXISTS MEMO');
 					tx.executeSql('CREATE TABLE IF NOT EXISTS MEMO (name, email, code)');
 					tx.executeSql('INSERT INTO MEMO (name, email, code) VALUES ("' 
-						+ wots.username + '","' + wots.email +  '","' + wots.code + '")');
+						+ wots.username + '","' + wots.email +  '","' + wots.participantCode + '")');
 				} 
-				wots.code = code;
+				wots.participantCode = participantCode;
 
 				console.log('Query result: name = "' + wots.username + '" email = "' + wots.email + '"');
-				console.log('  code = "' + wots.code + '"');
+				console.log('  participantCode = "' + wots.participantCode + '"');
 				
+				if (!wots.participantCode) {
+					return false;
+				}
+
 				$('#username').val(wots.username);
 				$('#email').val(wots.email);
-				for (var c = 0; c < wots.code.length; c++) {
-					$('.hangman#h' + c).val(wots.code[c]);
+				for (var c = 0; c < wots.participantCode.length; c++) {
+					$('.hangman#h' + c).val(wots.participantCode[c]);
 				}
 
 				return true;
@@ -527,10 +602,19 @@ WotsApp.prototype = {
 			$.mobile.changePage("#exhibitorListPage", {transition:'slide', hashChange:true});
 		}
 		
-		// return fixed 4-pins pincode given by the user as answer
-		wots.hangmanAnswer = function(result) {
+		// set values, trick: use fixed length to set the right field
+		wots.hangmanAnswer = function(object, result) {
+			console.log("Object", object);
+			var obj = $(object);
+			console.log('Parent of obj', obj);
 			console.log("Answer given by user: " + result);
-			wots.code = result;
+			if (result.length == 4) {
+				wots.password = result;
+				var letter = 'A';
+				checkPassword(letter, wots.password);
+			} else {
+				wots.participantCode = result;
+			}
 		}
 		hangman.hangman_setsubmit(wots.hangmanAnswer);
 		

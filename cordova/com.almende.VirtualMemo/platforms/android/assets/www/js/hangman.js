@@ -7,7 +7,6 @@ var Hangman = function() {
 	var submit_callback = null;
 
 	self.generateHangman = function(length) {
-		return;
 		self.hangman_length = length;
 		var totalWidth = 38;
 		var padding = 'padding-left:0.2em;padding-right:0.2em;';
@@ -22,9 +21,9 @@ var Hangman = function() {
 		for(var c = 0; c < length; c++) {
 			var leftPos = startPos + c * totalWidth;
 			$("#hangmanTextInput")
-				.append('<input id="h' + c  + '" type="number" class="hangman" value="" size="2" data-role="none" style="left:' + leftPos  + 'px;width:' + innerWidth + 'px;' + padding + '"></input>')
+				.append('<input id="h' + c  + '" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="hangman" value="" size="2" data-role="none" style="left:' + leftPos  + 'px;width:' + innerWidth + 'px;' + padding + '"></input>')
 		}
-		$(".hangman").keypress(function(event){return self.hangman_kpress(this,event,self.hangman_moveon_ipad);});
+		$(".hangman").keyup(function(event){return self.hangman_kpress(this,event,self.hangman_moveon_ipad);});
 		$(".hangman").keydown (function(event){return self.hangman_kdn   (this,event,self.hangman_moveon_ipad);});
 	}
 
@@ -55,11 +54,10 @@ var Hangman = function() {
 	}
 
 	self.hangman_kdn = function(obj,ev,moveon){
-	       	//var ev=(ev)?ev:(window.event)?window.event:null;
-		console.log("Handle key down ", ev);
+		//console.log("Handle key down ", ev);
 		var kc = ev.charCode || ev.which || ev.keyCode;
-		console.log("Key " + kc);
-		console.log("Print: " + $(ev.target).val() );
+		//console.log("Key " + kc);
+		//console.log("Print: " + $(ev.target).val() );
 		var prefix = obj.id[0];
 		var thisid = parseInt(obj.id.substring(1,obj.id.length));
 		var previd = (thisid-1)%self.hangman_length;
@@ -70,7 +68,7 @@ var Hangman = function() {
 		else if(kc == '32'){ $(obj).val(' '); if(nextid > thisid) moveon(obj,prefix+nextid); }// SP (space is also a token)
 		else if(kc == '37') moveon(obj, prefix+previd); // <-
 		else if(kc == '39') moveon(obj, prefix+nextid); // ->
-		else if(kc == '13') self.hangman_dosubmit(); // Enter
+		else if(kc == '13') self.hangman_dosubmit(obj); // Enter, will not be captured by Android
 		else {
 			evprevdef = false;
 		}
@@ -80,7 +78,7 @@ var Hangman = function() {
 	}
 	
 	self.hangman_kpress = function(obj,ev,moveon){
-		console.log("Handle key press ", ev);
+		//console.log("Handle key press ", ev);
 		var k = ev.charCode || ev.which || ev.keyCode;
 		// on android, none of the codes works, so get it indirectly via the value
 		if (!k) {
@@ -96,7 +94,7 @@ var Hangman = function() {
 		}
 
 		var keypressed = String.fromCharCode(k).toUpperCase();
-		console.log("Key " + k + " pressed which is equal to " + keypressed);
+		//console.log("Key " + k + " pressed which is equal to " + keypressed);
 		$(obj).val(keypressed);
 		if(nextid > thisid) {
 			moveon(obj,prefix+nextid);
@@ -110,7 +108,7 @@ var Hangman = function() {
 		self.submit_callback = callback;
 	}
 
-	self.hangman_dosubmit = function() {
+	self.hangman_dosubmit = function(obj) {
 		if (self.submit_callback) {
 			console.log("Call callback");
 			var result = "";
@@ -118,12 +116,12 @@ var Hangman = function() {
 			for(var c = 0; c < length; c++) {
 				result += $('.hangman#h' + c ).val();
 			}
-			self.submit_callback(result);
+			self.submit_callback(obj, result);
 		}
 	}
 	
 	self.hangman_moveon_ipad = function(fromobj,toidx){
-		console.log("Move to new position");
+		//console.log("Move to new position");
 		var toobj = $('#'+toidx);
 		var t = $(toobj).val();
 		$(toobj).val($(fromobj).val());
