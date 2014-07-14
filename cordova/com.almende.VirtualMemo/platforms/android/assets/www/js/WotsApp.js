@@ -68,19 +68,20 @@ WotsApp.prototype = {
 					exhibitor.oneliner = '';
 				}
 			}
-			for (var c = 0; c < wots.exhibitors.length; c++) {
-				var exhibitor = wots.exhibitors[c];
-				var onRoute = false;
-				for (var j = 0; j < wots.route.length; j++) {
-					console.log("Is stand " + exhibitor.standletter + " on the route?");
-					if (wots.route[j] == exhibitor.standletter) {
-						console.log("Yes");
-						onRoute = true;
+			for (var r = 0; r < wots.route.length; r++) {
+	//			var onRoute = false;
+				var exhibitor;
+				for (var c = 0; c < wots.exhibitors.length; c++) {
+					exhibitor = wots.exhibitors[c];
+//					console.log("Is stand " + exhibitor.standletter + " on the route?");
+					if (wots.route[r] == exhibitor.standletter) {
+						console.log("Found exhibitor", exhibitor);
+//						onRoute = true;
 						break;
 					}
 				}
 				// skip to next exhibitor if not on route
-				if (!onRoute) continue;
+//				if (!onRoute) continue;
 
 				wots.exhibitorsById[exhibitor.id] = exhibitor;
 				if (c + 1 < wots.exhibitors.length) {
@@ -404,7 +405,7 @@ WotsApp.prototype = {
 			var blue = wots.participantCode[10].charCodeAt(0) - 48;
 			var red = wots.participantCode[12].charCodeAt(0) - 48;
 			var SSBR = ascii * 100 + blue * 10 + red;
-			console.log("Code becomes: " + SSBR); 
+			console.log("SSBR code becomes: " + SSBR); 
 			var expPincode = (SSBR * 16981) % 10000;
 
 			var pincode = 0;
@@ -416,6 +417,8 @@ WotsApp.prototype = {
 			if (pincode != expPincode) {
 				console.log("Help! " + pincode + " should have been " + expPincode);
 				return false;
+			} else {
+				console.log("Yes! Pincode was correct. Now check checksum");
 			}
 
 			// now do a checksum
@@ -427,24 +430,21 @@ WotsApp.prototype = {
 				expChecksum *= 10;
 				expChecksum += dn;
 			}
-			console.log("Expected checksum is :" + expChecksum);
+			console.log("Expected checksum is: " + expChecksum);
 
 			var insanely_large_number = 0;
 			for (var c = 0; c < 14; ++c) {
-				if ((c == 2) || (c == 4) || (c==6) || (c==8)) continue;
-				//if (c == 12) continue; // also skip penultimate number
+				if ((c == 2) || (c == 4) || (c==6) || (c==8)) continue; //exclude checksum and underscore
 				var ascii = 0;
-				if (c && !(c % 2)) { // even, but excluding c==0
+				if (c && !(c % 2)) { // even, but excluding c==0 (so all numbers)
 					ascii = wots.participantCode[c].charCodeAt(0) - 48;
-					insanely_large_number *= 10;
-					insanely_large_number += ascii;
-				} else {
+				} else { // odd (so, all letters)
 					ascii = wots.participantCode[c].charCodeAt(0) - 65 + 10;
-					insanely_large_number *= 100;
-					insanely_large_number += ascii;
 				}
+				insanely_large_number *= 10;
+				insanely_large_number += ascii;
 			}
-			console.log("The insanely large number became (however this is not printed right!!): " + insanely_large_number);
+			console.log("The insanely large number became:" + insanely_large_number);
 			var checksum = insanely_large_number % 997;
 			console.log("Calculated checksum: " + checksum);
 
@@ -452,6 +452,7 @@ WotsApp.prototype = {
 				console.log("Help! checksums do not match");
 				return false;
 			}
+			console.log("Checksum was correct!");
 			return true;
 		}
 
@@ -483,6 +484,16 @@ WotsApp.prototype = {
 			}
 //			console.log("Got data from database, now call callback");
 //			if (typeof(callback) == "function") callback();
+		}
+
+		standsUpdateDB = function(callback) {
+			if (!wots.db) wots.db = window.openDatabase("memo", "1.0", "Memo", 1000000);
+		
+			if (typeof(callback) == "function") {
+				wots.db.transaction(queryStandsUpdateStatus, errorCB, callback);
+			} else {
+				wots.db.transaction(queryStandsUpdateStatus, errorCB);
+			}
 		}
 
 		queryStandsDB = function(tx) {
@@ -524,6 +535,15 @@ WotsApp.prototype = {
 			return true;
 		}
 		
+		queryStandsUpdateStatus = function(tx, results) {
+			var exhibitor = wots.exhibitorsById[wots.selectedExhibitorId];
+			if (!exhibitor) return false;
+
+			var id = exhibitor.id;
+			var status = exhibitor.status;
+			tx.executeSql('UPDATE STANDS SET status="' + status + '" WHERE id="' + id + '"');
+			return true;
+		}
 		
 		errorCB = function(tx, err) {
 			console.log("Error processing SQL:", err);
@@ -610,8 +630,18 @@ WotsApp.prototype = {
 			console.log("Answer given by user: " + result);
 			if (result.length == 4) {
 				wots.password = result;
-				var letter = 'A';
-				checkPassword(letter, wots.password);
+				//var letter = 'A';
+				var exhibitor = wots.exhibitorsById[wots.selectedExhibitorId];
+				console.log("Select exhibitor", exhibitor);
+				var letter = exhibitor.standletter;
+				console.log(" with stand letter ", letter);
+				var success = checkPassword(letter, wots.password);
+				if(success) {
+					console.log("Update status of " + exhibitor.name + " as fulfilled");
+					exhibitor.status = "done";
+					standsUpdateDB();
+					wotsPage();
+				}
 			} else {
 				wots.participantCode = result;
 			}
