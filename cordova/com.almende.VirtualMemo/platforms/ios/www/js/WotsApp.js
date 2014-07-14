@@ -23,6 +23,13 @@ WotsApp.prototype = {
 
 		$.ajaxSetup({ cache: false });
 
+		// at which page to start?
+		start = function() {
+//			// should make dependent on content in the database
+//			console.log("Go to virtual memo page");
+//			$.mobile.changePage("#virtualMemoPage", {transition:'slide', hashChange:true});
+		}
+
 		// this loads exhibitor information from a local .js data file, but doesn't know how to store state
 		// information...
 		$('#exhibitorListPage').on('pageshow', function() {
@@ -202,18 +209,60 @@ WotsApp.prototype = {
 		});
 
 		$('#virtualMemoPage').on('pageshow',function(e,data) { 
-			var windowHeight = $(window).height();
-			var headerHeight = $('[data-role=header]').height();
-			var footerHeight = $('.ui-footer').height();
-			var memoHeight = $('#memoNote').outerHeight();
+		//	var windowHeight = $(window).height();
+		//	var headerHeight = $('[data-role=header]').height();
+		//	var footerHeight = $('.ui-footer').height();
+		//	var memoHeight = $('#memoNote').outerHeight();
 			//var marginTop = (windowHeight - headerHeight - footerHeight - memoHeight)/2;
-			var marginTop = (windowHeight - memoHeight - footerHeight)/2;
-			console.log('windowHeight: ' + windowHeight + ', headerHeight: ' + headerHeight + ', footerHeight: ' + footerHeight + ', memoHeight: ' + memoHeight + ', marginTop: ' + marginTop);
-			$('#memoNote').css('margin-top',marginTop);
+		//	var marginTop = (windowHeight - memoHeight - footerHeight)/2;
+		//	console.log('windowHeight: ' + windowHeight + ', headerHeight: ' + headerHeight + ', footerHeight: ' + footerHeight + ', memoHeight: ' + memoHeight + ', marginTop: ' + marginTop);
+		//	$('#memoNote').css('margin-top',marginTop);
 
+			var colors = [ "0000ff", "00ff00", "00ffff", "ff0000", "ff00ff", "ffff00" ];
+			for (var c = 0; c < colors.length; ++c) {
+				var $li = $('<li/>', {'color':colors[c]});
+				$li.css('list-style-image', 'url(css/images/dot0x' + colors[c] + '.png)');
+				$li.css('list-style-position', 'inside');
+				$li.on('click', function(event) {
+					var color=$(this).attr ( "color" );
+					console.log("Set color to: " + color);
+					setMemoColor(color);
+				});
+				$('#colorPicker ul').append($li);
+			}
+			
 			// set up bluetooth connection
 			ble.init();
 		});
+
+		setMemoColor = function(color) {
+			$('#memoNote').css('background', '#' + color);
+			$('#memoNote').css('border-top', '60px solid #' + color);
+			var inc0 = 0, inc1 = 0;
+			for (var c = 0; c < color.length; c+=2) {
+				var z = color.charCodeAt(c) - 48;
+				if (!z) {
+					// detected a zero, let apply gradient to this part
+					var shift = (color.length-2 - c) * 4;
+					inc0 = 100 << shift;
+					inc1 = 200 << shift;
+					console.log("Shift is: " + shift + ", color.length: " + color.length + ", c:" + c );
+					break;
+				}
+			}
+			var nr = parseInt(color, 16);
+			var grad0 = (nr+inc0).toString(16);
+			var grad1 = (nr+inc1).toString(16);
+			console.log("Apply gradients from: " + grad0 + " to " + grad1);
+			$('#memoNote').css('background', 'linear-gradient(-45deg, #' + grad0 + ' 77%,#' + grad1 + ' 100%)');
+			// exception for dark blue
+			if (nr == parseInt("0000ff", 16)) {
+				console.log("Set font color to white");
+				$('#memoNote').css('color', 'white');
+			} else {
+				$('#memoNote').css('color', 'black');
+			}	
+		};
 
 		// coupling with a button is simple through an on-click event through jQuery
 		$('#sendAlert').on('click', function(event) {
@@ -237,12 +286,12 @@ WotsApp.prototype = {
 				console.log("Create status bar");
 				for (var i = 0; i < wots.guidePageCnt; i++) {
 					//console.log("Create status bar item " + i);
-					var list_item = $('<li/>', {'class': 'guidePageBtn pageDisabled', 'id': i});
-					list_item.on('click', function(event) {
+					var $li = $('<li/>', {'class': 'guidePageBtn pageDisabled', 'id': i});
+					$li.on('click', function(event) {
 						id=$(this).attr ( "id" );
 						guidePage(id);
 					});
-					$(guideStatusBar).append(list_item);
+					$(guideStatusBar).append($li);
 				}
 				guidePage(0);
 			});
@@ -668,6 +717,8 @@ WotsApp.prototype = {
 			setTimeout( wotsPage, timeoutMillis );
 			wots.calculated = true;
 		});
+	
+		start();	
 
 	}
 }

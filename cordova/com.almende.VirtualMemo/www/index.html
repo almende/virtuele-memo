@@ -51,6 +51,14 @@
 	</head>
 
 	<body class="ui-body-a">
+		<div data-role="page" id="optionalBanner">
+			<script>
+			console.log("Quickly move on to other page");
+			$(function() {
+				$.mobile.changePage("#virtualMemoPage", {transition:'slide', hashChange:true});
+			});
+			</script>
+		</div>
 
 		<!-- Guide for Memo Page -->
         	<div data-role="page" id="guideMemo">
@@ -157,15 +165,32 @@
 		<div data-role="page" id="virtualMemoPage">
 
 			<div role="main" class="ui-content" style="padding:0px">
-				<div id="memoNote">
-					<p>
-					Welkom in het Virtuele Memo gedeelte van deze applicatie! 
-					</p>
-					<p>
-					Lijm de Virtuele Memo op uw koelkast en gebruik het om uw boodschappenlijstje achter te laten, aan te geven of je wil koken voor je huisgenoten, of een herinnering voor jezelf zodat je niet vergeet dat je naar de kapper moet op zaterdag.
-					</p>
+				<div id="colorPicker" align="center">
+					<ul></ul>
 				</div>
+				<div id="memoMetaInfo">
+					<input type="text" name="location" id="memoLocation" placeholder="Lokatie" value=""/>
+					<input type="date" name="date" id="memoDate" placeholder="Date" value=""/>
+					<input type="number" name="alert" id="alert" placeholder="Alert" min="0" max="5"/>
+					<div class="memoSelectRepeatPeriodArea">
+						<select class="memoSelectRepeatPeriod">
+							<option value="none" selected>no repetition</option>
+							<option value="day">every day</option>
+							<option value="workday">every workday</option>
+							<option value="weekend">every weekend</option>
+							<option value="week">every week</option>
+							<option value="month">every month</option>
+							<option value="year">every year</option>
+						</select>
+					</div>
+				</div>
+				<div class="clear-floats"></div>
+				<div id="memoNote">
+					Lijm de Virtuele Memo op je koelkast. Gebruik het als boodschappenlijstje voor je huisgenoot, een kooklijst, of als herinnering voor jezelf om naar de kapper te gaan op zaterdag.
+				</div>
+<!--
 				<button id="sendAlert" class="ui-btn-active ui-state-persist" data-role="button">Send Alert</button>
+-->
 				<!--	<p><a href="#sendAlert" class="ui-btn-active ui-state-persist" data-role="button" data-transition="none">Send Alert</a></p> -->
 			</div>
 

@@ -33,6 +33,16 @@ html, body {
 	height:100% 
 }
 
+@font-face {
+	font-family:"Reenie Beanie";
+	font-style: normal;
+	src: url("../fonts/ReenieBeanie.ttf") format("opentype"); /* TTF file for CSS3 browsers */
+}
+
+.clear-floats {
+	clear: both;
+}
+
 /**********************************************************************************************************************
  *
  * Layout for the guide for the first-time user
@@ -165,12 +175,14 @@ html, body {
  *
  *********************************************************************************************************************/
 
+/*
 #memoNote {
 	margin:0 auto;
 	background-color:yellow;
 	width:80%;
 	height:16em;
 }
+*/
 
 /*
 #memoNote {
@@ -185,6 +197,11 @@ html, body {
 }
 */
 
+#virtualMemoPage {
+	width: 100%;
+	float: left;
+}
+
 #virtualMemoPage * {
 	-webkit-user-select: none;
 	-moz-user-select: none;
@@ -192,6 +209,7 @@ html, body {
 	-o-user-select: none;
 	user-select: none;
 }
+
 
 #exhibitorDetailsPage {
 }
@@ -302,7 +320,7 @@ html, body {
 
 
 input, body, button, select, option, textarea {
-	font-family : HelveticaNeueThin;
+	font-family : HelveticaNeueThin; 
 	font-size: 32px;
 	/* color : #FFFFFF; */
 	/* color : rgb(255, 255, 255); */
@@ -324,3 +342,139 @@ input, button, select, option, textarea {
     -o-user-select: none;
     user-select: none;
 }
+
+#memoNote {    
+	text-align:center;     
+	width: 275px;    
+	margin: 25px;    
+	min-height:175px;
+	max-height:175px;
+	padding-top:15px;
+	margin-left:auto;
+	margin-right:auto;
+	position:relative;   
+	border:1px solid #E8E8E8;  
+	border-top:60px solid #fdfd86;
+	font-family:"Reenie Beanie" !important;
+	font-size:20px;
+	border-bottom-right-radius: 60px 5px;
+/*	display:inline-block; */
+	background: rgb(255,255,136); /* Old browsers */
+	background: -moz-linear-gradient(-45deg, rgba(255,255,136,1) 77%, rgba(255,255,214,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right bottom, color-stop(77%,rgba(255,255,136,1)), color-stop(100%,rgba(255,255,214,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(-45deg, rgba(255,255,136,1) 77%,rgba(255,255,214,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(-45deg, rgba(255,255,136,1) 77%,rgba(255,255,214,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(-45deg, rgba(255,255,136,1) 77%,rgba(255,255,214,1) 100%); /* IE10+ */
+	background: linear-gradient(-45deg, rgba(255,255,136,1) 77%,rgba(255,255,214,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffff88', endColorstr='#ffff88',GradientType=0 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+/*
+#memoNote:after {     
+	content: "";
+	position:absolute;
+	z-index:-1;
+	right:-0px; bottom:20px;
+	width:200px;
+	height: 25px;
+	background: rgba(0, 0, 0, 0.2);
+	box-shadow:2px 15px 5px rgba(0, 0, 0, 0.40);
+	-moz-transform: matrix(-1, -0.1, 0, 1, 0, 0);
+	-webkit-transform: matrix(-1, -0.1, 0, 1, 0, 0);
+	-o-transform: matrix(-1, -0.1, 0, 1, 0, 0);
+	-ms-transform: matrix(-1, -0.1, 0, 1, 0, 0);
+	transform: matrix(-1, -0.1, 0, 1, 0, 0);
+}
+*/
+
+#memoNote:after {
+	content: "";
+	position:absolute;
+	z-index:-1;
+	right:-0px; bottom:20px;
+	width:200px;
+	height: 25px;
+	background: rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 2px 15px 5px rgba(0, 0, 0, 0.40);
+	-webkit-box-shadow: 2px 15px 5px rgba(0, 0, 0, 0.40);
+	-o-box-shadow: 2px 15px 5px rgba(0, 0, 0, 0.40);
+	box-shadow:2px 15px 5px rgba(0, 0, 0, 0.40);
+	-moz-transform: matrix(-1, -0.1, 0, 1, 0, 0);
+	-webkit-transform: matrix(-1, -0.1, 0, 1, 0, 0);
+	-o-transform: matrix(-1, -0.1, 0, 1, 0, 0);
+	-ms-transform: matrix(-1, -0.1, 0, 1, 0, 0);
+	transform: matrix(-1, -0.1, 0, 1, 0, 0);
+}
+
+#colorPicker {
+	margin-top: 10px;
+	width:260px; 
+	height:40px;
+	margin-left: auto; 
+	margin-right: auto;
+/*	text-align: center; */
+}
+
+#colorPicker ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	text-align: center;
+}
+
+#colorPicker ul li {
+/*	display: inline-block; // doesn't work, so rely on float:left */ 
+	float:left;
+}
+
+/* input fields for a new memo */
+#memoMetaInfo {
+	width:120px; 
+	margin-left: auto; 
+	margin-right: 0; 
+/*	float:right;  */
+	/*position: absolute; */
+}
+
+#memoMetaInfo input {
+/*	margin-right: auto; */
+/*	margin-left: 0px; */
+	font-size : 70%;
+	background: #F9F9F9; 
+}
+
+/* overwrite memoMetaInfo input for float right */
+/*#memoDate {
+	margin-right: 0px;
+	margin-left: auto;
+}*/
+
+/*
+#memoMetaInfo {
+	width: 100%;
+	height: 40px;
+	color: blue;
+} */
+
+/* caption shown when nothing chosen yet */
+.memoSelectRepeatPeriod {
+	font-size: 70%;
+/*	float: right; */
+}
+
+/* the options for the choices */
+.memoSelectRepeatPeriodArea select {
+	font-size: 70%;
+}
+
+.memoSelectRepeatPeriodArea {
+/*	float:left; */
+	width:90px;
+}
+
+/* remove default jQuery border from input text if in #registerEntry section */
+#memoMetaInfo > .ui-input-text {
+/*	float:left; */
+	border: 0px;
+}
+
