@@ -1,3 +1,7 @@
+/**********************************************************************************************************************
+ * Fields that we use in the WOTS application
+ *********************************************************************************************************************/
+
 function WotsApp() {
 	this.exhibitors = [];
 	this.exhibitorsById = {};
@@ -6,12 +10,17 @@ function WotsApp() {
 	this.guide = [];
 	this.guidePageCnt = 0;
 	this.username = "";
+	this.passport = "";
 	this.email = "";
 	this.db = null;
 	this.participantCode = "";
 	this.password = "";
 	this.calculated = false;
 }
+
+/**********************************************************************************************************************
+ * Main functionality of the WOTS application
+ *********************************************************************************************************************/
 
 WotsApp.prototype = {
 	start:function() {
@@ -21,7 +30,15 @@ WotsApp.prototype = {
 
 		var hangman = new Hangman();
 
+		var sense = SenseAPI;
+
 		$.ajaxSetup({ cache: false });
+		
+		// very important statement to make swiping work: 
+		// https://stackoverflow.com/questions/12838443/swipe-with-jquery-mobile-1-2-phonegap-2-1-and-android-4-0-4-not-working-properl
+		document.ontouchmove = function(event) {    
+		        event.preventDefault();
+		};
 
 		// at which page to start?
 		start = function() {
@@ -29,6 +46,10 @@ WotsApp.prototype = {
 //			console.log("Go to virtual memo page");
 //			$.mobile.changePage("#virtualMemoPage", {transition:'slide', hashChange:true});
 		}
+
+/**********************************************************************************************************************
+ * The list of exhibitors
+ *********************************************************************************************************************/
 
 		// this loads exhibitor information from a local .js data file, but doesn't know how to store state
 		// information...
@@ -154,6 +175,10 @@ WotsApp.prototype = {
 			event.preventDefault();
 		});
 
+/**********************************************************************************************************************
+ * The individual exhibitor has a detailed page, where a code needs to be filled in
+ *********************************************************************************************************************/
+
 		// we can show details of the exhibitor and some questions, but do not know how to cope with the answer yet
 		$('#exhibitorDetailsPage').on("pagebeforeshow", function( event, ui ) {
 			var exhibitor = wots.exhibitorsById[wots.selectedExhibitorId];
@@ -202,6 +227,10 @@ WotsApp.prototype = {
 			context.fill();
 		});
 
+/**********************************************************************************************************************
+ * The functionality around the memo notes
+ *********************************************************************************************************************/
+
 		// on Android horizontal swipe distance might be too wide, you'll have to swipe far and fast...
 		// do something about it!
 		$('#virtualMemoPage').on('swiperight', function(event) {
@@ -209,14 +238,7 @@ WotsApp.prototype = {
 		});
 
 		$('#virtualMemoPage').on('pageshow',function(e,data) { 
-		//	var windowHeight = $(window).height();
-		//	var headerHeight = $('[data-role=header]').height();
-		//	var footerHeight = $('.ui-footer').height();
-		//	var memoHeight = $('#memoNote').outerHeight();
-			//var marginTop = (windowHeight - headerHeight - footerHeight - memoHeight)/2;
-		//	var marginTop = (windowHeight - memoHeight - footerHeight)/2;
-		//	console.log('windowHeight: ' + windowHeight + ', headerHeight: ' + headerHeight + ', footerHeight: ' + footerHeight + ', memoHeight: ' + memoHeight + ', marginTop: ' + marginTop);
-		//	$('#memoNote').css('margin-top',marginTop);
+			createSession(wots.username, wots.password);
 
 			var colors = [ "0000ff", "00ff00", "00ffff", "ff0000", "ff00ff", "ffff00" ];
 			for (var c = 0; c < colors.length; ++c) {
@@ -264,17 +286,19 @@ WotsApp.prototype = {
 			}	
 		};
 
+/**********************************************************************************************************************
+ * The functionality to communicate over Bluetooth Low-Energy
+ *********************************************************************************************************************/
+
 		// coupling with a button is simple through an on-click event through jQuery
 		$('#sendAlert').on('click', function(event) {
 			console.log('Click event received');
 			ble.readLinkLoss();
 		});
 
-		// very important statement to make swiping work: 
-		// https://stackoverflow.com/questions/12838443/swipe-with-jquery-mobile-1-2-phonegap-2-1-and-android-4-0-4-not-working-properl
-		document.ontouchmove = function(event) {    
-		        event.preventDefault();
-		};
+/**********************************************************************************************************************
+ * The guide that explains the treasure hunt on the WOTS conference
+ *********************************************************************************************************************/
 
 		$('#guideMemo').on('pagecreate', function() {
 			console.log("Create first guide page");
@@ -356,6 +380,10 @@ WotsApp.prototype = {
 			}
 			
 		}
+
+/**********************************************************************************************************************
+ * Register procedure for the user for the WOTS conference, required for the treasure hunt
+ *********************************************************************************************************************/
 		
 		$('#registerPage').on('pagecreate', function() {
 			console.log("Create register page");
@@ -372,9 +400,11 @@ WotsApp.prototype = {
 			btn.on('click', function(event) {
 				var username = $('#username').val();
 				var email = $('#email').val();
+				var password = $('#password').val();
+				createUser(username, password);
 				if (interpretCode()) {
 					var participantCode = wots.participantCode;
-					registerNow(username, email, participantCode);
+					registerNow(username, password, email, participantCode);
 				}
 			});
 			var center = $('<div id="explanationButton" align="center"></div>');
@@ -505,9 +535,10 @@ WotsApp.prototype = {
 			return true;
 		}
 
-		registerNow = function(username, email, participantCode) {
+		registerNow = function(username, password, email, participantCode) {
 			console.log("Register " + username + " with email address " + email);
 			wots.username = username;
+			wots.password = password;
 			wots.email = email;
 			wots.participantCode = participantCode;
 			accountDB(calcRoutePage);
@@ -614,8 +645,8 @@ WotsApp.prototype = {
 				if (!len) {
 					console.log("Nothing in database yet, write account data to it");
 					// write entries to database
-					tx.executeSql('INSERT INTO MEMO (name, email, code) VALUES ("' 
-						+ wots.username + '","' + wots.email +  '","' + wots.participantCode + '")');
+					tx.executeSql('INSERT INTO MEMO (name, password, email, code) VALUES ("' 
+						+ wots.username + '","' + wots.password + '","' + wots.email +  '","' + wots.participantCode + '")');
 					return false;
 				}
 
@@ -630,9 +661,9 @@ WotsApp.prototype = {
 					console.log('Code was not yet stored, or was different, replace "' + participantCode + '" with new participantCode "' + wots.participantCode + '"' );
 					participantCode = wots.participantCode;
 					tx.executeSql('DROP TABLE IF EXISTS MEMO');
-					tx.executeSql('CREATE TABLE IF NOT EXISTS MEMO (name, email, code)');
-					tx.executeSql('INSERT INTO MEMO (name, email, code) VALUES ("' 
-						+ wots.username + '","' + wots.email +  '","' + wots.participantCode + '")');
+					tx.executeSql('CREATE TABLE IF NOT EXISTS MEMO (name, password, email, code)');
+					tx.executeSql('INSERT INTO MEMO (name, password, email, code) VALUES ("' 
+						+ wots.username + '","' + wots.password + '","' + wots.email +  '","' + wots.participantCode + '")');
 				} 
 				wots.participantCode = participantCode;
 
@@ -644,6 +675,7 @@ WotsApp.prototype = {
 				}
 
 				$('#username').val(wots.username);
+				$('#password').val(wots.password);
 				$('#email').val(wots.email);
 				for (var c = 0; c < wots.participantCode.length; c++) {
 					$('.hangman#h' + c).val(wots.participantCode[c]);
@@ -717,7 +749,83 @@ WotsApp.prototype = {
 			setTimeout( wotsPage, timeoutMillis );
 			wots.calculated = true;
 		});
-	
+
+/**********************************************************************************************************************
+ * Communication with the CommonSense database
+ *********************************************************************************************************************/
+
+		createUser = function(username, password) {
+			var user = {
+				"user": {
+					"email": username,
+					"username": username,
+					"name": "",
+					"surname": "",
+					"mobile": "",
+					"password": password
+				}
+			}
+			sense.createUser(user, createUserSuccessCB, generalErrorCB);
+		};
+		
+		createSession = function(username, password) {
+			sense.createSession(username, password, createSessionSuccessCB, createSessionErrorCB);
+		};
+
+		createSessionErrorCB = function() {
+			console.log("Could not log in, try to create the user");
+			createUser();
+		};
+
+		createSessionSuccessCB = function(result) {
+			console.log("Success", result);
+		};
+
+		generalErrorCB = function(msg) {
+			console.log("Error: ", msg);
+		};
+
+		createUserSuccessCB = function(result) {
+			console.log(result);
+			var obj = eval('(' + result + ')');
+			var exists = obj && obj.user && obj.user.id;
+			if (exists) {
+				console.log("Create user with id: " + obj.user.id);
+				createSession();
+			} else {
+				console.log("Could not create user");
+			}
+		};
+
+		createSensor = function() {
+			var sensorName = "memo"; 
+			var sensorDisplayName = "Memo BLE beacon";
+			var sensorDeviceType = "nRF51822-based BLE device"; 
+			var sensorDataType = "json";
+			var data = {"sensor": 
+				{
+					"name": sensorName,
+					"display_name": sensorDisplayName,
+					"device_type": sensorDeviceType,
+					"data_type": sensorDataType
+				}
+			}
+			sense.createSensor(data, createSensorSuccessCB, generalErrorCB);
+		};
+
+		createSensorSuccessCB = function(result) {
+			console.log(result);
+			// it is much safer to use a JSON parser, but for the purpose of example code:
+			var obj = eval('(' + result + ')');
+			var exists = obj && obj.sensor && obj.sensor.id;
+			if (exists) {
+				console.log("TODO: store sensor locally");
+				wots.sensor_id = obj.sensor.id;
+			} else {
+				console.log("Response couldn't be parsed or does not have sensor id field");
+			}
+		};
+
 		start();	
 
 	}

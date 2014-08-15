@@ -1,6 +1,8 @@
 #!/bin/sh
 
-cmd=${1:? "$0 requires \"cmd\" as first argument"}
+help_msg="Usage: $0 {build|upload|log}"
+
+test $1 && cmd=$1 || help
 
 path="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 working_path=$path/..
@@ -30,6 +32,11 @@ all() {
 	log
 }
 
+help() {
+	echo $help_msg
+	exit 1
+}
+
 case "$cmd" in 
 	build)
 		build
@@ -43,7 +50,9 @@ case "$cmd" in
 	all)
 		all
 		;;
+	help)
+		help
+		;;
 	*)
-		echo $"Usage: $0 {build|upload|log}"
-		exit 1
+		echo "huh"
 esac
