@@ -1,4 +1,9 @@
 function WotsApp() {
+
+	/**************************************************************************************************************
+	 * Fields that we use in the WOTS application
+	 *************************************************************************************************************/
+
 	this.exhibitors = [];
 	this.exhibitorsById = {};
 	this.route = [];
@@ -14,6 +19,19 @@ function WotsApp() {
 	this.calculated = false;
 }
 
+/**********************************************************************************************************************
+ * Main functionality of the WOTS application
+ *********************************************************************************************************************/
+
+/**
+ * This application is created using cordova (open-source phonegap variant). There are several plugins at work, for 
+ * example for the bluetooth functionality.
+ *
+ * Just normal jQuery can be used to hook into the ../index.html file.
+ * For example the html element with id="exhibitorListPage" can just be queried as $('#exhibitorListPage') and all kind 
+ * of other functionality works just like expect.
+ */
+
 WotsApp.prototype = {
 	start:function() {
 		var wots = this;
@@ -24,14 +42,32 @@ WotsApp.prototype = {
 
 		var sense = SenseAPI;
 
+		var localdb = LocalDB;
+
+		var crypto = CryptoJS;
+
 		$.ajaxSetup({ cache: false });
+
+		// very important statement to make swiping work: 
+		// https://stackoverflow.com/questions/12838443/\
+		//   swipe-with-jquery-mobile-1-2-phonegap-2-1-and-android-4-0-4-not-working-properl
+		document.ontouchmove = function(event) {    
+			event.preventDefault();
+		};
+
+		var testing = false;
+		var test_sense = true;
 
 		// at which page to start?
 		start = function() {
-//			// should make dependent on content in the database
-//			console.log("Go to virtual memo page");
-//			$.mobile.changePage("#virtualMemoPage", {transition:'slide', hashChange:true});
+			// should be make dependent on content in the database
+			console.log("Started the WOTS application");
+			$.mobile.changePage("#virtualMemoPage", {transition:'none', hashChange:true});
 		}
+
+		/**********************************************************************************************************************
+		 * The list of exhibitors
+		 *********************************************************************************************************************/
 
 		// this loads exhibitor information from a local .js data file, but doesn't know how to store state
 		// information...
@@ -79,19 +115,19 @@ WotsApp.prototype = {
 				}
 			}
 			for (var r = 0; r < wots.route.length; r++) {
-	//			var onRoute = false;
+				//			var onRoute = false;
 				var exhibitor;
 				for (var c = 0; c < wots.exhibitors.length; c++) {
 					exhibitor = wots.exhibitors[c];
-//					console.log("Is stand " + exhibitor.standletter + " on the route?");
+					//					console.log("Is stand " + exhibitor.standletter + " on the route?");
 					if (wots.route[r] == exhibitor.standletter) {
 						console.log("Found exhibitor", exhibitor);
-//						onRoute = true;
+						//						onRoute = true;
 						break;
 					}
 				}
 				// skip to next exhibitor if not on route
-//				if (!onRoute) continue;
+				//				if (!onRoute) continue;
 
 				wots.exhibitorsById[exhibitor.id] = exhibitor;
 				if (c + 1 < wots.exhibitors.length) {
@@ -106,7 +142,7 @@ WotsApp.prototype = {
 				}
 				var doneClass = "";
 				var enabledClass = "taskDisabled";
-		//		var enabledClass = "taskEnabled";
+				//		var enabledClass = "taskEnabled";
 				if(exhibitor.status == "done") {
 					pastSomeDone = true;
 					enabledClass = 'taskEnabled';
@@ -124,12 +160,12 @@ WotsApp.prototype = {
 							doneClass = "taskDoneSelf";
 					}
 				} else {
-//					if(pastSomeDone || nextExhibitor && nextExhibitor.status == "done")
-//						enabledClass = "taskEnabled";
-//					else {
-//						if(nextNextExhibitor && nextNextExhibitor.status == "done")
-//							enabledClass = "taskHalfEnabled";
-//					}
+					//					if(pastSomeDone || nextExhibitor && nextExhibitor.status == "done")
+					//						enabledClass = "taskEnabled";
+					//					else {
+					//						if(nextNextExhibitor && nextNextExhibitor.status == "done")
+					//							enabledClass = "taskHalfEnabled";
+					//					}
 					if (prevExhibitor && prevExhibitor.status == "done") 
 						enabledClass = "taskEnabled";
 					if (!prevExhibitor) 
@@ -137,15 +173,15 @@ WotsApp.prototype = {
 				}
 				$(exhibitorList)
 					.append($('<li/>', { "class":doneClass + ' ' + enabledClass })
-						.append($('<a/>', {
-							'href':'#exhibitorDetailsPage',
+							.append($('<a/>', {
+								'href':'#exhibitorDetailsPage',
 							'data-transition':'slide',
 							'data-id':exhibitor.id
 							})
-							.append('<span>' + exhibitor.name + '</span>')
-							.append('<p>' + exhibitor.oneliner + '</p>')
-						)
-					);
+								.append('<span>' + exhibitor.name + '</span>')
+								.append('<p>' + exhibitor.oneliner + '</p>')
+							       )
+					       );
 				prevExhibitor = exhibitor;
 			} // End for-loop
 			$('#exhibitorList').listview('refresh');
@@ -156,6 +192,10 @@ WotsApp.prototype = {
 			$.mobile.changePage("#exhibitorDetailsPage", {transition:'slide', hashChange:true});
 			event.preventDefault();
 		});
+
+		/**********************************************************************************************************************
+		 * The individual exhibitor has a detailed page, where a code needs to be filled in
+		 *********************************************************************************************************************/
 
 		// we can show details of the exhibitor and some questions, but do not know how to cope with the answer yet
 		$('#exhibitorDetailsPage').on("pagebeforeshow", function( event, ui ) {
@@ -205,15 +245,18 @@ WotsApp.prototype = {
 			context.fill();
 		});
 
+		/**********************************************************************************************************************
+		 * The functionality around the memo notes
+		 *********************************************************************************************************************/
+
 		// on Android horizontal swipe distance might be too wide, you'll have to swipe far and fast...
 		// do something about it!
 		$('#virtualMemoPage').on('swiperight', function(event) {
 			$('#virtualMemoPanel').panel("open");
 		});
 
-		$('#virtualMemoPage').on('pageshow',function(e,data) { 
-			createSession(wots.username, wots.password);
-
+		$('#virtualMemoPage').on('pagecreate',function(e,data) { 
+			console.log("Add colors");
 			var colors = [ "0000ff", "00ff00", "00ffff", "ff0000", "ff00ff", "ffff00" ];
 			for (var c = 0; c < colors.length; ++c) {
 				var $li = $('<li/>', {'color':colors[c]});
@@ -226,12 +269,27 @@ WotsApp.prototype = {
 				});
 				$('#colorPicker ul').append($li);
 			}
-			
+
+			$('#saveMemo').on('click', function(event) {
+				updateSensor();
+				//createSensorData();
+			});
+
 			// set up bluetooth connection
 			ble.init();
 		});
 
+		$('#virtualMemoPage').on('pageshow',function(e,data) { 
+			if (!wots.email || !wots.password) {
+				console.log('Email or password are not available. Go to registration page');
+				registerPage();
+				return;
+			}
+			createSession(wots.email, wots.password);
+		});
+
 		setMemoColor = function(color) {
+			$('#memoNote').data('memo-color', color);
 			$('#memoNote').css('background', '#' + color);
 			$('#memoNote').css('border-top', '60px solid #' + color);
 			var inc0 = 0, inc1 = 0;
@@ -260,17 +318,19 @@ WotsApp.prototype = {
 			}	
 		};
 
+		/**********************************************************************************************************************
+		 * The functionality to communicate over Bluetooth Low-Energy
+		 *********************************************************************************************************************/
+
 		// coupling with a button is simple through an on-click event through jQuery
 		$('#sendAlert').on('click', function(event) {
 			console.log('Click event received');
 			ble.readLinkLoss();
 		});
 
-		// very important statement to make swiping work: 
-		// https://stackoverflow.com/questions/12838443/swipe-with-jquery-mobile-1-2-phonegap-2-1-and-android-4-0-4-not-working-properl
-		document.ontouchmove = function(event) {    
-		        event.preventDefault();
-		};
+		/**********************************************************************************************************************
+		 * The guide that explains the treasure hunt on the WOTS conference
+		 *********************************************************************************************************************/
 
 		$('#guideMemo').on('pagecreate', function() {
 			console.log("Create first guide page");
@@ -292,7 +352,7 @@ WotsApp.prototype = {
 				guidePage(0);
 			});
 		});
-		
+
 		$('#guideMemo').on('swipeleft', function() {
 			// get first disabled button, if no disabled buttons left, cp becomes undefined
 			var np = $('.guidePageBtn.pageDisabled').attr('id');
@@ -350,9 +410,13 @@ WotsApp.prototype = {
 				default: 
 					console.log('Outside of page bounds');
 			}
-			
+
 		}
-		
+
+		/*******************************************************************************************************
+		 * Register procedure for the user for the WOTS conference, required for the treasure hunt
+		 ******************************************************************************************************/
+
 		$('#registerPage').on('pagecreate', function() {
 			console.log("Create register page");
 
@@ -361,27 +425,27 @@ WotsApp.prototype = {
 			$(".hangman#h2").val("-")
 
 			var registerText = "Registreer jezelf, zodat je later deze applicatie ook thuis kan gebruiken!";
-			var explanation = $('<p/>').text(registerText);
-			$('#registerExplanation').empty().append(explanation);
-			var btnText = "registreer";
-			var btn= $('<input type="button" class="bottomButton" value="' + btnText + '"/>');
-			btn.on('click', function(event) {
-				var username = $('#username').val();
-				var email = $('#email').val();
-				var password = $('#password').val();
-				createUser(username, password);
-				if (interpretCode()) {
-					var participantCode = wots.participantCode;
-					registerNow(username, password, email, participantCode);
-				}
-			});
-			var center = $('<div id="explanationButton" align="center"></div>');
-			$('#registerExplanation').append(center);
-			center.append(btn);
-			// check if account already exists in database
-			accountDB();
+		var explanation = $('<p/>').text(registerText);
+		$('#registerExplanation').empty().append(explanation);
+		var btnText = "registreer";
+		var btn= $('<input type="button" class="bottomButton" value="' + btnText + '"/>');
+		btn.on('click', function(event) {
+			var username = $('#username').val();
+			var email = $('#email').val();
+			var password = $('#password').val();
+			createUser(username, password);
+			if (interpretCode()) {
+				var participantCode = wots.participantCode;
+				registerNow(username, password, email, participantCode);
+			}
 		});
-		
+		var center = $('<div id="explanationButton" align="center"></div>');
+		$('#registerExplanation').append(center);
+		center.append(btn);
+		// check if account already exists in database
+		accountDB();
+		});
+
 		$('#registerPage').on('swipeleft', function() {
 			calcRoutePage();
 		});
@@ -506,93 +570,18 @@ WotsApp.prototype = {
 		registerNow = function(username, password, email, participantCode) {
 			console.log("Register " + username + " with email address " + email);
 			wots.username = username;
-			wots.password = password;
+			// store md5 hash of password
+			wots.password = CryptoJS.MD5(password).toString();
+			//wots.password = password;
 			wots.email = email;
 			wots.participantCode = participantCode;
 			accountDB(calcRoutePage);
 		}
 
-		accountDB = function(callback) {
-			if (!wots.db) wots.db = window.openDatabase("memo", "1.0", "Memo", 1000000);
-			if (typeof(callback) == "function") {
-				wots.db.transaction(queryAccountDB, errorCB, callback);
-			} else {
-				wots.db.transaction(queryAccountDB, errorCB);
-			}
-		}
+		/*******************************************************************************************************
+		 * General local database functions
+		 ******************************************************************************************************/
 
-		standsDB = function(callback) {
-			console.log("Get stands from database");
-			if (!wots.db) wots.db = window.openDatabase("memo", "1.0", "Memo", 1000000);
-		
-			if (typeof(callback) == "function") {
-				wots.db.transaction(queryStandsDB, errorCB, callback);
-			} else {
-				wots.db.transaction(queryStandsDB, errorCB);
-			}
-//			console.log("Got data from database, now call callback");
-//			if (typeof(callback) == "function") callback();
-		}
-
-		standsUpdateDB = function(callback) {
-			if (!wots.db) wots.db = window.openDatabase("memo", "1.0", "Memo", 1000000);
-		
-			if (typeof(callback) == "function") {
-				wots.db.transaction(queryStandsUpdateStatus, errorCB, callback);
-			} else {
-				wots.db.transaction(queryStandsUpdateStatus, errorCB);
-			}
-		}
-
-		queryStandsDB = function(tx) {
-			tx.executeSql('CREATE TABLE IF NOT EXISTS STANDS (id, status)');
-			tx.executeSql('SELECT * FROM STANDS', [], queryStandsSuccess, errorCB);
-		}
-
-		/**
-		 * This is the pattern which works, get stand owners, and if they do not exist, fill the database. 
-		 * Do not fill the database if it is already filled
-		 */
-		queryStandsSuccess = function(tx, results) {
-			var len = results.rows.length;
-			console.log("Number of stand owners in the database: " + len);
-			if (results.rowsAffected) return false;
-
-			// iterate through all exhibitors, and if not present, create entry in table
-			for (var c = 0; c < wots.exhibitors.length; c++) {
-				
-				var id = wots.exhibitors[c].id;
-
-				var found = false;
-				for (var i=0; i<len; i++) {
-					console.log("Find stand holder " + id);
-					if (results.rows.item(i).id == id) {
-						wots.exhibitors[c].status = results.rows.item(i).status;
-						found = true;
-						break;
-					}
-				}
-				if (!found) {
-					console.log("Add stand holder " + id);
-					wots.exhibitors[c].status = 'undefined';
-					var status = wots.exhibitors[c].status;
-					console.log("With status: " + status); 
-					tx.executeSql('INSERT INTO STANDS (id, status) VALUES ("' + id + '","' + status + '")');
-				}
-			}
-			return true;
-		}
-		
-		queryStandsUpdateStatus = function(tx, results) {
-			var exhibitor = wots.exhibitorsById[wots.selectedExhibitorId];
-			if (!exhibitor) return false;
-
-			var id = exhibitor.id;
-			var status = exhibitor.status;
-			tx.executeSql('UPDATE STANDS SET status="' + status + '" WHERE id="' + id + '"');
-			return true;
-		}
-		
 		errorCB = function(tx, err) {
 			console.log("Error processing SQL:", err);
 		}
@@ -601,9 +590,27 @@ WotsApp.prototype = {
 			console.log("Successful SQL query");
 		}
 
+		/*******************************************************************************************************
+		 * Get account data from the local database
+		 ******************************************************************************************************/
+
+		accountDB = function(callback) {
+			if (!wots.db) {
+				wots.db = window.openDatabase("memo", "1.0", "Memo", 1000000);
+				localdb.init(wots.db);
+			}
+			if (typeof(callback) == "function") {
+				wots.db.transaction(queryAccountDB, errorCB, callback);
+			} else {
+				wots.db.transaction(queryAccountDB, errorCB);
+			}
+		}
+
 		queryAccountDB = function(tx) {
-			//tx.executeSql('DROP TABLE IF EXISTS MEMO');
-			tx.executeSql('CREATE TABLE IF NOT EXISTS MEMO (name, email, code)');
+			if (testing) {
+				tx.executeSql('DROP TABLE IF EXISTS MEMO');
+			}
+			tx.executeSql('CREATE TABLE IF NOT EXISTS MEMO (name, password, email, code)');
 			tx.executeSql('SELECT * FROM MEMO', [], queryAccountSuccess, errorCB);
 		}
 
@@ -614,7 +621,7 @@ WotsApp.prototype = {
 					console.log("Nothing in database yet, write account data to it");
 					// write entries to database
 					tx.executeSql('INSERT INTO MEMO (name, password, email, code) VALUES ("' 
-						+ wots.username + '","' + wots.password + '","' + wots.email +  '","' + wots.participantCode + '")');
+								+ wots.username + '","' + wots.password + '","' + wots.email +  '","' + wots.participantCode + '")');
 					return false;
 				}
 
@@ -625,19 +632,23 @@ WotsApp.prototype = {
 				// if participantCode is different, replace it...
 				// todo: same with username and email
 				var newOneAvailable = wots.participantCode && wots.participantCode != "";
-				if ((!participantCode && newOneAvailable) || (newOneAvailable && (wots.participantCode != participantCode))) {
-					console.log('Code was not yet stored, or was different, replace "' + participantCode + '" with new participantCode "' + wots.participantCode + '"' );
+				if ((!participantCode && newOneAvailable) || 
+						(newOneAvailable && (wots.participantCode != participantCode))) {
+					console.log('Code was not yet stored, or was different, replace "' + 
+							participantCode + '" with new participantCode "' + 
+							wots.participantCode + '"' );
 					participantCode = wots.participantCode;
 					tx.executeSql('DROP TABLE IF EXISTS MEMO');
 					tx.executeSql('CREATE TABLE IF NOT EXISTS MEMO (name, password, email, code)');
-					tx.executeSql('INSERT INTO MEMO (name, password, email, code) VALUES ("' 
-						+ wots.username + '","' + wots.password + '","' + wots.email +  '","' + wots.participantCode + '")');
+					tx.executeSql('INSERT INTO MEMO (name, password, email, code) VALUES ("' + 
+							wots.username + '","' + wots.password + '","' + wots.email +
+						      	'","' + wots.participantCode + '")');
 				} 
 				wots.participantCode = participantCode;
 
 				console.log('Query result: name = "' + wots.username + '" email = "' + wots.email + '"');
 				console.log('  participantCode = "' + wots.participantCode + '"');
-				
+
 				if (!wots.participantCode) {
 					return false;
 				}
@@ -655,6 +666,197 @@ WotsApp.prototype = {
 			console.log("Last inserted row ID = " + results.insertId);
 		}
 
+		/*******************************************************************************************************
+		 * Get stand data from the local database
+		 ******************************************************************************************************/
+
+		standsDB = function(callback) {
+			console.log("Get stands from database");
+			if (!wots.db) {
+				wots.db = window.openDatabase("memo", "1.0", "Memo", 1000000);
+				localdb.init(wots.db);
+			}
+
+			if (typeof(callback) == "function") {
+				wots.db.transaction(queryStandsDB, errorCB, callback);
+			} else {
+				wots.db.transaction(queryStandsDB, errorCB);
+			}
+		}
+
+		/**
+		 * Create new database table if it does not exist yet, and query or create the stand owner information.
+		 */
+		queryStandsDB = function(tx) {
+			tx.executeSql('CREATE TABLE IF NOT EXISTS STANDS (id, status)');
+			tx.executeSql('SELECT * FROM STANDS', [], queryStandsSuccess, errorCB);
+		}
+
+		/**
+		 * Iterate through all stand owners in the wots.exhibitors list and in the local database. Find the 
+		 * stand owners that match. If the stand owner exists, update the status from the database to the local
+		 * wots.exhibitors array. If the stand owner does not exist, add it to the database. 
+		 *
+		 * To update a status field in the database, use standsUpdateDB().
+		 */
+		queryStandsSuccess = function(tx, results) {
+			var len = results.rows.length;
+			console.log("Number of stand owners in the database: " + len);
+			if (results.rowsAffected) return false;
+
+			// iterate through all exhibitors, and if not present, create entry in table
+			for (var c = 0; c < wots.exhibitors.length; c++) {
+
+				var id = wots.exhibitors[c].id;
+
+				var found = false;
+				for (var i=0; i<len; i++) {
+					console.log("Find stand holder " + id);
+					if (results.rows.item(i).id == id) {
+						wots.exhibitors[c].status = results.rows.item(i).status;
+						found = true;
+						break;
+					}
+				}
+				if (!found) {
+					console.log("Add stand holder " + id);
+					wots.exhibitors[c].status = 'undefined';
+					var status = wots.exhibitors[c].status;
+					console.log("With status: " + status); 
+					tx.executeSql('INSERT INTO STANDS (id, status) VALUES ("' + id + '","' + 
+								status + '")');
+				}
+			}
+			return true;
+		}
+
+		standsUpdateDB = function(callback) {
+			if (!wots.db) {
+				wots.db = window.openDatabase("memo", "1.0", "Memo", 1000000);
+				localdb.init(wots.db);
+			}
+
+			if (typeof(callback) == "function") {
+				wots.db.transaction(queryStandsUpdateStatus, errorCB, callback);
+			} else {
+				wots.db.transaction(queryStandsUpdateStatus, errorCB);
+			}
+		}
+
+		/*
+		 * Write new value to the "status" field of a stand owner in the local database.
+		 */
+		queryStandsUpdateStatus = function(tx, results) {
+			var exhibitor = wots.exhibitorsById[wots.selectedExhibitorId];
+			if (!exhibitor) return false;
+
+			var id = exhibitor.id;
+			var status = exhibitor.status;
+			tx.executeSql('UPDATE STANDS SET status="' + status + '" WHERE id="' + id + '"');
+			return true;
+		}
+
+		/*******************************************************************************************************
+		 * Get note data from the local database
+		 ******************************************************************************************************/
+
+		noteDB = function(errCB, sucCB) {
+			if (!wots.db) {
+				wots.db = window.openDatabase("memo", "1.0", "Memo", 1000000);
+				localdb.init(wots.db);
+			}
+			var sensor_id = wots.sensor_id;
+			if (sensor_id) {
+				// get specific memo out of database
+				localdb.existMemo(sensor_id, sensorKnown);
+			} else {
+				// get most recent memo out local database
+				localdb.getMemo(sensorUnknown);
+					
+			}
+		}
+
+		sensorUnknown = function(errcode, result) {
+			if (errcode) {
+				// create sensor and call the noteDB function again
+				createSensor(noteDB);
+				return;
+			}
+			console.log("Result (should be sensor_id) " + result);
+			wots.sensor_id = result;
+
+			// next step! create sensor data
+			updateSensorData();
+		}
+
+		sensorKnown = function(errcode, result) {
+			if (errcode) {
+				if (!wots.sensor_id) {
+					console.log("Do not call this function if sensor id is not known");
+					return;
+				}
+				console.log("Error: " + errcode);
+				if (errcode == localdb.ERR_EMPTY_TABLE) {
+					// create memo in database and call noteDB function again
+					console.log("Create memo in local database");
+					localdb.createMemo(wots.sensor_id, noteDB);
+				} else if (errcode == localdb.ERR_COMPARE) {
+					// just add memo, although there is already one there, perhaps person deleted it
+					// in the commonsense database
+					console.log("Create new memo in local database");
+					localdb.createMemo(wots.sensor_id, noteDB);
+				}
+				return;
+			}
+			// we have a correct sensor id, now store data
+			console.log("Result (should be sensor_id) " + result);
+			wots.sensor_id = result;
+
+			// next step! create sensor data
+			updateSensorData();
+		}
+
+		updateSensorData = function() {
+			console.log("Load sensor data");
+			loadSensorData();
+
+			console.log("Create memo if not yet present in CommonSense")
+			createSensorData();
+		}
+
+		queryNoteDB = function(tx) {
+			if (testing) {
+				tx.executeSql('DROP TABLE IF EXISTS NOTES');
+			}
+			tx.executeSql('CREATE TABLE IF NOT EXISTS NOTES (sensor_id)');
+			tx.executeSql('SELECT * FROM NOTES', [], queryNoteSuccess, errorCB);
+		}
+
+		queryNoteSuccess = function(tx, results) {
+			var len = results.rows.length;
+			if (!results.rowsAffected) {
+				if (!len) {
+					console.log("Sensor id is not stored in local database yet");
+					if (wots.sensor_id) {
+						console.log("Store it");
+						tx.executeSql('INSERT INTO NOTES (sensor_id) VALUES ("' 
+									+ wots.sensor_id + '")');
+						return true;
+					}
+					console.log("And it was not obtained from CommonSense either");
+					return false;
+				}
+				var i = len-1; // most recent added entry, if there are more which shouldn't be the case
+				wots.sensor_id = results.rows.item(i).sensor_id;
+				console.log("Retrieved sensor id: " + wots.sensor_id);
+				return true;
+			}
+		}
+
+		/**********************************************************************************************************************
+		 * Shortcuts for calling specific pages
+		 *********************************************************************************************************************/
+
 		registerPage = function() {
 			console.log("Register new user");
 			$.mobile.changePage("#registerPage", {transition:'slide', hashChange:true});
@@ -670,7 +872,7 @@ WotsApp.prototype = {
 			console.log("Go to main page for WOTS during exhibitor list");
 			$.mobile.changePage("#exhibitorListPage", {transition:'slide', hashChange:true});
 		}
-		
+
 		// set values, trick: use fixed length to set the right field
 		wots.hangmanAnswer = function(object, result) {
 			console.log("Object", object);
@@ -696,7 +898,7 @@ WotsApp.prototype = {
 			}
 		}
 		hangman.hangman_setsubmit(wots.hangmanAnswer);
-		
+
 		$('#calculatingPage').on('pagecreate', function() {
 			console.log("Create calculating page");
 			var img_src = "css/images/CalculatingRoute.png";
@@ -717,10 +919,12 @@ WotsApp.prototype = {
 			setTimeout( wotsPage, timeoutMillis );
 			wots.calculated = true;
 		});
-	
+
+		/*******************************************************************************************************
+		 * Communication with the CommonSense database
+		 ******************************************************************************************************/
+
 		createUser = function(username, password) {
-//			var username = $("#username").val();
-//			var password = $("#md5hash").val();
 			var user = {
 				"user": {
 					"email": username,
@@ -733,8 +937,13 @@ WotsApp.prototype = {
 			}
 			sense.createUser(user, createUserSuccessCB, generalErrorCB);
 		};
-		
+
 		createSession = function(username, password) {
+			if (test_sense) {
+				console.log("Create session for user \"" + username + "\" and \"" + password + "\" with CommonSense");
+			} else {
+				console.log("Create session for user \"" + username + "\" with CommonSense");
+			}
 			sense.createSession(username, password, createSessionSuccessCB, createSessionErrorCB);
 		};
 
@@ -744,7 +953,8 @@ WotsApp.prototype = {
 		};
 
 		createSessionSuccessCB = function(result) {
-			console.log("Success", result);
+			console.log("Successfully logged in, update", result);
+			updateSensor();
 		};
 
 		generalErrorCB = function(msg) {
@@ -763,12 +973,21 @@ WotsApp.prototype = {
 			}
 		};
 
+		updateSensor = function() {
+			console.log("Update sensor");
+			noteDB();
+		}
+		
 		createSensor = function() {
+			console.log("Create sensor");
 			var sensorName = "memo"; 
-			var sensorDisplayName = "Memo BLE beacon";
-			var sensorDeviceType = "nRF51822-based BLE device"; 
+			var sensorDisplayName = "Beacon";
+			var sensorDeviceType = "nRF51822"; 
+			//var sensorDisplayName = "Memo BLE beacon";
+			//var sensorDeviceType = "nRF51822-based BLE device"; 
 			var sensorDataType = "json";
-			var data = {"sensor": 
+			var data = {
+				"sensor": 
 				{
 					"name": sensorName,
 					"display_name": sensorDisplayName,
@@ -776,24 +995,102 @@ WotsApp.prototype = {
 					"data_type": sensorDataType
 				}
 			}
+			console.log("Create a sensor ", data);
 			sense.createSensor(data, createSensorSuccessCB, generalErrorCB);
 		};
 
 		createSensorSuccessCB = function(result) {
-			console.log(result);
+			console.log("Create sensor result", result);
 			// it is much safer to use a JSON parser, but for the purpose of example code:
 			var obj = eval('(' + result + ')');
 			var exists = obj && obj.sensor && obj.sensor.id;
 			if (exists) {
-				console.log("TODO: store sensor locally");
+				console.log("Set sensor id: " + obj.sensor.id);
 				wots.sensor_id = obj.sensor.id;
+				noteDB();
 			} else {
 				console.log("Response couldn't be parsed or does not have sensor id field");
 			}
 		};
+		
+		createSensorData = function() {
+			console.log("Write new memo to CommonSense database");
+			if (!wots.sensor_id) {
+				console.log("There is no sensor id stored");
+				return;
+			}
+			var sensor_id = wots.sensor_id;
 
+			var memoText = $('#memoText').val();
+			var memoLocation = $('#memoLocation').val();
+			var memoAlert = $('#memoAlert').val();
+			var memoDate = $('#memoDate').val();
+			var memoRepeat = $('#memoRepeat').val();
+			var memoColor = $('#memoNote').data('memo-color');
+			var memoData = {
+				"text": memoText,
+				"location": memoLocation,
+				"alert": memoAlert,
+				"date": memoDate,
+				"repeat": memoRepeat,
+				"color": memoColor
+			};
+			var memoValue = JSON.stringify(memoData);
+			var data = { 
+				"data": [ 
+				{
+					"value": memoValue
+				}
+				]
+			};
+			console.log("Data to write to sensor " + sensor_id + " is ", data);
+			sense.createSensorData(sensor_id, data, createSensorDataSuccessCB, generalErrorCB);
+		};
+
+		createSensorDataSuccessCB = function(result) {
+			if (!result) {
+				console.log("Adding sensor data should not result in a response, so this is fine");
+				return;
+			}
+			console.log("Error?", result);
+			/*
+			// it is much safer to use a JSON parser, but for the purpose of example code:
+			var obj = eval('(' + result + ')');
+			var exists = obj && obj.sensor && obj.sensor.id;
+			if (exists) {
+				console.log("What to do with response?");
+				//console.log("TODO: store sensor locally");
+				//wots.sensor_id = obj.sensor.id;
+			} else {
+				console.log("Response couldn't be parsed or does not have sensor id field");
+			} */
+		};
+
+		loadSensorData = function() {
+			var param = {};
+			var sensor_id = wots.sensor_id;
+			if (!sensor_id) {
+				console.log("Currently sensor id is not set yet, cannot load data");
+				return;
+			}
+			sense.sensorData(sensor_id, param, loadSensorDataSuccessCB, generalErrorCB);
+		};
+
+		loadSensorDataSuccessCB = function(result) {
+			if (!result) {
+				console.log("Error: no data returned, while it stated to be successful...");
+				return;
+			}
+			console.log("Received results", result);
+
+			// fill array with memo's
+			var obj = eval('(' + result + ')');
+			console.log("Store array", obj);
+
+		};
+
+		// Start the application automatically
 		start();	
-
 	}
 }
 

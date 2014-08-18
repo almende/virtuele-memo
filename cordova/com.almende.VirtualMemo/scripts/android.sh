@@ -2,7 +2,12 @@
 
 help_msg="Usage: $0 {build|upload|log}"
 
-test $1 && cmd=$1 || help
+help() {
+	echo $help_msg
+	exit 1
+}
+
+cmd=${1:-help}
 
 path="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 working_path=$path/..
@@ -30,11 +35,6 @@ all() {
 	upload
 	sleep 1
 	log
-}
-
-help() {
-	echo $help_msg
-	exit 1
 }
 
 case "$cmd" in 

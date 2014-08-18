@@ -28,7 +28,9 @@
 		<!--<link rel="stylesheet" href="css/jquery.mobile.custom.theme.min.css" />-->
 		<link rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css" />
 		<link rel="stylesheet" type="text/css" href="css/WotsApp.css" />
-		<script src="js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+	        <script type="text/javascript" src="js/jquery.mobile-1.4.2.min.js"></script>
+		<script type="text/javascript" src="cordova.js"></script>
 		<script type='application/javascript' src='js/fastclick.js'></script>
 		<script type="text/javascript">
 			var wotsAppNofInits = 0;
@@ -45,19 +47,26 @@
 			}
 			$(document).on("mobileinit", function() { nextInit(); });
 		</script>
-	        <script src="js/jquery.mobile-1.4.2.min.js"></script>
+		<script type="application/javascript">
+			function onLoad() {
+				// somehow this event does not get fired
+				document.addEventListener("deviceready", onDeviceReady, false);
+			}
+		</script>
 	
 		<title>Virtuele Memo</title>
 	</head>
 
 	<body class="ui-body-a">
 		<div data-role="page" id="optionalBanner">
+<!--
 			<script>
-			console.log("Quickly move on to other page");
+console.log("Quickly move on to other page");
 			$(function() {
-				$.mobile.changePage("#virtualMemoPage", {transition:'slide', hashChange:true});
+				$.mobile.changePage("#virtualMemoPage", {transition:'none', hashChange:true});
 			});
-			</script>
+			</script> 
+			-->
 		</div>
 
 		<!-- Guide for Memo Page -->
@@ -172,9 +181,9 @@
 				<div id="memoMetaInfo">
 					<input type="text" name="location" id="memoLocation" placeholder="Lokatie" value=""/>
 					<input type="date" name="date" id="memoDate" placeholder="Date" value=""/>
-					<input type="number" name="alert" id="alert" placeholder="Alert" min="0" max="5"/>
+					<input type="number" name="alert" id="memoAlert" placeholder="Alert" min="0" max="5"/>
 					<div class="memoSelectRepeatPeriodArea">
-						<select class="memoSelectRepeatPeriod">
+						<select class="memoSelectRepeatPeriod" id="memoRepeat">
 							<option value="none" selected>no repetition</option>
 							<option value="day">every day</option>
 							<option value="workday">every workday</option>
@@ -187,7 +196,20 @@
 				</div>
 				<div class="clear-floats"></div>
 				<div id="memoNote">
-					Lijm de Virtuele Memo op je koelkast. Gebruik het als boodschappenlijstje voor je huisgenoot, een kooklijst, of als herinnering voor jezelf om naar de kapper te gaan op zaterdag.
+					<div id="memoHeader">
+						<div id="memoHeaderLeft">
+							<a href="#prevMemo" id="prevMemo" data-role="button" 
+								data-icon="arrow-l" data-iconpos="notext" data-transition="none"></a>
+							<a href="#nextMemo" id="nextMemo" data-role="button" 
+								data-icon="arrow-r" data-iconpos="notext" data-transition="none"></a>
+						</div>
+						<div id="memoHeaderRight">
+							<a href="#saveMemo" id="saveMemo" data-role="button" data-icon="check" data-iconpos="notext" data-transition="none"></a>
+						</div>
+					</div>
+					<div>
+					<textarea id="memoText">Lijm de Virtuele Memo op je koelkast. Gebruik het als boodschappenlijstje voor je huisgenoot, een kooklijst, of als herinnering voor jezelf om naar de kapper te gaan op zaterdag. :-)</textarea>
+					</div>
 				</div>
 <!--
 				<button id="sendAlert" class="ui-btn-active ui-state-persist" data-role="button">Send Alert</button>
@@ -214,15 +236,24 @@
 			</div>
 		</div>
 
-		<script type="text/javascript" src="cordova.js"></script>
 		<script type="text/javascript" src="js/index.js"></script>
 		<script type="text/javascript" src="js/hangman.js"></script>
 		<script type="text/javascript" src="js/ble.js"></script>
 		<script type="text/javascript" src="js/WotsApp.js"></script>
+		<script type="text/javascript" src="js/senseapi.js"></script>
+		<script type="text/javascript" src="js/localdb.js"></script>
+		<script type="text/javascript" src="js/md5.js"></script>
 		<script type="text/javascript">
 			app.initialize();
-			wotsApp = new WotsApp();
-			wotsApp.start();
+			function pluginsReady() { 
+				wotsApp = new WotsApp();
+				wotsApp.start();
+			}
+
+			setTimeout(function () {
+				console.log("Load app manually after timeout");
+                                pluginsReady();
+                        }, 500); 
 		</script>
 	</body>
 </html>

@@ -343,8 +343,24 @@ input, button, select, option, textarea {
     user-select: none;
 }
 
+#memoHeader {    
+	position:absolute;
+	margin-top:-67px;
+	display: inline-block;  
+}
+
+#memoHeaderRight {    
+	margin-left:150px; 
+	display:inline-flex;
+}
+
+#memoHeaderLeft {    
+	margin-left:10px; 
+	display:inline-flex;
+}
+
 #memoNote {    
-	text-align:center;     
+/*	text-align:center; */
 	width: 275px;    
 	margin: 25px;    
 	min-height:175px;
@@ -358,7 +374,6 @@ input, button, select, option, textarea {
 	font-family:"Reenie Beanie" !important;
 	font-size:20px;
 	border-bottom-right-radius: 60px 5px;
-/*	display:inline-block; */
 	background: rgb(255,255,136); /* Old browsers */
 	background: -moz-linear-gradient(-45deg, rgba(255,255,136,1) 77%, rgba(255,255,214,1) 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, right bottom, color-stop(77%,rgba(255,255,136,1)), color-stop(100%,rgba(255,255,214,1))); /* Chrome,Safari4+ */
@@ -369,24 +384,27 @@ input, button, select, option, textarea {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffff88', endColorstr='#ffff88',GradientType=0 ); /* IE6-9 fallback on horizontal gradient */
 }
 
-/*
-#memoNote:after {     
-	content: "";
-	position:absolute;
-	z-index:-1;
-	right:-0px; bottom:20px;
-	width:200px;
-	height: 25px;
-	background: rgba(0, 0, 0, 0.2);
-	box-shadow:2px 15px 5px rgba(0, 0, 0, 0.40);
-	-moz-transform: matrix(-1, -0.1, 0, 1, 0, 0);
-	-webkit-transform: matrix(-1, -0.1, 0, 1, 0, 0);
-	-o-transform: matrix(-1, -0.1, 0, 1, 0, 0);
-	-ms-transform: matrix(-1, -0.1, 0, 1, 0, 0);
-	transform: matrix(-1, -0.1, 0, 1, 0, 0);
-}
-*/
+#memoText {
+	background-color: transparent;
 
+	text-align:center;     
+	font-family:"Reenie Beanie" !important;
+	font-size:20px;
+	
+	margin-top:-17px; 
+	
+	border: none;
+	overflow: auto;
+	outline: none;
+
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none; 
+}
+
+/*
+ * Use a diagonal bar to give the illusion of shadow
+ */
 #memoNote:after {
 	content: "";
 	position:absolute;
@@ -443,18 +461,6 @@ input, button, select, option, textarea {
 	background: #F9F9F9; 
 }
 
-/* overwrite memoMetaInfo input for float right */
-/*#memoDate {
-	margin-right: 0px;
-	margin-left: auto;
-}*/
-
-/*
-#memoMetaInfo {
-	width: 100%;
-	height: 40px;
-	color: blue;
-} */
 
 /* caption shown when nothing chosen yet */
 .memoSelectRepeatPeriod {

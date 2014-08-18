@@ -34,9 +34,9 @@
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/js/hangman.js \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/js/jquery.mobile.custom.min.js \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/js/fastclick.min.js \
+/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/js/localdb.js \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/js/ble.js \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/js/jquery-1.9.1.min.js \
-/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/js/ble.tmp.js \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/js/jquery.mobile.custom.js \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/js/senseapi.js \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/js/index.js \

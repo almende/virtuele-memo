@@ -31,9 +31,10 @@
  * 4 - Invalid arguments
  */
 
-var SenseApi = (function () {
+var SenseAPI = (function () {
 
-	// the object to return at the end
+	// The API is returned as an object. The functions like getXMLHttpRequest etc. are not part of the public API 
+	// in this way. Only functions that are explicitly added to the API object will be part of it.
 	var api = {};
 
 	// helper function to obtain an XMLHttpRequest object
@@ -756,9 +757,6 @@ var SenseApi = (function () {
 			errorCB(response_status);
 	};
 
-
-	// return the api object
 	return api;
-
 }());
 
