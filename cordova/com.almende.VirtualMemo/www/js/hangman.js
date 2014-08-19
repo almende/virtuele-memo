@@ -46,25 +46,32 @@ var Hangman = function() {
 		}
 		// keypress and keydown do not have event.which or event.keyCode set on Android, they are both 0
 		$(".hangman").keyup(function(event){return self.hangman_kpress(this,event,self.hangman_moveon_ipad);});
+		//$(".hangman").backbutton(function(event){return self.hangman_backpress(this,event,self.hangman_moveon_ipad);});
 		//$(".hangman").bind('beforeinput', function(event){return self.hangman_kpress(this,event,self.hangman_moveon_ipad);});
 		//$(".hangman").keydown (function(event){return self.hangman_kdn   (this,event,self.hangman_moveon_ipad);});
 		//$(document).on('keyup','.hangman', function(event){return self.hangman_kpress(this,event,self.hangman_moveon_ipad);});
 		//$(".hangman").keydown (function(event){return self.hangman_kdn   (this,event,self.hangman_moveon_ipad);});
-		$(document).on('keydown','.hangman', function(event){return self.hangman_kdn   (this,event,self.hangman_moveon_ipad);});
+		$(document).on('keydown','.hangman', function(event)   {return self.hangman_kdn      (this,event,self.hangman_moveon_ipad);});
+		// this is button for previous page
+		// $(document).on('backbutton','.hangman', function(event){return self.hangman_backpress(this,event,self.hangman_moveon_ipad);});
 	}
 
 	self.hangman_kdn = function(obj,ev,moveon){
-		//console.log("Handle key down ", ev);
+		console.log("Handle key down ", ev);
 		var kc = ev.charCode || ev.which || ev.keyCode;
+/*		if (!kc) {
+			var L = $(ev.target).val();
+			if (L && L.length > 0) kc = L.charCodeAt(0);
+		}*/
 		//console.log("Key " + kc);
 		//console.log("Print: " + $(ev.target).val() );
 		var prefix = obj.id[0];
 		var thisid = parseInt(obj.id.substring(1,obj.id.length));
 		var previd = (thisid-1)%self.hangman_length;
-		var nextid = (thisid+1)%self.hangman_length;	
+		var nextid = (thisid+1)%self.hangman_length;
 		if(previd < 0) previd += self.hangman_length;
 		var evprevdef = true;
-		if(kc == '8'){ $(obj).val(''); if(previd < thisid) moveon(obj,prefix+previd); }// BS
+		if(kc == '8'){ $(obj).val(''); if(previd < thisid) moveon(obj,prefix+previd); }// backspace
 		else if(kc == '32'){ $(obj).val(' '); if(nextid > thisid) moveon(obj,prefix+nextid); }// SP (space is also a token)
 		else if(kc == '37') moveon(obj, prefix+previd); // <-
 		else if(kc == '39') moveon(obj, prefix+nextid); // ->
@@ -77,8 +84,18 @@ var Hangman = function() {
 		return !evprevdef;
 	}
 	
+	self.hangman_backpress = function(obj,ev,moveon){
+		console.log("Backbutton pressed");
+		var prefix = obj.id[0];
+		var thisid = parseInt(obj.id.substring(1,obj.id.length));
+		var previd = (thisid-1)%self.hangman_length;
+		moveon(obj, prefix+previd);
+		ev.preventDefault();
+		return false;
+	}
+	
 	self.hangman_kpress = function(obj,ev,moveon){
-		//console.log("Handle key press ", ev);
+		console.log("Handle key press ", ev);
 		var k = ev.charCode || ev.which || ev.keyCode;
 		// on android, none of the codes works, so get it indirectly via the value
 		if (!k) {

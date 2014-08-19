@@ -11,11 +11,12 @@ function WotsApp() {
 	this.guide = [];
 	this.guidePageCnt = 0;
 	this.username = "";
-	this.passport = "";
+	//this.passport = "";
 	this.email = "";
 	this.db = null;
 	this.participantCode = "";
 	this.password = "";
+	this.passcode = "";
 	this.calculated = false;
 	this.memos = [];
 }
@@ -57,7 +58,7 @@ WotsApp.prototype = {
 		};
 
 		var testing = false;
-		var test_sense = true;
+		var test_sense = false;
 
 		// at which page to start?
 		start = function() {
@@ -223,6 +224,11 @@ WotsApp.prototype = {
 						hangman.generateHangman(fixedLength);
 					}
 					$('#questionParagraph').text(questionText);
+					if (!wots.participantCode) {
+						console.log("There is no participant code set, something went wrong?");
+					} else {
+						$('#questionReminderParticipantCode').text("Deelnemercode: " + wots.participantCode);
+					}
 				}
 			} else {
 				// user pressed refresh, let's go back
@@ -520,15 +526,15 @@ WotsApp.prototype = {
 		}
 
 		// check the password
-		checkPassword = function(letter, password) {
+		checkPasscode = function(letter, passcode) {
 			if (wots.participantCode.length != 14) {
 				console.log("Participant code is not of length 14");
 				return false
 			} else {
 				console.log("Code is: " + wots.participantCode);
 			}
-			if (password.length != 4) {
-				console.log("Password is not of length 4");
+			if (passcode.length != 4) {
+				console.log("Passcode is not of length 4");
 				return false;
 			}
 			var ascii = letter.charCodeAt(0) - 65 + 10;
@@ -541,7 +547,7 @@ WotsApp.prototype = {
 
 			var pincode = 0;
 			for (var p = 0; p < 4; ++p) {
-				var dp = password.charCodeAt(p) - 48;
+				var dp = passcode.charCodeAt(p) - 48;
 				pincode *= 10;
 				pincode += dp;
 			}
@@ -789,9 +795,11 @@ WotsApp.prototype = {
 			var sensor_id = wots.sensor_id;
 			if (sensor_id) {
 				// get specific memo out of database
+				console.log("Get sensor out of database using sensor_id");
 				localdb.existMemo(sensor_id, sensorKnown);
 			} else {
 				// get most recent memo out local database
+				console.log("Get sensor out of database without knowing sensor_id");
 				localdb.getMemo(sensorUnknown);
 			}
 		}
@@ -900,13 +908,13 @@ WotsApp.prototype = {
 			console.log('Parent of obj', obj);
 			console.log("Answer given by user: " + result);
 			if (result.length == 4) {
-				wots.password = result;
+				wots.passcode = result;
 				//var letter = 'A';
 				var exhibitor = wots.exhibitorsById[wots.selectedExhibitorId];
 				console.log("Select exhibitor", exhibitor);
 				var letter = exhibitor.standletter;
 				console.log(" with stand letter ", letter);
-				var success = checkPassword(letter, wots.password);
+				var success = checkPasscode(letter, wots.passcode);
 				if(success) {
 					console.log("Update status of " + exhibitor.name + " as fulfilled");
 					exhibitor.status = "done";
@@ -1023,7 +1031,7 @@ WotsApp.prototype = {
 					"data_type": sensorDataType
 				}
 			}
-			console.log("Create a sensor ", data);
+			console.log("Data to create the CommonSense sensor ", data);
 			sense.createSensor(data, createSensorSuccessCB, generalErrorCB);
 		};
 
@@ -1129,6 +1137,10 @@ WotsApp.prototype = {
 			}
 			updateCurrentMemoId(page);
 			var sensor = wots.memos[page];
+			if (!sensor) {
+				console.log("There is no sensor data, drop out");
+				return;
+			}
 			console.log(sensor);
 			var memo = eval('(' + sensor.value + ')');
 			console.log("Memo", memo);
@@ -1138,12 +1150,7 @@ WotsApp.prototype = {
 			$('#memoDate').val(memo.date);
 			$('#memoRepeat').val(memo.repeat);
 			setMemoColor(memo.color);
-
-			//for (var i = 0; i < wots.memos.length; i++) {
-			//	wots.memos[i].
-			//}
 		}
-
 
 		createSensorDataSuccessCB = function(result) {
 			if (!result) {

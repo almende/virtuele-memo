@@ -58,7 +58,7 @@ WotsApp.prototype = {
 		};
 
 		var testing = false;
-		var test_sense = true;
+		var test_sense = false;
 
 		// at which page to start?
 		start = function() {
@@ -224,6 +224,11 @@ WotsApp.prototype = {
 						hangman.generateHangman(fixedLength);
 					}
 					$('#questionParagraph').text(questionText);
+					if (!wots.participantCode) {
+						console.log("There is no participant code set, something went wrong?");
+					} else {
+						$('#questionReminderParticipantCode').text("Deelnemercode: " + wots.participantCode);
+					}
 				}
 			} else {
 				// user pressed refresh, let's go back
@@ -790,9 +795,11 @@ WotsApp.prototype = {
 			var sensor_id = wots.sensor_id;
 			if (sensor_id) {
 				// get specific memo out of database
+				console.log("Get sensor out of database using sensor_id");
 				localdb.existMemo(sensor_id, sensorKnown);
 			} else {
 				// get most recent memo out local database
+				console.log("Get sensor out of database without knowing sensor_id");
 				localdb.getMemo(sensorUnknown);
 			}
 		}
@@ -1024,7 +1031,7 @@ WotsApp.prototype = {
 					"data_type": sensorDataType
 				}
 			}
-			console.log("Create a sensor ", data);
+			console.log("Data to create the CommonSense sensor ", data);
 			sense.createSensor(data, createSensorSuccessCB, generalErrorCB);
 		};
 
@@ -1130,6 +1137,10 @@ WotsApp.prototype = {
 			}
 			updateCurrentMemoId(page);
 			var sensor = wots.memos[page];
+			if (!sensor) {
+				console.log("There is no sensor data, drop out");
+				return;
+			}
 			console.log(sensor);
 			var memo = eval('(' + sensor.value + ')');
 			console.log("Memo", memo);
