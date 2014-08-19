@@ -17,6 +17,7 @@ function WotsApp() {
 	this.participantCode = "";
 	this.password = "";
 	this.calculated = false;
+	this.memos = [];
 }
 
 /**********************************************************************************************************************
@@ -272,7 +273,22 @@ WotsApp.prototype = {
 
 			$('#saveMemo').on('click', function(event) {
 				updateSensor();
-				//createSensorData();
+			});
+			
+			$('#deleteMemo').on('click', function(event) {
+				deleteSensorData();
+			});
+
+			$('#prevMemo').on('click', function(event) {
+				var memo_id = getCurrentMemoId();
+				memo_id = (memo_id + wots.memos.length - 1) % wots.memos.length;	
+				displaySensorData(memo_id);
+			});
+
+			$('#nextMemo').on('click', function(event) {
+				var memo_id = getCurrentMemoId();
+				memo_id = (memo_id + wots.memos.length + 1) % wots.memos.length;
+				displaySensorData(memo_id);
 			});
 
 			// set up bluetooth connection
@@ -289,6 +305,10 @@ WotsApp.prototype = {
 		});
 
 		setMemoColor = function(color) {
+			if (!color) {
+				// default color is yellow
+				color='ffff00';
+			}
 			$('#memoNote').data('memo-color', color);
 			$('#memoNote').css('background', '#' + color);
 			$('#memoNote').css('border-top', '60px solid #' + color);
@@ -620,8 +640,9 @@ WotsApp.prototype = {
 				if (!len) {
 					console.log("Nothing in database yet, write account data to it");
 					// write entries to database
-					tx.executeSql('INSERT INTO MEMO (name, password, email, code) VALUES ("' 
-								+ wots.username + '","' + wots.password + '","' + wots.email +  '","' + wots.participantCode + '")');
+					tx.executeSql('INSERT INTO MEMO (name, password, email, code) VALUES ("' + 
+						wots.username + '","' + wots.password + '","' + wots.email +  '","' + 
+						wots.participantCode + '")');
 					return false;
 				}
 
@@ -772,7 +793,6 @@ WotsApp.prototype = {
 			} else {
 				// get most recent memo out local database
 				localdb.getMemo(sensorUnknown);
-					
 			}
 		}
 
@@ -923,6 +943,14 @@ WotsApp.prototype = {
 		/*******************************************************************************************************
 		 * Communication with the CommonSense database
 		 ******************************************************************************************************/
+		
+		csSuccessCB = function(response) {
+			console.log("Successful CommonSense call: " + response);
+		}
+		
+		csErrorCB = function(response) {
+			console.log("Error in CommonSense call: " + response);
+		}
 
 		createUser = function(username, password) {
 			var user = {
@@ -976,15 +1004,15 @@ WotsApp.prototype = {
 		updateSensor = function() {
 			console.log("Update sensor");
 			noteDB();
-		}
+		};
 		
 		createSensor = function() {
 			console.log("Create sensor");
 			var sensorName = "memo"; 
-			var sensorDisplayName = "Beacon";
-			var sensorDeviceType = "nRF51822"; 
-			//var sensorDisplayName = "Memo BLE beacon";
-			//var sensorDeviceType = "nRF51822-based BLE device"; 
+			//var sensorDisplayName = "Beacon";
+			//var sensorDeviceType = "nRF51822"; 
+			var sensorDisplayName = "Memo BLE beacon";
+			var sensorDeviceType = "nRF51822-based BLE device"; 
 			var sensorDataType = "json";
 			var data = {
 				"sensor": 
@@ -1021,6 +1049,7 @@ WotsApp.prototype = {
 			}
 			var sensor_id = wots.sensor_id;
 
+			var memoId = $('#memoNote').data('memo-id');
 			var memoText = $('#memoText').val();
 			var memoLocation = $('#memoLocation').val();
 			var memoAlert = $('#memoAlert').val();
@@ -1028,6 +1057,7 @@ WotsApp.prototype = {
 			var memoRepeat = $('#memoRepeat').val();
 			var memoColor = $('#memoNote').data('memo-color');
 			var memoData = {
+				"id": memoId,
 				"text": memoText,
 				"location": memoLocation,
 				"alert": memoAlert,
@@ -1046,6 +1076,74 @@ WotsApp.prototype = {
 			console.log("Data to write to sensor " + sensor_id + " is ", data);
 			sense.createSensorData(sensor_id, data, createSensorDataSuccessCB, generalErrorCB);
 		};
+
+		deleteSensorData = function() {
+			if (wots.memos <= 1) {
+				console.log("Cannot delete last memo");
+				return;
+			}
+			var memo_id = getCurrentMemoId();
+			var memo = getCurrentMemo();
+			if (!memo) return;
+			var data_id = memo.id;
+			var sensor_id = wots.sensor_id;
+			console.log("Delete memo in CommonSense");
+			sense.deleteSensorData(sensor_id, data_id, csSuccessCB, csErrorCB);
+			console.log("Delete memo locally");
+			wots.memos.splice(memo_id, 1);
+			console.log("Move to and display next memo");
+			memo_id = (memo_id + wots.memos.length + 1) % wots.memos.length;
+			displaySensorData(memo_id);
+		};
+
+		getCurrentMemo = function() {
+			var memoId = getCurrentMemoId();
+			if (!wots.memos) {
+				console.log("There is no memos array (yet)");
+				return null;
+			}
+			if (memoId > wots.memos.length) {
+				console.log("The current memo id is incorrect (larger than array length)");
+				return null;
+			}
+			return wots.memos[memoId];
+		};
+
+		getCurrentMemoId = function() {
+			var memoId = $('#memoNote').data('memo-id');
+			return memoId;
+		};
+
+		updateCurrentMemoId = function(memoId) {
+			$('#memoNote').data('memo-id', memoId);
+		};
+
+		displaySensorData = function(page) {
+			if (!wots.memos) {
+				console.log("There is no array of memos");
+				return;
+			}
+			if (wots.memos.length < page) {
+				console.log("Array of memos is not long enough");
+				return;
+			}
+			updateCurrentMemoId(page);
+			var sensor = wots.memos[page];
+			console.log(sensor);
+			var memo = eval('(' + sensor.value + ')');
+			console.log("Memo", memo);
+			$('#memoText').val(memo.text);
+			$('#memoLocation').val(memo.location);
+			$('#memoAlert').val(memo.alert);
+			$('#memoDate').val(memo.date);
+			$('#memoRepeat').val(memo.repeat);
+			setMemoColor(memo.color);
+
+			//for (var i = 0; i < wots.memos.length; i++) {
+			//	wots.memos[i].
+			//}
+		}
+
 
 		createSensorDataSuccessCB = function(result) {
 			if (!result) {
@@ -1087,6 +1185,18 @@ WotsApp.prototype = {
 			var obj = eval('(' + result + ')');
 			console.log("Store array", obj);
 
+			if (!obj.data) {
+				console.log("Memo array should be wrapped into a data field");
+				return;
+			}
+
+			wots.memos = obj.data;
+
+			if (!wots.memos) {
+				console.log("Huh, memo object is empty");
+				return;
+			}
+			console.log("Loaded " + wots.memos.length + " memos");
 		};
 
 		// Start the application automatically
