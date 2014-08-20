@@ -135,7 +135,7 @@ WotsApp.prototype = {
 					}
 				}
 				// skip to next exhibitor if not on route
-				//				if (!onRoute) continue;
+				// if (!onRoute) continue;
 
 				wots.exhibitorsById[exhibitor.id] = exhibitor;
 				if (c + 1 < wots.exhibitors.length) {
