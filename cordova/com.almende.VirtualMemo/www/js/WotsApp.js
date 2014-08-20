@@ -65,7 +65,8 @@ WotsApp.prototype = {
 
 			// should be make dependent on content in the database
 			console.log("Started the WOTS application");
-			$.mobile.changePage("#virtualMemoPage", {transition:'none', hashChange:true});
+			registerPage();
+			//$.mobile.changePage("#virtualMemoPage", {transition:'none', hashChange:true});
 		}
 
 		init = function() {
@@ -330,12 +331,21 @@ WotsApp.prototype = {
 
 		$('#virtualMemoPage').on('pageshow',function(e,data) { 
 			if (!wots.email || !wots.password) {
-				console.log('Email or password are not available. Go to registration page');
-				registerPage();
+				console.log('Email or password are not available.');
+				accountDB(loginUser);
+				//registerPage();
 				return;
 			}
 			csCreateSession(wots.email, wots.password);
 		});
+
+		loginUser = function() {
+			if (!wots.email || !wots.password) {
+				registerPage();
+				return;
+			}
+			csCreateSession(wots.email, wots.password);
+		}
 
 		setMemoColor = function(color) {
 			if (!color) {
@@ -479,7 +489,7 @@ WotsApp.prototype = {
 			var btnText = "registreer";
 			var btn= $('<input type="button" class="bottomButton" value="' + btnText + '"/>');
 			btn.on('click', function(event) {
-				loginUser();
+				registerUser();
 			});
 
 			var center = $('<div id="explanationButton" align="center"></div>');
@@ -513,15 +523,19 @@ WotsApp.prototype = {
 			accountDB();
 		});
 
-		loginUser = function() {
+		/*
+ 		 * Login as user.  
+		 */
+		registerUser = function() {
 			var username = $('#username').val();
-			console.log("Log in for user \"" + username + "\"");
+			console.log("User \"" + username + "\" logging in");
 			var email = $('#email').val();
 			var password = $('#password').val();
 			var participantCode = $('#participantcode').val();
-			csCreateSession(email, password);
-			console.log("Make participant code upper case");
 			participantCode = participantCode.toUpperCase();
+			
+			// create common sense session
+			csCreateSession(email, password);
 			if (interpretCode(participantCode)) {
 				wots.participantCode = participantCode;
 				registerNow(username, password, email, participantCode);
@@ -575,19 +589,19 @@ WotsApp.prototype = {
 				var loc = c*2+3;
 				var letter = participantCode[loc];
 				var ascii = letter.charCodeAt(0) - 65 + 10; // 'A' = 65, cast to numeric '10'
-				console.log("Letter " + letter + " becomes " + ascii);
+				//console.log("Letter " + letter + " becomes " + ascii);
 				if (ascii < 10 || ascii > 36) {
 					wrongCodeAlert('Incorrect symbol at location ' + loc + '!');
 					return false;
 				}
 				wots.route[c] = letter;
-				console.log('Added to the route stand "' + wots.route[c] + '"');
+				//console.log('Added to the route stand "' + wots.route[c] + '"');
 			}
 			for (var c = 0; c < 5; ++c) {
 				var loc = c*2+4;
 				var letter = participantCode[loc];
 				var ascii = letter.charCodeAt(0) - 48;
-				console.log("Number " + letter + " becomes " + ascii);
+				//console.log("Number " + letter + " becomes " + ascii);
 				if (ascii < 0 || ascii > 9) {
 					wrongCodeAlert('Incorrect symbol at location ' + loc + '!');
 					return false;
@@ -610,15 +624,16 @@ WotsApp.prototype = {
 				console.log("Participant code is: " + wots.participantCode);
 			}
 			if (passcode.length != 4) {
-				console.log("Passcode is not of length 4");
+				var msg = "Passcode is not of length 4";
+				wrongCodeAlert(msg);
 				return false;
 			}
 			var ascii = letter.charCodeAt(0) - 65 + 10;
-			console.log("Stand letter " + letter + " becomes " + ascii);
+		//	console.log("Stand letter " + letter + " becomes " + ascii);
 			var blue = wots.participantCode[10].charCodeAt(0) - 48;
 			var red = wots.participantCode[12].charCodeAt(0) - 48;
 			var SSBR = ascii * 100 + blue * 10 + red;
-			console.log("SSBR code becomes: " + SSBR); 
+		//	console.log("SSBR code becomes: " + SSBR); 
 			var expPincode = (SSBR * 16981) % 10000;
 
 			var pincode = 0;
@@ -628,6 +643,8 @@ WotsApp.prototype = {
 				pincode += dp;
 			}
 			if (pincode != expPincode) {
+				var msg = "Help! Pincode " + pincode + " is incorrect";
+				wrongCodeAlert(msg);
 				console.log("Help! " + pincode + " should have been " + expPincode);
 				return false;
 			} else {
@@ -662,7 +679,9 @@ WotsApp.prototype = {
 			console.log("Calculated checksum: " + checksum);
 
 			if (checksum != expChecksum) {
-				console.log("Help! checksums do not match");
+				var msg = "Help checksums do not match";
+				wrongCodeAlert(msg);
+//				console.log("Help! checksums do not match");
 				return false;
 			}
 			console.log("Checksum was correct!");
@@ -980,7 +999,7 @@ WotsApp.prototype = {
 		 *********************************************************************************************************************/
 
 		registerPage = function() {
-			console.log("Register new user");
+			console.log("Registration page. Register new user, or adapt user registration details");
 			$.mobile.changePage("#registerPage", {transition:'slide', hashChange:true});
 		}
 
@@ -1012,7 +1031,7 @@ WotsApp.prototype = {
 			var success = checkPasscode(letter, wots.passcode);
 			if (success) {
 				// clear code
-				$('#passcode').val('Vul de pincode die je van je standhouder krijgt hier in');
+				$('#passcode').val('');
 				// update status and go back to main screen
 				console.log("Update status of " + exhibitor.name + " as fulfilled");
 				exhibitor.status = "done";
