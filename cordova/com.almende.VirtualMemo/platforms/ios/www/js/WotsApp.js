@@ -11,7 +11,6 @@ function WotsApp() {
 	this.guide = [];
 	this.guidePageCnt = 0;
 	this.username = "";
-	//this.passport = "";
 	this.email = "";
 	this.db = null;
 	this.participantCode = "";
@@ -40,7 +39,7 @@ WotsApp.prototype = {
 
 		var ble = new BLEHandler();
 
-		var hangman = new Hangman();
+		//var hangman = new Hangman();
 
 		var sense = SenseAPI;
 
@@ -66,6 +65,7 @@ WotsApp.prototype = {
 			console.log("Started the WOTS application");
 			$.mobile.changePage("#virtualMemoPage", {transition:'none', hashChange:true});
 		}
+
 
 		/**********************************************************************************************************************
 		 * The list of exhibitors
@@ -220,9 +220,17 @@ WotsApp.prototype = {
 					if (typeof exhibitor.activeQuestion != 'undefined') {
 						questionText = exhibitor.activeQuestion.question;
 						//generateHangman(exhibitor.activeQuestion.type, exhibitor.activeQuestion.length);
+						/*
 						var fixedLength = 4;
 						hangman.generateHangman(fixedLength);
+						*/
 					}
+					$('#passcode').keyup( function(event) {
+						if (event.keyCode == 13) {
+							var passcode = $('#passcode').val();
+							checkWotsPasscode(passcode);        	
+						}
+					});
 					$('#questionParagraph').text(questionText);
 					if (!wots.participantCode) {
 						console.log("There is no participant code set, something went wrong?");
@@ -280,7 +288,7 @@ WotsApp.prototype = {
 			$('#saveMemo').on('click', function(event) {
 				updateSensor();
 			});
-			
+
 			$('#deleteMemo').on('click', function(event) {
 				deleteSensorData();
 			});
@@ -445,31 +453,54 @@ WotsApp.prototype = {
 
 		$('#registerPage').on('pagecreate', function() {
 			console.log("Create register page");
-
-			var fixed_length = 14;
-			hangman.generateHangman1(fixed_length);
-			$(".hangman#h2").val("-")
-
+			
 			var registerText = "Registreer jezelf, zodat je later deze applicatie ook thuis kan gebruiken!";
-		var explanation = $('<p/>').text(registerText);
-		$('#registerExplanation').empty().append(explanation);
-		var btnText = "registreer";
-		var btn= $('<input type="button" class="bottomButton" value="' + btnText + '"/>');
-		btn.on('click', function(event) {
-			var username = $('#username').val();
-			var email = $('#email').val();
-			var password = $('#password').val();
-			createUser(username, password);
-			if (interpretCode()) {
-				var participantCode = wots.participantCode;
-				registerNow(username, password, email, participantCode);
-			}
-		});
-		var center = $('<div id="explanationButton" align="center"></div>');
-		$('#registerExplanation').append(center);
-		center.append(btn);
-		// check if account already exists in database
-		accountDB();
+			var explanation = $('<p/>').text(registerText);
+			$('#registerExplanation').empty().append(explanation);
+			var btnText = "registreer";
+			var btn= $('<input type="button" class="bottomButton" value="' + btnText + '"/>');
+			btn.on('click', function(event) {
+				var username = $('#username').val();
+				var email = $('#email').val();
+				var password = $('#password').val();
+				var participantCode = $('#participantcode').val();
+				createUser(username, password);
+				console.log("Make participant code upper case");
+				participantCode = participantCode.toUpperCase();
+				if (interpretCode(participantCode)) {
+					wots.participantCode = participantCode;
+					registerNow(username, password, email, participantCode);
+				}
+			});
+
+			var center = $('<div id="explanationButton" align="center"></div>');
+			$('#registerExplanation').append(center);
+			center.append(btn);
+
+			$('#username').keyup( function(event) {
+				if (event.keyCode == 13) {
+			        	$("#password").focus();
+				}
+			});
+			$('#password').keyup( function(event) {
+				if (event.keyCode == 13) {
+			        	$("#email").focus();
+				}
+			});
+			$('#email').keyup( function(event) {
+				if (event.keyCode == 13) {
+			        	$("#participantcode").focus();
+				}
+			});
+			$('#participantcode').keyup( function(event) {
+				if (event.keyCode == 13) {
+			        	$('.bottomButton').click();
+				}
+			});
+			$("#username").focus();
+
+			// check if account already exists in database
+			accountDB();
 		});
 
 		$('#registerPage').on('swipeleft', function() {
@@ -481,27 +512,52 @@ WotsApp.prototype = {
 			var lastPage = wots.guidePageCnt - 1;
 			guidePage(lastPage);
 		});
+		
+		wrongCodeAlert = function(message) {
+			console.log(message);
+			if (navigator.notification && navigator.notification.alert) {
+				console.log("Show the alert to the user");
+			        navigator.notification.alert(
+					message, // string
+					alertCallback, // callback
+					'Wrong code', // title
+					'Try again' // button name
+				);
+			} else {
+				console.log("Navigator is undefined. Show an ugly browser alert message");
+				alert(message);
+			}
+		};
+
+		alertCallback = function() {
+		};
 
 		// check the participant code 
 		interpretCode = function(participantCode) {
 			if (!participantCode) {
+				console.log("Error: no participantCode in function's argument");
+				return false;
+				/*
 				// no participantCode as argument, than try to get it
 				hangman.hangman_dosubmit();
 				participantCode = wots.participantCode;
+				*/
 			}
 
 			console.log("Check participantCode: " + participantCode);
 			if (participantCode.length != 14) {
-				console.log("Code should be 14 tokens, but is " + participantCode.length);
+				var msg = "Code should be 14 tokens, but is " + participantCode.length;
+				wrongCodeAlert(msg);
 				return false;
 			}
+
 			for (var c = 0; c < 6; ++c) {
 				var loc = c*2+3;
 				var letter = participantCode[loc];
 				var ascii = letter.charCodeAt(0) - 65 + 10; // 'A' = 65, cast to numeric '10'
 				console.log("Letter " + letter + " becomes " + ascii);
 				if (ascii < 10 || ascii > 36) {
-					alert('Incorrect symbol at location ' + loc + '!');
+					wrongCodeAlert('Incorrect symbol at location ' + loc + '!');
 					return false;
 				}
 				wots.route[c] = letter;
@@ -513,7 +569,7 @@ WotsApp.prototype = {
 				var ascii = letter.charCodeAt(0) - 48;
 				console.log("Number " + letter + " becomes " + ascii);
 				if (ascii < 0 || ascii > 9) {
-					alert('Incorrect symbol at location ' + loc + '!');
+					wrongCodeAlert('Incorrect symbol at location ' + loc + '!');
 					return false;
 				}
 			}
@@ -531,7 +587,7 @@ WotsApp.prototype = {
 				console.log("Participant code is not of length 14");
 				return false
 			} else {
-				console.log("Code is: " + wots.participantCode);
+				console.log("Participant code is: " + wots.participantCode);
 			}
 			if (passcode.length != 4) {
 				console.log("Passcode is not of length 4");
@@ -596,11 +652,11 @@ WotsApp.prototype = {
 		registerNow = function(username, password, email, participantCode) {
 			console.log("Register " + username + " with email address " + email);
 			wots.username = username;
-			// store md5 hash of password
 			wots.password = CryptoJS.MD5(password).toString();
-			//wots.password = password;
 			wots.email = email;
 			wots.participantCode = participantCode;
+			console.log("Registered... Password: " + wots.password);
+			console.log("Registered... Email: " + wots.email);
 			accountDB(calcRoutePage);
 		}
 
@@ -647,30 +703,30 @@ WotsApp.prototype = {
 					console.log("Nothing in database yet, write account data to it");
 					// write entries to database
 					tx.executeSql('INSERT INTO MEMO (name, password, email, code) VALUES ("' + 
-						wots.username + '","' + wots.password + '","' + wots.email +  '","' + 
-						wots.participantCode + '")');
+								wots.username + '","' + wots.password + '","' + wots.email +  '","' + 
+								wots.participantCode + '")');
 					return false;
 				}
 
 				var i = len - 1; // most recent added entry
-				wots.username = results.rows.item(i).name;
-				wots.email = results.rows.item(i).email;
+				wots.username = wots.username || results.rows.item(i).name;
+				wots.email = wots.email || results.rows.item(i).email;
 				var participantCode = results.rows.item(i).code;
 				// if participantCode is different, replace it...
 				// todo: same with username and email
 				var newOneAvailable = wots.participantCode && wots.participantCode != "";
 				if ((!participantCode && newOneAvailable) || 
 						(newOneAvailable && (wots.participantCode != participantCode))) {
-					console.log('Code was not yet stored, or was different, replace "' + 
-							participantCode + '" with new participantCode "' + 
-							wots.participantCode + '"' );
-					participantCode = wots.participantCode;
-					tx.executeSql('DROP TABLE IF EXISTS MEMO');
-					tx.executeSql('CREATE TABLE IF NOT EXISTS MEMO (name, password, email, code)');
-					tx.executeSql('INSERT INTO MEMO (name, password, email, code) VALUES ("' + 
-							wots.username + '","' + wots.password + '","' + wots.email +
-						      	'","' + wots.participantCode + '")');
-				} 
+							console.log('Code was not yet stored, or was different, replace "' + 
+									participantCode + '" with new participantCode "' + 
+									wots.participantCode + '"' );
+							participantCode = wots.participantCode;
+							tx.executeSql('DROP TABLE IF EXISTS MEMO');
+							tx.executeSql('CREATE TABLE IF NOT EXISTS MEMO (name, password, email, code)');
+							tx.executeSql('INSERT INTO MEMO (name, password, email, code) VALUES ("' + 
+										wots.username + '","' + wots.password + '","' + wots.email +
+										'","' + wots.participantCode + '")');
+						} 
 				wots.participantCode = participantCode;
 
 				console.log('Query result: name = "' + wots.username + '" email = "' + wots.email + '"');
@@ -681,12 +737,9 @@ WotsApp.prototype = {
 				}
 
 				$('#username').val(wots.username);
-				$('#password').val(wots.password);
+				//$('#password').val(wots.password); don't do that, we have only md5 hash anyway
 				$('#email').val(wots.email);
-				for (var c = 0; c < wots.participantCode.length; c++) {
-					$('.hangman#h' + c).val(wots.participantCode[c]);
-				}
-
+				$('#participantcode').val(wots.participantCode);
 				return true;
 			}
 			// for an insert statement, this property will return the ID of the last inserted row
@@ -849,7 +902,7 @@ WotsApp.prototype = {
 			loadSensorData();
 
 			console.log("Create memo if not yet present in CommonSense")
-			createSensorData();
+				createSensorData();
 		}
 
 		queryNoteDB = function(tx) {
@@ -901,6 +954,30 @@ WotsApp.prototype = {
 			$.mobile.changePage("#exhibitorListPage", {transition:'slide', hashChange:true});
 		}
 
+		checkWotsPasscode = function(code) {
+			if (!code) {
+				console.log("There is no code entered");
+				return;
+			}
+			if (code.length != 4) {
+				wrongCodeAlert("The passcode should have 4 numbers");
+				return;
+			}
+			wots.passcode = code;
+			var exhibitor = wots.exhibitorsById[wots.selectedExhibitorId];
+			console.log("Select exhibitor", exhibitor);
+			var letter = exhibitor.standletter;
+			console.log(" with stand letter ", letter);
+			var success = checkPasscode(letter, wots.passcode);
+			if (success) {
+				console.log("Update status of " + exhibitor.name + " as fulfilled");
+				exhibitor.status = "done";
+				standsUpdateDB();
+				wotsPage();
+			}
+			
+		}
+		/*
 		// set values, trick: use fixed length to set the right field
 		wots.hangmanAnswer = function(object, result) {
 			console.log("Object", object);
@@ -926,6 +1003,7 @@ WotsApp.prototype = {
 			}
 		}
 		hangman.hangman_setsubmit(wots.hangmanAnswer);
+		*/
 
 		$('#calculatingPage').on('pagecreate', function() {
 			console.log("Create calculating page");
@@ -951,11 +1029,11 @@ WotsApp.prototype = {
 		/*******************************************************************************************************
 		 * Communication with the CommonSense database
 		 ******************************************************************************************************/
-		
+
 		csSuccessCB = function(response) {
 			console.log("Successful CommonSense call: " + response);
 		}
-		
+
 		csErrorCB = function(response) {
 			console.log("Error in CommonSense call: " + response);
 		}
@@ -1013,7 +1091,7 @@ WotsApp.prototype = {
 			console.log("Update sensor");
 			noteDB();
 		};
-		
+
 		createSensor = function() {
 			console.log("Create sensor");
 			var sensorName = "memo"; 
@@ -1048,7 +1126,7 @@ WotsApp.prototype = {
 				console.log("Response couldn't be parsed or does not have sensor id field");
 			}
 		};
-		
+
 		createSensorData = function() {
 			console.log("Write new memo to CommonSense database");
 			if (!wots.sensor_id) {
@@ -1163,11 +1241,11 @@ WotsApp.prototype = {
 			var obj = eval('(' + result + ')');
 			var exists = obj && obj.sensor && obj.sensor.id;
 			if (exists) {
-				console.log("What to do with response?");
-				//console.log("TODO: store sensor locally");
-				//wots.sensor_id = obj.sensor.id;
+			console.log("What to do with response?");
+			//console.log("TODO: store sensor locally");
+			//wots.sensor_id = obj.sensor.id;
 			} else {
-				console.log("Response couldn't be parsed or does not have sensor id field");
+			console.log("Response couldn't be parsed or does not have sensor id field");
 			} */
 		};
 

@@ -95,6 +95,10 @@ Notifications are added as plugin as well:
 
 This should automatically adjust your platform-specific configuration files as specified on [cordova.apache.org](https://cordova.apache.org/docs/en/3.0.0/cordova_notification_notification.md.html).
 
+You can check which plugins are installed through:
+
+    cordova plugin list
+
 ## Understanding the code
 
 To get acquainted with jQuery Mobile, work your way through the [demos](http://demos.jquerymobile.com/1.0.1/docs/about/getting-started.html). Icons for example come only in a set of around 20. If you need additional icons, you have to add custom ones through adjusting a stylesheet and set a file [as background image](http://demos.jquerymobile.com/1.0.1/docs/buttons/buttons-icons.html).

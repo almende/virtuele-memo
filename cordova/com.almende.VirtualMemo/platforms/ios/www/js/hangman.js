@@ -71,7 +71,7 @@ var Hangman = function() {
 		var nextid = (thisid+1)%self.hangman_length;
 		if(previd < 0) previd += self.hangman_length;
 		var evprevdef = true;
-		if(kc == '8'){ $(obj).val(''); if(previd < thisid) moveon(obj,prefix+previd); }// BS
+		if(kc == '8'){ $(obj).val(''); if(previd < thisid) moveon(obj,prefix+previd); }// backspace
 		else if(kc == '32'){ $(obj).val(' '); if(nextid > thisid) moveon(obj,prefix+nextid); }// SP (space is also a token)
 		else if(kc == '37') moveon(obj, prefix+previd); // <-
 		else if(kc == '39') moveon(obj, prefix+nextid); // ->

@@ -37,6 +37,7 @@
 
 			function nextInit() {
 				wotsAppNofInits++;
+				console.log("Number of inits of WOTS app: " + wotsAppNofInits);
 				$( ".ui-body-a" ).pagecontainer({ defaults: true });
 				if(wotsAppNofInits == 2) {
 					var activePage = $.mobile.activePage;
@@ -47,10 +48,22 @@
 			}
 			$(document).on("mobileinit", function() { nextInit(); });
 		</script>
-		<script type="application/javascript">
+		<script type="text/javascript">
 			function onLoad() {
-				// somehow this event does not get fired
-				document.addEventListener("deviceready", onDeviceReady, false);
+				if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
+					// add event listener in case of running on mobile
+					// note that you cannot test in browser on mobile now...
+					console.log("Add event listener for deviceReady");
+				        document.addEventListener("deviceready", onDeviceReady, false);
+				} else {
+					// just call onDeviceReady when testing in browser on laptop
+					console.log("Just call onDeviceReady");
+				        onDeviceReady();
+				}
+			}
+			//mmm, then onDeviceRead does not exist..
+			window.onload = function () {
+				onLoad();
 			}
 		</script>
 	
@@ -94,8 +107,7 @@ console.log("Quickly move on to other page");
 					<input type="text" name="name" id="username" value="" placeholder="Your name"/>
 					<input type="password" name="password" id="password" value="" placeholder="Password"/>
 					<input type="text" name="email" id="email" value="" placeholder="Email"/>
-					<div id="hangmanTextInput1">
-					</div>
+					<input type="text" name="participantcode" id="participantcode" value="" placeholder="Code"/>
 				</div>
 			</div>
 			<div id="registerExplanation"></div>
@@ -147,12 +159,7 @@ console.log("Quickly move on to other page");
 					<p id="questionParagraph">In welke stad is Almende gevestigd?</p>
 				</div>
 				<h2>Pincode</h2>
-				<div id="hangmanTextInput">
-					<input type="text" class="hangman" value="" size="2" data-role="none" style=""></input>
-					<input type="text" class="hangman" value="" size="2" data-role="none" style=""></input>
-					<input type="text" class="hangman" value="" size="2" data-role="none" style=""></input>
-					<input type="text" class="hangman" value="" size="2" data-role="none" style=""></input>
-				</div>
+				<input type="text" name="passcode" id="passcode" value="" placeholder="Code"/>
 				<p id="questionExplanation">Vul de pincode die je van de standhouder krijgt hierboven in.</p>
 				<p id="questionReminderParticipantCode"></p>
 			</div>
@@ -241,7 +248,7 @@ console.log("Quickly move on to other page");
 		</div>
 
 		<script type="text/javascript" src="js/index.js"></script>
-		<script type="text/javascript" src="js/hangman.js"></script>
+		<!--		<script type="text/javascript" src="js/hangman.js"></script> -->
 		<script type="text/javascript" src="js/ble.js"></script>
 		<script type="text/javascript" src="js/WotsApp.js"></script>
 		<script type="text/javascript" src="js/senseapi.js"></script>
@@ -249,15 +256,24 @@ console.log("Quickly move on to other page");
 		<script type="text/javascript" src="js/md5.js"></script>
 		<script type="text/javascript">
 			app.initialize();
-			function pluginsReady() { 
+			function startApp() {
+				console.log("Start WOTS application");
 				wotsApp = new WotsApp();
 				wotsApp.start();
 			}
 
+			onDeviceReady = function() {
+				startApp();
+			}
+
+/*
+			function pluginsReady() { 
+				startApp();
+			}
+
 			setTimeout(function () {
-				console.log("Load app manually after timeout");
                                 pluginsReady();
-                        }, 3000); 
+                        }, 3000); */
 		</script>
 	</body>
 </html>
