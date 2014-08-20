@@ -39,8 +39,6 @@ WotsApp.prototype = {
 
 		var ble = new BLEHandler();
 
-		//var hangman = new Hangman();
-
 		var sense = SenseAPI;
 
 		var localdb = LocalDB;
@@ -219,11 +217,6 @@ WotsApp.prototype = {
 					var questionText = "Geen specifieke vraag, maar welkom bij onze stand!";
 					if (typeof exhibitor.activeQuestion != 'undefined') {
 						questionText = exhibitor.activeQuestion.question;
-						//generateHangman(exhibitor.activeQuestion.type, exhibitor.activeQuestion.length);
-						/*
-						var fixedLength = 4;
-						hangman.generateHangman(fixedLength);
-						*/
 					}
 					$('#passcode').keyup( function(event) {
 						if (event.keyCode == 13) {
@@ -477,6 +470,7 @@ WotsApp.prototype = {
 			$('#registerExplanation').append(center);
 			center.append(btn);
 
+			// make sure we can enter our way through the entry fields
 			$('#username').keyup( function(event) {
 				if (event.keyCode == 13) {
 			        	$("#password").focus();
@@ -537,11 +531,6 @@ WotsApp.prototype = {
 			if (!participantCode) {
 				console.log("Error: no participantCode in function's argument");
 				return false;
-				/*
-				// no participantCode as argument, than try to get it
-				hangman.hangman_dosubmit();
-				participantCode = wots.participantCode;
-				*/
 			}
 
 			console.log("Check participantCode: " + participantCode);
@@ -710,7 +699,26 @@ WotsApp.prototype = {
 
 				var i = len - 1; // most recent added entry
 				wots.username = wots.username || results.rows.item(i).name;
+				wots.password = wots.password || results.rows.item(i).password;
 				wots.email = wots.email || results.rows.item(i).email;
+				wots.participantCode = wots.participantCode || results.rows.item(i).code;
+				
+				var updateDB = false;
+				updateDB = updateDB || (wots.username && (wots.username != results.rows.item(i).name));
+				updateDB = updateDB || (wots.password && (wots.password != results.rows.item(i).password));
+				updateDB = updateDB || (wots.email && (wots.email != results.rows.item(i).email));
+				updateDB = updateDB || (wots.participantCode && (wots.participantCode != results.rows.item(i).code));
+
+				if (updateDB) {
+					console.log("Update database entry. One or more fields changed by the user");
+					tx.executeSql('DROP TABLE IF EXISTS MEMO');
+					tx.executeSql('CREATE TABLE IF NOT EXISTS MEMO (name, password, email, code)');
+					tx.executeSql('INSERT INTO MEMO (name, password, email, code) VALUES ("' + 
+								wots.username + '","' + wots.password + '","' + wots.email +
+								'","' + wots.participantCode + '")');
+				
+				}
+/*
 				var participantCode = results.rows.item(i).code;
 				// if participantCode is different, replace it...
 				// todo: same with username and email
@@ -728,7 +736,7 @@ WotsApp.prototype = {
 										'","' + wots.participantCode + '")');
 						} 
 				wots.participantCode = participantCode;
-
+*/
 				console.log('Query result: name = "' + wots.username + '" email = "' + wots.email + '"');
 				console.log('  participantCode = "' + wots.participantCode + '"');
 
@@ -977,33 +985,6 @@ WotsApp.prototype = {
 			}
 			
 		}
-		/*
-		// set values, trick: use fixed length to set the right field
-		wots.hangmanAnswer = function(object, result) {
-			console.log("Object", object);
-			var obj = $(object);
-			console.log('Parent of obj', obj);
-			console.log("Answer given by user: " + result);
-			if (result.length == 4) {
-				wots.passcode = result;
-				//var letter = 'A';
-				var exhibitor = wots.exhibitorsById[wots.selectedExhibitorId];
-				console.log("Select exhibitor", exhibitor);
-				var letter = exhibitor.standletter;
-				console.log(" with stand letter ", letter);
-				var success = checkPasscode(letter, wots.passcode);
-				if(success) {
-					console.log("Update status of " + exhibitor.name + " as fulfilled");
-					exhibitor.status = "done";
-					standsUpdateDB();
-					wotsPage();
-				}
-			} else {
-				wots.participantCode = result;
-			}
-		}
-		hangman.hangman_setsubmit(wots.hangmanAnswer);
-		*/
 
 		$('#calculatingPage').on('pagecreate', function() {
 			console.log("Create calculating page");
