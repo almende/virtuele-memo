@@ -308,7 +308,7 @@ WotsApp.prototype = {
 				registerPage();
 				return;
 			}
-			createSession(wots.email, wots.password);
+			csCreateSession(wots.email, wots.password);
 		});
 
 		setMemoColor = function(color) {
@@ -453,17 +453,7 @@ WotsApp.prototype = {
 			var btnText = "registreer";
 			var btn= $('<input type="button" class="bottomButton" value="' + btnText + '"/>');
 			btn.on('click', function(event) {
-				var username = $('#username').val();
-				var email = $('#email').val();
-				var password = $('#password').val();
-				var participantCode = $('#participantcode').val();
-				createUser(username, password);
-				console.log("Make participant code upper case");
-				participantCode = participantCode.toUpperCase();
-				if (interpretCode(participantCode)) {
-					wots.participantCode = participantCode;
-					registerNow(username, password, email, participantCode);
-				}
+				loginUser();
 			});
 
 			var center = $('<div id="explanationButton" align="center"></div>');
@@ -494,8 +484,23 @@ WotsApp.prototype = {
 			$("#username").focus();
 
 			// check if account already exists in database
-			accountDB();
+			accountDB(loginUser);
 		});
+
+		loginUser = function() {
+			var username = $('#username').val();
+			console.log("Log in for user \"" + username + "\"");
+			var email = $('#email').val();
+			var password = $('#password').val();
+			var participantCode = $('#participantcode').val();
+			csCreateSession(email, password);
+			console.log("Make participant code upper case");
+			participantCode = participantCode.toUpperCase();
+			if (interpretCode(participantCode)) {
+				wots.participantCode = participantCode;
+				registerNow(username, password, email, participantCode);
+			}
+		}
 
 		$('#registerPage').on('swipeleft', function() {
 			calcRoutePage();
@@ -670,21 +675,92 @@ WotsApp.prototype = {
 				wots.db = window.openDatabase("memo", "1.0", "Memo", 1000000);
 				localdb.init(wots.db);
 			}
-			if (typeof(callback) == "function") {
-				wots.db.transaction(queryAccountDB, errorCB, callback);
+			localdb.createUsers();
+			console.log("Get user");
+			localdb.getUser(userObtained, callback);
+		}
+		
+		userObtained = function(errcode, result, callback) {
+			var updateDB = false;
+			if (errcode) {
+				// there is no user in the database...
+				console.log("There is no user in the database");
+				updateDB = true;
 			} else {
-				wots.db.transaction(queryAccountDB, errorCB);
+				updateDB = updateMemUser(result);
+			}
+
+			if (updateDB) {
+				// update database with new user information
+				console.log("Update user with new user information");
+				localdb.deleteUsers(function createUsers() {
+					localdb.createUsers(function createUser() {
+						var user = {
+							'username': wots.username,
+							'password': wots.password,
+							'email': wots.email,
+							'code': wots.participantCode
+						}
+						console.log("Create user: ", user); 
+						localdb.createUser(wots.username, wots.password, wots.email, wots.participantCode, function displayUser() {
+							displayUserData();
+							if (callback && typeof(callback) === "function") {
+								console.log("Go on after obtaining user");
+								callback();
+							}
+						});
+					});
+				});
+			} else {
+				// user is already correctly stored in database...
+				console.log("User is already stored in the database");
+				if (callback && typeof(callback) === "function") {
+					console.log("Go on after obtaining user");
+					callback();
+				}
 			}
 		}
 
-		queryAccountDB = function(tx) {
+		updateMemUser = function(user) {
+			if (!user) {
+				console.log("Error: user is undefined");
+				return;
+			}
+			var updated = false;
+			// get result
+			wots.username = wots.username || user.name;
+			wots.password = wots.password || user.password;
+			wots.email = wots.email || user.email;
+			wots.participantCode = wots.participantCode || user.code;
+
+			// check if anything changed				
+			updated = updated || (wots.username && (wots.username != user.name));
+			updated = updated || (wots.password && (wots.password != user.password));
+			updated = updated || (wots.email && (wots.email != user.email));
+			updated = updated || (wots.participantCode && (wots.participantCode != user.code));
+			if (updated) {
+				console.log("Updated user data from the database");
+			} else {
+				console.log("User data does not need updated from the database");
+			}
+			return updated;
+		}
+
+		displayUserData = function() {
+			$('#username').val(wots.username);
+			//$('#password').val(wots.password); don't do that, we have only md5 hash anyway
+			$('#email').val(wots.email);
+			$('#participantcode').val(wots.participantCode);
+		}
+
+		/*queryAccountDB = function(tx) {
 			if (testing) {
 				tx.executeSql('DROP TABLE IF EXISTS MEMO');
 			}
 			tx.executeSql('CREATE TABLE IF NOT EXISTS MEMO (name, password, email, code)');
 			tx.executeSql('SELECT * FROM MEMO', [], queryAccountSuccess, errorCB);
-		}
-
+		}*/
+		/*
 		queryAccountSuccess = function(tx, results) {
 			var len = results.rows.length;
 			if (!results.rowsAffected) {
@@ -718,25 +794,6 @@ WotsApp.prototype = {
 								'","' + wots.participantCode + '")');
 				
 				}
-/*
-				var participantCode = results.rows.item(i).code;
-				// if participantCode is different, replace it...
-				// todo: same with username and email
-				var newOneAvailable = wots.participantCode && wots.participantCode != "";
-				if ((!participantCode && newOneAvailable) || 
-						(newOneAvailable && (wots.participantCode != participantCode))) {
-							console.log('Code was not yet stored, or was different, replace "' + 
-									participantCode + '" with new participantCode "' + 
-									wots.participantCode + '"' );
-							participantCode = wots.participantCode;
-							tx.executeSql('DROP TABLE IF EXISTS MEMO');
-							tx.executeSql('CREATE TABLE IF NOT EXISTS MEMO (name, password, email, code)');
-							tx.executeSql('INSERT INTO MEMO (name, password, email, code) VALUES ("' + 
-										wots.username + '","' + wots.password + '","' + wots.email +
-										'","' + wots.participantCode + '")');
-						} 
-				wots.participantCode = participantCode;
-*/
 				console.log('Query result: name = "' + wots.username + '" email = "' + wots.email + '"');
 				console.log('  participantCode = "' + wots.participantCode + '"');
 
@@ -753,6 +810,7 @@ WotsApp.prototype = {
 			// for an insert statement, this property will return the ID of the last inserted row
 			console.log("Last inserted row ID = " + results.insertId);
 		}
+		*/
 
 		/*******************************************************************************************************
 		 * Get stand data from the local database
@@ -848,12 +906,12 @@ WotsApp.prototype = {
 		 * Get note data from the local database
 		 ******************************************************************************************************/
 
-		noteDB = function(errCB, sucCB) {
+		noteDB = function() {
 			if (!wots.db) {
 				wots.db = window.openDatabase("memo", "1.0", "Memo", 1000000);
 				localdb.init(wots.db);
 			}
-			var sensor_id = wots.sensor_id;
+			var sensor_id = getSensor();
 			if (sensor_id) {
 				// get specific memo out of database
 				console.log("Get sensor out of database using sensor_id");
@@ -863,6 +921,14 @@ WotsApp.prototype = {
 				console.log("Get sensor out of database without knowing sensor_id");
 				localdb.getMemo(sensorUnknown);
 			}
+		}
+
+		getSensor = function() {
+			return wots.sensor_id;
+		}
+
+		setSensor = function(sensor_id) {
+			wots.sensor_id = sensor_id;
 		}
 
 		sensorUnknown = function(errcode, result) {
@@ -880,7 +946,7 @@ WotsApp.prototype = {
 
 		sensorKnown = function(errcode, result) {
 			if (errcode) {
-				if (!wots.sensor_id) {
+				if (!getSensor()) {
 					console.log("Do not call this function if sensor id is not known");
 					return;
 				}
@@ -899,7 +965,7 @@ WotsApp.prototype = {
 			}
 			// we have a correct sensor id, now store data
 			console.log("Result (should be sensor_id) " + result);
-			wots.sensor_id = result;
+			setSensor(result);
 
 			// next step! create sensor data
 			updateSensorData();
@@ -1019,11 +1085,11 @@ WotsApp.prototype = {
 			console.log("Error in CommonSense call: " + response);
 		}
 
-		createUser = function(username, password) {
+		csCreateUser = function(email, password) {
 			var user = {
 				"user": {
-					"email": username,
-					"username": username,
+					"email": email,
+					"username": email,
 					"name": "",
 					"surname": "",
 					"mobile": "",
@@ -1033,18 +1099,14 @@ WotsApp.prototype = {
 			sense.createUser(user, createUserSuccessCB, generalErrorCB);
 		};
 
-		createSession = function(username, password) {
-			if (test_sense) {
-				console.log("Create session for user \"" + username + "\" and \"" + password + "\" with CommonSense");
-			} else {
-				console.log("Create session for user \"" + username + "\" with CommonSense");
-			}
-			sense.createSession(username, password, createSessionSuccessCB, createSessionErrorCB);
+		csCreateSession = function(email, password) {
+			console.log("Create session for user \"" + email + "\" and \"" + password + "\" with CommonSense");
+			sense.createSession(email, password, createSessionSuccessCB, createSessionErrorCB);
 		};
 
 		createSessionErrorCB = function() {
 			console.log("Could not log in, try to create the user");
-			createUser();
+			csCreateUser();
 		};
 
 		createSessionSuccessCB = function(result) {
@@ -1061,8 +1123,9 @@ WotsApp.prototype = {
 			var obj = eval('(' + result + ')');
 			var exists = obj && obj.user && obj.user.id;
 			if (exists) {
-				console.log("Create user with id: " + obj.user.id);
-				createSession();
+				console.log("Created user with id: " + obj.user.id);
+				// TODO: login
+				//csCreateSession();
 			} else {
 				console.log("Could not create user");
 			}
