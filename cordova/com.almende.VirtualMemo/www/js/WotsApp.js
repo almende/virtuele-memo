@@ -18,6 +18,8 @@ function WotsApp() {
 	this.passcode = "";
 	this.calculated = false;
 	this.memos = [];
+
+	this.afterRegistration = null;
 }
 
 /**********************************************************************************************************************
@@ -59,9 +61,15 @@ WotsApp.prototype = {
 
 		// at which page to start?
 		start = function() {
+			init();
+
 			// should be make dependent on content in the database
 			console.log("Started the WOTS application");
 			$.mobile.changePage("#virtualMemoPage", {transition:'none', hashChange:true});
+		}
+
+		init = function() {
+			wots.afterRegistration = calcRoutePage;
 		}
 
 
@@ -127,7 +135,7 @@ WotsApp.prototype = {
 					}
 				}
 				// skip to next exhibitor if not on route
-				//				if (!onRoute) continue;
+				// if (!onRoute) continue;
 
 				wots.exhibitorsById[exhibitor.id] = exhibitor;
 				if (c + 1 < wots.exhibitors.length) {
@@ -484,7 +492,7 @@ WotsApp.prototype = {
 			$("#username").focus();
 
 			// check if account already exists in database
-			accountDB(loginUser);
+			accountDB();
 		});
 
 		loginUser = function() {
@@ -651,7 +659,7 @@ WotsApp.prototype = {
 			wots.participantCode = participantCode;
 			console.log("Registered... Password: " + wots.password);
 			console.log("Registered... Email: " + wots.email);
-			accountDB(calcRoutePage);
+			accountDB(wots.afterRegistration);
 		}
 
 		/*******************************************************************************************************
