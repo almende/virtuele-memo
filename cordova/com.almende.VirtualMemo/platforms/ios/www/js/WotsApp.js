@@ -111,10 +111,13 @@ WotsApp.prototype = {
 			$("#exhibitorList").empty();
 			var prevExhibitor = null;
 			var nextExhibitor = null;
-			var nextNextExhibitor = null;
+//			var nextNextExhibitor = null;
 			var pastSomeDone = false;
+
+			// update fields that are undefined
 			for (var c = 0; c < wots.exhibitors.length; c++) {
 				var exhibitor = wots.exhibitors[c];
+/*				exhibitor.id = c;*/
 				if (typeof exhibitor.status == 'undefined') {
 					exhibitor.status = "open";
 				}
@@ -122,32 +125,46 @@ WotsApp.prototype = {
 					exhibitor.oneliner = '';
 				}
 			}
+			var route_exhibitors = [];
+
+			// find exhibitor information for the route
 			for (var r = 0; r < wots.route.length; r++) {
-				//			var onRoute = false;
 				var exhibitor;
 				for (var c = 0; c < wots.exhibitors.length; c++) {
 					exhibitor = wots.exhibitors[c];
-					//					console.log("Is stand " + exhibitor.standletter + " on the route?");
+					// console.log("Is stand " + exhibitor.standletter + " on the route?");
 					if (wots.route[r] == exhibitor.standletter) {
 						console.log("Found exhibitor", exhibitor);
-						//						onRoute = true;
+						route_exhibitors.push(exhibitor);
 						break;
 					}
 				}
-				// skip to next exhibitor if not on route
-				// if (!onRoute) continue;
+			}
 
+			// go through all exhibitors on the route
+			for (var i = 0; i < route_exhibitors.length; i++) {
+				var exhibitor = route_exhibitors[i];
+				if (!exhibitor) {
+					console.err("Exhibitor is empty!");
+					continue;
+				}
+				// create list with references
 				wots.exhibitorsById[exhibitor.id] = exhibitor;
-				if (c + 1 < wots.exhibitors.length) {
-					nextExhibitor = wots.exhibitors[c + 1];
+				if (i > 0) {
+					prevExhibitor = route_exhibitors[i - 1];
+				} else {
+					prevExhibitor = null;
+				}
+				if (i + 1 < route_exhibitors.length) {
+					nextExhibitor = route_exhibitors[i + 1];
 				} else {
 					nextExhibitor = null;
 				}
-				if (c + 2 < wots.exhibitors.length) {
-					nextNextExhibitor = wots.exhibitors[c + 2];
-				} else {
-					nextNextExhibitor = null;
-				}
+			//	if (i + 2 < route_exhibitors.length) {
+			//		nextNextExhibitor = route_exhibitors[i + 2];
+			//	} else {
+			//		nextNextExhibitor = null;
+			//	}
 				var doneClass = "";
 				var enabledClass = "taskDisabled";
 				//		var enabledClass = "taskEnabled";
@@ -179,6 +196,7 @@ WotsApp.prototype = {
 					if (!prevExhibitor) 
 						enabledClass = "taskEnabled";
 				}
+				console.log("Add exhibitor to the list with name " + exhibitor.name + " and id " + exhibitor.id);
 				$(exhibitorList)
 					.append($('<li/>', { "class":doneClass + ' ' + enabledClass })
 							.append($('<a/>', {
@@ -190,13 +208,13 @@ WotsApp.prototype = {
 								.append('<p>' + exhibitor.oneliner + '</p>')
 							       )
 					       );
-				prevExhibitor = exhibitor;
 			} // End for-loop
 			$('#exhibitorList').listview('refresh');
 		}
 
 		$('#exhibitorList').on('click', 'li a', function(event) {
 			wots.selectedExhibitorId = $(this).attr('data-id');
+			console.log("Selected exhibitor with id " + wots.selectedExhibitorId);
 			$.mobile.changePage("#exhibitorDetailsPage", {transition:'slide', hashChange:true});
 			event.preventDefault();
 		});
@@ -761,65 +779,6 @@ WotsApp.prototype = {
 			$('#participantcode').val(wots.participantCode);
 		}
 
-		/*queryAccountDB = function(tx) {
-			if (testing) {
-				tx.executeSql('DROP TABLE IF EXISTS MEMO');
-			}
-			tx.executeSql('CREATE TABLE IF NOT EXISTS MEMO (name, password, email, code)');
-			tx.executeSql('SELECT * FROM MEMO', [], queryAccountSuccess, errorCB);
-		}*/
-		/*
-		queryAccountSuccess = function(tx, results) {
-			var len = results.rows.length;
-			if (!results.rowsAffected) {
-				if (!len) {
-					console.log("Nothing in database yet, write account data to it");
-					// write entries to database
-					tx.executeSql('INSERT INTO MEMO (name, password, email, code) VALUES ("' + 
-								wots.username + '","' + wots.password + '","' + wots.email +  '","' + 
-								wots.participantCode + '")');
-					return false;
-				}
-
-				var i = len - 1; // most recent added entry
-				wots.username = wots.username || results.rows.item(i).name;
-				wots.password = wots.password || results.rows.item(i).password;
-				wots.email = wots.email || results.rows.item(i).email;
-				wots.participantCode = wots.participantCode || results.rows.item(i).code;
-				
-				var updateDB = false;
-				updateDB = updateDB || (wots.username && (wots.username != results.rows.item(i).name));
-				updateDB = updateDB || (wots.password && (wots.password != results.rows.item(i).password));
-				updateDB = updateDB || (wots.email && (wots.email != results.rows.item(i).email));
-				updateDB = updateDB || (wots.participantCode && (wots.participantCode != results.rows.item(i).code));
-
-				if (updateDB) {
-					console.log("Update database entry. One or more fields changed by the user");
-					tx.executeSql('DROP TABLE IF EXISTS MEMO');
-					tx.executeSql('CREATE TABLE IF NOT EXISTS MEMO (name, password, email, code)');
-					tx.executeSql('INSERT INTO MEMO (name, password, email, code) VALUES ("' + 
-								wots.username + '","' + wots.password + '","' + wots.email +
-								'","' + wots.participantCode + '")');
-				
-				}
-				console.log('Query result: name = "' + wots.username + '" email = "' + wots.email + '"');
-				console.log('  participantCode = "' + wots.participantCode + '"');
-
-				if (!wots.participantCode) {
-					return false;
-				}
-
-				$('#username').val(wots.username);
-				//$('#password').val(wots.password); don't do that, we have only md5 hash anyway
-				$('#email').val(wots.email);
-				$('#participantcode').val(wots.participantCode);
-				return true;
-			}
-			// for an insert statement, this property will return the ID of the last inserted row
-			console.log("Last inserted row ID = " + results.insertId);
-		}
-		*/
-
 		/*******************************************************************************************************
 		 * Get stand data from the local database
 		 ******************************************************************************************************/
@@ -865,7 +824,7 @@ WotsApp.prototype = {
 
 				var found = false;
 				for (var i=0; i<len; i++) {
-					console.log("Find stand holder " + id);
+					//console.log("Find stand holder " + id);
 					if (results.rows.item(i).id == id) {
 						wots.exhibitors[c].status = results.rows.item(i).status;
 						found = true;
@@ -873,10 +832,10 @@ WotsApp.prototype = {
 					}
 				}
 				if (!found) {
-					console.log("Add stand holder " + id);
+					//console.log("Add stand holder " + id);
 					wots.exhibitors[c].status = 'undefined';
 					var status = wots.exhibitors[c].status;
-					console.log("With status: " + status); 
+					//console.log("With status: " + status); 
 					tx.executeSql('INSERT INTO STANDS (id, status) VALUES ("' + id + '","' + 
 								status + '")');
 				}
