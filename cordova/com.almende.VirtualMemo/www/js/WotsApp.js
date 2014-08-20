@@ -1052,6 +1052,9 @@ WotsApp.prototype = {
 			console.log(" with stand letter ", letter);
 			var success = checkPasscode(letter, wots.passcode);
 			if (success) {
+				// clear code
+				$('#passcode').val('Vul de pincode die je van je standhouder krijgt hier in');
+				// update status and go back to main screen
 				console.log("Update status of " + exhibitor.name + " as fulfilled");
 				exhibitor.status = "done";
 				standsUpdateDB();
