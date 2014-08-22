@@ -22,6 +22,9 @@ function WotsApp() {
 	this.afterRegistration = null;
 	this.address = null;
 	this.updateAddress = false;
+	this.isConnected = false;
+
+	this.platform = null;
 }
 
 /**********************************************************************************************************************
@@ -69,15 +72,27 @@ WotsApp.prototype = {
 		start = function() {
 			init();
 
-			// should be make dependent on content in the database
 			console.log("Started the WOTS application");
-		//	registerPage();
-//			memoOverviewPage();
+			console.log("We are running on the \"" + device.platform + "\" platform");
+			wots.platform = device.platform;
+			console.log("With device name \"" + device.name + "\"");
+
+			// first page to visit, should be in the end the guidePage for the WOTS conference
+			// guidePage();
+			// registerPage();
+			// memoOverviewPage();
 			memoPage();
 		}
 
 		init = function() {
 			wots.afterRegistration = calcRoutePage;
+
+			
+			if (!wots.platform) {
+				// we are running in chrome, not in Android or iOS at least
+				console.log("Just disable the device-as-user option");
+				device_as_user = false;
+			}
 
 			//testing = true;
 		}
@@ -155,7 +170,7 @@ WotsApp.prototype = {
 			for (var i = 0; i < route_exhibitors.length; i++) {
 				var exhibitor = route_exhibitors[i];
 				if (!exhibitor) {
-					console.err("Exhibitor is empty!");
+					console.error("Exhibitor is empty!");
 					continue;
 				}
 				// create list with references
@@ -341,7 +356,15 @@ WotsApp.prototype = {
 			//console.log("Set up bluetooth connection");
 			//ble.init();
 			reinitializeBluetooth();
+
 		});
+
+		updateConnectionStatus = function(result) {
+			if (result) {
+				console.log("Result connection status: " + result.isConnected);
+				wots.isConnected = result.isConnected;
+			}
+		};
 
 		updateConnectionState = function() {
 			console.log("Query bluetooth address");
@@ -371,9 +394,12 @@ WotsApp.prototype = {
 
 		reinitializeBluetooth = function() {
 			if (!wots.address) {
-				console.log("Set up bluetooth connection (again)");
+				console.log("Set up bluetooth connection");
 				ble.init();
+			} else if (!wots.isConnected) {
+				ble.reconnect();
 			}
+			ble.isConnected(updateConnectionStatus);
 
 			setTimeout(function() {
 				reinitializeBluetooth();
@@ -447,8 +473,11 @@ WotsApp.prototype = {
 
 		// coupling with a button is simple through an on-click event through jQuery
 		$('#sendAlert').on('click', function(event) {
-			console.log('Click event received');
-			ble.readLinkLoss();
+			console.log('Send alert from the GUI');
+			ble.writeAlertLevel("high");
+			setTimeout(function stopAlert() {
+                                ble.writeAlertLevel("low");
+                        }, 5000); 
 		});
 
 		/**********************************************************************************************************************
@@ -983,9 +1012,15 @@ WotsApp.prototype = {
 
 		sensorUnknown = function(errcode, result) {
 			if (errcode) {
+				if (result) {
+					console.error(result);
+				}
 				// create sensor and call the noteDB function again
 				console.log("No sensor found, we will create one");
-				csCreateSensor(noteDB);
+				var index = 0;
+				if (!csExistSensor(index)) {
+					csCreateSensor(noteDB);
+				}
 				return;
 			}
 			console.log("Result (should be sensor_id) " + result);
@@ -1002,9 +1037,14 @@ WotsApp.prototype = {
 					return;
 				}
 				console.log("Error: " + errcode);
-				if (errcode == localdb.ERR_EMPTY_TABLE) {
+				if (errcode == localdb.ERR_EMPTY_TABLE || errcode == localdb.ERR_GENERAL) {
+					if (!wots.sensor_id) {
+						console.error("Mmmm... we should have a sensor id here");
+						return;
+					}
+					localdb.createMemos();
 					// create memo in database and call noteDB function again
-					console.log("Create memo in local database");
+					console.log("Create memo with id " + wots.sensor_id + " in local database");
 					localdb.createMemo(wots.sensor_id, noteDB);
 				} else if (errcode == localdb.ERR_COMPARE) {
 					// just add memo, although there is already one there, perhaps person deleted it
@@ -1026,8 +1066,12 @@ WotsApp.prototype = {
 			console.log("Load sensor data");
 			loadSensorData();
 
-			console.log("Create memo if not yet present in CommonSense")
-				createSensorData();
+			var index = 0;
+			if (!csExistSensor(index)) { 
+				console.log("Create memo if not yet present in CommonSense");
+				//csGetSensorData();
+				csCreateSensorData();
+			}
 		}
 
 		queryNoteDB = function(tx) {
@@ -1238,9 +1282,8 @@ WotsApp.prototype = {
 		csCreateSensor = function() {
 			console.log("Create sensor");
 			var sensorName = "memo"; 
-			//var sensorDisplayName = "Beacon";
-			//var sensorDeviceType = "nRF51822"; 
-			var sensorDisplayName = "Memo BLE beacon";
+			var index = 0;
+			var sensorDisplayName = "Memo" + index;
 			var sensorDeviceType = "nRF51822-based BLE device"; 
 			var sensorDataType = "json";
 			var data = {
@@ -1253,10 +1296,10 @@ WotsApp.prototype = {
 				}
 			}
 			console.log("Data to create the CommonSense sensor ", data);
-			sense.createSensor(data, createSensorSuccessCB, generalErrorCB);
+			sense.createSensor(data, csCreateSensorSuccessCB, generalErrorCB);
 		};
 
-		createSensorSuccessCB = function(result) {
+		csCreateSensorSuccessCB = function(result) {
 			console.log("Create sensor result", result);
 			// it is much safer to use a JSON parser, but for the purpose of example code:
 			var obj = eval('(' + result + ')');
@@ -1270,7 +1313,44 @@ WotsApp.prototype = {
 			}
 		};
 
-		createSensorData = function() {
+		csExistSensor = function(index) {
+			console.log("Get sensors");
+			var data = {};
+			sense.sensors(data, function(result) {
+				var obj = JSON.parse(result);
+				var search_term = "Memo" + index;
+				//console.log("Result existence: ", obj.sensors); 
+				for (var i = 0; i < obj.sensors.length; i++) {
+					var sensor = obj.sensors[i];
+					//console.log("Sensor: ", sensor);
+					if (sensor.name === "memo") {
+						if (sensor.display_name === search_term) {
+							console.log("Found sensor!");
+							wots.sensor_id = sensor.id;
+							return true;
+						} else {
+							console.log("Found memo sensor, but with different id");
+							continue;
+						}
+					}	
+				}
+				return false;
+			},
+			generalErrorCB);
+			return false;
+		}
+/*
+		csGetSensors = function() {
+			console.log("Get sensors");
+			var data = {};
+			sense.sensors(data, csGetSensorsSuccessCB, generalErrorCB);
+		}
+
+		csGetSensorsSuccessCB = function(result) {
+			console.log("Found sensors", result);
+		}
+*/
+		csCreateSensorData = function() {
 			console.log("Write new memo to CommonSense database");
 			if (!wots.sensor_id) {
 				console.log("There is no sensor id stored");
@@ -1307,7 +1387,7 @@ WotsApp.prototype = {
 				]
 			};
 			console.log("Data to write to sensor " + sensor_id + " is ", data);
-			sense.createSensorData(sensor_id, data, createSensorDataSuccessCB, generalErrorCB);
+			sense.createSensorData(sensor_id, data, csCreateSensorDataSuccessCB, generalErrorCB);
 		};
 
 		deleteSensorData = function() {
@@ -1328,7 +1408,24 @@ WotsApp.prototype = {
 			memo_id = (memo_id + wots.memos.length + 1) % wots.memos.length;
 			displaySensorData(memo_id);
 		};
+/*
+		csGetSensorData = function(index) {
+			if (!wots.sensor_id) {
+				console.log("There is no sensor id stored");
+				return;
+			}
+			var sensor_id = wots.sensor_id;
+			var memo_id = getCurrentMemoId();
+			var data = {};
+			console.log("Get sensor data from CommonSense");
+			sense.sensorData(sensor_id, data, csGetSensorDataSuccessCB, generalErrorCB);
+		};
 
+		csGetSensorDataSuccessCB = function(result) {
+
+			console.log(result);
+		};
+*/
 		getCurrentMemo = function() {
 			var memoId = getCurrentMemoId();
 			if (!wots.memos) {
@@ -1381,23 +1478,12 @@ WotsApp.prototype = {
 			setMemoColor(memo.color);
 		}
 
-		createSensorDataSuccessCB = function(result) {
+		csCreateSensorDataSuccessCB = function(result) {
 			if (!result) {
-				console.log("Adding sensor data should not result in a response, so this is fine");
+				//console.log("Adding sensor data should not result in a response, so this is fine");
 				return;
 			}
 			console.log("Error?", result);
-			/*
-			// it is much safer to use a JSON parser, but for the purpose of example code:
-			var obj = eval('(' + result + ')');
-			var exists = obj && obj.sensor && obj.sensor.id;
-			if (exists) {
-			console.log("What to do with response?");
-			//console.log("TODO: store sensor locally");
-			//wots.sensor_id = obj.sensor.id;
-			} else {
-			console.log("Response couldn't be parsed or does not have sensor id field");
-			} */
 		};
 
 		loadSensorData = function() {

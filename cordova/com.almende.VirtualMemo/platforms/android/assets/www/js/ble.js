@@ -137,7 +137,7 @@ var BLEHandler = function() {
 
 	self.reconnectError = function(obj) {
 		console.log("Reconnect error: " + obj.error + " - " + obj.message);
-		disconnectDevice();
+		self.disconnectDevice();
 	}
 
 	self.reconnectTimeout = function() {

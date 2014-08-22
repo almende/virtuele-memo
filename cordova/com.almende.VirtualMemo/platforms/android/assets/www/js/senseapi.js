@@ -31,6 +31,12 @@
  * 4 - Invalid arguments
  */
 
+/**
+ * TODO:
+ * - What I don't like is that the callback specifies only success/error callback
+ * - I prefer a single callback and an additional argument that allows me to feed through callback arguments
+ */
+
 var SenseAPI = (function () {
 
 	// The API is returned as an object. The functions like getXMLHttpRequest etc. are not part of the public API 

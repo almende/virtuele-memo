@@ -13,17 +13,14 @@ var LocalDB = (function () {
 	var api = {};
 
 	var SUCCESS = 0;
-	var ERR_EMPTY_TABLE = 1;
-	var ERR_FIELD_ABSENT = 2;
-	var ERR_COMPARE = 3;
+	var ERR_GENERAL = 1;
+	var ERR_EMPTY_TABLE = 2;
+	var ERR_FIELD_ABSENT = 3;
+	var ERR_COMPARE = 4;
 
 	// private variables
 
 	var db;
-
-	onError = function(msg) {
-		console.log("Error: ", msg);
-	};
 
 	donotProcess = function(result, callback, cargs) {
 		if (typeof(callback) == "function") {
@@ -101,24 +98,38 @@ var LocalDB = (function () {
 	 * Query the database. If successful, process the resulting information and call the callback function. The 
 	 * process function is responsible for setting callback parameters to indicate success
 	 */
-	queryDB = function(query, param, errCB, process, callback, cargs) {
+	queryDB = function(query, param, process, callback, cargs) {
 		db.transaction(function executeSql(tx) {
 			tx.executeSql(query, param,
 				function processQuery(tx, result) {
 					process(result, callback, cargs);
 				}, 
-				errCB);
+			function(tx, error) {
+				var errcode = ERR_GENERAL;
+				if (callback && typeof(callback) === "function") {
+					callback(errcode, error.message, cargs);
+				} else {
+					console.error("General mysql transation error: " + error.message);
+				}
+			});
 		});
 	}
 
-	queryExtDB = function(query, param, errCB, process, pargs, callback, cargs) {
+	queryExtDB = function(query, param, process, pargs, callback, cargs) {
 		console.log("Query database with " + query);
 		db.transaction(function executeSql(tx) {
 			tx.executeSql(query, param,
 				function processQuery(tx, result) {
 					process(result, pargs, callback, cargs);
 				}, 
-				errCB);
+			function(tx, error) {
+				var errcode = ERR_GENERAL;
+				if (callback && typeof(callback) === "function") {
+					callback(errcode, error.message, cargs);
+				} else {
+					console.error("General mysql transation error: " + error.message);
+				}
+			});
 		});
 	}
 
@@ -139,7 +150,7 @@ var LocalDB = (function () {
 	api.createUsers = function(callback, cargs) {
 		var query = 'CREATE TABLE IF NOT EXISTS MEMO (name, password, email, code)';
 		var param = [];
-		queryDB(query, param, onError, donotProcess, callback, cargs);
+		queryDB(query, param, donotProcess, callback, cargs);
 	}
 
 	/**
@@ -148,7 +159,7 @@ var LocalDB = (function () {
 	api.deleteUsers = function(callback, cargs) {
 		var query = 'DROP TABLE IF EXISTS MEMO';
 		var param = [];
-		queryDB(query, param, onError, donotProcess, callback, cargs);
+		queryDB(query, param, donotProcess, callback, cargs);
 	}
 
 	/*
@@ -157,7 +168,7 @@ var LocalDB = (function () {
 	api.createUser = function(name, password, email, code, callback, cargs) {
 		var query = 'INSERT INTO MEMO (name, password, email, code) VALUES (?,?,?,?)';
 		var param = [name, password, email, code];
-		queryDB(query, param, onError, donotProcess, callback, cargs);
+		queryDB(query, param, donotProcess, callback, cargs);
 	}
 	
 	/**
@@ -169,7 +180,7 @@ var LocalDB = (function () {
 		var pargs = {
 			key: '*',
 		}
-		queryExtDB(query, param, onError, processFirst, pargs, callback, cargs);
+		queryExtDB(query, param, processFirst, pargs, callback, cargs);
 	}
 
 	/*
@@ -178,7 +189,7 @@ var LocalDB = (function () {
 	api.createMemo = function(sensor_id, callback, cargs) {
 		var query = 'INSERT INTO NOTES (sensor_id) VALUES (?)';
 		var param = [sensor_id];
-		queryDB(query, param, onError, donotProcess, callback, cargs);
+		queryDB(query, param, donotProcess, callback, cargs);
 	}
 
 	/**
@@ -191,7 +202,7 @@ var LocalDB = (function () {
 			key: 'sensor_id',
 			compare: sensor_id
 		}
-		queryExtDB(query, param, onError, processFirstCompare, pargs, callback, cargs);
+		queryExtDB(query, param, processFirstCompare, pargs, callback, cargs);
 	}
 
 	/**
@@ -203,7 +214,7 @@ var LocalDB = (function () {
 		var pargs = {
 			key: 'sensor_id',
 		}
-		queryExtDB(query, param, onError, processFirst, pargs, callback, cargs);
+		queryExtDB(query, param, processFirst, pargs, callback, cargs);
 	}
 
 	/**
@@ -212,7 +223,7 @@ var LocalDB = (function () {
 	api.createMemos = function(callback, cargs) {
 		var query = 'CREATE TABLE IF NOT EXISTS NOTES (sensor_id)';
 		var param = [];
-		queryDB(query, param, onError, donotProcess, callback, cargs);
+		queryDB(query, param, donotProcess, callback, cargs);
 	}
 
 	/**
@@ -221,7 +232,7 @@ var LocalDB = (function () {
 	api.existMemos = function(callback, cargs) {
 		var query =  'SELECT * FROM NOTES';
 		var param = [];
-		queryDB(query, param, onError, donotProcess, callback, cargs);
+		queryDB(query, param, donotProcess, callback, cargs);
 	}
 
 
