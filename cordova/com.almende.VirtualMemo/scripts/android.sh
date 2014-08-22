@@ -26,14 +26,20 @@ upload() {
 }
 
 log() {
-	adb logcat
+	TAGNAME="CordovaLog"
+	adb logcat -s "$TAGNAME"
+}
+
+login() {
+	cd /home/anne/myscripts/devices/android && ./wots.sh
 }
 
 all() {
 	build
 	sleep 1
 	upload
-	sleep 1
+	sleep 2
+	login
 	log
 }
 

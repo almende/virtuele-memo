@@ -20,6 +20,9 @@ function WotsApp() {
 	this.memos = [];
 
 	this.afterRegistration = null;
+	this.address = null;
+	this.updateAddress = false;
+	this.isConnected = false;
 }
 
 /**********************************************************************************************************************
@@ -59,18 +62,25 @@ WotsApp.prototype = {
 		var testing = false;
 		var test_sense = false;
 
+		// This option makes use of the CommonSense database in the way suggested by Sense itself. 
+		// It creates a user for every device. 
+		var device_as_user = true;
+
 		// at which page to start?
 		start = function() {
 			init();
 
 			// should be make dependent on content in the database
 			console.log("Started the WOTS application");
-			registerPage();
-			//$.mobile.changePage("#virtualMemoPage", {transition:'none', hashChange:true});
+		//	registerPage();
+//			memoOverviewPage();
+			memoPage();
 		}
 
 		init = function() {
 			wots.afterRegistration = calcRoutePage;
+
+			//testing = true;
 		}
 
 
@@ -186,12 +196,6 @@ WotsApp.prototype = {
 							doneClass = "taskDoneSelf";
 					}
 				} else {
-					//					if(pastSomeDone || nextExhibitor && nextExhibitor.status == "done")
-					//						enabledClass = "taskEnabled";
-					//					else {
-					//						if(nextNextExhibitor && nextNextExhibitor.status == "done")
-					//							enabledClass = "taskHalfEnabled";
-					//					}
 					if (prevExhibitor && prevExhibitor.status == "done") 
 						enabledClass = "taskEnabled";
 					if (!prevExhibitor) 
@@ -283,6 +287,11 @@ WotsApp.prototype = {
 		/**********************************************************************************************************************
 		 * The functionality around the memo notes
 		 *********************************************************************************************************************/
+		
+		memoPage = function() {	
+			console.log("Go to the memo page");
+			$.mobile.changePage("#virtualMemoPage", {transition:'none', hashChange:true});
+		};
 
 		// on Android horizontal swipe distance might be too wide, you'll have to swipe far and fast...
 		// do something about it!
@@ -324,10 +333,64 @@ WotsApp.prototype = {
 				memo_id = (memo_id + wots.memos.length + 1) % wots.memos.length;
 				displaySensorData(memo_id);
 			});
+			
+			// call function that queries for the address at regular times
+			console.log("Start connection status updates");
+			updateConnectionState();
 
 			// set up bluetooth connection
-			ble.init();
+			//console.log("Set up bluetooth connection");
+			//ble.init();
+			reinitializeBluetooth();
+
 		});
+
+		updateConnectionStatus = function(result) {
+			if (result) {
+				console.log("Result connection status: " + result.isConnected);
+				wots.isConnected = result.isConnected;
+			}
+		};
+
+		updateConnectionState = function() {
+			console.log("Query bluetooth address");
+			var address = ble.getAddress();
+			if (!address) {
+				$('#connection').text('Geen magneet in de buurt');
+			} else {
+				$('#connection').text('Magneet ' + address + ' gevonden');
+				if (wots.address === address) {
+					//console.log("Address is already known");
+				} else {
+					wots.address = address;
+					wots.updateAddress = true;
+				}
+			}
+
+			if (wots.updateAddress) {
+				csCreateSession(wots.email, wots.password);
+				wots.updateAddress = false;
+			}
+
+			// should of course be replaced by more energy-efficient solution, checks now bluntly every 3s
+			setTimeout(function pollConnectionState() {
+                                updateConnectionState();
+                        }, 3000); 
+		};
+
+		reinitializeBluetooth = function() {
+			if (!wots.address) {
+				console.log("Set up bluetooth connection");
+				ble.init();
+			} else if (!wots.isConnected) {
+				ble.reconnect();
+			}
+			ble.isConnected(updateConnectionStatus);
+
+			setTimeout(function() {
+				reinitializeBluetooth();
+			}, 30000);
+		}
 
 		$('#virtualMemoPage').on('pageshow',function(e,data) { 
 			if (!wots.email || !wots.password) {
@@ -380,6 +443,15 @@ WotsApp.prototype = {
 				$('#memoNote').css('color', 'black');
 			}	
 		};
+			
+		/**********************************************************************************************************************
+		 * The functionality to manage all memos
+		 *********************************************************************************************************************/
+
+		memoOverviewPage = function() {
+			console.log("Memo overview page. Register new user, or adapt user registration details");
+			$.mobile.changePage("#memoOverviewPage", {transition:'slide', hashChange:true});
+		}
 
 		/**********************************************************************************************************************
 		 * The functionality to communicate over Bluetooth Low-Energy
@@ -387,8 +459,11 @@ WotsApp.prototype = {
 
 		// coupling with a button is simple through an on-click event through jQuery
 		$('#sendAlert').on('click', function(event) {
-			console.log('Click event received');
-			ble.readLinkLoss();
+			console.log('Send alert from the GUI');
+			ble.writeAlertLevel("high");
+			setTimeout(function stopAlert() {
+                                ble.writeAlertLevel("low");
+                        }, 5000); 
 		});
 
 		/**********************************************************************************************************************
@@ -530,7 +605,8 @@ WotsApp.prototype = {
 			var username = $('#username').val();
 			console.log("User \"" + username + "\" logging in");
 			var email = $('#email').val();
-			var password = $('#password').val();
+			var password_unhashed = $('#password').val();
+			var password = CryptoJS.MD5(password_unhashed).toString();
 			var participantCode = $('#participantcode').val();
 			participantCode = participantCode.toUpperCase();
 			
@@ -691,7 +767,7 @@ WotsApp.prototype = {
 		registerNow = function(username, password, email, participantCode) {
 			console.log("Register " + username + " with email address " + email);
 			wots.username = username;
-			wots.password = CryptoJS.MD5(password).toString();
+			wots.password = password;
 			wots.email = email;
 			wots.participantCode = participantCode;
 			console.log("Registered... Password: " + wots.password);
@@ -719,6 +795,9 @@ WotsApp.prototype = {
 			if (!wots.db) {
 				wots.db = window.openDatabase("memo", "1.0", "Memo", 1000000);
 				localdb.init(wots.db);
+			}
+			if (testing) {
+				localdb.deleteUsers();
 			}
 			localdb.createUsers();
 			console.log("Get user");
@@ -920,7 +999,8 @@ WotsApp.prototype = {
 		sensorUnknown = function(errcode, result) {
 			if (errcode) {
 				// create sensor and call the noteDB function again
-				createSensor(noteDB);
+				console.log("No sensor found, we will create one");
+				csCreateSensor(noteDB);
 				return;
 			}
 			console.log("Result (should be sensor_id) " + result);
@@ -1075,23 +1155,68 @@ WotsApp.prototype = {
 		}
 
 		csCreateUser = function(email, password) {
-			var user = {
-				"user": {
-					"email": email,
-					"username": email,
-					"name": "",
-					"surname": "",
-					"mobile": "",
-					"password": password
+			if (device_as_user) {
+				var account = loginAsDevice();
+				if (account) {
+					var user = {
+						"user": {
+							"email": account.email,
+							"username": account.email,
+							"name": "",
+							"surname": "",
+							"mobile": "",
+							"password": account.password
+						}
+					}
+					console.log("Change username to " + account.email + " and password to " + account.password);
+					sense.createUser(user, createUserSuccessCB, generalErrorCB);
+				} else {
+					console.log("Session with database could not be set up. Device is not yet connected");
 				}
+			} else {
+				var user = {
+					"user": {
+						"email": email,
+						"username": email,
+						"name": "",
+						"surname": "",
+						"mobile": "",
+						"password": password
+					}
+				}
+				sense.createUser(user, createUserSuccessCB, generalErrorCB);
 			}
-			sense.createUser(user, createUserSuccessCB, generalErrorCB);
 		};
 
 		csCreateSession = function(email, password) {
-			console.log("Create session for user \"" + email + "\" and \"" + password + "\" with CommonSense");
-			sense.createSession(email, password, createSessionSuccessCB, createSessionErrorCB);
+			if (device_as_user) {
+				var account = loginAsDevice();
+				if (account) {
+					console.log("Change username to " + account.email + " and password to " + account.password);
+					sense.createSession(account.email, account.password, createSessionSuccessCB, createSessionErrorCB);
+				} else {
+					console.log("Session with database could not be set up. Device is not yet connected");
+				}
+			} else {
+				console.log("Create session for user \"" + email + "\" and \"" + password + "\" with CommonSense");
+				sense.createSession(email, password, createSessionSuccessCB, createSessionErrorCB);
+			}
 		};
+
+		loginAsDevice = function() {
+			if (!deviceAvailable()) return null;
+			var email = wots.address;
+			var password = 'MEMO:' + wots.address;
+			password = CryptoJS.MD5(password).toString();
+			return { 'email': email, 'password': password };
+		}
+
+		deviceAvailable = function() {
+			if (!wots.address) {
+				return false;
+			}
+			return true;
+		}
 
 		createSessionErrorCB = function() {
 			console.log("Could not log in, try to create the user");
@@ -1125,7 +1250,7 @@ WotsApp.prototype = {
 			noteDB();
 		};
 
-		createSensor = function() {
+		csCreateSensor = function() {
 			console.log("Create sensor");
 			var sensorName = "memo"; 
 			//var sensorDisplayName = "Beacon";
@@ -1175,10 +1300,14 @@ WotsApp.prototype = {
 			var memoDate = $('#memoDate').val();
 			var memoRepeat = $('#memoRepeat').val();
 			var memoColor = $('#memoNote').data('memo-color');
+			var memoAuthor = wots.username;
+			var memoTitle = $('#memoTitle').val();
 			var memoData = {
 				"id": memoId,
 				"text": memoText,
 				"location": memoLocation,
+				"title": memoTitle,
+				"author": memoAuthor,
 				"alert": memoAlert,
 				"date": memoDate,
 				"repeat": memoRepeat,
@@ -1257,6 +1386,10 @@ WotsApp.prototype = {
 			console.log("Memo", memo);
 			$('#memoText').val(memo.text);
 			$('#memoLocation').val(memo.location);
+			if (!memo.author) memo.author = 'Een onbekende';
+			$('#memoAuthor').val(memo.author);
+			if (!memo.title) memo.title = 'Welkom';
+			$('#memoTitle').val(memo.title);
 			$('#memoAlert').val(memo.alert);
 			$('#memoDate').val(memo.date);
 			$('#memoRepeat').val(memo.repeat);
@@ -1297,7 +1430,7 @@ WotsApp.prototype = {
 				console.log("Error: no data returned, while it stated to be successful...");
 				return;
 			}
-			console.log("Received results", result);
+			//console.log("Received results", result);
 
 			// fill array with memo's
 			var obj = eval('(' + result + ')');
@@ -1316,6 +1449,52 @@ WotsApp.prototype = {
 			}
 			console.log("Loaded " + wots.memos.length + " memos");
 		};
+
+		/*
+		 * This is a more normal way to cope with 
+		 *
+		createGroup = function(device_id, device_password) {
+			if (!device || !device_password) {
+				console.err("Required information about device is not available");
+				return;
+			}
+			var name = device_id;
+			var password = device_password;
+			data = {
+				"group": {
+					"name": name,
+					"anonymous": 1,
+					"public": 0,
+					"hidden": 1,
+					"access_password": device_password,
+					"description": "Memo gadget",
+					"required_sensors": [ "memo" ],
+					"default_list_users": 1,
+					"default_add_users": 1,
+					"default_remove_users": 1,
+					"default_list_sensors": 1,
+					"default_add_sensors": 1,
+					"default_remove_sensors": 1,
+					"required_show_id": 1,
+					"required_show_email": 1,
+					"required_show_first_name": 1,
+					"required_show_surname": 0,
+					"required_show_phone_number": 0,
+					"required_show_username": 0
+				}
+			}
+			sense.createGroup(data, loadSensorDataSuccessCB, generalErrorCB);
+		}
+
+		createGroupSuccessCB = function(result) {
+			console.log("Group succcessfully created");
+
+		}
+
+		createGroupUser = function() {
+		}
+		*/
+
 
 		// Start the application automatically
 		start();	

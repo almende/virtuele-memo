@@ -13,7 +13,6 @@
 	src: url("../fonts/ReenieBeanie.ttf") format("opentype"); /* TTF file for CSS3 browsers */
 }
 
-
 .exhibitorLogo {
 	width:50%;
 }
@@ -45,7 +44,7 @@ html, body {
 }
 
 input, body, button, select, option, textarea {
-	font-family : HelveticaNeueThin; 
+	font-family:"HelveticaNeueThin"; 
 	font-size: 32px;
 }
 
@@ -259,7 +258,7 @@ input, button, select, option, textarea {
 	font-family:"Reenie Beanie" !important;
 	font-size:20px;
 	
-	margin-top:-17px; 
+	margin-top:-5px; 
 	
 	border: none;
 	overflow: auto;
@@ -318,22 +317,29 @@ input, button, select, option, textarea {
 	width:120px; 
 	margin-left: auto; 
 	margin-right: 0; 
-/*	float:right;  */
-	/*position: absolute; */
 }
 
 #memoMetaInfo input {
-/*	margin-right: auto; */
-/*	margin-left: 0px; */
 	font-size : 70%;
 	background: #F9F9F9; 
 }
 
+#memoTitle {
+	text-align: center;
+	margin-top:-75px;
+	font-weight: bold;
+}
+
+#memoAuthor {
+	float: right;
+	margin-top:-68px;
+	margin-right:5px;
+	font-weight: bold;
+}
 
 /* caption shown when nothing chosen yet */
 .memoSelectRepeatPeriod {
 	font-size: 70%;
-/*	float: right; */
 }
 
 /* the options for the choices */
@@ -352,6 +358,57 @@ input, button, select, option, textarea {
 	border: 0px;
 }
 
+#connection p {
+	font-family:"HelveticaNeueThin"; 
+	font-size: 32px;
+}
+
+/**********************************************************************************************************************
+ *
+ * Memo overview
+ *
+ *********************************************************************************************************************/
+
+#memoNoteMini {    
+/*	text-align:center; */
+	width: 75px;    
+	margin: 15px;    
+	min-height:55px; /* width minus border-top */
+	max-height:55px; 
+	padding-top:15px;
+	margin-left:auto;
+	margin-right:auto;
+	position:relative;   
+	border:1px solid #E8E8E8;  
+	border-top:20px solid #fdfd86; /* top part where the glue resides... */
+	font-family:"Reenie Beanie" !important;
+	font-size:20px;
+	border-bottom-right-radius: 50px 5px; /* severity of the fold at the right bottom */
+	background: rgb(255,255,136); /* Old browsers */
+	background: -moz-linear-gradient(-45deg, rgba(255,255,136,1) 77%, rgba(255,255,214,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right bottom, color-stop(77%,rgba(255,255,136,1)), color-stop(100%,rgba(255,255,214,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(-45deg, rgba(255,255,136,1) 77%,rgba(255,255,214,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(-45deg, rgba(255,255,136,1) 77%,rgba(255,255,214,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(-45deg, rgba(255,255,136,1) 77%,rgba(255,255,214,1) 100%); /* IE10+ */
+	background: linear-gradient(-45deg, rgba(255,255,136,1) 77%,rgba(255,255,214,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffff88', endColorstr='#ffff88',GradientType=0 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+#memoNoteSet ul {
+	list-style: none;
+	margin-left: 0;
+}
+
+#memoHeaderCenter {
+	margin-top:-15px;
+	margin-left:8px; 
+	display:inline-flex;
+}
+
+#memoBriefCaption {
+	margin-top:-55px;
+	margin-left:4px;
+}
 
 /**********************************************************************************************************************
  *

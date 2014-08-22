@@ -2,6 +2,7 @@ var BLEHandler = function() {
 	var self = this;
 	var addressKey = 'address';
 	var flowerUuid = '39e1fa00-84a8-11e2-afba-0002a5d5c51b';
+	var memoAddress = 'FE:F0:7F:FB:F4:CC';
 	var memoUuid = '1802';
 	var alertLevelServiceUuid = '1802';
 	var alertLevelCharacteristicUuid = '2a06';
@@ -16,6 +17,11 @@ var BLEHandler = function() {
 	var iOSPlatform = "iOS";
 	var androidPlatform = "Android";
 
+	/**
+	 * Initialization tries to connect to the BLE chip on the phone. If successful, a scan is started. If there is
+	 * an "address" stored at local memory, we will use that to scan. If the scan is successful we connect to the
+	 * device.
+	 */
 	self.init = function() {
 		bluetoothle.initialize(self.initSuccess, self.initError, {"request": true});
 	}
@@ -30,10 +36,12 @@ var BLEHandler = function() {
 	self.connectSuccess = function(obj) {
 		if (obj.status == "connected") {
 			console.log("Connected to : " + obj.name + " - " + obj.address);
-
+			console.log("Write address " + obj.address + " to local storage");
+			window.localStorage.setItem(self.addressKey, obj.address);
 			self.clearConnectTimeout();
-
+/*
 			self.tempDisconnectDevice();
+*/
 		}
 		else if (obj.status == "connecting") {
 			console.log("Connecting to : " + obj.name + " - " + obj.address);
@@ -125,12 +133,14 @@ var BLEHandler = function() {
 		}
 	}
 
+	/**
+	 * If scan is successful, connect automatically to the discovered device.
+	 */
 	self.startScanSuccess = function(obj) {
 		if (obj.status == 'scanResult') {
-			console.log('Stopping scan');
+			console.log('Yes, we are successful and found a device in our scan');
 			bluetoothle.stopScan(self.stopScanSuccess, self.stopScanError);
 			self.clearScanTimeout();
-			window.localStorage.setItem(addressKey, obj.address);
 			self.connectDevice(obj.address);
 		} else if (obj.status == 'scanStarted') {
 			console.log('Scan was started successfully, stopping in 10 seconds');
@@ -141,6 +151,12 @@ var BLEHandler = function() {
 			bluetoothle.stopScan(self.stopScanSuccess, self.stopScanError);
 			self.clearScanTimeout();
 		}
+	}
+
+	self.getAddress = function() {
+		var address = window.localStorage.getItem(self.addressKey);
+		console.log("Obtained address: " + address);
+		return address;
 	}
 
 	self.clearScanTimeout = function() { 
@@ -169,11 +185,12 @@ var BLEHandler = function() {
 
 	self.startScanError = function(obj) {
 		console.log('Scan error', obj.status);
-		navigator.notification.alert(
+/*		navigator.notification.alert(
 				'Could not find a device using Bluetooth scanning.',
 				null,
 				'Status',
 				'Sorry!');
+*/
 	}
 
 	self.initSuccess = function(obj) {
@@ -201,6 +218,10 @@ var BLEHandler = function() {
 				'Sorry!');
 	}
 
+	/**
+	 * We found a device that has an alert level service. Now we are gonna iterate through all the services to find
+	 * the specific characteristics. We will subsequently "discover" this characteristic. 
+	 */
 	self.alertLevelSuccess = function(obj) {
 		if (obj.status == "discoveredServices")
 		{
