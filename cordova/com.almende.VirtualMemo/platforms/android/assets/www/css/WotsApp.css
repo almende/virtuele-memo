@@ -296,7 +296,7 @@ input, button, select, option, textarea {
 
 #congratsPageMainBody {
 	margin-left: 10px;
-	margin-bottom: 40px;
+	margin-bottom: 45px; /* this moves the button down, better to place button with margin-bottom */
 }
 
 /**********************************************************************************************************************
