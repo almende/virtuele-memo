@@ -274,6 +274,30 @@ input, button, select, option, textarea {
 	-webkit-border-radius : 51px;
 }
 
+/**********************************************************************************************************************
+ *
+ * Success / failure pages
+ *
+ *********************************************************************************************************************/
+
+#congratsPage {
+	width: 100%;
+	float: left;
+	background: #79b346;
+	color: white;
+}
+
+#congratsPageMain {
+	background: no-repeat;
+	min-height: 180px;
+	margin-top: 40px;
+	margin-left: 40px;
+}
+
+#congratsPageMainBody {
+	margin-left: 10px;
+	margin-bottom: 45px; /* this moves the button down, better to place button with margin-bottom */
+}
 
 /**********************************************************************************************************************
  *

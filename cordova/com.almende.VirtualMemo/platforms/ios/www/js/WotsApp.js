@@ -76,7 +76,8 @@ WotsApp.prototype = {
 
 			// first page to visit, should be in the end the guidePage for the WOTS conference
 			//guidePage();
-			guideHomePage();
+			congratsPage();
+			//guideHomePage();
 			// registerPage();
 			// memoOverviewPage();
 			//memoPage();
@@ -457,6 +458,31 @@ WotsApp.prototype = {
 				$('#memoNote').css('color', 'black');
 			}	
 		};
+		
+		/**********************************************************************************************************************
+		 * Success / failure pages
+		 *********************************************************************************************************************/
+
+		congratsPage = function() {	
+			console.log("Go to the congrats page");
+			$.mobile.changePage("#congratsPage", {transition:'none', hashChange:true});
+		};
+
+		$('#congratsPage').on('pagecreate',function(e,data) { 
+			console.log("Show congratulations");
+			$('#congratsPageMain').css('background-image', 'url(css/images/congrats.png)' );
+			var congratsHeader = "<h1>Gefeliciteerd!</h1>";
+			$('#congratsHeader').empty().append(congratsHeader);
+			var congratsText = "Je hebt de route succesvol afgelegd.</br></br>Je mag de standhouder nu om de Virtuele Memo vragen!";
+			$('#congratsText').empty().append(congratsText);
+			var btn= $('<input type="button" class="bottomButton" value="ga verder"/>');
+			btn.on('click', function(event) {
+				guideHomePage();
+			});
+			var center = $('<div id="toHomeGuideButton" align="center"></div>');
+			$('#congratsBottom').append(center);
+			center.append(btn);
+		});
 			
 		/**********************************************************************************************************************
 		 * The functionality to manage all memos
@@ -648,7 +674,7 @@ WotsApp.prototype = {
 					$('.guideHomeSubPageBtn#' + page).removeClass('pageDisabled').addClass('pageEnabled');
 					var explanation = $('<p/>').text(wots.guideHome[page].description);
 					$('#guideHomeExplanation').empty().append(explanation);
-					var btn= $('<input type="button" class="bottomButton" value="je eerste memo"/>');
+					var btn= $('<input type="button" class="bottomButton" value="eerste memo"/>');
 					btn.on('click', function(event) {
 						memoPage();
 					});
