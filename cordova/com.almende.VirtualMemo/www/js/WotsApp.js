@@ -9,7 +9,7 @@ function WotsApp() {
 	this.route = [];
 	this.selectedExhibitorId = null;
 	this.guide = [];
-	this.guidePageCnt = 0;
+	this.guideSubPageCnt = 0;
 	this.username = "";
 	this.email = "";
 	this.db = null;
@@ -75,10 +75,11 @@ WotsApp.prototype = {
 			init();
 
 			// first page to visit, should be in the end the guidePage for the WOTS conference
-			// guidePage();
+			//guidePage();
+			guideHomePage();
 			// registerPage();
 			// memoOverviewPage();
-			memoPage();
+			//memoPage();
 		}
 
 		init = function() {
@@ -483,71 +484,77 @@ WotsApp.prototype = {
 		 * The guide that explains the treasure hunt on the WOTS conference
 		 *********************************************************************************************************************/
 
+		guidePage = function() {
+			console.log("Guide page. Should be shown only once");
+			$.mobile.changePage("#guideMemo", {transition:'slide', hashChange:true});
+		}
+
 		$('#guideMemo').on('pagecreate', function() {
 			console.log("Create first guide page");
 			$.getJSON('data/guide.js', function(data) {
-				//var exhibitorList = $('#exhibitorList');
-				// store exhibitors in global variable, lost after application restart...
 				wots.guide = data;
-				wots.guidePageCnt = 3;
+				wots.guideSubPageCnt = 3;
 				console.log("Create status bar");
-				for (var i = 0; i < wots.guidePageCnt; i++) {
+				for (var i = 0; i < wots.guideSubPageCnt; i++) {
 					//console.log("Create status bar item " + i);
-					var $li = $('<li/>', {'class': 'guidePageBtn pageDisabled', 'id': i});
+					var $li = $('<li/>', {'class': 'guideSubPageBtn pageDisabled', 'id': i});
 					$li.on('click', function(event) {
 						id=$(this).attr ( "id" );
-						guidePage(id);
+						guideSubPage(id);
 					});
 					$(guideStatusBar).append($li);
 				}
-				guidePage(0);
+				guideSubPage(0);
 			});
 		});
 
 		$('#guideMemo').on('swipeleft', function() {
 			// get first disabled button, if no disabled buttons left, cp becomes undefined
-			var np = $('.guidePageBtn.pageDisabled').attr('id');
+			var np = $('.guideSubPageBtn.pageDisabled').attr('id');
 			if (!np) {
 				registerPage();
 			} else {
 				var page = parseInt(np);
 				console.log("Go to page" + page);
-				guidePage(page);
+				guideSubPage(page);
 			}
 		});
 
 		$('#guideMemo').on('swiperight', function() {
-			var cp = $('.guidePageBtn.pageEnabled').last().attr('id');
+			var cp = $('.guideSubPageBtn.pageEnabled').last().attr('id');
 			var page = parseInt(cp);
 			if (page != 0) {
 				page--;	
 				console.log("Go to page" + page);
-				guidePage(page);
+				guideSubPage(page);
 			}
 		});
 
-		guidePage = function(p) {
+		guideSubPage = function(p) {
+			if (!p) {
+				p = 0;
+			}
 			console.log("Go to page " + p);
 			var page = parseInt(p);
 			switch(page) {
-				case 0: $('#guidePage').css('background-image', 'url(css/images/Route.png)' );
-					$('.guidePageBtn#' + page).removeClass('pageDisabled').addClass('pageEnabled');
-					$('.guidePageBtn#1').removeClass('pageEnabled').addClass('pageDisabled');
-					$('.guidePageBtn#2').removeClass('pageEnabled').addClass('pageDisabled');
+				case 0: $('#guideSubPage').css('background-image', 'url(css/images/Route.png)' );
+					$('.guideSubPageBtn#' + page).removeClass('pageDisabled').addClass('pageEnabled');
+					$('.guideSubPageBtn#1').removeClass('pageEnabled').addClass('pageDisabled');
+					$('.guideSubPageBtn#2').removeClass('pageEnabled').addClass('pageDisabled');
 					var explanation = $('<p/>').text(wots.guide[page].description);
 					$('#guideExplanation').empty().append(explanation);
 					break;
-				case 1: $('#guidePage').css('background-image', 'url(css/images/RouteVisited.png)' );
-					$('.guidePageBtn#0').removeClass('pageDisabled').addClass('pageEnabled');
-					$('.guidePageBtn#' + page).removeClass('pageDisabled').addClass('pageEnabled');
-					$('.guidePageBtn#2').removeClass('pageEnabled').addClass('pageDisabled');
+				case 1: $('#guideSubPage').css('background-image', 'url(css/images/RouteVisited.png)' );
+					$('.guideSubPageBtn#0').removeClass('pageDisabled').addClass('pageEnabled');
+					$('.guideSubPageBtn#' + page).removeClass('pageDisabled').addClass('pageEnabled');
+					$('.guideSubPageBtn#2').removeClass('pageEnabled').addClass('pageDisabled');
 					var explanation = $('<p/>').text(wots.guide[page].description);
 					$('#guideExplanation').empty().append(explanation);
 					break;
-				case 2: $('#guidePage').css('background-image', 'url(css/images/RouteGift.png)' );
-					$('.guidePageBtn#0').removeClass('pageDisabled').addClass('pageEnabled');
-					$('.guidePageBtn#1').removeClass('pageDisabled').addClass('pageEnabled');
-					$('.guidePageBtn#' + page).removeClass('pageDisabled').addClass('pageEnabled');
+				case 2: $('#guideSubPage').css('background-image', 'url(css/images/RouteGift.png)' );
+					$('.guideSubPageBtn#0').removeClass('pageDisabled').addClass('pageEnabled');
+					$('.guideSubPageBtn#1').removeClass('pageDisabled').addClass('pageEnabled');
+					$('.guideSubPageBtn#' + page).removeClass('pageDisabled').addClass('pageEnabled');
 					var explanation = $('<p/>').text(wots.guide[page].description);
 					$('#guideExplanation').empty().append(explanation);
 					var btn= $('<input type="button" class="bottomButton" value="start nu"/>');
@@ -556,6 +563,97 @@ WotsApp.prototype = {
 					});
 					var center = $('<div id="explanationButton" align="center"></div>');
 					$('#guideExplanation').append(center);
+					center.append(btn);
+					break;
+				default: 
+					console.log('Outside of page bounds');
+			}
+
+		}
+
+		/*******************************************************************************************************
+		 * Guide for how to use the app at home
+		 ******************************************************************************************************/
+
+		guideHomePage = function() {
+			console.log("Guide page. Should be shown only once");
+			$.mobile.changePage("#guideHomeMemo", {transition:'slide', hashChange:true});
+		}
+
+		$('#guideHomeMemo').on('pagecreate', function() {
+			console.log("Create first guideHome page");
+			$.getJSON('data/guideHome.js', function(data) {
+				wots.guideHome = data;
+				wots.guideHomeSubPageCnt = 3;
+				console.log("Create status bar");
+				for (var i = 0; i < wots.guideHomeSubPageCnt; i++) {
+					//console.log("Create status bar item " + i);
+					var $li = $('<li/>', {'class': 'guideHomeSubPageBtn pageDisabled', 'id': i});
+					$li.on('click', function(event) {
+						id=$(this).attr ( "id" );
+						guideHomeSubPage(id);
+					});
+					$(guideHomeStatusBar).append($li);
+				}
+				guideHomeSubPage(0);
+			});
+		});
+
+		$('#guideHomeMemo').on('swipeleft', function() {
+			// get first disabled button, if no disabled buttons left, cp becomes undefined
+			var np = $('.guideHomeSubPageBtn.pageDisabled').attr('id');
+			if (!np) {
+				registerPage();
+			} else {
+				var page = parseInt(np);
+				console.log("Go to page" + page);
+				guideHomeSubPage(page);
+			}
+		});
+
+		$('#guideHomeMemo').on('swiperight', function() {
+			var cp = $('.guideHomeSubPageBtn.pageEnabled').last().attr('id');
+			var page = parseInt(cp);
+			if (page != 0) {
+				page--;	
+				console.log("Go to page" + page);
+				guideHomeSubPage(page);
+			}
+		});
+
+		guideHomeSubPage = function(p) {
+			if (!p) {
+				p = 0;
+			}
+			console.log("Go to page " + p);
+			var page = parseInt(p);
+			switch(page) {
+				case 0: $('#guideHomeSubPage').css('background-image', 'url(css/images/guidehome_page0.png)' );
+					$('.guideHomeSubPageBtn#' + page).removeClass('pageDisabled').addClass('pageEnabled');
+					$('.guideHomeSubPageBtn#1').removeClass('pageEnabled').addClass('pageDisabled');
+					$('.guideHomeSubPageBtn#2').removeClass('pageEnabled').addClass('pageDisabled');
+					var explanation = $('<p/>').text(wots.guideHome[page].description);
+					$('#guideHomeExplanation').empty().append(explanation);
+					break;
+				case 1: $('#guideHomeSubPage').css('background-image', 'url(css/images/guidehome_page1.png)' );
+					$('.guideHomeSubPageBtn#0').removeClass('pageDisabled').addClass('pageEnabled');
+					$('.guideHomeSubPageBtn#' + page).removeClass('pageDisabled').addClass('pageEnabled');
+					$('.guideHomeSubPageBtn#2').removeClass('pageEnabled').addClass('pageDisabled');
+					var explanation = $('<p/>').text(wots.guideHome[page].description);
+					$('#guideHomeExplanation').empty().append(explanation);
+					break;
+				case 2: $('#guideHomeSubPage').css('background-image', 'url(css/images/guidehome_page2.png)' );
+					$('.guideHomeSubPageBtn#0').removeClass('pageDisabled').addClass('pageEnabled');
+					$('.guideHomeSubPageBtn#1').removeClass('pageDisabled').addClass('pageEnabled');
+					$('.guideHomeSubPageBtn#' + page).removeClass('pageDisabled').addClass('pageEnabled');
+					var explanation = $('<p/>').text(wots.guideHome[page].description);
+					$('#guideHomeExplanation').empty().append(explanation);
+					var btn= $('<input type="button" class="bottomButton" value="eerste memo"/>');
+					btn.on('click', function(event) {
+						memoPage();
+					});
+					var center = $('<div id="explanationButton" align="center"></div>');
+					$('#guideHomeExplanation').append(center);
 					center.append(btn);
 					break;
 				default: 
@@ -637,8 +735,8 @@ WotsApp.prototype = {
 
 		$('#registerPage').on('swiperight', function() {
 			$.mobile.changePage("#guideMemo", {transition:'slide', hashChange:true});
-			var lastPage = wots.guidePageCnt - 1;
-			guidePage(lastPage);
+			var lastPage = wots.guideSubPageCnt - 1;
+			guideSubPage(lastPage);
 		});
 		
 		wrongCodeAlert = function(message) {

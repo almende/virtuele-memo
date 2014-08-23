@@ -31,7 +31,8 @@ log() {
 }
 
 login() {
-	cd /home/anne/myscripts/devices/android && ./wots.sh
+	echo "disable"
+#	cd /home/anne/myscripts/devices/android && ./wots.sh
 }
 
 all() {
