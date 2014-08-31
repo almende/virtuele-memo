@@ -175,6 +175,45 @@ console.log("Quickly move on to other page");
 	</div>
 </div>
 
+<!-- All Exhibitors List Page -->
+<div data-role="page" id="allExhibitorsPage">
+	<div data-role="header" data-position='fixed'>
+		<h1 class="ui-title" role="heading" aria-level="1">Partners</h1>
+	</div>
+
+	<div role="main">
+		<ul data-role="listview" id="allExhibitorsList">
+		</ul>
+	</div>
+	<div data-role="panel" id="virtualMemoPanel0" data-display="reveal" data-theme="b">
+		<div id="statusBarFill"></div>
+		<ul data-role="listview">
+			<li><a href="#virtualMemoPage">Memo</a></li>
+			<li><a href="#memoOverviewPage">Alle memos</a></li>
+			<li><a href="#allExhibitorsPage">Partners</a></li>
+			<li><a href="#exhibitorListPage">WOTS Opdracht</a></li>
+			<li><a href="#guideMemo">Help - WOTS</a></li>
+			<li><a href="#guideHomeMemo">Help - memo</a></li>
+			<li><a href="#registerPage">Account</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- Exhibitor Details Page -->
+<div data-role="page" id="allExhibitorsDetailsPage">
+	<div data-role="header" data-add-back-btn="true" data-position='fixed'>
+		<h1 class="ui-title" role="heading" aria-level="1">Almende</h1>
+	</div>
+
+	<div>
+		<img class="allExhibitorLogo" src="logos/600-width/almendedefRGB.png" id="allExhibitorLogo"></img>
+		<p id="allExhibitorAddress"></p>
+		<p id="allExhibitorTel"></p>
+		<p id="allExhibitorWebsite"></p>
+		<p id="allExhibitorEmail"></p>
+	</div>
+</div>
+
 <!-- Exhibitor Details Page -->
 <div data-role="page" id="exhibitorDetailsPage">
 	<div data-role="header" data-add-back-btn="true" data-position='fixed'>
@@ -208,7 +247,6 @@ console.log("Quickly move on to other page");
 
 <!-- Virtual Memo Page -->
 <div data-role="page" id="virtualMemoPage">
-
 	<div role="main" class="ui-content" style="padding:0px">
 		<div id="colorPicker" align="center">
 			<ul></ul>
@@ -278,8 +316,13 @@ console.log("Quickly move on to other page");
 	<div data-role="panel" id="virtualMemoPanel" data-display="reveal" data-theme="b">
 		<div id="statusBarFill"></div>
 		<ul data-role="listview">
-			<li><a href="#memoOverviewPage">Alle magneten</a></li>
-			<!--			<li><a href="">Magneet beheren</a></li> -->
+			<li><a href="#virtualMemoPage">Memo</a></li>
+			<li><a href="#memoOverviewPage">Alle memos</a></li>
+			<li><a href="#allExhibitorsPage">Partners</a></li>
+			<li><a href="#exhibitorListPage">WOTS Opdracht</a></li>
+			<li><a href="#guideMemo">Help - WOTS</a></li>
+			<li><a href="#guideHomeMemo">Help - memo</a></li>
+			<li><a href="#registerPage">Account</a></li>
 		</ul>
 	</div>
 </div>

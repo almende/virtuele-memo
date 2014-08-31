@@ -76,7 +76,8 @@ WotsApp.prototype = {
 
 			// first page to visit, should be in the end the guidePage for the WOTS conference
 			//guidePage();
-			congratsPage();
+		//	congratsPage();
+			allExhibitorsPage();
 			//guideHomePage();
 			// registerPage();
 			// memoOverviewPage();
@@ -137,13 +138,11 @@ WotsApp.prototype = {
 			$("#exhibitorList").empty();
 			var prevExhibitor = null;
 			var nextExhibitor = null;
-//			var nextNextExhibitor = null;
 			var pastSomeDone = false;
 
 			// update fields that are undefined
 			for (var c = 0; c < wots.exhibitors.length; c++) {
 				var exhibitor = wots.exhibitors[c];
-/*				exhibitor.id = c;*/
 				if (typeof exhibitor.status == 'undefined') {
 					exhibitor.status = "open";
 				}
@@ -186,14 +185,8 @@ WotsApp.prototype = {
 				} else {
 					nextExhibitor = null;
 				}
-			//	if (i + 2 < route_exhibitors.length) {
-			//		nextNextExhibitor = route_exhibitors[i + 2];
-			//	} else {
-			//		nextNextExhibitor = null;
-			//	}
 				var doneClass = "";
 				var enabledClass = "taskDisabled";
-				//		var enabledClass = "taskEnabled";
 				if(exhibitor.status == "done") {
 					pastSomeDone = true;
 					enabledClass = 'taskEnabled';
@@ -221,8 +214,8 @@ WotsApp.prototype = {
 					.append($('<li/>', { "class":doneClass + ' ' + enabledClass })
 							.append($('<a/>', {
 								'href':'#exhibitorDetailsPage',
-							'data-transition':'slide',
-							'data-id':exhibitor.id
+								'data-transition':'slide',
+								'data-id':exhibitor.id
 							})
 								.append('<span>' + exhibitor.name + '</span>')
 								.append('<p>' + exhibitor.oneliner + '</p>')
@@ -239,9 +232,107 @@ WotsApp.prototype = {
 			event.preventDefault();
 		});
 
+		$('#exhibitorListPage').on('swiperight', function(event) {
+			$('#virtualMemoPanel').panel("open");
+		});
+
 		/**********************************************************************************************************************
-		 * The individual exhibitor has a detailed page, where a code needs to be filled in
+		 * The list of exhibitors
 		 *********************************************************************************************************************/
+
+		allExhibitorsPage = function() {	
+			console.log("Go to the page with all exhibitors");
+			$.mobile.changePage("#allExhibitorsPage", {transition:'none', hashChange:true});
+		};
+
+		// this loads exhibitor information from a local .js data file, but doesn't know how to store state
+		// information...
+		$('#allExhibitorsPage').on('pageshow', function() {
+			$.getJSON('data/exhibitors.js', function(data) {
+				var allExhibitorsList = $('#allExhibitorsList');
+				console.log("Update list of all exhibitors");
+				// remove previous list
+				allExhibitorsList.empty();
+				
+				// update array
+				wots.exhibitors = data;
+
+				// update fields that are undefined
+				for (var c = 0; c < wots.exhibitors.length; c++) {
+					var exhibitor = wots.exhibitors[c];
+					wots.exhibitorsById[exhibitor.id] = exhibitor;
+					if (typeof exhibitor.status == 'undefined') {
+						exhibitor.status = "open";
+					}
+					if (typeof exhibitor.oneliner == 'undefined') {
+						exhibitor.oneliner = '';
+					}
+					allExhibitorsList.append($('<li/>', "class:taskDownSelf taskEnabled")
+						.append(
+							$('<a/>', {
+								'href':'#exhibitorDetailsPage',
+								'data-transition':'slide',
+								'data-id':exhibitor.id
+							})
+							.append('<span>' + exhibitor.name + '</span>')
+							.append('<p>' + exhibitor.oneliner + '</p>')
+						       )
+						);
+				}
+				$('#allExhibitorsList').listview('refresh');
+			});
+		});
+
+		$('#allExhibitorsList').on('click', 'li a', function(event) {
+			wots.selectedExhibitorId = $(this).attr('data-id');
+			console.log("Selected exhibitor with id " + wots.selectedExhibitorId);
+			$.mobile.changePage("#allExhibitorsDetailsPage", {transition:'slide', hashChange:true});
+			event.preventDefault();
+		});
+
+		$('#allExhibitorsPage').on('swiperight', function(event) {
+			$('#virtualMemoPanel0').panel("open");
+		});
+		
+		/*******************************************************************************************************
+		 * Individual exhibitor page, but just informational
+		 ******************************************************************************************************/
+
+		$('#allExhibitorsDetailsPage').on("pagebeforeshow", function() {
+			console.log('Show exhibitor ' + wots.selectedExhibitorId);
+			var exhibitor = wots.exhibitorsById[wots.selectedExhibitorId];
+			if (exhibitor) {
+				if (exhibitor.logo) {
+					$('#allExhibitorLogo').attr('src', 'logos/600-width/' + exhibitor.logo);
+				}
+				if (exhibitor.name) {
+					$('#allExhibitorsDetailsPage .ui-title').text(exhibitor.name);
+				}
+				if (exhibitor.address) {
+					$('#allExhibitorAddress').text(exhibitor.address);
+				}
+				if (exhibitor.tel) {
+					$('#allExhibitorTel').text('tel:' + exhibitor.tel);
+				}
+				if (exhibitor.website) {
+					$('#allExhibitorWebsite').text(' ');
+					$('#allExhibitorWebsite').html('<a href="' + exhibitor.website + '">' +
+						exhibitor.website + '</a>');
+				}
+				if (exhibitor.email) {
+					$('#allExhibitorEmail').text('email: ');
+					$('#allExhibitorEmail').html('<a href="mailto:' + exhibitor.email + 
+							'?Subject=Memo">' +
+						exhibitor.email + '</a>');
+				}
+			} else {
+				console.error('Could not select ' + wots.selectedExhibitorId);
+			}
+		});
+
+		/*******************************************************************************************************
+		 * The individual exhibitor has a detailed page, where a code needs to be filled in
+		 ******************************************************************************************************/
 
 		// we can show details of the exhibitor and some questions, but do not know how to cope with the answer yet
 		$('#exhibitorDetailsPage').on("pagebeforeshow", function( event, ui ) {
@@ -302,7 +393,7 @@ WotsApp.prototype = {
 		/**********************************************************************************************************************
 		 * The functionality around the memo notes
 		 *********************************************************************************************************************/
-		
+
 		memoPage = function() {	
 			console.log("Go to the memo page");
 			$.mobile.changePage("#virtualMemoPage", {transition:'none', hashChange:true});
@@ -348,7 +439,7 @@ WotsApp.prototype = {
 				memo_id = (memo_id + wots.memos.length + 1) % wots.memos.length;
 				displaySensorData(memo_id);
 			});
-			
+
 			// call function that queries for the address at regular times
 			console.log("Start connection status updates");
 			updateConnectionState();
@@ -389,8 +480,8 @@ WotsApp.prototype = {
 
 			// should of course be replaced by more energy-efficient solution, checks now bluntly every 3s
 			setTimeout(function pollConnectionState() {
-                                updateConnectionState();
-                        }, 3000); 
+				updateConnectionState();
+			}, 3000); 
 		};
 
 		reinitializeBluetooth = function() {
@@ -458,7 +549,7 @@ WotsApp.prototype = {
 				$('#memoNote').css('color', 'black');
 			}	
 		};
-		
+
 		/**********************************************************************************************************************
 		 * Success / failure pages
 		 *********************************************************************************************************************/
@@ -483,7 +574,7 @@ WotsApp.prototype = {
 			$('#congratsBottom').append(center);
 			center.append(btn);
 		});
-			
+
 		/**********************************************************************************************************************
 		 * The functionality to manage all memos
 		 *********************************************************************************************************************/
@@ -492,6 +583,10 @@ WotsApp.prototype = {
 			console.log("Memo overview page. Register new user, or adapt user registration details");
 			$.mobile.changePage("#memoOverviewPage", {transition:'slide', hashChange:true});
 		}
+
+		$('#memoOverviewPage').on('swiperight', function(event) {
+			$('#virtualMemoPanel').panel("open");
+		});
 
 		/**********************************************************************************************************************
 		 * The functionality to communicate over Bluetooth Low-Energy
@@ -502,8 +597,8 @@ WotsApp.prototype = {
 			console.log('Send alert from the GUI');
 			ble.writeAlertLevel("high");
 			setTimeout(function stopAlert() {
-                                ble.writeAlertLevel("low");
-                        }, 5000); 
+				ble.writeAlertLevel("low");
+			}, 5000); 
 		});
 
 		/**********************************************************************************************************************
@@ -694,7 +789,7 @@ WotsApp.prototype = {
 
 		$('#registerPage').on('pagecreate', function() {
 			console.log("Create register page");
-			
+
 			var registerText = "Registreer jezelf, zodat je later deze applicatie ook thuis kan gebruiken!";
 			var explanation = $('<p/>').text(registerText);
 			$('#registerExplanation').empty().append(explanation);
@@ -711,22 +806,22 @@ WotsApp.prototype = {
 			// make sure we can enter our way through the entry fields
 			$('#username').keyup( function(event) {
 				if (event.keyCode == 13) {
-			        	$("#password").focus();
+					$("#password").focus();
 				}
 			});
 			$('#password').keyup( function(event) {
 				if (event.keyCode == 13) {
-			        	$("#email").focus();
+					$("#email").focus();
 				}
 			});
 			$('#email').keyup( function(event) {
 				if (event.keyCode == 13) {
-			        	$("#participantcode").focus();
+					$("#participantcode").focus();
 				}
 			});
 			$('#participantcode').keyup( function(event) {
 				if (event.keyCode == 13) {
-			        	$('.bottomButton').click();
+					$('.bottomButton').click();
 				}
 			});
 			$("#username").focus();
@@ -736,7 +831,7 @@ WotsApp.prototype = {
 		});
 
 		/*
- 		 * Login as user.  
+		 * Login as user.  
 		 */
 		registerUser = function() {
 			var username = $('#username').val();
@@ -746,7 +841,7 @@ WotsApp.prototype = {
 			var password = CryptoJS.MD5(password_unhashed).toString();
 			var participantCode = $('#participantcode').val();
 			participantCode = participantCode.toUpperCase();
-			
+
 			// create common sense session
 			csCreateSession(email, password);
 			if (interpretCode(participantCode)) {
@@ -764,17 +859,17 @@ WotsApp.prototype = {
 			var lastPage = wots.guideSubPageCnt - 1;
 			guideSubPage(lastPage);
 		});
-		
+
 		wrongCodeAlert = function(message) {
 			console.log(message);
 			if (navigator.notification && navigator.notification.alert) {
 				console.log("Show the alert to the user");
-			        navigator.notification.alert(
-					message, // string
-					alertCallback, // callback
-					'Wrong code', // title
-					'Try again' // button name
-				);
+				navigator.notification.alert(
+						message, // string
+						alertCallback, // callback
+						'Wrong code', // title
+						'Try again' // button name
+						);
 			} else {
 				console.log("Navigator is undefined. Show an ugly browser alert message");
 				alert(message);
@@ -842,11 +937,11 @@ WotsApp.prototype = {
 				return false;
 			}
 			var ascii = letter.charCodeAt(0) - 65 + 10;
-		//	console.log("Stand letter " + letter + " becomes " + ascii);
+			//	console.log("Stand letter " + letter + " becomes " + ascii);
 			var blue = wots.participantCode[10].charCodeAt(0) - 48;
 			var red = wots.participantCode[12].charCodeAt(0) - 48;
 			var SSBR = ascii * 100 + blue * 10 + red;
-		//	console.log("SSBR code becomes: " + SSBR); 
+			//	console.log("SSBR code becomes: " + SSBR); 
 			var expPincode = (SSBR * 16981) % 10000;
 
 			var pincode = 0;
@@ -894,7 +989,7 @@ WotsApp.prototype = {
 			if (checksum != expChecksum) {
 				var msg = "Help checksums do not match";
 				wrongCodeAlert(msg);
-//				console.log("Help! checksums do not match");
+				//				console.log("Help! checksums do not match");
 				return false;
 			}
 			console.log("Checksum was correct!");
@@ -940,7 +1035,7 @@ WotsApp.prototype = {
 			console.log("Get user");
 			localdb.getUser(userObtained, callback);
 		}
-		
+
 		userObtained = function(errcode, result, callback) {
 			var updateDB = false;
 			if (errcode) {
@@ -958,9 +1053,9 @@ WotsApp.prototype = {
 					localdb.createUsers(function createUser() {
 						var user = {
 							'username': wots.username,
-							'password': wots.password,
-							'email': wots.email,
-							'code': wots.participantCode
+						'password': wots.password,
+						'email': wots.email,
+						'code': wots.participantCode
 						}
 						console.log("Create user: ", user); 
 						localdb.createUser(wots.username, wots.password, wots.email, wots.participantCode, function displayUser() {
@@ -1278,7 +1373,7 @@ WotsApp.prototype = {
 				standsUpdateDB();
 				wotsPage();
 			}
-			
+
 		}
 
 		$('#calculatingPage').on('pagecreate', function() {
@@ -1468,19 +1563,19 @@ WotsApp.prototype = {
 				}
 				errorCB();
 			},
-			generalErrorCB);			
+				generalErrorCB);			
 		}
-/*
-		csGetSensors = function() {
-			console.log("Get sensors");
-			var data = {};
-			sense.sensors(data, csGetSensorsSuccessCB, generalErrorCB);
-		}
+		/*
+		   csGetSensors = function() {
+		   console.log("Get sensors");
+		   var data = {};
+		   sense.sensors(data, csGetSensorsSuccessCB, generalErrorCB);
+		   }
 
-		csGetSensorsSuccessCB = function(result) {
-			console.log("Found sensors", result);
-		}
-*/
+		   csGetSensorsSuccessCB = function(result) {
+		   console.log("Found sensors", result);
+		   }
+		   */
 		csCreateSensorData = function() {
 			console.log("Write new memo to CommonSense database");
 			if (!wots.sensor_id) {
@@ -1539,24 +1634,24 @@ WotsApp.prototype = {
 			memo_id = (memo_id + wots.memos.length + 1) % wots.memos.length;
 			displaySensorData(memo_id);
 		};
-/*
-		csGetSensorData = function(index) {
-			if (!wots.sensor_id) {
-				console.log("There is no sensor id stored");
-				return;
-			}
-			var sensor_id = wots.sensor_id;
-			var memo_id = getCurrentMemoId();
-			var data = {};
-			console.log("Get sensor data from CommonSense");
-			sense.sensorData(sensor_id, data, csGetSensorDataSuccessCB, generalErrorCB);
-		};
+		/*
+		   csGetSensorData = function(index) {
+		   if (!wots.sensor_id) {
+		   console.log("There is no sensor id stored");
+		   return;
+		   }
+		   var sensor_id = wots.sensor_id;
+		   var memo_id = getCurrentMemoId();
+		   var data = {};
+		   console.log("Get sensor data from CommonSense");
+		   sense.sensorData(sensor_id, data, csGetSensorDataSuccessCB, generalErrorCB);
+		   };
 
-		csGetSensorDataSuccessCB = function(result) {
+		   csGetSensorDataSuccessCB = function(result) {
 
-			console.log(result);
-		};
-*/
+		   console.log(result);
+		   };
+		   */
 		getCurrentMemo = function() {
 			var memoId = getCurrentMemoId();
 			if (!wots.memos) {
@@ -1655,47 +1750,47 @@ WotsApp.prototype = {
 		/*
 		 * This is a more normal way to cope with 
 		 *
-		createGroup = function(device_id, device_password) {
-			if (!device || !device_password) {
-				console.err("Required information about device is not available");
-				return;
-			}
-			var name = device_id;
-			var password = device_password;
-			data = {
-				"group": {
-					"name": name,
-					"anonymous": 1,
-					"public": 0,
-					"hidden": 1,
-					"access_password": device_password,
-					"description": "Memo gadget",
-					"required_sensors": [ "memo" ],
-					"default_list_users": 1,
-					"default_add_users": 1,
-					"default_remove_users": 1,
-					"default_list_sensors": 1,
-					"default_add_sensors": 1,
-					"default_remove_sensors": 1,
-					"required_show_id": 1,
-					"required_show_email": 1,
-					"required_show_first_name": 1,
-					"required_show_surname": 0,
-					"required_show_phone_number": 0,
-					"required_show_username": 0
-				}
-			}
-			sense.createGroup(data, loadSensorDataSuccessCB, generalErrorCB);
-		}
+		 createGroup = function(device_id, device_password) {
+		 if (!device || !device_password) {
+		 console.err("Required information about device is not available");
+		 return;
+		 }
+		 var name = device_id;
+		 var password = device_password;
+		 data = {
+		 "group": {
+		 "name": name,
+		 "anonymous": 1,
+		 "public": 0,
+		 "hidden": 1,
+		 "access_password": device_password,
+		 "description": "Memo gadget",
+		 "required_sensors": [ "memo" ],
+		 "default_list_users": 1,
+		 "default_add_users": 1,
+		 "default_remove_users": 1,
+		 "default_list_sensors": 1,
+		 "default_add_sensors": 1,
+		 "default_remove_sensors": 1,
+		 "required_show_id": 1,
+		 "required_show_email": 1,
+		 "required_show_first_name": 1,
+		 "required_show_surname": 0,
+		 "required_show_phone_number": 0,
+		 "required_show_username": 0
+		 }
+		 }
+		 sense.createGroup(data, loadSensorDataSuccessCB, generalErrorCB);
+		 }
 
-		createGroupSuccessCB = function(result) {
-			console.log("Group succcessfully created");
+		 createGroupSuccessCB = function(result) {
+		 console.log("Group succcessfully created");
 
-		}
+		 }
 
-		createGroupUser = function() {
-		}
-		*/
+		 createGroupUser = function() {
+		 }
+		 */
 
 
 		// Start the application automatically

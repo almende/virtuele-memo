@@ -1,6 +1,6 @@
 #!/bin/sh
 
-help_msg="Usage: $0 {build|upload|log}"
+help_msg="Usage: $0 {build|upload|log|login|all|help}"
 
 help() {
 	echo $help_msg
@@ -31,8 +31,7 @@ log() {
 }
 
 login() {
-	echo "disable"
-#	cd /home/anne/myscripts/devices/android && ./wots.sh
+	cd /home/anne/myscripts/devices/android && ./wots.sh
 }
 
 all() {
@@ -40,7 +39,7 @@ all() {
 	sleep 1
 	upload
 	sleep 2
-	login
+	#login
 	log
 }
 
@@ -53,6 +52,9 @@ case "$cmd" in
 		;;
 	log)
 		log
+		;;
+	login)
+		login
 		;;
 	all)
 		all
