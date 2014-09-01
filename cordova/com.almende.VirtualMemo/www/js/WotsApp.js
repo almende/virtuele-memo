@@ -75,13 +75,13 @@ WotsApp.prototype = {
 			init();
 
 			// first page to visit, should be in the end the guidePage for the WOTS conference
-			guidePage();
+			//guidePage();
 
 			// for debugging, enable one of the following pages as first page
 			// congratsPage();
 			// allExhibitorsPage();
 			// guideHomePage();
-			// registerPage();
+			registerPage();
 			// memoOverviewPage();
 			// memoPage();
 		}
@@ -101,10 +101,64 @@ WotsApp.prototype = {
 			//testing = true;
 		}
 
+		/*******************************************************************************************************
+		 * A list of helper functions for the GUI
+		 ******************************************************************************************************/
 
-		/**********************************************************************************************************************
+		wrongCodeAlert = function(message) {
+			console.log(message);
+			if (navigator.notification && navigator.notification.alert) {
+				console.log("Show the alert to the user");
+				navigator.notification.alert(
+						message, // string
+						alertCallback, // callback
+						'Wrong code', // title
+						'Try again' // button name
+						);
+			} else {
+				console.log("Navigator is undefined. Show an ugly browser alert message");
+				alert(message);
+			}
+		};
+
+		failedLoginAlert = function(message) {
+			console.log(message);
+			if (navigator.notification && navigator.notification.alert) {
+				console.log("Show the alert to the user");
+				navigator.notification.alert(
+						message, // string
+						alertCallback, // callback
+						'Failed login', // title
+						'Try again' // button name
+						);
+			} else {
+				console.log("Navigator is undefined. Show an ugly browser alert message");
+				alert(message);
+			}
+		};
+
+		incompleteAccountAlert = function(message) {
+			console.log(message);
+			if (navigator.notification && navigator.notification.alert) {
+				console.log("Show the alert to the user");
+				navigator.notification.alert(
+						message, // string
+						alertCallback, // callback
+						'Incomplete account', // title
+						'Try again' // button name
+						);
+			} else {
+				console.log("Navigator is undefined. Show an ugly browser alert message");
+				alert(message);
+			}
+		};
+
+		alertCallback = function() {
+		};
+
+		/*******************************************************************************************************
 		 * The list of exhibitors
-		 *********************************************************************************************************************/
+		 ******************************************************************************************************/
 
 		// this loads exhibitor information from a local .js data file, but doesn't know how to store state
 		// information...
@@ -126,7 +180,7 @@ WotsApp.prototype = {
 		accountCheckFinished = function() {
 			console.log("Account refreshed, now check if we have the participantCode");
 			if (!wots.participantCode) {
-				alert("We don't have the right participantCode available, sorry you have to enter it again!");
+				incompleteAccountAlert("We don't have the right participantCode available, sorry you have to enter it again!");
 				registerPage();
 			} else {
 				interpretCode(wots.participantCode);
@@ -238,9 +292,9 @@ WotsApp.prototype = {
 			$('#virtualMemoPanel').panel("open");
 		});
 
-		/**********************************************************************************************************************
+		/*******************************************************************************************************
 		 * The list of exhibitors
-		 *********************************************************************************************************************/
+		 ******************************************************************************************************/
 
 		allExhibitorsPage = function() {	
 			console.log("Go to the page with all exhibitors");
@@ -390,9 +444,9 @@ WotsApp.prototype = {
 			context.fill();
 		});
 
-		/**********************************************************************************************************************
+		/*******************************************************************************************************
 		 * The functionality around the memo notes
-		 *********************************************************************************************************************/
+		 ******************************************************************************************************/
 
 		memoPage = function() {	
 			console.log("Go to the memo page");
@@ -474,7 +528,7 @@ WotsApp.prototype = {
 			}
 
 			if (wots.updateAddress) {
-				csCreateSession(wots.email, wots.password);
+				csStart(csCreateSession, wots.email, wots.password);
 				wots.updateAddress = false;
 			}
 
@@ -505,7 +559,7 @@ WotsApp.prototype = {
 				//registerPage();
 				return;
 			}
-			csCreateSession(wots.email, wots.password);
+			csStart(csCreateSession, wots.email, wots.password);
 		});
 
 		loginUser = function() {
@@ -513,7 +567,7 @@ WotsApp.prototype = {
 				registerPage();
 				return;
 			}
-			csCreateSession(wots.email, wots.password);
+			csStart(csCreateSession, wots.email, wots.password);
 		}
 
 		setMemoColor = function(color) {
@@ -550,9 +604,9 @@ WotsApp.prototype = {
 			}	
 		};
 
-		/**********************************************************************************************************************
+		/*******************************************************************************************************
 		 * Success / failure pages
-		 *********************************************************************************************************************/
+		 ******************************************************************************************************/
 
 		congratsPage = function() {	
 			console.log("Go to the congrats page");
@@ -575,9 +629,9 @@ WotsApp.prototype = {
 			center.append(btn);
 		});
 
-		/**********************************************************************************************************************
+		/*******************************************************************************************************
 		 * The functionality to manage all memos
-		 *********************************************************************************************************************/
+		 ******************************************************************************************************/
 
 		memoOverviewPage = function() {
 			console.log("Memo overview page. Register new user, or adapt user registration details");
@@ -588,9 +642,9 @@ WotsApp.prototype = {
 			$('#virtualMemoPanel').panel("open");
 		});
 
-		/**********************************************************************************************************************
+		/*******************************************************************************************************
 		 * The functionality to communicate over Bluetooth Low-Energy
-		 *********************************************************************************************************************/
+		 ******************************************************************************************************/
 
 		// coupling with a button is simple through an on-click event through jQuery
 		$('#sendAlert').on('click', function(event) {
@@ -601,9 +655,9 @@ WotsApp.prototype = {
 			}, 5000); 
 		});
 
-		/**********************************************************************************************************************
+		/*******************************************************************************************************
 		 * The guide that explains the treasure hunt on the WOTS conference
-		 *********************************************************************************************************************/
+		 ******************************************************************************************************/
 
 		guidePage = function() {
 			console.log("Guide page. Should be shown only once");
@@ -843,7 +897,7 @@ WotsApp.prototype = {
 			participantCode = participantCode.toUpperCase();
 
 			// create common sense session
-			csCreateSession(email, password);
+			csStart(csCreateSession, wots.email, wots.password);
 			if (interpretCode(participantCode)) {
 				wots.participantCode = participantCode;
 				registerNow(username, password, email, participantCode);
@@ -860,24 +914,6 @@ WotsApp.prototype = {
 			guideSubPage(lastPage);
 		});
 
-		wrongCodeAlert = function(message) {
-			console.log(message);
-			if (navigator.notification && navigator.notification.alert) {
-				console.log("Show the alert to the user");
-				navigator.notification.alert(
-						message, // string
-						alertCallback, // callback
-						'Wrong code', // title
-						'Try again' // button name
-						);
-			} else {
-				console.log("Navigator is undefined. Show an ugly browser alert message");
-				alert(message);
-			}
-		};
-
-		alertCallback = function() {
-		};
 
 		// check the participant code 
 		interpretCode = function(participantCode) {
@@ -1058,7 +1094,8 @@ WotsApp.prototype = {
 						'code': wots.participantCode
 						}
 						console.log("Create user: ", user); 
-						localdb.createUser(wots.username, wots.password, wots.email, wots.participantCode, function displayUser() {
+						localdb.createUser(wots.username, wots.password, wots.email, 
+								wots.participantCode, function displayUser() {
 							displayUserData();
 							if (callback && typeof(callback) === "function") {
 								console.log("Go on after obtaining user");
@@ -1329,9 +1366,9 @@ WotsApp.prototype = {
 			}
 		}
 
-		/**********************************************************************************************************************
+		/*******************************************************************************************************
 		 * Shortcuts for calling specific pages
-		 *********************************************************************************************************************/
+		 ******************************************************************************************************/
 
 		registerPage = function() {
 			console.log("Registration page. Register new user, or adapt user registration details");
@@ -1409,6 +1446,29 @@ WotsApp.prototype = {
 			console.log("Error in CommonSense call: " + response);
 		}
 
+		/**
+		 * The starting point.
+		 * @param call  function csCreateUser or csCreateSession which accepts (email, password) as arguments.
+		 */
+		csStart = function(call, email, password) {
+			sense.checkServer(function(response) {
+				if (response.online) {
+					call(email, password);
+				} else {
+					console.error(response.msg);
+				}
+			});
+		}
+
+		/**
+		 * There are basically two options. Either the user already exists in the CommonSense database, or the
+		 * user does not exist. In the latter case, we will have to create a user given the data handed to us.
+		 *
+		 * Here we pull a trick. We do not actually use the email and password of the user, but we generate one
+		 * from the memo-id. This makes it easy for other people that use the same memo to log into it. Only
+		 * people that know the physical id of the memo (so people that are close to the place where the memo
+		 * resides) can read the content. This is not so different from actual physical memo notes.
+		 */
 		csCreateUser = function(email, password) {
 			if (device_as_user) {
 				var account = loginAsDevice();
@@ -1443,6 +1503,10 @@ WotsApp.prototype = {
 			}
 		};
 
+		/**
+		 * In case the user already exists in the CommonSense database, we only need to create a session with 
+		 * the user credentials that are already locally stored.
+		 */
 		csCreateSession = function(email, password) {
 			if (device_as_user) {
 				var account = loginAsDevice();
@@ -1475,7 +1539,7 @@ WotsApp.prototype = {
 
 		createSessionErrorCB = function() {
 			console.log("Could not log in, try to create the user");
-			csCreateUser();
+			csStart(csCreateUser);
 		};
 
 		createSessionSuccessCB = function(result) {
@@ -1747,51 +1811,11 @@ WotsApp.prototype = {
 			console.log("Loaded " + wots.memos.length + " memos");
 		};
 
-		/*
-		 * This is a more normal way to cope with 
-		 *
-		 createGroup = function(device_id, device_password) {
-		 if (!device || !device_password) {
-		 console.err("Required information about device is not available");
-		 return;
-		 }
-		 var name = device_id;
-		 var password = device_password;
-		 data = {
-		 "group": {
-		 "name": name,
-		 "anonymous": 1,
-		 "public": 0,
-		 "hidden": 1,
-		 "access_password": device_password,
-		 "description": "Memo gadget",
-		 "required_sensors": [ "memo" ],
-		 "default_list_users": 1,
-		 "default_add_users": 1,
-		 "default_remove_users": 1,
-		 "default_list_sensors": 1,
-		 "default_add_sensors": 1,
-		 "default_remove_sensors": 1,
-		 "required_show_id": 1,
-		 "required_show_email": 1,
-		 "required_show_first_name": 1,
-		 "required_show_surname": 0,
-		 "required_show_phone_number": 0,
-		 "required_show_username": 0
-		 }
-		 }
-		 sense.createGroup(data, loadSensorDataSuccessCB, generalErrorCB);
-		 }
-
-		 createGroupSuccessCB = function(result) {
-		 console.log("Group succcessfully created");
-
-		 }
-
-		 createGroupUser = function() {
-		 }
+		/**
+		 * The more normal way to cope with a device that can be shared with multiple people is to use groups. 
+		 * However, also this doesn't work in CommonSense. There is no easy way to add information to someone's
+		 * else sensor.
 		 */
-
 
 		// Start the application automatically
 		start();	

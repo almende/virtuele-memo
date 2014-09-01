@@ -99,9 +99,10 @@ var SenseAPI = (function () {
 			}
 			full_url = api_url + url + "?"+str.join("&");
 		}
+		console.log("Status: " + request.readyState);
 
 		request.open(method, full_url, false);
-
+		console.log("Status: " + request.readyState);
 		// send headers
 		for (var i=0; i<headers.length; i++) {
 			request.setRequestHeader(headers[i].header_name, headers[i].header_value);
@@ -156,6 +157,42 @@ var SenseAPI = (function () {
 		}
 	};
 
+	/**
+	 * Calls the callback with the statuscode which indicates if a server is online or not.
+	 */
+	checkServer = function(url, callback) {
+		$.ajax({url: url, 
+			type: "HEAD",
+			timeout: 1000,
+			statusCode: {
+				200: function(response) {
+					var resp;
+					resp.msg = "Server online";
+					resp.status = statusCode;
+					resp.online = true;
+					callback(resp);
+				},
+				400: function(response) {
+					var resp;
+					resp.msg = "Server offline";
+					resp.status = statusCode;
+					resp.online = false;
+					callback(resp);
+				},
+				0: function(response) {
+					var resp;
+					resp.msg = "Server not even reachable";
+					resp.status = statusCode;
+					resp.online = false;
+					callback(resp);
+				}
+			}
+		});
+	};
+
+	api.checkServer = function(callback) {
+		checkServer(api_url, callback);
+	};
 
 	// public access functions
 	api.getSessionId = function () {
@@ -218,6 +255,7 @@ var SenseAPI = (function () {
 			successCB(session_id);
 		}
 		else {
+			console.error("Sense API request fails");
 			errorCB(response_status);
 		}
 	};
