@@ -17,20 +17,29 @@
     specific language governing permissions and limitations
     under the License.
 -->
+<!-- 
+    Considerations
+
+    W.r.t. the viewpoint, for iOS 7, we removed the width=device-width and height=device-height attributes. 
+    See https://issues.apache.org/jira/browse/CB-4323
+ -->
 <html>
 <head>
 <meta charset="utf-8" />
 <meta name="format-detection" content="telephone=no" />
-<!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
 <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=device-dpi" />
-<!--<link rel="stylesheet" type="text/css" href="css/index.css" /> -->
-<!--<link rel="stylesheet" href="css/jquery.mobile.custom.structure.min.css" />-->
-<!--<link rel="stylesheet" href="css/jquery.mobile.custom.theme.min.css" />-->
-<link rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css" />
-<link rel="stylesheet" type="text/css" href="css/WotsApp.css" />
-<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
-<script type="text/javascript" src="js/jquery.mobile-1.4.2.min.js"></script>
-<script type="text/javascript" src="cordova.js"></script>
+<link rel="stylesheet" href="css/jquery.mobile-1.4.3.min.css" />
+<link rel="stylesheet" type="text/css" href="css/WotsApp.css" /> 
+<link rel="stylesheet" type="text/css" href="css/test.css" />
+<script type='application/javascript' src='js/jquery-1.9.1.min.js'></script>
+<script type='application/javascript' src='js/jquery.mobile-1.4.3.min.js'></script>
+<script type='application/javascript' src='cordova.js'></script>
+<script type='application/javascript' src="_ezSwipe.js"></script>
+
+<!--
+The following is Stefan's code. I don't know what it does. But it suddenly leads to crappy scrolling behaviour on
+Android phones. Probably the pagecontainer({ defaults: true; }) call. Just don't use it if we don't need it.
+
 <script type='application/javascript' src='js/fastclick.js'></script>
 <script type="text/javascript">
 var wotsAppNofInits = 0;
@@ -66,23 +75,19 @@ window.onload = function () {
 	onLoad();
 }
 </script>
+-->
 
 <title>Virtuele Memo</title>
 </head>
 
 <body class="ui-body-a">
+
 <div data-role="page" id="optionalBanner">
-	<!--
-			<script>
-console.log("Quickly move on to other page");
-			$(function() {
-				$.mobile.changePage("#virtualMemoPage", {transition:'none', hashChange:true});
-			});
-			</script> 
-			-->
+	<ul>                                                                                                    
+		<li><a href="#allExhibitorsPage" class="virtualMemoTab" data-icon="heart" data-transition="none">Test</a></li>
+	</ul> 
 </div>
 
-<!-- Guide for Memo Page -->
 <div data-role="page" id="guideMemo">
 	<div data-role="header" data-position='fixed'>
 		<h1 class="ui-title" role="heading" aria-level="1">Uitleg</h1>
@@ -96,7 +101,6 @@ console.log("Quickly move on to other page");
 	<div id="guideExplanation"></div>
 </div>
 
-<!-- Guide for Memo Page at home -->
 <div data-role="page" id="guideHomeMemo">
 	<div data-role="header" data-position='fixed'>
 		<h1 class="ui-title" role="heading" aria-level="1">Uitleg</h1>
@@ -110,7 +114,6 @@ console.log("Quickly move on to other page");
 	<div id="guideHomeExplanation"></div>
 </div>
 
-<!-- Guide for Memo Page at home -->
 <div data-role="page" id="congratsPage">
 	<div data-role="header" data-position='fixed'>
 		<h1 class="ui-title" role="heading" aria-level="1">Gefeliciteerd</h1>
@@ -118,14 +121,13 @@ console.log("Quickly move on to other page");
 
 	<div id="congratsPageMain" role="main">
 	</div>
-		<div id="congratsPageMainBody">
-			<div id="congratsHeader"></div>
-			<div id="congratsText"></div>
-		</div>
+	<div id="congratsPageMainBody">
+		<div id="congratsHeader"></div>
+		<div id="congratsText"></div>
+	</div>
 	<div id="congratsBottom"></div>
 </div>
 
-<!-- Register -->
 <div data-role="page" id="registerPage">
 	<div data-role="header" data-position='fixed'>
 		<h1 class="ui-title" role="heading" aria-level="1">Registreer</h1>
@@ -142,7 +144,6 @@ console.log("Quickly move on to other page");
 	<div id="registerExplanation"></div>
 </div>
 
-<!-- Fake calculating -->
 <div data-role="page" id="calculatingPage">
 	<div data-role="header" data-position='fixed'>
 		<h1 class="ui-title" role="heading" aria-level="1">Route berekenen</h1>
@@ -154,7 +155,6 @@ console.log("Quickly move on to other page");
 	</div>
 </div>
 
-<!-- Exhibitor List Page -->
 <div data-role="page" id="exhibitorListPage">
 	<div data-role="header" data-position='fixed'>
 		<h1 class="ui-title" role="heading" aria-level="1">Opdrachten</h1>
@@ -175,16 +175,15 @@ console.log("Quickly move on to other page");
 	</div>
 </div>
 
-<!-- All Exhibitors List Page -->
 <div data-role="page" id="allExhibitorsPage">
 	<div data-role="header" data-position='fixed'>
 		<h1 class="ui-title" role="heading" aria-level="1">Partners</h1>
 	</div>
 
-	<div role="main" class="scrollable">
-		<ul data-role="listview" id="allExhibitorsList" class="scrollable">
-		</ul>
+	<div role="main" class="_ezswipe">
+		<ul data-role="listview" id="allExhibitorsList"></ul>
 	</div>
+
 	<div data-role="panel" id="virtualMemoPanel0" data-display="reveal" data-theme="b">
 		<div id="statusBarFill"></div>
 		<ul data-role="listview">
@@ -199,7 +198,17 @@ console.log("Quickly move on to other page");
 	</div>
 </div>
 
-<!-- Exhibitor Details Page -->
+<div data-role="page" id="allExhibitorsPageD">
+	<div data-role="header" data-position='fixed'>                                                                  
+		<h1 class="ui-title" role="heading" aria-level="1">Scroll test</h1>                                     
+	</div>                                                                                                          
+
+	<div role="main">                                                                                               
+		<ul data-role="listview" id="one">                                                                      
+		</ul>                                                                                                   
+	</div>                   
+</div>
+
 <div data-role="page" id="allExhibitorsDetailsPage">
 	<div data-role="header" data-add-back-btn="true" data-position='fixed'>
 		<h1 class="ui-title" role="heading" aria-level="1">Almende</h1>
@@ -214,7 +223,6 @@ console.log("Quickly move on to other page");
 	</div>
 </div>
 
-<!-- Exhibitor Details Page -->
 <div data-role="page" id="exhibitorDetailsPage">
 	<div data-role="header" data-add-back-btn="true" data-position='fixed'>
 		<h1 class="ui-title" role="heading" aria-level="1">Almende</h1>
@@ -245,7 +253,6 @@ console.log("Quickly move on to other page");
 	</div>
 </div>
 
-<!-- Virtual Memo Page -->
 <div data-role="page" id="virtualMemoPage">
 	<div role="main" class="ui-content" style="padding:0px">
 		<div id="colorPicker" align="center">
@@ -297,10 +304,6 @@ console.log("Quickly move on to other page");
 				<p>The system</p>
 			</div>
 		</div>
-		<!--
-				<button id="sendAlert" class="ui-btn-active ui-state-persist" data-role="button">Send Alert</button>
--->
-		<!--	<p><a href="#sendAlert" class="ui-btn-active ui-state-persist" data-role="button" data-transition="none">Send Alert</a></p> -->
 	</div>
 
 	<div data-role="footer" data-id="footer1" data-position="fixed">
@@ -382,19 +385,19 @@ function startApp() {
 	wotsApp = new WotsApp();
 	wotsApp.start();
 }
-
+/*
 onDeviceReady = function() {
 	startApp();
 }
-
-/*
-   function pluginsReady() { 
-   startApp();
-   }
-
-   setTimeout(function () {
-   pluginsReady();
-   }, 3000); */
+$(document).ready(function() {
+		console.log("Set height");
+		var $one = $('#one');
+		$one.height($(window).height()-120);
+		for(var i=0; i<100; i++){
+		$one.append('<br/>some item');
+		}
+		})
+*/
 </script>
 </body>
 </html>

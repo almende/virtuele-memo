@@ -54,11 +54,30 @@ WotsApp.prototype = {
 
 		$.ajaxSetup({ cache: false });
 
-		// very important statement to make swiping work: 
+		// swiping and scrolling combined is a beast
 		// https://stackoverflow.com/questions/12838443/\
 		//   swipe-with-jquery-mobile-1-2-phonegap-2-1-and-android-4-0-4-not-working-properl
-		document.ontouchmove = function(event) {    
-			event.preventDefault();
+		// the work-around sets event.preventDefault() for only horizontal touchmove events so that the swipe
+		// event get triggered, but not for vertical ones, so that scrolling still works
+		// https://github.com/jquery/jquery-mobile/issues/5534
+		// todo: only bind at proper pages, not on all document touch events
+		var touch = {};
+		document.ontouchstart = function(event) {
+			var t = event.touches[0];
+			touch.x = t.clientX;
+			touch.y = t.clientY;	
+		}
+		document.ontouchmove = function(event) {
+			if (event.touches.length == 1) { 
+				var t = event.touches[0];
+				var deltaX = t.clientX - touch.x;
+				var deltaY = t.clientY - touch.y;
+				var absX = Math.abs(deltaX);
+				var absY = Math.abs(deltaY);
+				if (absX > absY) {
+					event.preventDefault();
+				}
+			}
 		};
 
 		var testing = false;
@@ -75,7 +94,7 @@ WotsApp.prototype = {
 			init();
 
 			// first page to visit, should be in the end the guidePage for the WOTS conference
-			//guidePage();
+			// guidePage();
 
 			// for debugging, enable one of the following pages as first page
 			// congratsPage();
@@ -279,6 +298,10 @@ WotsApp.prototype = {
 					       );
 			} // End for-loop
 			$('#exhibitorList').listview('refresh');
+
+			// $.event.special.swipe.horizontalDistanceThreshold = 120;
+			//$.event.special.swipe.horizontalDistanceThreshold = window.devicePixelRatio >= 2 ? 15 : 30;
+			//$.event.special.swipe.verticalDistanceThreshold = window.devicePixelRatio >= 2 ? 15 : 30;		
 		}
 
 		$('#exhibitorList').on('click', 'li a', function(event) {
@@ -335,28 +358,36 @@ WotsApp.prototype = {
 						       )
 						);
 				}
+
 				$('#allExhibitorsList').listview('refresh');
-				$('#allExhibitorsList').trigger('create');
-				//$('#allExhibitorsList').scrollview();
 			});
 		});
 
 		$('#allExhibitorsList').on('click', 'li a', function(event) {
 			wots.selectedExhibitorId = $(this).attr('data-id');
 			console.log("Selected exhibitor with id " + wots.selectedExhibitorId);
-			//$.mobile.changePage("#allExhibitorsDetailsPage", {transition:'slide', hashChange:true});
+			$.mobile.changePage("#allExhibitorsDetailsPage", {transition:'slide', hashChange:true});
+			event.preventDefault();
+		});
+		
+/*
+		$('#allExhibitorsList').on('touchstart', function(event) {
+			console.log("Touch start detected");
+			event.stopPropagation();
 			//event.preventDefault();
 		});
 
+		$('#allExhibitorsList').on('touchend', function(event) {
+			console.log("Touch end detected");
+			event.stopPropagation();
+			//event.preventDefault();
+		});
+		*/
 		$('#allExhibitorsPage').on('swiperight', function(event) {
+			console.log("Open panel in partner list");
 			$('#virtualMemoPanel0').panel("open");
 		});
-		
-		// swipe down does not exist in jQuery
-		$('#allExhibitorsPage').on('swipedown', function(event) {
-			console.log("Swipe gesture down detected");
-		});
-		
+
 		/*******************************************************************************************************
 		 * Individual exhibitor page, but just informational
 		 ******************************************************************************************************/

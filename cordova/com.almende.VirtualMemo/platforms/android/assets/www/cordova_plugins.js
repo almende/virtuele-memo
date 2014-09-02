@@ -33,7 +33,7 @@ module.exports.metadata =
 // TOP OF METADATA
 {
     "com.randdusing.bluetoothle": "1.0.0",
-    "org.apache.cordova.device": "0.2.9",
+    "org.apache.cordova.device": "0.2.11",
     "org.apache.cordova.dialogs": "0.2.9-dev",
     "org.apache.cordova.console": "0.2.10"
 }
