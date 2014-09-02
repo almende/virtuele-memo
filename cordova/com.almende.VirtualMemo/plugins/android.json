@@ -48,6 +48,9 @@
         },
         "org.apache.cordova.dialogs": {
             "PACKAGE_NAME": "com.almende.VirtualMemo"
+        },
+        "org.apache.cordova.console": {
+            "PACKAGE_NAME": "com.almende.VirtualMemo"
         }
     },
     "dependent_plugins": {}

@@ -99,6 +99,7 @@ var SenseAPI = (function () {
 			}
 			full_url = api_url + url + "?"+str.join("&");
 		}
+        
 		console.log("Status: " + request.readyState);
 
 		request.open(method, full_url, false);
@@ -111,14 +112,19 @@ var SenseAPI = (function () {
 		if (session_id != "") {
 			request.setRequestHeader('X-SESSION_ID', session_id);
 		}
+                console.log("Sense-URL: " + full_url);
+                console.log("Sense-SessionID: "+session_id);
 
 		// send data
 		if (method == "POST" || method == "PUT") {
+            console.log("Sense-Data: "+JSON.stringify(data));
 			if (typeof(data) == 'object') {
+                console.log("Sense-Content-type: 'application/json'");
 				request.setRequestHeader('Content-type', 'application/json');
 				request.send(JSON.stringify(data));
 			}
 			else if (typeof(data) == 'string') {
+                console.log("Sense-Content-type: 'text/plain'");
 				request.setRequestHeader('Content-type', 'text/plain');
 				request.send(data);
 			}
@@ -137,6 +143,7 @@ var SenseAPI = (function () {
 		response_header = {};
 		var loc = request.getResponseHeader("Location");
 		var sid = request.getResponseHeader("X-SESSION_ID");
+        console.log("Got sessionID: "+sid);
 		if (loc != null) {
 			response_header['Location'] = loc;
 		}

@@ -1,0 +1,636 @@
+/**
+ * Stylesheet for the Wots application 2014.
+ *
+ * Author: Anne van Rossum
+ * Copyright: Almende B.V. (http://almende.com), DoBots B.V. (http://dobots.nl)
+ * License: LGPLv3
+ * Date: 1st July, 2014
+ */
+
+@font-face {
+	font-family:"Reenie Beanie";
+	font-style: normal;
+	src: url("../fonts/ReenieBeanie.ttf") format("opentype"); /* TTF file for CSS3 browsers */
+}
+
+.exhibitorLogo {
+/*	height:20%; */
+	width:50%; 
+}
+
+.allExhibitorLogo {
+	height:100px;
+}
+
+body.phonegap-ios-7 {
+	margin-top: 20px;
+} 
+
+body.phonegap-ios-7 .ui-header-fixed {
+	padding-top:21px;
+}
+
+body.phonegap-ios-7 .ui-btn-left {
+	top:23px;
+}
+
+body.phonegap-ios-7 #statusBarFill {
+	height:20px;
+	clear:both;
+}
+
+html, body {
+	/*margin-top: 20px; */
+	height:100% 
+}
+
+.clear-floats {
+	clear: both;
+}
+
+input, body, button, select, option, textarea {
+	font-family:"HelveticaNeueThin"; 
+	font-size: 32px;
+}
+
+body {
+	font-size : 100%;
+}
+
+input, button, select, option, textarea {
+	font-size : 200%;
+}
+
+/* Prevent text selection while swiping with mouse */
+#guideSubPage .ui-header, .ui-title, .control .ui-btn, .trivia-btn {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+#guideHomeSubPage .ui-header, .ui-title, .control .ui-btn, .trivia-btn {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+/**********************************************************************************************************************
+ *
+ * Layout for the guide for the first-time user
+ *
+ *********************************************************************************************************************/
+
+/* complete view for the user, we extract here the menu, but there are still somewhere some pixels coming from */
+#guideMemo {
+	height: calc(100% - 50px);
+}
+
+/* the picture is supposed to be 60% of the view */
+#guideMain {
+	padding-top: 0px;
+	height:60%;
+}
+
+#guideSubPage {
+	height: 325px; 
+	background-repeat:no-repeat;
+	background-position:center; 
+	position: relative;
+}
+
+
+
+/* the status bar is another 10% of the view */
+#guideStatusBar {
+	text-align: center;
+	/* shift a bit to the right because content of <li><a href=""></li> makes it center shifted to the left  */
+	padding-left:30px;
+	height: 10%; 
+}
+
+#guideStatusBar > li.pageEnabled  {
+	list-style-type: none;
+	display:inline-block;
+	*display:inline;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 40px;
+	padding-top:20px;
+	padding-right:20px;
+
+	background-image:url(images/GreenDot.png);
+	background-repeat:no-repeat;
+}
+
+#guideStatusBar > li.pageDisabled {
+	list-style-type: none;
+	display:inline-block;
+	*display:inline;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 40px;
+	padding-top:20px;
+	padding-right:20px;
+	
+	background-image:url(images/YellowDot.png);
+	background-repeat:no-repeat;
+}
+
+/* and the explanation text at the bottom is the remaining 30% of the view */
+#guideExplanation {
+	height: 30%;
+	width: 100%;
+	background-color: #efe923;
+	position:absolute; 
+}
+
+#guideExplanation p {
+	text-align: justify;
+	padding-left:20px;
+	padding-right:20px;
+}
+
+/**********************************************************************************************************************
+ *
+ * Layout for the home guide for the first-time user
+ *
+ *********************************************************************************************************************/
+
+/* complete view for the user, we extract here the menu, but there are still somewhere some pixels coming from */
+#guideHomeMemo {
+	height: calc(100% - 50px);
+}
+
+/* the picture is supposed to be 60% of the view */
+#guideHomeMain {
+	padding-top: 0px;
+	height:60%;
+}
+
+#guideHomeSubPage {
+	height: 325px; 
+	background-repeat:no-repeat;
+	background-position:center; 
+	position: relative;
+}
+
+/* the status bar is another 10% of the view */
+#guideHomeStatusBar {
+	text-align: center;
+	/* shift a bit to the right because content of <li><a href=""></li> makes it center shifted to the left  */
+	padding-left:30px;
+	height: 10%; 
+}
+
+#guideHomeStatusBar > li.pageEnabled  {
+	list-style-type: none;
+	display:inline-block;
+	*display:inline;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 40px;
+	padding-top:20px;
+	padding-right:20px;
+
+	background-image:url(images/GreenDot.png);
+	background-repeat:no-repeat;
+}
+
+#guideHomeStatusBar > li.pageDisabled {
+	list-style-type: none;
+	display:inline-block;
+	*display:inline;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 40px;
+	padding-top:20px;
+	padding-right:20px;
+	
+	background-image:url(images/YellowDot.png);
+	background-repeat:no-repeat;
+}
+
+/* and the explanation text at the bottom is the remaining 30% of the view */
+#guideHomeExplanation {
+	height: 30%;
+	width: 100%;
+	background-color: #efe923;
+	position:absolute; 
+}
+
+#guideHomeExplanation p {
+	text-align: justify;
+	padding-left:20px;
+	padding-right:20px;
+}
+
+/**********************************************************************************************************************
+ *
+ * Layout for the registration page
+ *
+ *********************************************************************************************************************/
+
+#registerExplanation {
+	height: 100%;
+	width: 100%;
+	background-color: #efe923;
+	position:absolute;
+}
+
+#registerEntry {
+	height: 325px;
+	background-repeat:no-repeat;
+	background-position:center; 
+}
+
+#registerEntry input {
+	border: 0px;
+	border-bottom:thick solid #F0F0F0;
+	background: #F9F9F9;
+}
+
+/* remove default jQuery border from input text if in #registerEntry section */
+#registerEntry > .ui-input-text {
+	border: 0px;
+}
+
+#registerExplanation p {
+	text-align: justify;
+	padding-left:20px;
+	padding-right:20px;
+}
+
+/* the "start" or "register" button at the bottom */
+.bottomButton {
+	background : #F6F6F6;
+	background : rgba(246, 246, 246, 1);
+	border-style : Solid;
+	border-color : #7DAA40;
+	border-color : rgba(125, 170, 64, 1);
+	border-width : 1px;
+	width : 200px;
+	height : 50px;
+	border-radius : 51px;
+	-moz-border-radius : 51px;
+	-webkit-border-radius : 51px;
+}
+
+/**********************************************************************************************************************
+ *
+ * Success / failure pages
+ *
+ *********************************************************************************************************************/
+
+#congratsPage {
+	width: 100%;
+	float: left;
+	background: #79b346;
+	color: white;
+}
+
+#congratsPageMain {
+	background: no-repeat;
+	min-height: 180px;
+	margin-top: 40px;
+	margin-left: 40px;
+}
+
+#congratsPageMainBody {
+	margin-left: 10px;
+	margin-bottom: 45px; /* this moves the button down, better to place button with margin-bottom */
+}
+
+/**********************************************************************************************************************
+ *
+ * The visualization of the memos
+ *
+ *********************************************************************************************************************/
+
+#virtualMemoPage {
+	width: 100%;
+	float: left;
+}
+
+#virtualMemoPage * {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+
+#memoHeader {    
+	position:absolute;
+	margin-top:-67px;
+	display: inline-block;  
+}
+
+#memoHeaderRight {    
+	margin-left:128px; 
+	display:inline-flex;
+}
+
+#memoHeaderLeft {    
+	margin-left:10px; 
+	display:inline-flex;
+}
+
+#memoNote {    
+/*	text-align:center; */
+	width: 275px;    
+	margin: 25px;    
+	min-height:175px;
+	max-height:175px;
+	padding-top:15px;
+	margin-left:auto;
+	margin-right:auto;
+	position:relative;   
+	border:1px solid #E8E8E8;  
+	border-top:60px solid #fdfd86;
+	font-family:"Reenie Beanie" !important;
+	font-size:20px;
+	border-bottom-right-radius: 60px 5px;
+	background: rgb(255,255,136); /* Old browsers */
+	background: -moz-linear-gradient(-45deg, rgba(255,255,136,1) 77%, rgba(255,255,214,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right bottom, color-stop(77%,rgba(255,255,136,1)), color-stop(100%,rgba(255,255,214,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(-45deg, rgba(255,255,136,1) 77%,rgba(255,255,214,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(-45deg, rgba(255,255,136,1) 77%,rgba(255,255,214,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(-45deg, rgba(255,255,136,1) 77%,rgba(255,255,214,1) 100%); /* IE10+ */
+	background: linear-gradient(-45deg, rgba(255,255,136,1) 77%,rgba(255,255,214,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffff88', endColorstr='#ffff88',GradientType=0 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+#memoText {
+	background-color: transparent;
+
+	text-align:center;     
+	font-family:"Reenie Beanie" !important;
+	font-size:20px;
+	
+	margin-top:-5px; 
+	
+	border: none;
+	overflow: auto;
+	outline: none;
+
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none; 
+}
+
+/*
+ * Use a diagonal bar to give the illusion of shadow
+ */
+#memoNote:after {
+	content: "";
+	position:absolute;
+	z-index:-1;
+	right:-0px; bottom:20px;
+	width:200px;
+	height: 25px;
+	background: rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 2px 15px 5px rgba(0, 0, 0, 0.40);
+	-webkit-box-shadow: 2px 15px 5px rgba(0, 0, 0, 0.40);
+	-o-box-shadow: 2px 15px 5px rgba(0, 0, 0, 0.40);
+	box-shadow:2px 15px 5px rgba(0, 0, 0, 0.40);
+	-moz-transform: matrix(-1, -0.1, 0, 1, 0, 0);
+	-webkit-transform: matrix(-1, -0.1, 0, 1, 0, 0);
+	-o-transform: matrix(-1, -0.1, 0, 1, 0, 0);
+	-ms-transform: matrix(-1, -0.1, 0, 1, 0, 0);
+	transform: matrix(-1, -0.1, 0, 1, 0, 0);
+}
+
+#colorPicker {
+	margin-top: 10px;
+	width:260px; 
+	height:40px;
+	margin-left: auto; 
+	margin-right: auto;
+/*	text-align: center; */
+}
+
+#colorPicker ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	text-align: center;
+}
+
+#colorPicker ul li {
+/*	display: inline-block; // doesn't work, so rely on float:left */ 
+	float:left;
+}
+
+/* input fields for a new memo */
+#memoMetaInfo {
+	width:120px; 
+	margin-left: auto; 
+	margin-right: 0; 
+}
+
+#memoMetaInfo input {
+	font-size : 70%;
+	background: #F9F9F9; 
+}
+
+#memoTitle {
+	text-align: center;
+	margin-top:-75px;
+	font-weight: bold;
+}
+
+#memoAuthor {
+	float: right;
+	margin-top:-68px;
+	margin-right:5px;
+	font-weight: bold;
+}
+
+/* caption shown when nothing chosen yet */
+.memoSelectRepeatPeriod {
+	font-size: 70%;
+}
+
+/* the options for the choices */
+.memoSelectRepeatPeriodArea select {
+	font-size: 70%;
+}
+
+.memoSelectRepeatPeriodArea {
+/*	float:left; */
+	width:90px;
+}
+
+/* remove default jQuery border from input text if in #registerEntry section */
+#memoMetaInfo > .ui-input-text {
+/*	float:left; */
+	border: 0px;
+}
+
+#connection p {
+	font-family:"HelveticaNeueThin"; 
+	font-size: 32px;
+}
+
+/**********************************************************************************************************************
+ *
+ * Memo overview
+ *
+ *********************************************************************************************************************/
+
+#memoNoteMini {    
+/*	text-align:center; */
+	width: 75px;    
+	margin: 15px;    
+	min-height:55px; /* width minus border-top */
+	max-height:55px; 
+	padding-top:15px;
+	margin-left:auto;
+	margin-right:auto;
+	position:relative;   
+	border:1px solid #E8E8E8;  
+	border-top:20px solid #fdfd86; /* top part where the glue resides... */
+	font-family:"Reenie Beanie" !important;
+	font-size:20px;
+	border-bottom-right-radius: 50px 5px; /* severity of the fold at the right bottom */
+	background: rgb(255,255,136); /* Old browsers */
+	background: -moz-linear-gradient(-45deg, rgba(255,255,136,1) 77%, rgba(255,255,214,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right bottom, color-stop(77%,rgba(255,255,136,1)), color-stop(100%,rgba(255,255,214,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(-45deg, rgba(255,255,136,1) 77%,rgba(255,255,214,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(-45deg, rgba(255,255,136,1) 77%,rgba(255,255,214,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(-45deg, rgba(255,255,136,1) 77%,rgba(255,255,214,1) 100%); /* IE10+ */
+	background: linear-gradient(-45deg, rgba(255,255,136,1) 77%,rgba(255,255,214,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffff88', endColorstr='#ffff88',GradientType=0 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+#memoNoteSet ul {
+	list-style: none;
+	margin-left: 0;
+}
+
+#memoHeaderCenter {
+	margin-top:-15px;
+	margin-left:8px; 
+	display:inline-flex;
+}
+
+#memoBriefCaption {
+	margin-top:-55px;
+	margin-left:4px;
+}
+
+/**********************************************************************************************************************
+ *
+ * Exhibitor details, and display of the specific question to the exhibitor
+ *
+ *********************************************************************************************************************/
+
+#exhibitorDetailsPage {
+}
+
+#questionShield {
+	background-image:url(images/QuestionShield.png);
+	width:69px;
+	height:77px;
+	float: left;
+}
+
+#questionItself {
+	text-align: center;
+}
+
+#questionLayer {
+	background-color:#f0ea22;
+	padding:15px;
+}
+
+/* Set input in question field to different type than that on user registration */
+#questionLayer input {
+	font-family : HelveticaNeueThin; 
+	font-size: 16px;
+	border: 0px;
+	border-bottom:thick solid #F0F0F0;
+	background-color:#f0ea22;
+}
+
+/* remove default jQuery border from input text if in #questionLayer section */
+#questionLayer > .ui-input-text {
+	border: 0px;
+}
+
+/**********************************************************************************************************************
+ *
+ * Partner list
+ *
+ *********************************************************************************************************************/
+
+.scrollable {
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+}
+/**********************************************************************************************************************
+ *
+ * Exhibitor list
+ *
+ *********************************************************************************************************************/
+
+#exhibitorList > li > a {
+	height:4em;
+	background-image:url(images/ExhibitorDoneNone.png);
+	background-repeat:no-repeat;
+	background-size:70px 122px;
+	background-position:10px;
+	padding-left:90px;
+}
+
+#exhibitorList > li > a > p {
+	white-space:normal;
+	margin-top:0px;
+}
+
+#exhibitorList > li.taskDisabled > a {
+	pointer-events:none;
+	cursor:default;
+}
+
+#exhibitorList > li.taskDisabled > a > span {
+	opacity:0.3;
+	cursor:default;
+}
+
+#exhibitorList > li.taskDisabled > a > p {
+	display:none;
+}
+
+#exhibitorList > li.taskDisabled > a:after {
+	background:none;
+}
+
+#exhibitorList > li.taskHalfEnabled > a > span {
+	opacity:0.3;
+}
+
+#exhibitorList > li.taskHalfEnabled > a > p {
+	opacity:0.3;
+}
+
+#exhibitorList > li.taskDoneSelf > a {
+	background-image:url(images/ExhibitorDoneSelf.png);
+}
+
+#exhibitorList > li.taskDoneBoth > a {
+	background-image:url(images/ExhibitorDoneBoth.png);
+}
+
+#exhibitorList > li.taskDoneUp > a {
+	background-image:url(images/ExhibitorDoneUp.png);
+}
+
+#exhibitorList > li.taskDoneDown > a {
+	background-image:url(images/ExhibitorDoneDown.png);
+}
+

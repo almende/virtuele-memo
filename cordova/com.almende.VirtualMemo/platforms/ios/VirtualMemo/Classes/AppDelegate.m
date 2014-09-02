@@ -81,7 +81,7 @@
         self.viewController = [[[MainViewController alloc] init] autorelease];
 #endif
 
-    self.viewController.startPage = @"http://dollie.local/~stefan/wots/jqm/";
+    //self.viewController.startPage = @"http://dollie.local/~stefan/wots/jqm/";
     
     // Set your app's start page by setting the <content src='foo.html' /> tag in config.xml.
     // If necessary, uncomment the line below to override it.
