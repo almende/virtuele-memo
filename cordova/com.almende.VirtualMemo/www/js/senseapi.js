@@ -170,6 +170,13 @@ var SenseAPI = (function () {
 					resp.online = true;
 					callback(resp);
 				},
+				405: function(response) {
+					var resp = {};
+					resp.msg = "Server online (but request not allowed)";
+					resp.status = 405;
+					resp.online = true;
+					callback(resp);
+				},
 				400: function(response) {
 					var resp = {};
 					resp.msg = "Server offline";
