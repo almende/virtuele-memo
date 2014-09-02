@@ -79,9 +79,9 @@ WotsApp.prototype = {
 
 			// for debugging, enable one of the following pages as first page
 			// congratsPage();
-			// allExhibitorsPage();
+			allExhibitorsPage();
 			// guideHomePage();
-			registerPage();
+			// registerPage();
 			// memoOverviewPage();
 			// memoPage();
 		}
@@ -269,7 +269,7 @@ WotsApp.prototype = {
 				$(exhibitorList)
 					.append($('<li/>', { "class":doneClass + ' ' + enabledClass })
 							.append($('<a/>', {
-								'href':'#exhibitorDetailsPage',
+								'href':'#', // will be done by exhibitorList.on(click)
 								'data-transition':'slide',
 								'data-id':exhibitor.id
 							})
@@ -326,7 +326,7 @@ WotsApp.prototype = {
 					allExhibitorsList.append($('<li/>', "class:taskDownSelf taskEnabled")
 						.append(
 							$('<a/>', {
-								'href':'#exhibitorDetailsPage',
+								'href':'#',
 								'data-transition':'slide',
 								'data-id':exhibitor.id
 							})
@@ -336,18 +336,25 @@ WotsApp.prototype = {
 						);
 				}
 				$('#allExhibitorsList').listview('refresh');
+				$('#allExhibitorsList').trigger('create');
+				//$('#allExhibitorsList').scrollview();
 			});
 		});
 
 		$('#allExhibitorsList').on('click', 'li a', function(event) {
 			wots.selectedExhibitorId = $(this).attr('data-id');
 			console.log("Selected exhibitor with id " + wots.selectedExhibitorId);
-			$.mobile.changePage("#allExhibitorsDetailsPage", {transition:'slide', hashChange:true});
-			event.preventDefault();
+			//$.mobile.changePage("#allExhibitorsDetailsPage", {transition:'slide', hashChange:true});
+			//event.preventDefault();
 		});
 
 		$('#allExhibitorsPage').on('swiperight', function(event) {
 			$('#virtualMemoPanel0').panel("open");
+		});
+		
+		// swipe down does not exist in jQuery
+		$('#allExhibitorsPage').on('swipedown', function(event) {
+			console.log("Swipe gesture down detected");
 		});
 		
 		/*******************************************************************************************************
@@ -513,6 +520,9 @@ WotsApp.prototype = {
 		};
 
 		updateConnectionState = function() {
+			if (!wots.platform) {
+				return;
+			}
 			console.log("Query bluetooth address");
 			var address = ble.getAddress();
 			if (!address) {
@@ -539,6 +549,9 @@ WotsApp.prototype = {
 		};
 
 		reinitializeBluetooth = function() {
+			if (!wots.platform) {
+				return;
+			}
 			if (!wots.address) {
 				console.log("Set up bluetooth connection");
 				ble.init();

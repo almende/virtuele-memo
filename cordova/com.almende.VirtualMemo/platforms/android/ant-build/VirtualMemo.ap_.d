@@ -24,6 +24,7 @@
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/cordova.js \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/plugins \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/img/logo.png \
+/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/img/cordova_logo.png \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/img/WOTS2014-200-transparant.png \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/data/guideHome.js \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/data/guide.js \
@@ -42,6 +43,7 @@
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/js/senseapi.js \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/js/index.js \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width \
+/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width/Texim_Europe.png \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width/azteco.png \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width/SE_vierkant.png \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width/TMsystems.png \
@@ -49,25 +51,21 @@
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width/DD.png \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width/Distrelec.jpg \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width/AssemblyPartner.jpg \
+/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width/romex_logo.jpg \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width/Logo-SenseObservationSystems.png \
-/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width/Texim Europe.EPS \
+/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width/tbp_electronics.JPG \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width/ask_logo_transparant.png \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width/Elincom.jpg \
+/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width/CN_Rood.jpg \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width/Phoenix_Contact_Logo_600p.jpg \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width/Eurocircuits.png \
-/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width/tbp electronics.JPG \
-/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width/PM_komponenten.EPS \
+/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width/DevLab_logo.jpg \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width/PM_komponenten.png \
+/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width/Nijkerk_Muratia.jpg \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width/DObots.png \
-/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width/Texim Europe.png \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width/Salland.png \
-/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width/DevLab logo.jpg \
-/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width/romex logo 600pix.jpg \
-/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width/CN Rood.jpg \
-/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width/Nijkerk- Muratia.jpg \
-/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width/Wurth Elektronik.JPG \
-/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width/azteco logo.eps \
-/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width/DARE Measurements 600x300.jpg \
+/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width/Wurth_Elektronik.JPG \
+/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/logos/600-width/DARE_Measurements.jpg \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/css/jquery.mobile.custom.theme.css \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/css/jquery.mobile.custom.structure.css \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/assets/www/css/images \

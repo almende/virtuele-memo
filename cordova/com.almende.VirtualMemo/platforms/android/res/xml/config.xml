@@ -24,4 +24,9 @@
     <access origin="*" />
     <preference name="StatusBarOverlaysWebView" value="true" />
     <preference name="UIWebViewBounce" value="false" />
+    <icon src="www/img/logo.png" />
+    <icon density="ldpi" platform="android" src="www/img/logo.png" />
+    <icon density="mdpi" platform="android" src="www/img/logo.png" />
+    <icon density="hdpi" platform="android" src="www/img/logo.png" />
+    <icon density="xhdpi" platform="android" src="www/img/logo.png" />
 </widget>

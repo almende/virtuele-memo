@@ -9,6 +9,12 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
-		<preference name="StatusBarOverlaysWebView" value="true" />
-		<preference name="UIWebViewBounce" value="false" />
+    <preference name="StatusBarOverlaysWebView" value="true" />
+    <preference name="UIWebViewBounce" value="false" />
+
+    <icon src="www/img/logo.png" />
+    <icon src="www/img/logo.png" platform="android" density="ldpi" />
+    <icon src="www/img/logo.png" platform="android" density="mdpi" />
+    <icon src="www/img/logo.png" platform="android" density="hdpi" />
+    <icon src="www/img/logo.png" platform="android" density="xhdpi" />
 </widget>
