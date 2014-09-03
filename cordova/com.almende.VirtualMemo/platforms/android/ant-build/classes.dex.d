@@ -10,6 +10,15 @@
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/ant-build/classes/com/almende/VirtualMemo/R$drawable.class \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/ant-build/classes/com/almende/VirtualMemo/R$xml.class \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/ant-build/classes/com/almende/VirtualMemo/VirtualMemo.class \
+/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/ant-build/classes/de/appplant/cordova/plugin/localnotification/LocalNotification$3.class \
+/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/ant-build/classes/de/appplant/cordova/plugin/localnotification/LocalNotification$1.class \
+/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/ant-build/classes/de/appplant/cordova/plugin/localnotification/ReceiverActivity.class \
+/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/ant-build/classes/de/appplant/cordova/plugin/localnotification/Receiver.class \
+/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/ant-build/classes/de/appplant/cordova/plugin/localnotification/Options.class \
+/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/ant-build/classes/de/appplant/cordova/plugin/localnotification/Restore.class \
+/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/ant-build/classes/de/appplant/cordova/plugin/localnotification/LocalNotification$4.class \
+/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/ant-build/classes/de/appplant/cordova/plugin/localnotification/LocalNotification$2.class \
+/home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/ant-build/classes/de/appplant/cordova/plugin/localnotification/LocalNotification.class \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/ant-build/classes/org/apache/cordova/device/Device.class \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/ant-build/classes/org/apache/cordova/dialogs/Notification$3$4.class \
 /home/anne/myworkspace/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/android/ant-build/classes/org/apache/cordova/dialogs/Notification$3$1.class \

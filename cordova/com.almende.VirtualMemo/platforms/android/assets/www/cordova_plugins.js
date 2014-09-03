@@ -34,6 +34,12 @@ module.exports = [
         "clobbers": [
             "AttendeaseBeacons"
         ]
+    }, {
+        "file": "plugins/de.appplant.cordova.plugin.local-notification/www/local-notification.js",
+        "id": "de.appplant.cordova.plugin.local-notification.LocalNotification",
+        "clobbers": [
+            "plugin.notification.local"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -43,7 +49,8 @@ module.exports.metadata =
     "org.apache.cordova.device": "0.2.11",
     "org.apache.cordova.dialogs": "0.2.9-dev",
     "org.apache.cordova.console": "0.2.10",
-    "com.attendease.ibeacons": "0.4.2"
+    "com.attendease.ibeacons": "0.4.2",
+    "de.appplant.cordova.plugin.local-notification": "0.7.4"
 }
 // BOTTOM OF METADATA
 });
