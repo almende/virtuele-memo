@@ -42,7 +42,7 @@
 		</data>
 		<key>config.xml</key>
 		<data>
-		8jLT3chwz91cmOdl0koaBSbQ/5g=
+		smLrKywHTaWcNABUUxeQbVzQduE=
 		</data>
 		<key>de.lproj/Localizable.strings</key>
 		<data>
@@ -118,7 +118,7 @@
 		</data>
 		<key>www/cordova_plugins.js</key>
 		<data>
-		JPH1s9y5FUsSKGNivtSdIgrRv3I=
+		oyNR+jtCuIswdHal8DqgC1RjD9k=
 		</data>
 		<key>www/css/WotsApp.css</key>
 		<data>
@@ -1082,11 +1082,11 @@
 		</data>
 		<key>www/js/WotsApp.js</key>
 		<data>
-		iqAW93lOtDU1YORk0JvLKsV3I64=
+		+VIsKSm3JXHaj65o0/WhSEWtB60=
 		</data>
 		<key>www/js/ble.js</key>
 		<data>
-		d5c5cqtPfQIpSgUjzrELMxIZNgI=
+		Iy9+xfN6JPYWb1MSyuPWLHGIHFQ=
 		</data>
 		<key>www/js/fastclick.js</key>
 		<data>
@@ -1098,7 +1098,7 @@
 		</data>
 		<key>www/js/index.js</key>
 		<data>
-		SI5ZnepQkEiKOTRn3D4XuyfpM40=
+		6SAAcVGoxj3J3f97q/2XotPiYZI=
 		</data>
 		<key>www/js/jquery-1.9.1.min.js</key>
 		<data>
@@ -1126,7 +1126,7 @@
 		</data>
 		<key>www/js/senseapi.js</key>
 		<data>
-		0OFLOigyw666LbF+3wxBF9HQ2FY=
+		BVIgV9+EaX71g5poxhCeA2rZTTs=
 		</data>
 		<key>www/logos/600-width/AssemblyPartner.jpg</key>
 		<data>
@@ -1219,6 +1219,10 @@
 		<key>www/logos/600-width/tbp_electronics.JPG</key>
 		<data>
 		0KEptbgw6jmvLfs8r3JoDk2Jf+I=
+		</data>
+		<key>www/plugins/com.attendease.ibeacons/www/AttendeaseBeacons.js</key>
+		<data>
+		Yv0qBEvhfiaxamZ15wnZ9D3oy44=
 		</data>
 		<key>www/plugins/com.randdusing.bluetoothle/www/bluetoothle.js</key>
 		<data>
@@ -1281,7 +1285,7 @@
 		</data>
 		<key>config.xml</key>
 		<data>
-		8jLT3chwz91cmOdl0koaBSbQ/5g=
+		smLrKywHTaWcNABUUxeQbVzQduE=
 		</data>
 		<key>de.lproj/Localizable.strings</key>
 		<data>
@@ -1357,7 +1361,7 @@
 		</data>
 		<key>www/cordova_plugins.js</key>
 		<data>
-		JPH1s9y5FUsSKGNivtSdIgrRv3I=
+		oyNR+jtCuIswdHal8DqgC1RjD9k=
 		</data>
 		<key>www/css/WotsApp.css</key>
 		<data>
@@ -2321,11 +2325,11 @@
 		</data>
 		<key>www/js/WotsApp.js</key>
 		<data>
-		iqAW93lOtDU1YORk0JvLKsV3I64=
+		+VIsKSm3JXHaj65o0/WhSEWtB60=
 		</data>
 		<key>www/js/ble.js</key>
 		<data>
-		d5c5cqtPfQIpSgUjzrELMxIZNgI=
+		Iy9+xfN6JPYWb1MSyuPWLHGIHFQ=
 		</data>
 		<key>www/js/fastclick.js</key>
 		<data>
@@ -2337,7 +2341,7 @@
 		</data>
 		<key>www/js/index.js</key>
 		<data>
-		SI5ZnepQkEiKOTRn3D4XuyfpM40=
+		6SAAcVGoxj3J3f97q/2XotPiYZI=
 		</data>
 		<key>www/js/jquery-1.9.1.min.js</key>
 		<data>
@@ -2365,7 +2369,7 @@
 		</data>
 		<key>www/js/senseapi.js</key>
 		<data>
-		0OFLOigyw666LbF+3wxBF9HQ2FY=
+		BVIgV9+EaX71g5poxhCeA2rZTTs=
 		</data>
 		<key>www/logos/600-width/AssemblyPartner.jpg</key>
 		<data>
@@ -2458,6 +2462,10 @@
 		<key>www/logos/600-width/tbp_electronics.JPG</key>
 		<data>
 		0KEptbgw6jmvLfs8r3JoDk2Jf+I=
+		</data>
+		<key>www/plugins/com.attendease.ibeacons/www/AttendeaseBeacons.js</key>
+		<data>
+		Yv0qBEvhfiaxamZ15wnZ9D3oy44=
 		</data>
 		<key>www/plugins/com.randdusing.bluetoothle/www/bluetoothle.js</key>
 		<data>

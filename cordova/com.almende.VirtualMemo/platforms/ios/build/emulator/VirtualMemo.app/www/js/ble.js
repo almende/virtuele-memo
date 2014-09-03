@@ -1,7 +1,8 @@
 var BLEHandler = function() {
 	var self = this;
 	var addressKey = 'address';
-	var flowerUuid = '39e1fa00-84a8-11e2-afba-0002a5d5c51b';
+	var flowerUuid =    '39e1fa00-84a8-11e2-afba-0002a5d5c51b';
+    var iBeaconUuids = ['be3547d7-678e-509f-b677-807ccde69f9a','2ca36943-7fde-4f4e-9c08-dda29f079349'];
 	var memoAddress = 'FE:F0:7F:FB:F4:CC';
 	var memoUuid = '1802';
 	var alertLevelServiceUuid = '1802';
@@ -29,7 +30,8 @@ var BLEHandler = function() {
 	 */
 	self.init = function() {
 		bluetoothle.initialize(self.initSuccess, self.initError, {"request": true});
-	}
+        self.scanForIBeaconDevices();
+    }
 
 	self.connectDevice = function(address) {
 		console.log("Begining connection to: " + address + " with 5 second timeout");
@@ -150,6 +152,22 @@ var BLEHandler = function() {
 			clearTimeout(self.reconnectTimer);
 		}
 	}
+    
+    self.scanForIBeaconDevices = function(){
+        AttendeaseBeacons.monitor(iBeaconUuids, function() {
+                                  return setInterval((function() {
+                                                      return AttendeaseBeacons.getBeacons(function(beacons) {
+                                                                                          if (_.isEmpty(beacons)) {
+                                                                                          return console.log("No beacons found.");
+                                                                                          } else {
+                                                                                          return _.each(beacons, function(beacon) {
+                                                                                                        return console.log("" + beacon.uuid + " (" + beacon.major + ", " + beacon.minor + ") " + beacon.proximityString + " (" + beacon.accuracy + " meters)");
+                                                                                                        });
+                                                                                          }
+                                                                                          });
+                                                      }), 3000);
+                                  });
+    }
 
 	/**
 	 * If scan is successful, connect automatically to the discovered device.

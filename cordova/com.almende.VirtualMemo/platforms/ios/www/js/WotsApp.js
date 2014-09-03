@@ -62,7 +62,7 @@ WotsApp.prototype = {
 		};
 
 		var testing = false;
-		var test_sense = true;
+		var test_sense = false;
 
 		// This option makes use of the CommonSense database in the way suggested by Sense itself. 
 		// It creates a user for every device. 
@@ -538,7 +538,6 @@ WotsApp.prototype = {
 			}
 
 			if (wots.updateAddress) {
-                console.log("Refreshing session");
 				csStart(csCreateSession, wots.email, wots.password);
 				wots.updateAddress = false;
 			}
@@ -1286,6 +1285,8 @@ WotsApp.prototype = {
 				}
 				// create sensor and call the noteDB function again
 				console.log("No sensor found, we will create one");
+                console.log("CREATING");
+                csCreateSensor();
 				var index = 0;
 				csExistSensor(index, function() { 
 					console.log("Memo is present");	
@@ -1310,7 +1311,7 @@ WotsApp.prototype = {
 					console.log("Do not call this function if sensor id is not known");
 					return;
 				}
-				console.log("sensorKnown.Error: " + errcode);
+				console.log("Error: " + errcode);
 				if (errcode == localdb.ERR_EMPTY_TABLE || errcode == localdb.ERR_GENERAL) {
 					if (!wots.sensor_id) {
 						console.error("Mmmm... we should have a sensor id here");
@@ -1465,9 +1466,7 @@ WotsApp.prototype = {
 		 * @param call  function csCreateUser or csCreateSession which accepts (email, password) as arguments.
 		 */
 		csStart = function(call, email, password) {
-            console.log("Starting session..");
 			sense.checkServer(function(response) {
-                console.log("Got response:"+JSON.stringify(response));
 				if (response.online) {
 					call(email, password);
 				} else {
@@ -1564,7 +1563,7 @@ WotsApp.prototype = {
 		};
 
 		generalErrorCB = function(msg) {
-			console.log("generalErrorCB.Error: ", msg);
+			console.log("Error: ", msg);
 		};
 
 		createUserSuccessCB = function(result) {

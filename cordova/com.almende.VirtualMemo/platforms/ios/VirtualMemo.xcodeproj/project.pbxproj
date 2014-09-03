@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
@@ -41,11 +40,13 @@
 		7E7966E71810823500FA85AD /* icon-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966DD1810823500FA85AD /* icon-small@2x.png */; };
 		7FD5FBE99E514B96B4F29E7C /* CDVNotification.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0EFE0F1F998D4A3CA2393C79 /* CDVNotification.bundle */; };
 		8E64F57BC9F64E6E960F45A1 /* CDVDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 790E5D296E4441EA8CDA5F79 /* CDVDevice.m */; };
+		8E766208A25F496AA93DC2F8 /* AttendeaseBeacons.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B03BB7045F48B7AAD1BAD6 /* AttendeaseBeacons.m */; };
 		A0E45B7308374CD889CC1767 /* CDVLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9436A3C62743FE8424661A /* CDVLogger.m */; };
 		CCE24366133642458DB1A91D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B813D2C380D4649B9434FF3 /* AudioToolbox.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D448AE19181C418D9AC82CCA /* CDVNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F359A6F3B44EC486AC9ABF /* CDVNotification.m */; };
 		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
 		F3B910F314AA4F409C979D63 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF2E92B70EEE4776A7DD0813 /* CoreBluetooth.framework */; };
+		FC263257E84845EA9157FA0C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1E671A96A5A44FD95C2212A /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +103,7 @@
 		5AEE5B34173C68D80009041E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		5B813D2C380D4649B9434FF3 /* AudioToolbox.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		64B03BB7045F48B7AAD1BAD6 /* AttendeaseBeacons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AttendeaseBeacons.m; path = com.attendease.ibeacons/AttendeaseBeacons.m; sourceTree = "<group>"; };
 		790E5D296E4441EA8CDA5F79 /* CDVDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVDevice.m; path = org.apache.cordova.device/CDVDevice.m; sourceTree = "<group>"; };
 		7E7966D41810823500FA85AD /* icon-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-40.png"; sourceTree = "<group>"; };
 		7E7966D51810823500FA85AD /* icon-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-40@2x.png"; sourceTree = "<group>"; };
@@ -121,6 +123,8 @@
 		EB87FDF21871DA7A0020F90C /* merges */ = {isa = PBXFileReference; lastKnownFileType = folder; name = merges; path = ../../merges; sourceTree = "<group>"; };
 		EB87FDF31871DA8E0020F90C /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../../www; sourceTree = "<group>"; };
 		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
+		F1E671A96A5A44FD95C2212A /* SystemConfiguration.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		F41117AA0A4D4B65A20BE6D0 /* AttendeaseBeacons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AttendeaseBeacons.h; path = com.attendease.ibeacons/AttendeaseBeacons.h; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = VirtualMemo/config.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -136,6 +140,7 @@
 				305D5FD1115AB8F900A74A75 /* MobileCoreServices.framework in Frameworks */,
 				5AEE5B35173C68D80009041E /* CoreLocation.framework in Frameworks */,
 				CCE24366133642458DB1A91D /* AudioToolbox.framework in Frameworks */,
+				FC263257E84845EA9157FA0C /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,6 +238,7 @@
 				305D5FD0115AB8F900A74A75 /* MobileCoreServices.framework */,
 				DF2E92B70EEE4776A7DD0813 /* CoreBluetooth.framework */,
 				5B813D2C380D4649B9434FF3 /* AudioToolbox.framework */,
+				F1E671A96A5A44FD95C2212A /* SystemConfiguration.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -256,6 +262,8 @@
 				319980F9A89F4C5896FCB6EF /* CDVNotification.h */,
 				0D9436A3C62743FE8424661A /* CDVLogger.m */,
 				4EABB0B6AF4949E8AB96EDFA /* CDVLogger.h */,
+				64B03BB7045F48B7AAD1BAD6 /* AttendeaseBeacons.m */,
+				F41117AA0A4D4B65A20BE6D0 /* AttendeaseBeacons.h */,
 			);
 			name = Plugins;
 			path = VirtualMemo/Plugins;
@@ -455,6 +463,7 @@
 				79AE49CF6E424FC2931A8EFA /* BluetoothLePlugin.m in Sources */,
 				D448AE19181C418D9AC82CCA /* CDVNotification.m in Sources */,
 				A0E45B7308374CD889CC1767 /* CDVLogger.m in Sources */,
+				8E766208A25F496AA93DC2F8 /* AttendeaseBeacons.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

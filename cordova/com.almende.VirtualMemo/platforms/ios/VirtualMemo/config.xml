@@ -25,8 +25,9 @@
     <feature name="Console">
         <param name="ios-package" value="CDVLogger" />
     </feature>
-    <feature name="BluetoothLePlugin">
-        <param name="ios-package" value="BluetoothLePlugin" />
+    <feature name="AttendeaseBeacons">
+        <param name="ios-package" value="AttendeaseBeacons" />
+        <param name="onload" value="true" />
     </feature>
     <name>VirtualMemo</name>
     <description>
@@ -39,6 +40,9 @@
     <access origin="*" />
     <preference name="StatusBarOverlaysWebView" value="true" />
     <preference name="UIWebViewBounce" value="false" />
+    <feature name="BluetoothLePlugin">
+        <param name="ios-package" value="BluetoothLePlugin" />
+    </feature>
     <icon src="www/img/logo.png" />
     <icon density="ldpi" platform="android" src="www/img/logo.png" />
     <icon density="mdpi" platform="android" src="www/img/logo.png" />

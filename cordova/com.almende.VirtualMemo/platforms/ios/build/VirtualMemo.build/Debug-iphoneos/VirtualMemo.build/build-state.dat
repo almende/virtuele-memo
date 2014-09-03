@@ -38,6 +38,7 @@ cCompileC build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-norma
 cCompileC build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/BluetoothLePlugin.o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/com.randdusing.bluetoothle/BluetoothLePlugin.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
 cCompileC build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVNotification.o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/org.apache.cordova.dialogs/CDVNotification.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
 cCompileC build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVLogger.o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/org.apache.cordova.console/CDVLogger.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/AttendeaseBeacons.o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/com.attendease.ibeacons/AttendeaseBeacons.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
 cLd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/VirtualMemo normal armv7
 cGenerateDSYMFile /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app.dSYM /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/VirtualMemo
 cProcessProductPackaging /Users/suki/Library/MobileDevice/Provisioning\ Profiles/040b364d-b757-498e-815b-5600e9da036f.mobileprovision /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/embedded.mobileprovision
@@ -70,6 +71,16 @@ c0000000054045F15000000000000019E
 t1409572629
 s414
 
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/AVFoundation.framework/AVFoundation
+c0000000054045F160000000000632990
+t1409572630
+s6498704
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/AVFoundation.framework/libAVFAudio.dylib
+c0000000054045F1500000000000D6100
+t1409572629
+s876800
+
 N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/AssetsLibrary.framework/AssetsLibrary
 c0000000054045F150000000000075BA0
 t1409572629
@@ -85,6 +96,11 @@ c0000000054045F16000000000008DCF0
 t1409572630
 s580848
 
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation
+c0000000054045F17000000000079C660
+t1409572631
+s7980640
+
 N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics
 c0000000054045F1700000000004D7BC0
 t1409572631
@@ -95,20 +111,210 @@ c0000000054045F170000000000152370
 t1409572631
 s1385328
 
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/CoreMedia.framework/CoreMedia
+c0000000054045F1700000000002CB700
+t1409572631
+s2930432
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Foundation.framework/Foundation
+c0000000054045F180000000000A90C10
+t1409572632
+s11078672
+
 N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/MobileCoreServices.framework/MobileCoreServices
 c0000000054045F190000000000210E90
 t1409572633
 s2166416
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/SystemConfiguration.framework/SystemConfiguration
+c0000000054045F1F00000000001A2B00
+t1409572639
+s1714944
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/UIKit.framework/UIKit
+c0000000054045F230000000002759920
+t1409572643
+s41261344
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/PrivateFrameworks/UIFoundation.framework/UIFoundation
+c0000000054045F300000000000385D50
+t1409572656
+s3693904
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/libSystem.dylib
+c0000000054045F35000000000001E300
+t1409572661
+s123648
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/libobjc.dylib
+c0000000054045F35000000000055EFE0
+t1409572661
+s5631968
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/system/libcache.dylib
+c0000000054045F35000000000002A880
+t1409572661
+s174208
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/system/libcommonCrypto.dylib
+c0000000054045F3500000000000458C0
+t1409572661
+s284864
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/system/libcompiler_rt.dylib
+c0000000054045F35000000000003E3E0
+t1409572661
+s254944
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/system/libcopyfile.dylib
+c0000000054045F35000000000002B130
+t1409572661
+s176432
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/system/libcorecrypto.dylib
+c0000000054045F3500000000000E1FD0
+t1409572661
+s925648
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/system/libdispatch.dylib
+c0000000054045F3500000000000A2A70
+t1409572661
+s666224
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/system/libdyld.dylib
+c0000000054045F35000000000001E8A0
+t1409572661
+s125088
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/system/libkeymgr.dylib
+c0000000054045F35000000000000BF00
+t1409572661
+s48896
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/system/liblaunch.dylib
+c0000000054045F350000000000034380
+t1409572661
+s213888
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/system/libmacho.dylib
+c0000000054045F350000000000022F30
+t1409572661
+s143152
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/system/libremovefile.dylib
+c0000000054045F35000000000001E2A0
+t1409572661
+s123552
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/system/libsystem_asl.dylib
+c0000000054045F350000000000052520
+t1409572661
+s337184
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/system/libsystem_blocks.dylib
+c0000000054045F350000000000015F20
+t1409572661
+s89888
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/system/libsystem_c.dylib
+c0000000054045F3500000000001B90D0
+t1409572661
+s1806544
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/system/libsystem_configuration.dylib
+c0000000054045F35000000000001F170
+t1409572661
+s127344
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/system/libsystem_dnssd.dylib
+c0000000054045F35000000000002FCF0
+t1409572661
+s195824
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/system/libsystem_info.dylib
+c0000000054045F35000000000008A150
+t1409572661
+s565584
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/system/libsystem_kernel.dylib
+c0000000054045F3500000000000B60E0
+t1409572661
+s745696
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/system/libsystem_m.dylib
+c0000000054045F350000000000078720
+t1409572661
+s493344
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/system/libsystem_malloc.dylib
+c0000000054045F3500000000000621F0
+t1409572661
+s401904
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/system/libsystem_network.dylib
+c0000000054045F3500000000000BDAE0
+t1409572661
+s776928
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/system/libsystem_notify.dylib
+c0000000054045F350000000000039080
+t1409572661
+s233600
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/system/libsystem_platform.dylib
+c0000000054045F35000000000003CBC0
+t1409572661
+s248768
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/system/libsystem_pthread.dylib
+c0000000054045F35000000000002CFE0
+t1409572661
+s184288
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/system/libsystem_sandbox.dylib
+c0000000054045F35000000000001EB50
+t1409572661
+s125776
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/system/libsystem_stats.dylib
+c0000000054045F35000000000001EED0
+t1409572661
+s126672
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/system/libunwind.dylib
+c0000000054045F3500000000000236B0
+t1409572661
+s145072
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/system/libxpc.dylib
+c0000000054045F3500000000000AC500
+t1409572661
+s705792
+
+N/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/5.1/lib/darwin/libclang_rt.ios.a
+c0000000054045F9B000000000000514C
+t1409572763
+s20812
 
 N/Users/suki/Library/MobileDevice/Provisioning Profiles/040b364d-b757-498e-815b-5600e9da036f.mobileprovision
 c0000000054046F000000000000001D50
 t1409576704
 s7504
 
-N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Classes/AppDelegate.m
-c0000000054058112000000000000144A
+N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Classes/AppDelegate.h
+c000000005405811200000000000005BB
 t1409646866
-s5194
+s1467
+
+N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Classes/AppDelegate.m
+c0000000054058C47000000000000144C
+t1409649735
+s5196
+
+N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Classes/MainViewController.h
+c000000005405811200000000000004D1
+t1409646866
+s1233
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Classes/MainViewController.m
 c000000005405811200000000000012AC
@@ -120,20 +326,50 @@ c00000000540581120000000000001759
 t1409646866
 s5977
 
+N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/com.attendease.ibeacons/AttendeaseBeacons.h
+c000000005405D9270000000000000329
+t1409669415
+s809
+
+N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/com.attendease.ibeacons/AttendeaseBeacons.m
+c0000000054060C9A00000000000042D6
+t1409682586
+s17110
+
+N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/com.randdusing.bluetoothle/BluetoothLePlugin.h
+c000000005405811200000000000009F1
+t1409646866
+s2545
+
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/com.randdusing.bluetoothle/BluetoothLePlugin.m
 c0000000054058112000000000000E799
 t1409646866
 s59289
+
+N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/org.apache.cordova.console/CDVLogger.h
+c00000000540587F5000000000000037F
+t1409648629
+s895
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/org.apache.cordova.console/CDVLogger.m
 c00000000540587F50000000000000490
 t1409648629
 s1168
 
+N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/org.apache.cordova.device/CDVDevice.h
+c000000005405811200000000000003BD
+t1409646866
+s957
+
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/org.apache.cordova.device/CDVDevice.m
 c00000000540581120000000000000C22
 t1409646866
 s3106
+
+N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/org.apache.cordova.dialogs/CDVNotification.h
+c000000005405811200000000000004E9
+t1409646866
+s1257
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/org.apache.cordova.dialogs/CDVNotification.m
 c000000005405811200000000000016A3
@@ -156,73 +392,73 @@ t1409646866
 s1195
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-40.png
-c0000000054058B300000000000005054
-t1409649456
+c0000000054060D130000000000005054
+t1409682707
 s20564
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-40@2x.png
-c0000000054058B300000000000005054
-t1409649456
+c0000000054060D130000000000005054
+t1409682707
 s20564
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-50.png
-c0000000054058B300000000000005054
-t1409649456
+c0000000054060D130000000000005054
+t1409682707
 s20564
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-50@2x.png
-c0000000054058B300000000000005054
-t1409649456
+c0000000054060D130000000000005054
+t1409682707
 s20564
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-60.png
-c0000000054058B300000000000005054
-t1409649456
+c0000000054060D130000000000005054
+t1409682707
 s20564
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-60@2x.png
-c0000000054058B300000000000005054
-t1409649456
+c0000000054060D130000000000005054
+t1409682707
 s20564
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-72.png
-c0000000054058B300000000000005054
-t1409649456
+c0000000054060D130000000000005054
+t1409682707
 s20564
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-72@2x.png
-c0000000054058B300000000000005054
-t1409649456
+c0000000054060D130000000000005054
+t1409682707
 s20564
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-76.png
-c0000000054058B300000000000005054
-t1409649456
+c0000000054060D130000000000005054
+t1409682707
 s20564
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-76@2x.png
-c0000000054058B300000000000005054
-t1409649456
+c0000000054060D130000000000005054
+t1409682707
 s20564
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-small.png
-c0000000054058B300000000000005054
-t1409649456
+c0000000054060D130000000000005054
+t1409682707
 s20564
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-small@2x.png
-c0000000054058B300000000000005054
-t1409649456
+c0000000054060D130000000000005054
+t1409682707
 s20564
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon.png
-c0000000054058B300000000000005054
-t1409649456
+c0000000054060D130000000000005054
+t1409682707
 s20564
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon@2x.png
-c0000000054058B300000000000005054
-t1409649456
+c0000000054060D130000000000005054
+t1409682707
 s20564
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/splash/Default-568h@2x~iphone.png
@@ -261,9 +497,9 @@ t1409646866
 s10394
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/VirtualMemo-Info.plist
-c0000000054058B30000000000000489C
-t1409649456
-s18588
+c0000000054060D130000000000000A78
+t1409682707
+s2680
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/VirtualMemo-Prefix.pch
 c000000005405811200000000000003C7
@@ -276,33 +512,37 @@ t1409646866
 s1117
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/AppDelegate.o
-t1409649465
-s74216
+t1409680805
+s73820
+
+N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/AttendeaseBeacons.o
+t1409682713
+s112516
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/BluetoothLePlugin.o
-t1409649465
+t1409680805
 s228744
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVDevice.o
-t1409649465
+t1409680805
 s50812
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVLogger.o
-t1409649465
+t1409680805
 s41892
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVNotification.o
-t1409649465
+t1409680805
 s69148
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/MainViewController.o
-t1409649465
+t1409680805
 s51960
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/VirtualMemo.LinkFileList
-c0000000054058B3200000000000004A5
-t1409649458
-s1189
+c000000005405DB710000000000000554
+t1409670001
+s1364
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/main.o
 t1409649465
@@ -314,16 +554,16 @@ t1409649458
 s45
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo.xcent
-t1409649467
+t1409682714
 s497
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app
-t1409649467
+t1409682714
 s1122
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app.dSYM
-t2
-s0
+t1409680806
+s102
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/CDVNotification.bundle
 t1409649459
@@ -358,8 +598,8 @@ t1409649459
 s20021
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/Info.plist
-t1409649458
-s11029
+t1409682709
+s1615
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/MainViewController.nib
 t1409649464
@@ -374,15 +614,15 @@ t1409649458
 s150
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/VirtualMemo
-t1409649467
-s365896
+t1409682714
+s389668
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/de.lproj/Localizable.strings
 t1409649459
 s280
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/embedded.mobileprovision
-t1409649467
+t1409682714
 s7504
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/en.lproj/Localizable.strings
@@ -390,64 +630,169 @@ t1409649459
 s166
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-40.png
-t1409649459
+t1409682712
 s20639
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-40@2x.png
-t1409649459
+t1409682711
 s20639
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-50.png
-t1409649459
+t1409682711
 s20639
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-50@2x.png
-t1409649459
+t1409682712
 s20639
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-60.png
-t1409649459
+t1409682712
 s20639
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-60@2x.png
-t1409649459
+t1409682711
 s20639
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-72.png
-t1409649459
+t1409682711
 s20639
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-72@2x.png
-t1409649459
+t1409682712
 s20639
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-76.png
-t1409649459
+t1409682711
 s20639
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-76@2x.png
-t1409649459
+t1409682712
 s20639
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-small.png
-t1409649459
+t1409682711
 s20639
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-small@2x.png
-t1409649459
+t1409682711
 s20639
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon.png
-t1409649459
+t1409682711
 s20639
 
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon@2x.png
-t1409649459
+t1409682711
 s20639
 
+N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDV.h
+c00000000540605A10000000000000516
+t1409680801
+s1302
+
+N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVAvailability.h
+c00000000540605A10000000000000D19
+t1409680801
+s3353
+
+N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVCommandDelegate.h
+c00000000540605A100000000000008BA
+t1409680801
+s2234
+
+N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVCommandDelegateImpl.h
+c00000000540605A100000000000004E2
+t1409680801
+s1250
+
+N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVCommandQueue.h
+c00000000540605A10000000000000503
+t1409680801
+s1283
+
+N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVDebug.h
+c00000000540605A10000000000000401
+t1409680801
+s1025
+
+N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVInvokedUrlCommand.h
+c00000000540605A100000000000007E6
+t1409680801
+s2022
+
+N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVJSON.h
+c00000000540605A100000000000003DA
+t1409680801
+s986
+
+N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVLocalStorage.h
+c00000000540605A100000000000006CF
+t1409680801
+s1743
+
+N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVPlugin.h
+c00000000540605A100000000000008F3
+t1409680801
+s2291
+
+N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVPluginResult.h
+c00000000540605A10000000000000C13
+t1409680801
+s3091
+
+N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVScreenOrientationDelegate.h
+c00000000540605A10000000000000408
+t1409680801
+s1032
+
+N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVTimer.h
+c00000000540605A1000000000000038D
+t1409680801
+s909
+
+N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVURLProtocol.h
+c00000000540605A1000000000000041C
+t1409680801
+s1052
+
+N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVViewController.h
+c00000000540605A10000000000000ACC
+t1409680801
+s2764
+
+N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVWhitelist.h
+c00000000540605A100000000000004B4
+t1409680801
+s1204
+
+N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/NSArray+Comparisons.h
+c00000000540605A10000000000000392
+t1409680801
+s914
+
+N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/NSData+Base64.h
+c00000000540605A1000000000000037D
+t1409680801
+s893
+
+N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/NSDictionary+Extensions.h
+c00000000540605A100000000000005DA
+t1409680801
+s1498
+
+N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/NSMutableArray+QueueAdditions.h
+c00000000540605A100000000000003A0
+t1409680801
+s928
+
+N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/UIDevice+Extensions.h
+c00000000540605A10000000000000476
+t1409680801
+s1142
+
 N/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/libCordova.a
-c0000000054058B3200000000000DC0E0
-t1409649458
+c00000000540605A200000000000DC0E0
+t1409680802
 s901344
 
 N/var/folders/h_/l3rdq4h9727cc5_nmwbyktp80000gn/C/com.apple.DeveloperTools/5.1.1-5B1008/Xcode/SharedPrecompiledHeaders/VirtualMemo-Prefix-cssageiengqmdwfisjyhjtoxebqa/VirtualMemo-Prefix.pch.pch
@@ -456,20 +801,20 @@ s5315296
 
 CCheck dependencies
 r0
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies18"Check dependencies066794b2c2b5b941^d74d95b2c2b5b941^---0#1#1#--18"Check dependencies36"BB4877F4-E2AE-40B5-9595-FED61D2A301E-
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies18"Check dependencies85d27f9544b6b941^effe8c9544b6b941^---0#1#1#--18"Check dependencies36"0CF35291-27ED-4CF9-9629-E8AEE42D6A3E-
 
 CCodeSign /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app
-s431342267.197388
-e431342271.603701
+s431375514.241086
+e431375544.698686
 r1
 xCodeSign
 x/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection53"[1mCodeSign[0m [1mbuild/device/VirtualMemo.app[0m53"[1mCodeSign[0m [1mbuild/device/VirtualMemo.app[0m37a732bbc2b5b941^b48e9abfc2b5b941^---0#0#1#-19%DVTDocumentLocation2@113"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/0000000000000000^1214"[1mCodeSign[0m [1mbuild/device/VirtualMemo.app[0m    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export CODESIGN_ALLOCATE=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/codesign_allocate    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    Using code signing identity "iPhone Developer: Suki van Beusekom (TFQQZR84TM)" and provisioning profile "iOS Team Provisioning Profile: *" (040b364d-b757-498e-815b-5600e9da036f)    /usr/bin/codesign --force --sign 436575B61947402CDEECC05C374E4EEB8B02BCBA --resource-rules=/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/ResourceRules.plist --entitlements /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo.xcent /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app36"1A0F98CC-B885-4E6A-89F4-9B930F658352-
-b375631A3-7511-4C16-AA5A-F3E0BF55194F
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection53"[1mCodeSign[0m [1mbuild/device/VirtualMemo.app[0m53"[1mCodeSign[0m [1mbuild/device/VirtualMemo.app[0m0bd53d9a44b6b941^01deb2b844b6b941^---0#0#1#-19%DVTDocumentLocation2@113"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/0000000000000000^1214"[1mCodeSign[0m [1mbuild/device/VirtualMemo.app[0m    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export CODESIGN_ALLOCATE=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/codesign_allocate    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    Using code signing identity "iPhone Developer: Suki van Beusekom (TFQQZR84TM)" and provisioning profile "iOS Team Provisioning Profile: *" (040b364d-b757-498e-815b-5600e9da036f)    /usr/bin/codesign --force --sign 436575B61947402CDEECC05C374E4EEB8B02BCBA --resource-rules=/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/ResourceRules.plist --entitlements /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo.xcent /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app36"77FEDE7D-39EB-4053-8DAE-0E1EBE342F58-
+b3F37D2C7-177B-4BC5-920B-8B6E8E3B6EFB
 
 CCompileC build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/AppDelegate.o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Classes/AppDelegate.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s431342265.360473
-e431342265.459256
+s431373604.780345
+e431373605.097718
 r1
 xCompileC
 xbuild/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/AppDelegate.o
@@ -492,12 +837,61 @@ d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/bu
 d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/NSMutableArray+QueueAdditions.h
 d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Classes/MainViewController.h
 d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVCommandDelegateImpl.h
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection118"Compile /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Classes/AppDelegate.m219"[1mCompileC[0m build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/AppDelegate.o [1mVirtualMemo/Classes/AppDelegate.m[0m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compilerfa615cb9c2b5b941^869275b9c2b5b941^---0#0#1#-19%DVTDocumentLocation2@117"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Classes/AppDelegate.m0000000000000000^4137"[1mCompileC[0m build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/AppDelegate.o [1mVirtualMemo/Classes/AppDelegate.m[0m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export LANG=en_US.US-ASCII    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch armv7 -fmessage-length=238 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -fcolor-diagnostics -std=c99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wno-arc-repeated-use-of-weak -Wduplicate-method-match -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wundeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -g -fvisibility=hidden -Wno-sign-conversion -miphoneos-version-min=6.0 -iquote /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-generated-files.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-own-target-headers.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-all-target-headers.hmap -iquote /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-project-headers.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/usr/local/lib/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/UninstalledProducts/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/DerivedSources/armv7 -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/DerivedSources -F/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device -include /var/folders/h_/l3rdq4h9727cc5_nmwbyktp80000gn/C/com.apple.DeveloperTools/5.1.1-5B1008/Xcode/SharedPrecompiledHeaders/VirtualMemo-Prefix-cssageiengqmdwfisjyhjtoxebqa/VirtualMemo-Prefix.pch -MMD -MT dependencies -MF /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/AppDelegate.d --serialize-diagnostics /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/AppDelegate.dia -c /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Classes/AppDelegate.m -o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/AppDelegate.o36"180BC090-D148-4D00-8C72-4C97FF0FDB84-
-b375631A3-7511-4C16-AA5A-F3E0BF55194F
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection118"Compile /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Classes/AppDelegate.m219"[1mCompileC[0m build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/AppDelegate.o [1mVirtualMemo/Classes/AppDelegate.m[0m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler36e8c7243db6b941^d50419253db6b941^---0#0#1#-19%DVTDocumentLocation2@117"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Classes/AppDelegate.m0000000000000000^4137"[1mCompileC[0m build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/AppDelegate.o [1mVirtualMemo/Classes/AppDelegate.m[0m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export LANG=en_US.US-ASCII    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch armv7 -fmessage-length=238 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -fcolor-diagnostics -std=c99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wno-arc-repeated-use-of-weak -Wduplicate-method-match -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wundeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -g -fvisibility=hidden -Wno-sign-conversion -miphoneos-version-min=6.0 -iquote /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-generated-files.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-own-target-headers.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-all-target-headers.hmap -iquote /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-project-headers.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/usr/local/lib/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/UninstalledProducts/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/DerivedSources/armv7 -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/DerivedSources -F/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device -include /var/folders/h_/l3rdq4h9727cc5_nmwbyktp80000gn/C/com.apple.DeveloperTools/5.1.1-5B1008/Xcode/SharedPrecompiledHeaders/VirtualMemo-Prefix-cssageiengqmdwfisjyhjtoxebqa/VirtualMemo-Prefix.pch -MMD -MT dependencies -MF /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/AppDelegate.d --serialize-diagnostics /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/AppDelegate.dia -c /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Classes/AppDelegate.m -o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/AppDelegate.o36"FA72493C-5B6B-4735-9D0B-C6DA9CECBACB-
+b869E37EA-B705-4EF7-AC10-B4F68EC4CCC2
+
+CCompileC build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/AttendeaseBeacons.o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/com.attendease.ibeacons/AttendeaseBeacons.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s431375512.105302
+e431375513.213431
+r1
+xCompileC
+xbuild/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/AttendeaseBeacons.o
+x/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/com.attendease.ibeacons/AttendeaseBeacons.m
+xnormal
+xarmv7
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/com.attendease.ibeacons/AttendeaseBeacons.m
+d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/com.attendease.ibeacons/AttendeaseBeacons.h
+d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVPlugin.h
+d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVPluginResult.h
+d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/NSMutableArray+QueueAdditions.h
+d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVCommandDelegate.h
+d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVAvailability.h
+d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVInvokedUrlCommand.h
+d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDV.h
+d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVViewController.h
+d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVCommandQueue.h
+d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVWhitelist.h
+d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVScreenOrientationDelegate.h
+d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVURLProtocol.h
+d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVDebug.h
+d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVLocalStorage.h
+d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVTimer.h
+d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/NSArray+Comparisons.h
+d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/NSData+Base64.h
+d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/NSDictionary+Extensions.h
+d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/UIDevice+Extensions.h
+d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVJSON.h
+o[1m/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/com.attendease.ibeacons/AttendeaseBeacons.m:266:34: [0m[0;1;35mwarning: [0m[1munused variable 'alertView' [-Wunused-variable][0m
+o                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil];
+o[0;1;32m                                 ^
+o[0m[1m/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/com.attendease.ibeacons/AttendeaseBeacons.m:322:38: [0m[0;1;35mwarning: [0m[1munused variable 'connection' [-Wunused-variable][0m
+o                    NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
+o[0;1;32m                                     ^
+o[0m[1m/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/com.attendease.ibeacons/AttendeaseBeacons.m:379:15: [0m[0;1;35mwarning: [0m[1munused variable 'json' [-Wunused-variable][0m
+o    NSString* json = [NSString stringWithFormat:@"{\"title\":\"%@\",\"message\":\"%@\"'}", title, message];
+o[0;1;32m              ^
+o[0m[1m/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/com.attendease.ibeacons/AttendeaseBeacons.m:416:15: [0m[0;1;35mwarning: [0m[1munused variable 'stateName' [-Wunused-variable][0m
+o    NSString* stateName      = isActive ? @"foreground" : @"background";
+o[0;1;32m              ^
+o[0m4 warnings generated.
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection148"Compile /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/com.attendease.ibeacons/AttendeaseBeacons.m255"[1mCompileC[0m build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/AttendeaseBeacons.o [1mVirtualMemo/Plugins/com.attendease.ibeacons/AttendeaseBeacons.m[0m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler490f1b9844b6b941^c2a2369944b6b941^-1576"[1m/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/com.attendease.ibeacons/AttendeaseBeacons.m:266:34: [0m[0;1;35mwarning: [0m[1munused variable 'alertView' [-Wunused-variable][0m                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil];[0;1;32m                                 ^[0m[1m/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/com.attendease.ibeacons/AttendeaseBeacons.m:322:38: [0m[0;1;35mwarning: [0m[1munused variable 'connection' [-Wunused-variable][0m                    NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];[0;1;32m                                     ^[0m[1m/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/com.attendease.ibeacons/AttendeaseBeacons.m:379:15: [0m[0;1;35mwarning: [0m[1munused variable 'json' [-Wunused-variable][0m    NSString* json = [NSString stringWithFormat:@"{\"title\":\"%@\",\"message\":\"%@\"'}", title, message];[0;1;32m              ^[0m[1m/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/com.attendease.ibeacons/AttendeaseBeacons.m:416:15: [0m[0;1;35mwarning: [0m[1munused variable 'stateName' [-Wunused-variable][0m    NSString* stateName      = isActive ? @"foreground" : @"background";[0;1;32m              ^[0m4 warnings generated.4(36%IDEClangDiagnosticActivityLogMessage2@27"Unused variable 'alertView'-431375513#18446744073709551615#0#-1#27"com.apple.dt.IDE.diagnostic23%DVTTextDocumentLocation3@147"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/com.attendease.ibeacons/AttendeaseBeacons.m0000000000000000^265#33#265#33#9605#0#19"Unused Entity Issue--2@28"Unused variable 'connection'-431375513#18446744073709551615#0#-1#27"com.apple.dt.IDE.diagnostic3@147"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/com.attendease.ibeacons/AttendeaseBeacons.m0000000000000000^321#37#321#37#12591#0#19"Unused Entity Issue--2@22"Unused variable 'json'-431375513#18446744073709551615#0#-1#27"com.apple.dt.IDE.diagnostic3@147"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/com.attendease.ibeacons/AttendeaseBeacons.m0000000000000000^378#14#378#14#14543#0#19"Unused Entity Issue--2@27"Unused variable 'stateName'-431375513#18446744073709551615#0#-1#27"com.apple.dt.IDE.diagnostic3@147"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/com.attendease.ibeacons/AttendeaseBeacons.m0000000000000000^415#14#415#14#15979#0#19"Unused Entity Issue--0#0#1#-19%DVTDocumentLocation4@147"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/com.attendease.ibeacons/AttendeaseBeacons.m0000000000000000^4221"[1mCompileC[0m build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/AttendeaseBeacons.o [1mVirtualMemo/Plugins/com.attendease.ibeacons/AttendeaseBeacons.m[0m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export LANG=en_US.US-ASCII    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch armv7 -fmessage-length=238 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -fcolor-diagnostics -std=c99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wno-arc-repeated-use-of-weak -Wduplicate-method-match -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wundeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -g -fvisibility=hidden -Wno-sign-conversion -miphoneos-version-min=6.0 -iquote /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-generated-files.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-own-target-headers.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-all-target-headers.hmap -iquote /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-project-headers.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/usr/local/lib/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/UninstalledProducts/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/DerivedSources/armv7 -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/DerivedSources -F/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device -include /var/folders/h_/l3rdq4h9727cc5_nmwbyktp80000gn/C/com.apple.DeveloperTools/5.1.1-5B1008/Xcode/SharedPrecompiledHeaders/VirtualMemo-Prefix-cssageiengqmdwfisjyhjtoxebqa/VirtualMemo-Prefix.pch -MMD -MT dependencies -MF /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/AttendeaseBeacons.d --serialize-diagnostics /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/AttendeaseBeacons.dia -c /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/com.attendease.ibeacons/AttendeaseBeacons.m -o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/AttendeaseBeacons.o36"90F200E1-525A-4423-93F9-56DB12E21C45-
+b3F37D2C7-177B-4BC5-920B-8B6E8E3B6EFB
 
 CCompileC build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/BluetoothLePlugin.o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/com.randdusing.bluetoothle/BluetoothLePlugin.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s431342265.361853
-e431342265.599009
+s431373604.781390
+e431373605.272667
 r1
 xCompileC
 xbuild/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/BluetoothLePlugin.o
@@ -528,12 +922,12 @@ d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/bu
 d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/NSDictionary+Extensions.h
 d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/UIDevice+Extensions.h
 d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVJSON.h
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection151"Compile /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/com.randdusing.bluetoothle/BluetoothLePlugin.m258"[1mCompileC[0m build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/BluetoothLePlugin.o [1mVirtualMemo/Plugins/com.randdusing.bluetoothle/BluetoothLePlugin.m[0m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compilerc7d95cb9c2b5b941^3a5a99b9c2b5b941^---0#0#1#-19%DVTDocumentLocation2@150"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/com.randdusing.bluetoothle/BluetoothLePlugin.m0000000000000000^4227"[1mCompileC[0m build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/BluetoothLePlugin.o [1mVirtualMemo/Plugins/com.randdusing.bluetoothle/BluetoothLePlugin.m[0m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export LANG=en_US.US-ASCII    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch armv7 -fmessage-length=238 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -fcolor-diagnostics -std=c99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wno-arc-repeated-use-of-weak -Wduplicate-method-match -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wundeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -g -fvisibility=hidden -Wno-sign-conversion -miphoneos-version-min=6.0 -iquote /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-generated-files.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-own-target-headers.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-all-target-headers.hmap -iquote /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-project-headers.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/usr/local/lib/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/UninstalledProducts/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/DerivedSources/armv7 -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/DerivedSources -F/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device -include /var/folders/h_/l3rdq4h9727cc5_nmwbyktp80000gn/C/com.apple.DeveloperTools/5.1.1-5B1008/Xcode/SharedPrecompiledHeaders/VirtualMemo-Prefix-cssageiengqmdwfisjyhjtoxebqa/VirtualMemo-Prefix.pch -MMD -MT dependencies -MF /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/BluetoothLePlugin.d --serialize-diagnostics /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/BluetoothLePlugin.dia -c /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/com.randdusing.bluetoothle/BluetoothLePlugin.m -o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/BluetoothLePlugin.o36"09E76514-6BE3-45E5-A787-C00FE54A28DC-
-b375631A3-7511-4C16-AA5A-F3E0BF55194F
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection151"Compile /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/com.randdusing.bluetoothle/BluetoothLePlugin.m258"[1mCompileC[0m build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/BluetoothLePlugin.o [1mVirtualMemo/Plugins/com.randdusing.bluetoothle/BluetoothLePlugin.m[0m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler6536c8243db6b941^31d045253db6b941^---0#0#1#-19%DVTDocumentLocation2@150"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/com.randdusing.bluetoothle/BluetoothLePlugin.m0000000000000000^4227"[1mCompileC[0m build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/BluetoothLePlugin.o [1mVirtualMemo/Plugins/com.randdusing.bluetoothle/BluetoothLePlugin.m[0m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export LANG=en_US.US-ASCII    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch armv7 -fmessage-length=238 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -fcolor-diagnostics -std=c99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wno-arc-repeated-use-of-weak -Wduplicate-method-match -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wundeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -g -fvisibility=hidden -Wno-sign-conversion -miphoneos-version-min=6.0 -iquote /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-generated-files.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-own-target-headers.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-all-target-headers.hmap -iquote /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-project-headers.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/usr/local/lib/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/UninstalledProducts/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/DerivedSources/armv7 -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/DerivedSources -F/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device -include /var/folders/h_/l3rdq4h9727cc5_nmwbyktp80000gn/C/com.apple.DeveloperTools/5.1.1-5B1008/Xcode/SharedPrecompiledHeaders/VirtualMemo-Prefix-cssageiengqmdwfisjyhjtoxebqa/VirtualMemo-Prefix.pch -MMD -MT dependencies -MF /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/BluetoothLePlugin.d --serialize-diagnostics /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/BluetoothLePlugin.dia -c /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/com.randdusing.bluetoothle/BluetoothLePlugin.m -o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/BluetoothLePlugin.o36"76B5A176-A380-4D1A-8444-701E07567606-
+b869E37EA-B705-4EF7-AC10-B4F68EC4CCC2
 
 CCompileC build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVDevice.o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/org.apache.cordova.device/CDVDevice.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s431342265.361147
-e431342265.480189
+s431373604.781072
+e431373605.228839
 r1
 xCompileC
 xbuild/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVDevice.o
@@ -564,12 +958,12 @@ d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/bu
 d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/UIDevice+Extensions.h
 d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVJSON.h
 d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/org.apache.cordova.device/CDVDevice.h
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection142"Compile /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/org.apache.cordova.device/CDVDevice.m241"[1mCompileC[0m build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVDevice.o [1mVirtualMemo/Plugins/org.apache.cordova.device/CDVDevice.m[0m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compilera69b5cb9c2b5b941^7cf07ab9c2b5b941^---0#0#1#-19%DVTDocumentLocation2@141"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/org.apache.cordova.device/CDVDevice.m0000000000000000^4177"[1mCompileC[0m build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVDevice.o [1mVirtualMemo/Plugins/org.apache.cordova.device/CDVDevice.m[0m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export LANG=en_US.US-ASCII    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch armv7 -fmessage-length=238 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -fcolor-diagnostics -std=c99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wno-arc-repeated-use-of-weak -Wduplicate-method-match -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wundeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -g -fvisibility=hidden -Wno-sign-conversion -miphoneos-version-min=6.0 -iquote /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-generated-files.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-own-target-headers.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-all-target-headers.hmap -iquote /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-project-headers.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/usr/local/lib/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/UninstalledProducts/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/DerivedSources/armv7 -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/DerivedSources -F/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device -include /var/folders/h_/l3rdq4h9727cc5_nmwbyktp80000gn/C/com.apple.DeveloperTools/5.1.1-5B1008/Xcode/SharedPrecompiledHeaders/VirtualMemo-Prefix-cssageiengqmdwfisjyhjtoxebqa/VirtualMemo-Prefix.pch -MMD -MT dependencies -MF /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVDevice.d --serialize-diagnostics /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVDevice.dia -c /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/org.apache.cordova.device/CDVDevice.m -o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVDevice.o36"46458F3E-85BA-46C2-9BBD-F99B6CC7A5C3-
-b375631A3-7511-4C16-AA5A-F3E0BF55194F
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection142"Compile /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/org.apache.cordova.device/CDVDevice.m241"[1mCompileC[0m build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVDevice.o [1mVirtualMemo/Plugins/org.apache.cordova.device/CDVDevice.m[0m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler0113c8243db6b941^a7953a253db6b941^---0#0#1#-19%DVTDocumentLocation2@141"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/org.apache.cordova.device/CDVDevice.m0000000000000000^4177"[1mCompileC[0m build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVDevice.o [1mVirtualMemo/Plugins/org.apache.cordova.device/CDVDevice.m[0m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export LANG=en_US.US-ASCII    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch armv7 -fmessage-length=238 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -fcolor-diagnostics -std=c99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wno-arc-repeated-use-of-weak -Wduplicate-method-match -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wundeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -g -fvisibility=hidden -Wno-sign-conversion -miphoneos-version-min=6.0 -iquote /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-generated-files.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-own-target-headers.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-all-target-headers.hmap -iquote /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-project-headers.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/usr/local/lib/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/UninstalledProducts/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/DerivedSources/armv7 -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/DerivedSources -F/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device -include /var/folders/h_/l3rdq4h9727cc5_nmwbyktp80000gn/C/com.apple.DeveloperTools/5.1.1-5B1008/Xcode/SharedPrecompiledHeaders/VirtualMemo-Prefix-cssageiengqmdwfisjyhjtoxebqa/VirtualMemo-Prefix.pch -MMD -MT dependencies -MF /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVDevice.d --serialize-diagnostics /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVDevice.dia -c /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/org.apache.cordova.device/CDVDevice.m -o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVDevice.o36"B24FAE64-4FF0-4ED1-ADDC-2CB5F1DD753A-
+b869E37EA-B705-4EF7-AC10-B4F68EC4CCC2
 
 CCompileC build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVLogger.o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/org.apache.cordova.console/CDVLogger.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s431342265.362971
-e431342265.435742
+s431373604.782430
+e431373605.075989
 r1
 xCompileC
 xbuild/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVLogger.o
@@ -600,12 +994,12 @@ d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/bu
 d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/NSDictionary+Extensions.h
 d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/UIDevice+Extensions.h
 d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVJSON.h
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection143"Compile /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/org.apache.cordova.console/CDVLogger.m242"[1mCompileC[0m build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVLogger.o [1mVirtualMemo/Plugins/org.apache.cordova.console/CDVLogger.m[0m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler191c5db9c2b5b941^bd8b6fb9c2b5b941^---0#0#1#-19%DVTDocumentLocation2@142"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/org.apache.cordova.console/CDVLogger.m0000000000000000^4179"[1mCompileC[0m build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVLogger.o [1mVirtualMemo/Plugins/org.apache.cordova.console/CDVLogger.m[0m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export LANG=en_US.US-ASCII    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch armv7 -fmessage-length=238 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -fcolor-diagnostics -std=c99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wno-arc-repeated-use-of-weak -Wduplicate-method-match -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wundeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -g -fvisibility=hidden -Wno-sign-conversion -miphoneos-version-min=6.0 -iquote /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-generated-files.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-own-target-headers.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-all-target-headers.hmap -iquote /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-project-headers.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/usr/local/lib/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/UninstalledProducts/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/DerivedSources/armv7 -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/DerivedSources -F/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device -include /var/folders/h_/l3rdq4h9727cc5_nmwbyktp80000gn/C/com.apple.DeveloperTools/5.1.1-5B1008/Xcode/SharedPrecompiledHeaders/VirtualMemo-Prefix-cssageiengqmdwfisjyhjtoxebqa/VirtualMemo-Prefix.pch -MMD -MT dependencies -MF /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVLogger.d --serialize-diagnostics /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVLogger.dia -c /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/org.apache.cordova.console/CDVLogger.m -o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVLogger.o36"70BF3551-6FF2-4776-93FA-B80676B3F748-
-b375631A3-7511-4C16-AA5A-F3E0BF55194F
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection143"Compile /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/org.apache.cordova.console/CDVLogger.m242"[1mCompileC[0m build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVLogger.o [1mVirtualMemo/Plugins/org.apache.cordova.console/CDVLogger.m[0m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compilercf86c8243db6b941^3e7613253db6b941^---0#0#1#-19%DVTDocumentLocation2@142"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/org.apache.cordova.console/CDVLogger.m0000000000000000^4179"[1mCompileC[0m build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVLogger.o [1mVirtualMemo/Plugins/org.apache.cordova.console/CDVLogger.m[0m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export LANG=en_US.US-ASCII    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch armv7 -fmessage-length=238 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -fcolor-diagnostics -std=c99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wno-arc-repeated-use-of-weak -Wduplicate-method-match -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wundeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -g -fvisibility=hidden -Wno-sign-conversion -miphoneos-version-min=6.0 -iquote /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-generated-files.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-own-target-headers.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-all-target-headers.hmap -iquote /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-project-headers.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/usr/local/lib/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/UninstalledProducts/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/DerivedSources/armv7 -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/DerivedSources -F/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device -include /var/folders/h_/l3rdq4h9727cc5_nmwbyktp80000gn/C/com.apple.DeveloperTools/5.1.1-5B1008/Xcode/SharedPrecompiledHeaders/VirtualMemo-Prefix-cssageiengqmdwfisjyhjtoxebqa/VirtualMemo-Prefix.pch -MMD -MT dependencies -MF /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVLogger.d --serialize-diagnostics /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVLogger.dia -c /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/org.apache.cordova.console/CDVLogger.m -o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVLogger.o36"4B051553-2A54-405B-B1AB-A959DEEA8224-
+b869E37EA-B705-4EF7-AC10-B4F68EC4CCC2
 
 CCompileC build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVNotification.o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/org.apache.cordova.dialogs/CDVNotification.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s431342265.362438
-e431342265.459068
+s431373604.781867
+e431373605.116761
 r1
 xCompileC
 xbuild/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVNotification.o
@@ -624,12 +1018,12 @@ d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/bu
 d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVInvokedUrlCommand.h
 d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/NSDictionary+Extensions.h
 d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/NSArray+Comparisons.h
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection149"Compile /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/org.apache.cordova.dialogs/CDVNotification.m254"[1mCompileC[0m build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVNotification.o [1mVirtualMemo/Plugins/org.apache.cordova.dialogs/CDVNotification.m[0m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler95f05cb9c2b5b941^668675b9c2b5b941^---0#0#1#-19%DVTDocumentLocation2@148"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/org.apache.cordova.dialogs/CDVNotification.m0000000000000000^4215"[1mCompileC[0m build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVNotification.o [1mVirtualMemo/Plugins/org.apache.cordova.dialogs/CDVNotification.m[0m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export LANG=en_US.US-ASCII    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch armv7 -fmessage-length=238 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -fcolor-diagnostics -std=c99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wno-arc-repeated-use-of-weak -Wduplicate-method-match -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wundeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -g -fvisibility=hidden -Wno-sign-conversion -miphoneos-version-min=6.0 -iquote /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-generated-files.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-own-target-headers.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-all-target-headers.hmap -iquote /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-project-headers.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/usr/local/lib/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/UninstalledProducts/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/DerivedSources/armv7 -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/DerivedSources -F/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device -include /var/folders/h_/l3rdq4h9727cc5_nmwbyktp80000gn/C/com.apple.DeveloperTools/5.1.1-5B1008/Xcode/SharedPrecompiledHeaders/VirtualMemo-Prefix-cssageiengqmdwfisjyhjtoxebqa/VirtualMemo-Prefix.pch -MMD -MT dependencies -MF /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVNotification.d --serialize-diagnostics /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVNotification.dia -c /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/org.apache.cordova.dialogs/CDVNotification.m -o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVNotification.o36"8341B143-5D9B-4A9F-92BC-38C46B2C5367-
-b375631A3-7511-4C16-AA5A-F3E0BF55194F
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection149"Compile /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/org.apache.cordova.dialogs/CDVNotification.m254"[1mCompileC[0m build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVNotification.o [1mVirtualMemo/Plugins/org.apache.cordova.dialogs/CDVNotification.m[0m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler3259c8243db6b941^08e51d253db6b941^---0#0#1#-19%DVTDocumentLocation2@148"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/org.apache.cordova.dialogs/CDVNotification.m0000000000000000^4215"[1mCompileC[0m build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVNotification.o [1mVirtualMemo/Plugins/org.apache.cordova.dialogs/CDVNotification.m[0m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export LANG=en_US.US-ASCII    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch armv7 -fmessage-length=238 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -fcolor-diagnostics -std=c99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wno-arc-repeated-use-of-weak -Wduplicate-method-match -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wundeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -g -fvisibility=hidden -Wno-sign-conversion -miphoneos-version-min=6.0 -iquote /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-generated-files.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-own-target-headers.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-all-target-headers.hmap -iquote /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-project-headers.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/usr/local/lib/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/UninstalledProducts/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/DerivedSources/armv7 -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/DerivedSources -F/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device -include /var/folders/h_/l3rdq4h9727cc5_nmwbyktp80000gn/C/com.apple.DeveloperTools/5.1.1-5B1008/Xcode/SharedPrecompiledHeaders/VirtualMemo-Prefix-cssageiengqmdwfisjyhjtoxebqa/VirtualMemo-Prefix.pch -MMD -MT dependencies -MF /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVNotification.d --serialize-diagnostics /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVNotification.dia -c /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Plugins/org.apache.cordova.dialogs/CDVNotification.m -o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVNotification.o36"0CB6772D-A021-4861-BD31-5B5A4B8324CC-
+b869E37EA-B705-4EF7-AC10-B4F68EC4CCC2
 
 CCompileC build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/MainViewController.o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Classes/MainViewController.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s431342265.360867
-e431342265.447978
+s431373604.780604
+e431373605.081321
 r1
 xCompileC
 xbuild/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/MainViewController.o
@@ -651,8 +1045,8 @@ d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/bu
 d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVPluginResult.h
 d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/NSMutableArray+QueueAdditions.h
 d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include/Cordova/CDVCommandDelegateImpl.h
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection125"Compile /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Classes/MainViewController.m233"[1mCompileC[0m build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/MainViewController.o [1mVirtualMemo/Classes/MainViewController.m[0m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler118b5cb9c2b5b941^92ad72b9c2b5b941^---0#0#1#-19%DVTDocumentLocation2@124"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Classes/MainViewController.m0000000000000000^4179"[1mCompileC[0m build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/MainViewController.o [1mVirtualMemo/Classes/MainViewController.m[0m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export LANG=en_US.US-ASCII    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch armv7 -fmessage-length=238 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -fcolor-diagnostics -std=c99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wno-arc-repeated-use-of-weak -Wduplicate-method-match -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wundeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -g -fvisibility=hidden -Wno-sign-conversion -miphoneos-version-min=6.0 -iquote /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-generated-files.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-own-target-headers.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-all-target-headers.hmap -iquote /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-project-headers.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/usr/local/lib/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/UninstalledProducts/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/DerivedSources/armv7 -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/DerivedSources -F/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device -include /var/folders/h_/l3rdq4h9727cc5_nmwbyktp80000gn/C/com.apple.DeveloperTools/5.1.1-5B1008/Xcode/SharedPrecompiledHeaders/VirtualMemo-Prefix-cssageiengqmdwfisjyhjtoxebqa/VirtualMemo-Prefix.pch -MMD -MT dependencies -MF /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/MainViewController.d --serialize-diagnostics /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/MainViewController.dia -c /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Classes/MainViewController.m -o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/MainViewController.o36"82B9C176-53E2-4AED-8858-093994B7B723-
-b375631A3-7511-4C16-AA5A-F3E0BF55194F
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection125"Compile /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Classes/MainViewController.m233"[1mCompileC[0m build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/MainViewController.o [1mVirtualMemo/Classes/MainViewController.m[0m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler87fcc7243db6b941^42d114253db6b941^---0#0#1#-19%DVTDocumentLocation2@124"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Classes/MainViewController.m0000000000000000^4179"[1mCompileC[0m build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/MainViewController.o [1mVirtualMemo/Classes/MainViewController.m[0m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export LANG=en_US.US-ASCII    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch armv7 -fmessage-length=238 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -fcolor-diagnostics -std=c99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wno-arc-repeated-use-of-weak -Wduplicate-method-match -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wundeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -g -fvisibility=hidden -Wno-sign-conversion -miphoneos-version-min=6.0 -iquote /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-generated-files.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-own-target-headers.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-all-target-headers.hmap -iquote /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo-project-headers.hmap -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/usr/local/lib/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/UninstalledProducts/include -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/DerivedSources/armv7 -I/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/DerivedSources -F/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device -include /var/folders/h_/l3rdq4h9727cc5_nmwbyktp80000gn/C/com.apple.DeveloperTools/5.1.1-5B1008/Xcode/SharedPrecompiledHeaders/VirtualMemo-Prefix-cssageiengqmdwfisjyhjtoxebqa/VirtualMemo-Prefix.pch -MMD -MT dependencies -MF /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/MainViewController.d --serialize-diagnostics /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/MainViewController.dia -c /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Classes/MainViewController.m -o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/MainViewController.o36"C694948F-9DC0-40B4-8772-0B3152248E33-
+b869E37EA-B705-4EF7-AC10-B4F68EC4CCC2
 
 CCompileC build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/main.o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/main.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
 s431342265.360097
@@ -749,144 +1143,144 @@ lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection115"[1mCo
 b375631A3-7511-4C16-AA5A-F3E0BF55194F
 
 CCopyPNGFile /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-40.png VirtualMemo/Resources/icons/icon-40.png
-s431342259.563362
-e431342259.657324
+s431375511.944833
+e431375512.097930
 r1
 xCopyPNGFile
 x/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-40.png
 xVirtualMemo/Resources/icons/icon-40.png
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection100"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-40.png VirtualMemo/Resources/icons/icon-40.png100"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-40.png VirtualMemo/Resources/icons/icon-40.png0c5690b3c2b5b941^193ca8b3c2b5b941^---0#0#1#-19%DVTDocumentLocation2@123"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-40.png0000000000000000^797"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-40.png VirtualMemo/Resources/icons/icon-40.png    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/copypng -compress /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-40.png /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-40.png36"672796C4-D56A-40E0-8EE5-5C6F0B569ADF-
-b375631A3-7511-4C16-AA5A-F3E0BF55194F
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection100"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-40.png VirtualMemo/Resources/icons/icon-40.png100"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-40.png VirtualMemo/Resources/icons/icon-40.png1827f29744b6b941^3412199844b6b941^---0#0#1#-19%DVTDocumentLocation2@123"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-40.png0000000000000000^797"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-40.png VirtualMemo/Resources/icons/icon-40.png    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/copypng -compress /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-40.png /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-40.png36"99723FB0-222D-4642-A21F-50AD7E8D2D35-
+b3F37D2C7-177B-4BC5-920B-8B6E8E3B6EFB
 
 CCopyPNGFile /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-40@2x.png VirtualMemo/Resources/icons/icon-40@2x.png
-s431342259.272448
-e431342259.561657
+s431375510.685165
+e431375511.945209
 r1
 xCopyPNGFile
 x/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-40@2x.png
 xVirtualMemo/Resources/icons/icon-40@2x.png
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection106"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-40@2x.png VirtualMemo/Resources/icons/icon-40@2x.png106"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-40@2x.png VirtualMemo/Resources/icons/icon-40@2x.png88d745b3c2b5b941^02d98fb3c2b5b941^---0#0#1#-19%DVTDocumentLocation2@126"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-40@2x.png0000000000000000^809"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-40@2x.png VirtualMemo/Resources/icons/icon-40@2x.png    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/copypng -compress /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-40@2x.png /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-40@2x.png36"0CF760E7-DD5B-432D-AFBB-DD377959AF16-
-b375631A3-7511-4C16-AA5A-F3E0BF55194F
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection106"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-40@2x.png VirtualMemo/Resources/icons/icon-40@2x.png106"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-40@2x.png VirtualMemo/Resources/icons/icon-40@2x.pngd47eaf9644b6b941^d123f29744b6b941^---0#0#1#-19%DVTDocumentLocation2@126"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-40@2x.png0000000000000000^809"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-40@2x.png VirtualMemo/Resources/icons/icon-40@2x.png    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/copypng -compress /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-40@2x.png /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-40@2x.png36"7D2D8E88-7F7B-470E-BF91-4721270F912B-
+b3F37D2C7-177B-4BC5-920B-8B6E8E3B6EFB
 
 CCopyPNGFile /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-50.png VirtualMemo/Resources/icons/icon-50.png
-s431342259.274574
-e431342259.539924
+s431375510.686751
+e431375511.944222
 r1
 xCopyPNGFile
 x/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-50.png
 xVirtualMemo/Resources/icons/icon-50.png
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection100"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-50.png VirtualMemo/Resources/icons/icon-50.png100"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-50.png VirtualMemo/Resources/icons/icon-50.png886646b3c2b5b941^e84c8ab3c2b5b941^---0#0#1#-19%DVTDocumentLocation2@123"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-50.png0000000000000000^797"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-50.png VirtualMemo/Resources/icons/icon-50.png    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/copypng -compress /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-50.png /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-50.png36"855A1EB2-6171-44C9-A1C7-27221B6EFC27-
-b375631A3-7511-4C16-AA5A-F3E0BF55194F
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection100"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-50.png VirtualMemo/Resources/icons/icon-50.png100"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-50.png VirtualMemo/Resources/icons/icon-50.png3eeaaf9644b6b941^30b9f19744b6b941^---0#0#1#-19%DVTDocumentLocation2@123"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-50.png0000000000000000^797"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-50.png VirtualMemo/Resources/icons/icon-50.png    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/copypng -compress /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-50.png /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-50.png36"94EDE510-F4BE-4224-AFB6-8851839F358B-
+b3F37D2C7-177B-4BC5-920B-8B6E8E3B6EFB
 
 CCopyPNGFile /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-50@2x.png VirtualMemo/Resources/icons/icon-50@2x.png
-s431342259.729381
-e431342259.820622
+s431375511.946592
+e431375512.098061
 r1
 xCopyPNGFile
 x/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-50@2x.png
 xVirtualMemo/Resources/icons/icon-50@2x.png
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection106"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-50@2x.png VirtualMemo/Resources/icons/icon-50@2x.png106"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-50@2x.png VirtualMemo/Resources/icons/icon-50@2x.png0bd4bab3c2b5b941^130dd2b3c2b5b941^---0#0#1#-19%DVTDocumentLocation2@126"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-50@2x.png0000000000000000^809"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-50@2x.png VirtualMemo/Resources/icons/icon-50@2x.png    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/copypng -compress /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-50@2x.png /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-50@2x.png36"D1CD2EF4-0BBE-48E2-9900-CC762DDACDF4-
-b375631A3-7511-4C16-AA5A-F3E0BF55194F
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection106"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-50@2x.png VirtualMemo/Resources/icons/icon-50@2x.png106"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-50@2x.png VirtualMemo/Resources/icons/icon-50@2x.png9676f29744b6b941^8027199844b6b941^---0#0#1#-19%DVTDocumentLocation2@126"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-50@2x.png0000000000000000^809"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-50@2x.png VirtualMemo/Resources/icons/icon-50@2x.png    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/copypng -compress /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-50@2x.png /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-50@2x.png36"AEE35F06-4AD5-4BF4-A59A-C9886318BCBC-
+b3F37D2C7-177B-4BC5-920B-8B6E8E3B6EFB
 
 CCopyPNGFile /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-60.png VirtualMemo/Resources/icons/icon-60.png
-s431342259.629121
-e431342259.703071
+s431375511.945744
+e431375512.098562
 r1
 xCopyPNGFile
 x/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-60.png
 xVirtualMemo/Resources/icons/icon-60.png
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection100"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-60.png VirtualMemo/Resources/icons/icon-60.png100"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-60.png VirtualMemo/Resources/icons/icon-60.png4149a1b3c2b5b941^babab3b3c2b5b941^---0#0#1#-19%DVTDocumentLocation2@123"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-60.png0000000000000000^797"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-60.png VirtualMemo/Resources/icons/icon-60.png    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/copypng -compress /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-60.png /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-60.png36"A7B2453C-601A-459E-AB37-F51FF55B331D-
-b375631A3-7511-4C16-AA5A-F3E0BF55194F
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection100"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-60.png VirtualMemo/Resources/icons/icon-60.png100"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-60.png VirtualMemo/Resources/icons/icon-60.png463ff29744b6b941^6d3b199844b6b941^---0#0#1#-19%DVTDocumentLocation2@123"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-60.png0000000000000000^797"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-60.png VirtualMemo/Resources/icons/icon-60.png    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/copypng -compress /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-60.png /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-60.png36"8D8FBCD6-CCDD-47D7-820D-20F1DADF9233-
+b3F37D2C7-177B-4BC5-920B-8B6E8E3B6EFB
 
 CCopyPNGFile /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-60@2x.png VirtualMemo/Resources/icons/icon-60@2x.png
-s431342259.315356
-e431342259.539311
+s431375510.687296
+e431375511.944645
 r1
 xCopyPNGFile
 x/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-60@2x.png
 xVirtualMemo/Resources/icons/icon-60@2x.png
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection106"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-60@2x.png VirtualMemo/Resources/icons/icon-60@2x.png106"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-60@2x.png VirtualMemo/Resources/icons/icon-60@2x.png23dc50b3c2b5b941^f1108ab3c2b5b941^---0#0#1#-19%DVTDocumentLocation2@126"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-60@2x.png0000000000000000^809"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-60@2x.png VirtualMemo/Resources/icons/icon-60@2x.png    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/copypng -compress /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-60@2x.png /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-60@2x.png36"D0C73B78-4912-4035-8017-F48D146FAC5D-
-b375631A3-7511-4C16-AA5A-F3E0BF55194F
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection106"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-60@2x.png VirtualMemo/Resources/icons/icon-60@2x.png106"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-60@2x.png VirtualMemo/Resources/icons/icon-60@2x.png164cb09644b6b941^84d4f19744b6b941^---0#0#1#-19%DVTDocumentLocation2@126"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-60@2x.png0000000000000000^809"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-60@2x.png VirtualMemo/Resources/icons/icon-60@2x.png    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/copypng -compress /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-60@2x.png /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-60@2x.png36"D22D9EB8-F9A4-4E41-BEFE-C748B7EACAA3-
+b3F37D2C7-177B-4BC5-920B-8B6E8E3B6EFB
 
 CCopyPNGFile /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-72.png VirtualMemo/Resources/icons/icon-72.png
-s431342259.272629
-e431342259.539444
+s431375510.685318
+e431375511.945355
 r1
 xCopyPNGFile
 x/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-72.png
 xVirtualMemo/Resources/icons/icon-72.png
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection100"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-72.png VirtualMemo/Resources/icons/icon-72.png100"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-72.png VirtualMemo/Resources/icons/icon-72.png7ced45b3c2b5b941^751d8ab3c2b5b941^---0#0#1#-19%DVTDocumentLocation2@123"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-72.png0000000000000000^797"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-72.png VirtualMemo/Resources/icons/icon-72.png    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/copypng -compress /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-72.png /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-72.png36"47442AC0-C12E-44F2-878C-8E7E45872BC4-
-b375631A3-7511-4C16-AA5A-F3E0BF55194F
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection100"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-72.png VirtualMemo/Resources/icons/icon-72.png100"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-72.png VirtualMemo/Resources/icons/icon-72.pnga890af9644b6b941^8239f29744b6b941^---0#0#1#-19%DVTDocumentLocation2@123"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-72.png0000000000000000^797"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-72.png VirtualMemo/Resources/icons/icon-72.png    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/copypng -compress /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-72.png /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-72.png36"BC9C4309-C8A6-4595-9566-64DAFEB6D600-
+b3F37D2C7-177B-4BC5-920B-8B6E8E3B6EFB
 
 CCopyPNGFile /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-72@2x.png VirtualMemo/Resources/icons/icon-72@2x.png
-s431342259.759076
-e431342259.869723
+s431375511.947200
+e431375512.012493
 r1
 xCopyPNGFile
 x/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-72@2x.png
 xVirtualMemo/Resources/icons/icon-72@2x.png
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection106"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-72@2x.png VirtualMemo/Resources/icons/icon-72@2x.png106"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-72@2x.png VirtualMemo/Resources/icons/icon-72@2x.png8d80c2b3c2b5b941^6ea6deb3c2b5b941^---0#0#1#-19%DVTDocumentLocation2@126"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-72@2x.png0000000000000000^809"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-72@2x.png VirtualMemo/Resources/icons/icon-72@2x.png    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/copypng -compress /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-72@2x.png /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-72@2x.png36"8A8A0093-9E93-48A6-A333-4C60BBF6E193-
-b375631A3-7511-4C16-AA5A-F3E0BF55194F
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection106"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-72@2x.png VirtualMemo/Resources/icons/icon-72@2x.png106"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-72@2x.png VirtualMemo/Resources/icons/icon-72@2x.png459cf29744b6b941^5533039844b6b941^---0#0#1#-19%DVTDocumentLocation2@126"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-72@2x.png0000000000000000^809"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-72@2x.png VirtualMemo/Resources/icons/icon-72@2x.png    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/copypng -compress /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-72@2x.png /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-72@2x.png36"62E74072-53DD-4935-BD16-D7EF06C6C97C-
+b3F37D2C7-177B-4BC5-920B-8B6E8E3B6EFB
 
 CCopyPNGFile /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-76.png VirtualMemo/Resources/icons/icon-76.png
-s431342259.272314
-e431342259.539971
+s431375510.685006
+e431375511.944911
 r1
 xCopyPNGFile
 x/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-76.png
 xVirtualMemo/Resources/icons/icon-76.png
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection100"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-76.png VirtualMemo/Resources/icons/icon-76.png100"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-76.png VirtualMemo/Resources/icons/icon-76.png5ed545b3c2b5b941^5b5d8ab3c2b5b941^---0#0#1#-19%DVTDocumentLocation2@123"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-76.png0000000000000000^797"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-76.png VirtualMemo/Resources/icons/icon-76.png    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/copypng -compress /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-76.png /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-76.png36"23A9E3EF-9A22-4D49-9DF2-FE5CA5706EB5-
-b375631A3-7511-4C16-AA5A-F3E0BF55194F
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection100"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-76.png VirtualMemo/Resources/icons/icon-76.png100"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-76.png VirtualMemo/Resources/icons/icon-76.pnge772af9644b6b941^90f4f19744b6b941^---0#0#1#-19%DVTDocumentLocation2@123"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-76.png0000000000000000^797"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-76.png VirtualMemo/Resources/icons/icon-76.png    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/copypng -compress /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-76.png /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-76.png36"C0F513A9-FC2C-4D76-872B-856D60C688AC-
+b3F37D2C7-177B-4BC5-920B-8B6E8E3B6EFB
 
 CCopyPNGFile /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-76@2x.png VirtualMemo/Resources/icons/icon-76@2x.png
-s431342259.739414
-e431342259.821108
+s431375511.946898
+e431375512.098417
 r1
 xCopyPNGFile
 x/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-76@2x.png
 xVirtualMemo/Resources/icons/icon-76@2x.png
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection106"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-76@2x.png VirtualMemo/Resources/icons/icon-76@2x.png106"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-76@2x.png VirtualMemo/Resources/icons/icon-76@2x.png9d66bdb3c2b5b941^7a37d2b3c2b5b941^---0#0#1#-19%DVTDocumentLocation2@126"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-76@2x.png0000000000000000^809"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-76@2x.png VirtualMemo/Resources/icons/icon-76@2x.png    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/copypng -compress /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-76@2x.png /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-76@2x.png36"739C0322-DB36-461B-B9EA-70CB0B3BCA2F-
-b375631A3-7511-4C16-AA5A-F3E0BF55194F
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection106"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-76@2x.png VirtualMemo/Resources/icons/icon-76@2x.png106"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-76@2x.png VirtualMemo/Resources/icons/icon-76@2x.png4888f29744b6b941^f52f199844b6b941^---0#0#1#-19%DVTDocumentLocation2@126"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-76@2x.png0000000000000000^809"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-76@2x.png VirtualMemo/Resources/icons/icon-76@2x.png    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/copypng -compress /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-76@2x.png /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-76@2x.png36"7896A7CE-2209-4879-A00A-2647A808D37C-
+b3F37D2C7-177B-4BC5-920B-8B6E8E3B6EFB
 
 CCopyPNGFile /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-small.png VirtualMemo/Resources/icons/icon-small.png
-s431342259.539630
-e431342259.627403
+s431375510.687845
+e431375511.945284
 r1
 xCopyPNGFile
 x/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-small.png
 xVirtualMemo/Resources/icons/icon-small.png
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection106"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-small.png VirtualMemo/Resources/icons/icon-small.png106"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-small.png VirtualMemo/Resources/icons/icon-small.png755b8ab3c2b5b941^44a2a0b3c2b5b941^---0#0#1#-19%DVTDocumentLocation2@126"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-small.png0000000000000000^809"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-small.png VirtualMemo/Resources/icons/icon-small.png    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/copypng -compress /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-small.png /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-small.png36"36DBE7CD-1C0A-4572-A094-8579DCB7340E-
-b375631A3-7511-4C16-AA5A-F3E0BF55194F
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection106"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-small.png VirtualMemo/Resources/icons/icon-small.png106"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-small.png VirtualMemo/Resources/icons/icon-small.pnga433b09644b6b941^5035f29744b6b941^---0#0#1#-19%DVTDocumentLocation2@126"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-small.png0000000000000000^809"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-small.png VirtualMemo/Resources/icons/icon-small.png    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/copypng -compress /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-small.png /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-small.png36"61003CE2-44FE-4E0F-9C62-F1BD44B60C43-
+b3F37D2C7-177B-4BC5-920B-8B6E8E3B6EFB
 
 CCopyPNGFile /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-small@2x.png VirtualMemo/Resources/icons/icon-small@2x.png
-s431342259.541648
-e431342259.627512
+s431375511.760784
+e431375511.945450
 r1
 xCopyPNGFile
 x/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-small@2x.png
 xVirtualMemo/Resources/icons/icon-small@2x.png
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection112"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-small@2x.png VirtualMemo/Resources/icons/icon-small@2x.png112"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-small@2x.png VirtualMemo/Resources/icons/icon-small@2x.pngfacf8ab3c2b5b941^83a7a0b3c2b5b941^---0#0#1#-19%DVTDocumentLocation2@129"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-small@2x.png0000000000000000^821"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-small@2x.png VirtualMemo/Resources/icons/icon-small@2x.png    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/copypng -compress /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-small@2x.png /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-small@2x.png36"D5DF4463-42DA-41B2-826B-1798FF99D389-
-b375631A3-7511-4C16-AA5A-F3E0BF55194F
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection112"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-small@2x.png VirtualMemo/Resources/icons/icon-small@2x.png112"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-small@2x.png VirtualMemo/Resources/icons/icon-small@2x.png5ed8c29744b6b941^6457f29744b6b941^---0#0#1#-19%DVTDocumentLocation2@129"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-small@2x.png0000000000000000^821"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon-small@2x.png VirtualMemo/Resources/icons/icon-small@2x.png    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/copypng -compress /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon-small@2x.png /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon-small@2x.png36"B28B1F4C-A0FC-4099-ADD4-55C0D39EA7C6-
+b3F37D2C7-177B-4BC5-920B-8B6E8E3B6EFB
 
 CCopyPNGFile /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon.png VirtualMemo/Resources/icons/icon.png
-s431342259.272857
-e431342259.540021
+s431375510.685491
+e431375511.760567
 r1
 xCopyPNGFile
 x/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon.png
 xVirtualMemo/Resources/icons/icon.png
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection94"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon.png VirtualMemo/Resources/icons/icon.png94"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon.png VirtualMemo/Resources/icons/icon.pngb40346b3c2b5b941^0c778ab3c2b5b941^---0#0#1#-19%DVTDocumentLocation2@120"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon.png0000000000000000^785"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon.png VirtualMemo/Resources/icons/icon.png    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/copypng -compress /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon.png /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon.png36"8DC5E458-21F5-44B5-AB62-B71509DBC725-
-b375631A3-7511-4C16-AA5A-F3E0BF55194F
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection94"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon.png VirtualMemo/Resources/icons/icon.png94"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon.png VirtualMemo/Resources/icons/icon.png98a3af9644b6b941^a6b4c29744b6b941^---0#0#1#-19%DVTDocumentLocation2@120"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon.png0000000000000000^785"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon.png VirtualMemo/Resources/icons/icon.png    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/copypng -compress /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon.png /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon.png36"AE6C595C-1AAC-4FAA-8F35-EEF6F98956C7-
+b3F37D2C7-177B-4BC5-920B-8B6E8E3B6EFB
 
 CCopyPNGFile /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon@2x.png VirtualMemo/Resources/icons/icon@2x.png
-s431342259.273134
-e431342259.538420
+s431375510.685765
+e431375511.945144
 r1
 xCopyPNGFile
 x/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon@2x.png
 xVirtualMemo/Resources/icons/icon@2x.png
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection100"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon@2x.png VirtualMemo/Resources/icons/icon@2x.png100"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon@2x.png VirtualMemo/Resources/icons/icon@2x.pngd10846b3c2b5b941^06d689b3c2b5b941^---0#0#1#-19%DVTDocumentLocation2@123"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon@2x.png0000000000000000^797"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon@2x.png VirtualMemo/Resources/icons/icon@2x.png    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/copypng -compress /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon@2x.png /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon@2x.png36"B79AAD81-97F4-4820-A9D7-0051502BEE9F-
-b375631A3-7511-4C16-AA5A-F3E0BF55194F
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection100"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon@2x.png VirtualMemo/Resources/icons/icon@2x.png100"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon@2x.png VirtualMemo/Resources/icons/icon@2x.png5fb4af9644b6b941^5918f29744b6b941^---0#0#1#-19%DVTDocumentLocation2@123"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon@2x.png0000000000000000^797"[1mCopyPNGFile[0m build/device/VirtualMemo.app/icon@2x.png VirtualMemo/Resources/icons/icon@2x.png    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/copypng -compress /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/Resources/icons/icon@2x.png /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/icon@2x.png36"3A46FC09-EEBE-49EB-B61D-8E5C081140EC-
+b3F37D2C7-177B-4BC5-920B-8B6E8E3B6EFB
 
 CCopyStringsFile /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/de.lproj/Localizable.strings VirtualMemo/Resources/de.lproj/Localizable.strings
 s431342259.539070
@@ -929,18 +1323,18 @@ lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection56"Copy bu
 b375631A3-7511-4C16-AA5A-F3E0BF55194F
 
 CGenerateDSYMFile /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app.dSYM /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/VirtualMemo
-s431342267.013671
-e431342267.115599
+s431375514.125607
+e431375514.199915
 r1
 xGenerateDSYMFile
 x/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app.dSYM
 x/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/VirtualMemo
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection119"Generate /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app.dSYM107"[1mGenerateDSYMFile[0m [1mbuild/device/VirtualMemo.app.dSYM[0m build/device/VirtualMemo.app/VirtualMemoc89403bbc2b5b941^9e981dbbc2b5b941^---0#0#1#-19%DVTDocumentLocation2@117"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app.dSYM0034b41bdeffdf42^790"[1mGenerateDSYMFile[0m [1mbuild/device/VirtualMemo.app.dSYM[0m build/device/VirtualMemo.app/VirtualMemo    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/dsymutil /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/VirtualMemo -o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app.dSYM36"5F084D63-2AA7-4A78-A988-E4C2A36B1F87-
-b375631A3-7511-4C16-AA5A-F3E0BF55194F
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection119"Generate /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app.dSYM107"[1mGenerateDSYMFile[0m [1mbuild/device/VirtualMemo.app.dSYM[0m build/device/VirtualMemo.app/VirtualMemoa33b209a44b6b941^272e339a44b6b941^---0#0#1#-19%DVTDocumentLocation2@118"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app.dSYM/0000000000000000^790"[1mGenerateDSYMFile[0m [1mbuild/device/VirtualMemo.app.dSYM[0m build/device/VirtualMemo.app/VirtualMemo    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/dsymutil /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/VirtualMemo -o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app.dSYM36"07EA9A34-CF4B-40C0-8BFC-EB8F698A46B9-
+b3F37D2C7-177B-4BC5-920B-8B6E8E3B6EFB
 
 CLd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/VirtualMemo normal armv7
-s431342265.600502
-e431342267.012830
+s431375513.237946
+e431375514.124745
 r1
 xLd
 x/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/VirtualMemo
@@ -955,21 +1349,22 @@ d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/bu
 d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/BluetoothLePlugin.o
 d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVNotification.o
 d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/CDVLogger.o
+d/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/AttendeaseBeacons.o
 d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation
 d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/UIKit.framework/UIKit
 d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/AVFoundation.framework/AVFoundation
 d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/CoreMedia.framework/CoreMedia
 d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/libSystem.dylib
+d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/CoreBluetooth.framework/CoreBluetooth
 d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/AssetsLibrary.framework/AssetsLibrary
 d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics
 d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/MobileCoreServices.framework/MobileCoreServices
 d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/CoreLocation.framework/CoreLocation
-d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/CoreBluetooth.framework/CoreBluetooth
 d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/AudioToolbox.framework/AudioToolbox
+d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/SystemConfiguration.framework/SystemConfiguration
 d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Foundation.framework/Foundation
 d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/libobjc.dylib
 d/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/5.1/lib/darwin/libclang_rt.ios.a
-d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/PrivateFrameworks/UIFoundation.framework/UIFoundation
 d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/AVFoundation.framework/libAVFAudio.dylib
 d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/system/libcache.dylib
 d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/system/libcommonCrypto.dylib
@@ -999,32 +1394,33 @@ d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Develope
 d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/system/libsystem_stats.dylib
 d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/system/libunwind.dylib
 d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/system/libxpc.dylib
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection122"Link /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/VirtualMemo64"[1mLd[0m build/device/VirtualMemo.app/VirtualMemo normal armv7a2d199b9c2b5b941^f14903bbc2b5b941^---0#0#1#--1968"[1mLd[0m build/device/VirtualMemo.app/VirtualMemo normal armv7    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export IPHONEOS_DEPLOYMENT_TARGET=6.0    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -arch armv7 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk -L/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device -F/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device -filelist /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/VirtualMemo.LinkFileList -dead_strip -weak_framework CoreFoundation -weak_framework UIKit -weak_framework AVFoundation -weak_framework CoreMedia -weak-lSystem -force_load /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/libCordova.a -ObjC -fobjc-arc -fobjc-link-runtime -miphoneos-version-min=6.0 -framework AssetsLibrary /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/libCordova.a -framework CoreGraphics -framework MobileCoreServices -framework CoreLocation -framework CoreBluetooth -weak_framework AudioToolbox -Xlinker -dependency_info -Xlinker /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/VirtualMemo_dependency_info.dat -o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/VirtualMemo36"40E74663-154B-4F2C-986F-E08E94A018C8-
-b375631A3-7511-4C16-AA5A-F3E0BF55194F
+d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/PrivateFrameworks/UIFoundation.framework/UIFoundation
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection122"Link /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/VirtualMemo64"[1mLd[0m build/device/VirtualMemo.app/VirtualMemo normal armv7570a3d9944b6b941^02f01f9a44b6b941^---0#0#1#--1999"[1mLd[0m build/device/VirtualMemo.app/VirtualMemo normal armv7    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export IPHONEOS_DEPLOYMENT_TARGET=6.0    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -arch armv7 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk -L/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device -F/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device -filelist /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/VirtualMemo.LinkFileList -dead_strip -weak_framework CoreFoundation -weak_framework UIKit -weak_framework AVFoundation -weak_framework CoreMedia -weak-lSystem -force_load /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/libCordova.a -ObjC -fobjc-arc -fobjc-link-runtime -miphoneos-version-min=6.0 -framework CoreBluetooth -framework AssetsLibrary /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/libCordova.a -framework CoreGraphics -framework MobileCoreServices -framework CoreLocation -weak_framework AudioToolbox -framework SystemConfiguration -Xlinker -dependency_info -Xlinker /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Objects-normal/armv7/VirtualMemo_dependency_info.dat -o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/VirtualMemo36"284B345D-B829-49D5-93CE-831F9A8CAD43-
+b3F37D2C7-177B-4BC5-920B-8B6E8E3B6EFB
 
 CPhaseScriptExecution Copy\ www\ directory /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Script-304B58A110DAC018002A0835.sh
-s431342258.590165
-e431342259.271794
+s431375509.555031
+e431375510.684529
 r1
 xPhaseScriptExecution
 xCopy www directory
 x/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Script-304B58A110DAC018002A0835.sh
 o
-oreal	0m0.661s
-ouser	0m0.266s
-osys	0m0.387s
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection44"Run custom shell script 'Copy www directory'141"[1mPhaseScriptExecution[0m Copy\ www\ directory build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Script-304B58A110DAC018002A0835.sh257497b2c2b5b941^039945b3c2b5b941^-42"real	0m0.661suser	0m0.266ssys	0m0.387s3(21%IDEActivityLogMessage2@14"real	0m0.661s-431342259#1#14#-0#-----2@14"user	0m0.266s-431342259#15#14#-0#-----2@13"sys	0m0.387s-431342259#29#13#-0#-----0#0#1#--410"[1mPhaseScriptExecution[0m Copy\ www\ directory build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Script-304B58A110DAC018002A0835.sh    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    /bin/sh -c /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Script-304B58A110DAC018002A0835.sh36"8FDDBB4B-2A1F-47DB-AEB4-8083EF8604C3-
-b375631A3-7511-4C16-AA5A-F3E0BF55194F
+oreal	0m1.096s
+ouser	0m0.285s
+osys	0m0.441s
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection44"Run custom shell script 'Copy www directory'141"[1mPhaseScriptExecution[0m Copy\ www\ directory build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Script-304B58A110DAC018002A0835.sh70778e9544b6b941^1c44af9644b6b941^-42"real	0m1.096suser	0m0.285ssys	0m0.441s3(21%IDEActivityLogMessage2@14"real	0m1.096s-431375510#1#14#-0#-----2@14"user	0m0.285s-431375510#15#14#-0#-----2@13"sys	0m0.441s-431375510#29#13#-0#-----0#0#1#--410"[1mPhaseScriptExecution[0m Copy\ www\ directory build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Script-304B58A110DAC018002A0835.sh    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    /bin/sh -c /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/Script-304B58A110DAC018002A0835.sh36"1A872CBF-D506-43DA-AD52-A75989BF375D-
+b3F37D2C7-177B-4BC5-920B-8B6E8E3B6EFB
 
 CProcessInfoPlistFile /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/Info.plist /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/VirtualMemo-Info.plist
-s431342258.583870
-e431342258.587688
+s431375509.551591
+e431375509.553791
 r1
 xProcessInfoPlistFile
 x/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/Info.plist
 x/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/VirtualMemo-Info.plist
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection119"Process /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/VirtualMemo-Info.plist111"[1mProcessInfoPlistFile[0m build/device/VirtualMemo.app/Info.plist [1mVirtualMemo/VirtualMemo-Info.plist[0m438e95b2c2b5b941^227296b2c2b5b941^---0#0#1#-19%DVTDocumentLocation2@118"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/VirtualMemo-Info.plist0000000000000000^1049"[1mProcessInfoPlistFile[0m build/device/VirtualMemo.app/Info.plist [1mVirtualMemo/VirtualMemo-Info.plist[0m    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    builtin-infoPlistUtility /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/VirtualMemo-Info.plist -genpkginfo /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/PkgInfo -expandbuildsettings -format binary -platform iphoneos -resourcerulesfile /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/ResourceRules.plist -o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/Info.plist36"57CC94B2-BF10-4A05-B663-7EF822C63474-
-b375631A3-7511-4C16-AA5A-F3E0BF55194F
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection119"Process /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/VirtualMemo-Info.plist111"[1mProcessInfoPlistFile[0m build/device/VirtualMemo.app/Info.plist [1mVirtualMemo/VirtualMemo-Info.plist[0m76508d9544b6b941^f8c58d9544b6b941^---0#0#1#-19%DVTDocumentLocation2@118"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/VirtualMemo-Info.plist0000000000000000^1049"[1mProcessInfoPlistFile[0m build/device/VirtualMemo.app/Info.plist [1mVirtualMemo/VirtualMemo-Info.plist[0m    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    builtin-infoPlistUtility /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/VirtualMemo/VirtualMemo-Info.plist -genpkginfo /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/PkgInfo -expandbuildsettings -format binary -platform iphoneos -resourcerulesfile /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/ResourceRules.plist -o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/Info.plist36"12ED25EE-9455-486B-BAA0-2BE2F6D1FEC5-
+b3F37D2C7-177B-4BC5-920B-8B6E8E3B6EFB
 
 CProcessPCH /var/folders/h_/l3rdq4h9727cc5_nmwbyktp80000gn/C/com.apple.DeveloperTools/5.1.1-5B1008/Xcode/SharedPrecompiledHeaders/VirtualMemo-Prefix-cssageiengqmdwfisjyhjtoxebqa/VirtualMemo-Prefix.pch.pch VirtualMemo/VirtualMemo-Prefix.pch normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
 s431342264.889926
@@ -1042,31 +1438,31 @@ lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection45"Precomp
 b375631A3-7511-4C16-AA5A-F3E0BF55194F
 
 CProcessProductPackaging /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/Entitlements.plist /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo.xcent
-s431342267.193944
-e431342267.196947
+s431375514.239291
+e431375514.240646
 r1
 xProcessProductPackaging
 x/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/Entitlements.plist
 x/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo.xcent
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection235"[1mProcessProductPackaging[0m /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/Entitlements.plist [1mbuild/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo.xcent[0m235"[1mProcessProductPackaging[0m /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/Entitlements.plist [1mbuild/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo.xcent[0m9be631bbc2b5b941^2b6c32bbc2b5b941^---0#0#1#-19%DVTDocumentLocation2@158"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo.xcent0034b41bdeffdf42^924"[1mProcessProductPackaging[0m /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/Entitlements.plist [1mbuild/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo.xcent[0m    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    builtin-productPackagingUtility /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/Entitlements.plist -entitlements -format xml -o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo.xcent36"57314FBC-AC9B-4FF3-8ACF-66E0E2BE1BD3-
-b375631A3-7511-4C16-AA5A-F3E0BF55194F
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection235"[1mProcessProductPackaging[0m /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/Entitlements.plist [1mbuild/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo.xcent[0m235"[1mProcessProductPackaging[0m /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/Entitlements.plist [1mbuild/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo.xcent[0me7553d9a44b6b941^809b3d9a44b6b941^---0#0#1#-19%DVTDocumentLocation2@158"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo.xcent0000000000000000^924"[1mProcessProductPackaging[0m /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/Entitlements.plist [1mbuild/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo.xcent[0m    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    builtin-productPackagingUtility /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/Entitlements.plist -entitlements -format xml -o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/VirtualMemo.build/Debug-iphoneos/VirtualMemo.build/VirtualMemo.xcent36"109BBB9B-1021-4147-98AF-3D0C184E1BEE-
+b3F37D2C7-177B-4BC5-920B-8B6E8E3B6EFB
 
 CProcessProductPackaging /Users/suki/Library/MobileDevice/Provisioning\ Profiles/040b364d-b757-498e-815b-5600e9da036f.mobileprovision /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/embedded.mobileprovision
-s431342267.116102
-e431342267.155674
+s431375514.200403
+e431375514.208324
 r1
 xProcessProductPackaging
 x/Users/suki/Library/MobileDevice/Provisioning Profiles/040b364d-b757-498e-815b-5600e9da036f.mobileprovision
 x/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/embedded.mobileprovision
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection202"[1mProcessProductPackaging[0m /Users/suki/Library/MobileDevice/Provisioning\ Profiles/040b364d-b757-498e-815b-5600e9da036f.mobileprovision [1mbuild/device/VirtualMemo.app/embedded.mobileprovision[0m202"[1mProcessProductPackaging[0m /Users/suki/Library/MobileDevice/Provisioning\ Profiles/040b364d-b757-498e-815b-5600e9da036f.mobileprovision [1mbuild/device/VirtualMemo.app/embedded.mobileprovision[0m75cc1dbbc2b5b941^90db27bbc2b5b941^---0#0#1#-19%DVTDocumentLocation2@137"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/embedded.mobileprovision0034b41bdeffdf42^832"[1mProcessProductPackaging[0m /Users/suki/Library/MobileDevice/Provisioning\ Profiles/040b364d-b757-498e-815b-5600e9da036f.mobileprovision [1mbuild/device/VirtualMemo.app/embedded.mobileprovision[0m    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    builtin-productPackagingUtility /Users/suki/Library/MobileDevice/Provisioning\ Profiles/040b364d-b757-498e-815b-5600e9da036f.mobileprovision -o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/embedded.mobileprovision36"FF0069F9-A735-4F09-B011-F08184DED577-
-b375631A3-7511-4C16-AA5A-F3E0BF55194F
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection202"[1mProcessProductPackaging[0m /Users/suki/Library/MobileDevice/Provisioning\ Profiles/040b364d-b757-498e-815b-5600e9da036f.mobileprovision [1mbuild/device/VirtualMemo.app/embedded.mobileprovision[0m202"[1mProcessProductPackaging[0m /Users/suki/Library/MobileDevice/Provisioning\ Profiles/040b364d-b757-498e-815b-5600e9da036f.mobileprovision [1mbuild/device/VirtualMemo.app/embedded.mobileprovision[0m1b63339a44b6b941^3f55359a44b6b941^---0#0#1#-19%DVTDocumentLocation2@137"file:///Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/embedded.mobileprovision0034b41bdeffdf42^832"[1mProcessProductPackaging[0m /Users/suki/Library/MobileDevice/Provisioning\ Profiles/040b364d-b757-498e-815b-5600e9da036f.mobileprovision [1mbuild/device/VirtualMemo.app/embedded.mobileprovision[0m    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    builtin-productPackagingUtility /Users/suki/Library/MobileDevice/Provisioning\ Profiles/040b364d-b757-498e-815b-5600e9da036f.mobileprovision -o /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app/embedded.mobileprovision36"DAE1619A-FC0E-4676-9764-63BB9AB29482-
+b3F37D2C7-177B-4BC5-920B-8B6E8E3B6EFB
 
 CTouch /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app
-s431342267.157220
-e431342267.193360
+s431375514.209665
+e431375514.238755
 r1
 xTouch
 x/Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection111"Touch /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app42"[1mTouch[0m build/device/VirtualMemo.app725228bbc2b5b941^178131bbc2b5b941^---0#0#1#--521"[1mTouch[0m build/device/VirtualMemo.app    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /usr/bin/touch -c /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app36"EA61D318-C1F8-4C59-B279-7A29F5BDD67B-
-b375631A3-7511-4C16-AA5A-F3E0BF55194F
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection111"Touch /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app42"[1mTouch[0m build/device/VirtualMemo.appb9c4359a44b6b941^7d203d9a44b6b941^---0#0#1#--521"[1mTouch[0m build/device/VirtualMemo.app    cd /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11R6/bin"    /usr/bin/touch -c /Users/suki/WOTS/virtuele-memo/cordova/com.almende.VirtualMemo/platforms/ios/build/device/VirtualMemo.app36"AD367FD2-C198-480C-817C-9DFDEC32D513-
+b3F37D2C7-177B-4BC5-920B-8B6E8E3B6EFB
 
