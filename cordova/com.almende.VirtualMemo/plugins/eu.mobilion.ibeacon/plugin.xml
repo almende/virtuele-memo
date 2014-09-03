@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    id="eu.mobilion.ibeacon"
+    version="0.0.0">
+
+    <name>ibeacon</name>
+    <description>Cross-plattform iBeacon plugin for Cordova/Phonegap</description>
+    <license>Apache 2.0</license>
+    <keywords>cordova,ibeacon,bluetooth,ble</keywords>
+    <repo>https://github.com/mobilion/cordova-ibeacon-plugin</repo>
+
+    <engines>
+        <engine name="cordova" version=">=3.1.0" />
+    </engines>
+
+    <js-module src="www/ibeacon.js" name="ibeacon">
+        <clobbers target="ibeacon" />
+    </js-module>
+    <js-module src="www/region.js" name="region" />
+    <js-module src="www/beacon.js" name="beacon" />
+    <js-module src="www/helper.js" name="helper" />
+    <js-module src="www/defaults.js" name="defaults" />
+
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="IBeaconPlugin" >
+                <param name="android-package" value="eu.mobilion.ibeacon.IBeaconPlugin" />
+            </feature>
+        </config-file>
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.BLUETOOTH" />
+            <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+        </config-file>
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <service android:name="com.radiusnetworks.ibeacon.service.IBeaconService" />
+            <service android:name="com.radiusnetworks.ibeacon.IBeaconIntentProcessor" />
+        </config-file>
+        <source-file src="src/android/libs/AndroidIBeaconLibrary-0.7.7.jar" target-dir="libs" />
+        <source-file src="src/android/IBeaconPlugin.java" target-dir="src/eu/mobilion/ibeacon" />
+        <source-file src="src/android/JSONHelper.java" target-dir="src/eu/mobilion/ibeacon" />
+        <source-file src="src/android/Command.java" target-dir="src/eu/mobilion/ibeacon" />
+    </platform>
+
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="IBeaconPlugin">
+                <param name="ios-package" value="IBeaconPlugin" />
+            </feature>
+        </config-file>
+        <framework src="CoreBluetooth.framework" />
+        <header-file src="src/ios/IBeaconPlugin.h" />
+        <source-file src="src/ios/IBeaconPlugin.m" />
+    </platform>
+
+</plugin>
