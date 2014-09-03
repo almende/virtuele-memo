@@ -79,6 +79,16 @@ WotsApp.prototype = {
 				}
 			}
 		};
+		$(document).delegate('[data-role="page"]', 'pageinit', function () {
+			//check for a `data-role="header"` element to add a home button to
+			var $header = $(this).children('[data-role="header"]');
+			if ($header.length) {
+				//create a link with a `href` attribute and a `class` attribute,
+				//then turn it into a jQuery Mobile button widget
+				$header.append($('<a />', { class : 'ui-btn-right', href : '#virtualMemoPage' }).buttonMarkup(
+					{ icon: "home", iconpos : "notext" }));
+			}    
+		});
 
 		var testing = false;
 		var test_sense = false;
@@ -94,11 +104,11 @@ WotsApp.prototype = {
 			init();
 
 			// first page to visit, should be in the end the guidePage for the WOTS conference
-			// guidePage();
+			guidePage();
 
 			// for debugging, enable one of the following pages as first page
 			// congratsPage();
-			allExhibitorsPage();
+			//allExhibitorsPage();
 			// guideHomePage();
 			// registerPage();
 			// memoOverviewPage();
@@ -299,9 +309,17 @@ WotsApp.prototype = {
 			} // End for-loop
 			$('#exhibitorList').listview('refresh');
 
-			// $.event.special.swipe.horizontalDistanceThreshold = 120;
-			//$.event.special.swipe.horizontalDistanceThreshold = window.devicePixelRatio >= 2 ? 15 : 30;
-			//$.event.special.swipe.verticalDistanceThreshold = window.devicePixelRatio >= 2 ? 15 : 30;		
+			var finished = true;
+			for (var i = 0; i < route_exhibitors.length; i++) {
+				var exhibitor = route_exhibitors[i];
+				if (exhibitor.status !== "done") {
+					finished = false;
+				}
+			}
+			if (finished) {
+				congratsPage();	
+			}
+
 		}
 
 		$('#exhibitorList').on('click', 'li a', function(event) {
@@ -323,6 +341,7 @@ WotsApp.prototype = {
 			console.log("Go to the page with all exhibitors");
 			$.mobile.changePage("#allExhibitorsPage", {transition:'none', hashChange:true});
 		};
+
 
 		// this loads exhibitor information from a local .js data file, but doesn't know how to store state
 		// information...
@@ -1091,12 +1110,22 @@ WotsApp.prototype = {
 		 * General local database functions
 		 ******************************************************************************************************/
 
+		dbMessage = function(msg, error) {
+			if (error) {
+				console.error("Local database: " + msg);
+			} else {
+				console.log("Local database: " + msg);
+			}
+		}
+
 		errorCB = function(tx, err) {
-			console.log("Error processing SQL:", err);
+			var msg = "Error processing SQL:" + JSON.stringify(err);
+			dbMessage(msg, true);
 		}
 
 		successCB = function() {
-			console.log("Successful SQL query");
+			var msg = "Successful SQL query";
+			dbMessage(msg, false);
 		}
 
 		/*******************************************************************************************************
@@ -1112,23 +1141,24 @@ WotsApp.prototype = {
 				localdb.deleteUsers();
 			}
 			localdb.createUsers();
-			console.log("Get user");
+			var msg = "Get user";
+			dbMessage(msg, false);
 			localdb.getUser(userObtained, callback);
 		}
 
 		userObtained = function(errcode, result, callback) {
 			var updateDB = false;
 			if (errcode) {
-				// there is no user in the database...
-				console.log("There is no user in the database");
+				var msg = "There is no user in the database";
+				dbMessage(msg, true);
 				updateDB = true;
 			} else {
 				updateDB = updateMemUser(result);
 			}
 
 			if (updateDB) {
-				// update database with new user information
-				console.log("Update user with new user information");
+				var msg = "Update user with new user information";
+				dbMessage(msg, false);
 				localdb.deleteUsers(function createUsers() {
 					localdb.createUsers(function createUser() {
 						var user = {
@@ -1137,7 +1167,8 @@ WotsApp.prototype = {
 						'email': wots.email,
 						'code': wots.participantCode
 						}
-						console.log("Create user: ", user); 
+						var msg = "Create user: " + JSON.stringify(user); 
+						dbMessage(msg, false);
 						localdb.createUser(wots.username, wots.password, wots.email, 
 								wots.participantCode, function displayUser() {
 							displayUserData();
@@ -1149,10 +1180,11 @@ WotsApp.prototype = {
 					});
 				});
 			} else {
-				// user is already correctly stored in database...
-				console.log("User is already stored in the database");
+				var msg = "User is already stored in the database";
+				dbMessage(msg, false);
 				if (callback && typeof(callback) === "function") {
-					console.log("Go on after obtaining user");
+					var msg = "Execute callback after getting user";
+					dbMessage(msg, false);
 					callback();
 				}
 			}

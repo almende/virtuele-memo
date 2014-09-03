@@ -37,7 +37,6 @@
 <!--
 The following is Stefan's code. I don't know what it does. But it suddenly leads to crappy scrolling behaviour on
 Android phones. Probably the pagecontainer({ defaults: true; }) call. Just don't use it if we don't need it.
-
 <script type='application/javascript' src='js/fastclick.js'></script>
 <script type="text/javascript">
 var wotsAppNofInits = 0;
@@ -70,6 +69,7 @@ function onLoad() {
 }
 //mmm, then onDeviceRead does not exist..
 window.onload = function () {
+	//nextInit();
 	onLoad();
 }
 </script>
@@ -80,9 +80,15 @@ window.onload = function () {
 
 <body class="ui-body-a">
 
+<!--
+  Reason for this div is not only to have the possibilitiy of a banner at startup. Somehow, if guideMemo is used as
+  the first div, it will not load the right javascript files. It seems the on(pagecreate) event is not fired for the
+  first page...
+-->
 <div data-role="page" id="optionalBanner">
+	<h1>Should have some banner here</h1>
 	<ul>                                                                                                    
-		<li><a href="#allExhibitorsPage" class="virtualMemoTab" data-icon="heart" data-transition="none">Test</a></li>
+		<li><a href="#guideMemo" class="virtualMemoTab" data-icon="heart" data-transition="none">Some banner</a></li>
 	</ul> 
 </div>
 
@@ -174,7 +180,7 @@ window.onload = function () {
 </div>
 
 <div data-role="page" id="allExhibitorsPage">
-	<div data-role="header" data-position='fixed'>
+	<div data-role="header" data-add-back-btn="true" data-position='fixed'>
 		<h1 class="ui-title" role="heading" aria-level="1">Partners</h1>
 	</div>
 
