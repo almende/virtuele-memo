@@ -98,11 +98,11 @@ WotsApp.prototype = {
 
 			// for debugging, enable one of the following pages as first page
 			// congratsPage();
-			allExhibitorsPage();
+			// allExhibitorsPage();
 			// guideHomePage();
 			// registerPage();
 			// memoOverviewPage();
-			// memoPage();
+			 memoPage();
 		}
 
 		init = function() {

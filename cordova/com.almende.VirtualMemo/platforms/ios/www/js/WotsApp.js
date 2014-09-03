@@ -54,15 +54,34 @@ WotsApp.prototype = {
 
 		$.ajaxSetup({ cache: false });
 
-		// very important statement to make swiping work: 
+		// swiping and scrolling combined is a beast
 		// https://stackoverflow.com/questions/12838443/\
 		//   swipe-with-jquery-mobile-1-2-phonegap-2-1-and-android-4-0-4-not-working-properl
-		document.ontouchmove = function(event) {    
-			event.preventDefault();
+		// the work-around sets event.preventDefault() for only horizontal touchmove events so that the swipe
+		// event get triggered, but not for vertical ones, so that scrolling still works
+		// https://github.com/jquery/jquery-mobile/issues/5534
+		// todo: only bind at proper pages, not on all document touch events
+		var touch = {};
+		document.ontouchstart = function(event) {
+			var t = event.touches[0];
+			touch.x = t.clientX;
+			touch.y = t.clientY;	
+		}
+		document.ontouchmove = function(event) {
+			if (event.touches.length == 1) { 
+				var t = event.touches[0];
+				var deltaX = t.clientX - touch.x;
+				var deltaY = t.clientY - touch.y;
+				var absX = Math.abs(deltaX);
+				var absY = Math.abs(deltaY);
+				if (absX > absY) {
+					event.preventDefault();
+				}
+			}
 		};
 
 		var testing = false;
-		var test_sense = true;
+		var test_sense = false;
 
 		// This option makes use of the CommonSense database in the way suggested by Sense itself. 
 		// It creates a user for every device. 
@@ -75,7 +94,7 @@ WotsApp.prototype = {
 			init();
 
 			// first page to visit, should be in the end the guidePage for the WOTS conference
-			//guidePage();
+			// guidePage();
 
 			// for debugging, enable one of the following pages as first page
 			// congratsPage();
@@ -279,6 +298,10 @@ WotsApp.prototype = {
 					       );
 			} // End for-loop
 			$('#exhibitorList').listview('refresh');
+
+			// $.event.special.swipe.horizontalDistanceThreshold = 120;
+			//$.event.special.swipe.horizontalDistanceThreshold = window.devicePixelRatio >= 2 ? 15 : 30;
+			//$.event.special.swipe.verticalDistanceThreshold = window.devicePixelRatio >= 2 ? 15 : 30;		
 		}
 
 		$('#exhibitorList').on('click', 'li a', function(event) {
@@ -335,28 +358,36 @@ WotsApp.prototype = {
 						       )
 						);
 				}
+
 				$('#allExhibitorsList').listview('refresh');
-				$('#allExhibitorsList').trigger('create');
-				//$('#allExhibitorsList').scrollview();
 			});
 		});
 
 		$('#allExhibitorsList').on('click', 'li a', function(event) {
 			wots.selectedExhibitorId = $(this).attr('data-id');
 			console.log("Selected exhibitor with id " + wots.selectedExhibitorId);
-			//$.mobile.changePage("#allExhibitorsDetailsPage", {transition:'slide', hashChange:true});
+			$.mobile.changePage("#allExhibitorsDetailsPage", {transition:'slide', hashChange:true});
+			event.preventDefault();
+		});
+		
+/*
+		$('#allExhibitorsList').on('touchstart', function(event) {
+			console.log("Touch start detected");
+			event.stopPropagation();
 			//event.preventDefault();
 		});
 
+		$('#allExhibitorsList').on('touchend', function(event) {
+			console.log("Touch end detected");
+			event.stopPropagation();
+			//event.preventDefault();
+		});
+		*/
 		$('#allExhibitorsPage').on('swiperight', function(event) {
+			console.log("Open panel in partner list");
 			$('#virtualMemoPanel0').panel("open");
 		});
-		
-		// swipe down does not exist in jQuery
-		$('#allExhibitorsPage').on('swipedown', function(event) {
-			console.log("Swipe gesture down detected");
-		});
-		
+
 		/*******************************************************************************************************
 		 * Individual exhibitor page, but just informational
 		 ******************************************************************************************************/
@@ -538,7 +569,6 @@ WotsApp.prototype = {
 			}
 
 			if (wots.updateAddress) {
-                console.log("Refreshing session");
 				csStart(csCreateSession, wots.email, wots.password);
 				wots.updateAddress = false;
 			}
@@ -1286,6 +1316,8 @@ WotsApp.prototype = {
 				}
 				// create sensor and call the noteDB function again
 				console.log("No sensor found, we will create one");
+                console.log("CREATING");
+                csCreateSensor();
 				var index = 0;
 				csExistSensor(index, function() { 
 					console.log("Memo is present");	
@@ -1310,7 +1342,7 @@ WotsApp.prototype = {
 					console.log("Do not call this function if sensor id is not known");
 					return;
 				}
-				console.log("sensorKnown.Error: " + errcode);
+				console.log("Error: " + errcode);
 				if (errcode == localdb.ERR_EMPTY_TABLE || errcode == localdb.ERR_GENERAL) {
 					if (!wots.sensor_id) {
 						console.error("Mmmm... we should have a sensor id here");
@@ -1452,12 +1484,22 @@ WotsApp.prototype = {
 		 * Communication with the CommonSense database
 		 ******************************************************************************************************/
 
+		csMessage = function(msg, error) {
+			if (error) {
+				console.error("CommonSense: " + msg);
+			} else {
+				console.log("CommonSense: " + msg);
+			}
+		}
+
 		csSuccessCB = function(response) {
-			console.log("Successful CommonSense call: " + response);
+			var msg = "Successful CommonSense call: " + response;
+			csMessage(msg, false);
 		}
 
 		csErrorCB = function(response) {
-			console.log("Error in CommonSense call: " + response);
+			var msg = "General error: " + response;
+			csMessage(msg, true);
 		}
 
 		/**
@@ -1465,9 +1507,7 @@ WotsApp.prototype = {
 		 * @param call  function csCreateUser or csCreateSession which accepts (email, password) as arguments.
 		 */
 		csStart = function(call, email, password) {
-            console.log("Starting session..");
 			sense.checkServer(function(response) {
-                console.log("Got response:"+JSON.stringify(response));
 				if (response.online) {
 					call(email, password);
 				} else {
@@ -1499,10 +1539,13 @@ WotsApp.prototype = {
 							"password": account.password
 						}
 					}
-					console.log("Change username to " + account.email + " and password to " + account.password);
+					var msg = "Change username to " + account.email + " and password to " + 
+						account.password;
+					csMessage(msg, false);
 					sense.createUser(user, createUserSuccessCB, generalErrorCB);
 				} else {
-					console.log("Session with database could not be set up. Device is not yet connected");
+					var msg = "Session with database could not be set up. Device is not yet connected";
+					csMessage(msg, false);
 				}
 			} else {
 				var user = {
@@ -1527,13 +1570,17 @@ WotsApp.prototype = {
 			if (device_as_user) {
 				var account = loginAsDevice();
 				if (account) {
-					console.log("Change username to " + account.email + " and password to " + account.password);
+					var msg = "Change username to " + account.email + " and password to " + 
+						account.password;
+					csMessage(msg, false);
 					sense.createSession(account.email, account.password, createSessionSuccessCB, createSessionErrorCB);
 				} else {
-					console.log("Session with database could not be set up. Device is not yet connected");
+					var msg = "Session with database could not be set up. Device is not yet connected";
+					csMessage(msg, false);
 				}
 			} else {
-				console.log("Create session for user \"" + email + "\" and \"" + password + "\" with CommonSense");
+				var msg = "Create session for user \"" + email + "\" and \"" + password + "\"";
+				csMessage(msg, false);
 				sense.createSession(email, password, createSessionSuccessCB, createSessionErrorCB);
 			}
 		};
@@ -1554,29 +1601,35 @@ WotsApp.prototype = {
 		}
 
 		createSessionErrorCB = function() {
-			console.log("Could not log in, try to create the user");
+			var msg = "Could not log in, try to create the user";
+			csMessage(msg, true);
 			csStart(csCreateUser);
 		};
 
 		createSessionSuccessCB = function(result) {
-			console.log("Successfully logged in, update", result);
+			var msg = "Successfully logged in (" + result + "). Now update sensor.";
+			csMessage(msg, false);
 			updateSensor();
 		};
 
-		generalErrorCB = function(msg) {
-			console.log("generalErrorCB.Error: ", msg);
+		generalErrorCB = function(err_msg) {
+			var msg = "Error: " + JSON.stringify(err_msg);
+			csMessage(msg, true);
 		};
 
 		createUserSuccessCB = function(result) {
-			console.log(result);
+			var msg = "User created: " + JSON.stringify(result);
+			csMessage(msg, false);
 			var obj = eval('(' + result + ')');
 			var exists = obj && obj.user && obj.user.id;
 			if (exists) {
-				console.log("Created user with id: " + obj.user.id);
+				var msg = "Created user with id: " + obj.user.id;
+				csMessage(msg, false);
 				// TODO: login
 				//csCreateSession();
 			} else {
-				console.log("Could not create user");
+				var msg = "Could not create user";
+				csMessage(msg, true);
 			}
 		};
 
@@ -1586,7 +1639,8 @@ WotsApp.prototype = {
 		};
 
 		csCreateSensor = function() {
-			console.log("Create sensor");
+			var msg = "Create sensor";
+			csMessage(msg, false);
 			var sensorName = "memo"; 
 			var index = 0;
 			var sensorDisplayName = "Memo" + index;
@@ -1601,21 +1655,25 @@ WotsApp.prototype = {
 					"data_type": sensorDataType
 				}
 			}
-			console.log("Data to create the CommonSense sensor ", data);
+			var msg = "Data to create the sensor " + JSON.stringify(data);
+			csMessage(msg, false);
 			sense.createSensor(data, csCreateSensorSuccessCB, generalErrorCB);
 		};
 
 		csCreateSensorSuccessCB = function(result) {
-			console.log("Create sensor result", result);
+			var msg = "Sensor successfully created: " +  JSON.stringify(result);
+			csMessage(msg, false);
 			// it is much safer to use a JSON parser, but for the purpose of example code:
 			var obj = eval('(' + result + ')');
 			var exists = obj && obj.sensor && obj.sensor.id;
 			if (exists) {
-				console.log("Set sensor id: " + obj.sensor.id);
+				var msg = "Set sensor id: " + obj.sensor.id;
+				csMessage(msg, false);
 				wots.sensor_id = obj.sensor.id;
 				noteDB();
 			} else {
-				console.log("Response couldn't be parsed or does not have sensor id field");
+				var msg = "Response couldn't be parsed or does not have sensor id field";
+				csMessage(msg, true);
 			}
 		};
 
@@ -1657,7 +1715,8 @@ WotsApp.prototype = {
 		   }
 		   */
 		csCreateSensorData = function() {
-			console.log("Write new memo to CommonSense database");
+			var msg = "Write new memo to CommonSense database";
+			csMessage(msg, false);
 			if (!wots.sensor_id) {
 				console.log("There is no sensor id stored");
 				return;
@@ -1692,7 +1751,8 @@ WotsApp.prototype = {
 				}
 				]
 			};
-			console.log("Data to write to sensor " + sensor_id + " is ", data);
+			var msg = "Data to write to sensor " + sensor_id + " is " + JSON.stringify(data);
+			csMessage(msg, false);
 			sense.createSensorData(sensor_id, data, csCreateSensorDataSuccessCB, generalErrorCB);
 		};
 

@@ -41,7 +41,6 @@ body.phonegap-ios-7 #statusBarFill {
 
 html, body {
 	/*margin-top: 20px; */
-	height:100% 
 }
 
 .clear-floats {
@@ -568,10 +567,18 @@ input, button, select, option, textarea {
  *
  *********************************************************************************************************************/
 
+/*
 .scrollable {
-	overflow-y: scroll;
+	overflow-y: scroll; 
+	z-index: 0;
+	overflow-scrolling: touch;
 	-webkit-overflow-scrolling: touch;
 }
+*/
+#listviewWrapper {
+	position: relative;
+}
+
 /**********************************************************************************************************************
  *
  * Exhibitor list

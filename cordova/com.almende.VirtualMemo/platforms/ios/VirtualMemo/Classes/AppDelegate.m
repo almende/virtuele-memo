@@ -43,8 +43,6 @@
 
     [cookieStorage setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
 
-#undef USE_NSURLCACHE
-#ifdef USE_NSURLCACHE
     int cacheSizeMemory = 8 * 1024 * 1024; // 8MB
     int cacheSizeDisk = 32 * 1024 * 1024; // 32MB
 #if __has_feature(objc_arc)
@@ -52,8 +50,7 @@
 #else
         NSURLCache* sharedCache = [[[NSURLCache alloc] initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:@"nsurlcache"] autorelease];
 #endif
-#endif
-    // Disabled by Stefan: [NSURLCache setSharedURLCache:sharedCache];
+    [NSURLCache setSharedURLCache:sharedCache];
 
     self = [super init];
     return self;
@@ -81,8 +78,6 @@
         self.viewController = [[[MainViewController alloc] init] autorelease];
 #endif
 
-    //self.viewController.startPage = @"http://dollie.local/~stefan/wots/jqm/";
-    
     // Set your app's start page by setting the <content src='foo.html' /> tag in config.xml.
     // If necessary, uncomment the line below to override it.
     // self.viewController.startPage = @"index.html";
@@ -98,7 +93,7 @@
 
 // this happens while we are running ( in the background, or from within our own app )
 // only valid if VirtualMemo-Info.plist specifies a protocol to handle
-- (BOOL)application:(UIApplication*)application handleOpenURL:(NSURL*)url
+- (BOOL)application:(UIApplication*)application openURL:(NSURL*)url sourceApplication:(NSString*)sourceApplication annotation:(id)annotation
 {
     if (!url) {
         return NO;
@@ -114,12 +109,31 @@
     return YES;
 }
 
-// repost the localnotification using the default NSNotificationCenter so multiple plugins may respond
+// repost all remote and local notification using the default NSNotificationCenter so multiple plugins may respond
 - (void)            application:(UIApplication*)application
     didReceiveLocalNotification:(UILocalNotification*)notification
 {
     // re-post ( broadcast )
     [[NSNotificationCenter defaultCenter] postNotificationName:CDVLocalNotification object:notification];
+}
+
+- (void)                                application:(UIApplication *)application
+   didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    // re-post ( broadcast )
+    NSString* token = [[[[deviceToken description]
+                         stringByReplacingOccurrencesOfString: @"<" withString: @""]
+                        stringByReplacingOccurrencesOfString: @">" withString: @""]
+                       stringByReplacingOccurrencesOfString: @" " withString: @""];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:CDVRemoteNotification object:token];
+}
+
+- (void)                                 application:(UIApplication *)application
+    didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+    // re-post ( broadcast )
+    [[NSNotificationCenter defaultCenter] postNotificationName:CDVRemoteNotificationError object:error];
 }
 
 - (NSUInteger)application:(UIApplication*)application supportedInterfaceOrientationsForWindow:(UIWindow*)window

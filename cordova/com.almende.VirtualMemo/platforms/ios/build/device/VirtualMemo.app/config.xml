@@ -25,6 +25,13 @@
     <feature name="Console">
         <param name="ios-package" value="CDVLogger" />
     </feature>
+    <feature name="LocalNotification">
+        <param name="ios-package" onload="true" value="APPLocalNotification" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="LocationManager">
+        <param name="ios-package" value="CDVLocationManager" />
+    </feature>
     <name>VirtualMemo</name>
     <description>
         A "virtual memo", an application for the WOTS conference that can afterwards be used to leave electronic message on a iBeacon-like device that can be attached to a fridge.
@@ -36,6 +43,12 @@
     <access origin="*" />
     <preference name="StatusBarOverlaysWebView" value="true" />
     <preference name="UIWebViewBounce" value="false" />
+    <feature name="BluetoothLePlugin">
+        <param name="ios-package" value="BluetoothLePlugin" />
+    </feature>
+    <feature name="BeaconPlugin">
+        <param name="ios-package" value="BeaconPlugin" />
+    </feature>
     <icon src="www/img/logo.png" />
     <icon density="ldpi" platform="android" src="www/img/logo.png" />
     <icon density="mdpi" platform="android" src="www/img/logo.png" />

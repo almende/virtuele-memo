@@ -99,11 +99,8 @@ var SenseAPI = (function () {
 			}
 			full_url = api_url + url + "?"+str.join("&");
 		}
-        
-		console.log("Status: " + request.readyState);
 
 		request.open(method, full_url, false);
-		console.log("Status: " + request.readyState);
 		// send headers
 		for (var i=0; i<headers.length; i++) {
 			request.setRequestHeader(headers[i].header_name, headers[i].header_value);
@@ -112,19 +109,14 @@ var SenseAPI = (function () {
 		if (session_id != "") {
 			request.setRequestHeader('X-SESSION_ID', session_id);
 		}
-                console.log("Sense-URL: " + full_url);
-                console.log("Sense-SessionID: "+session_id);
 
 		// send data
 		if (method == "POST" || method == "PUT") {
-            console.log("Sense-Data: "+JSON.stringify(data));
 			if (typeof(data) == 'object') {
-                console.log("Sense-Content-type: 'application/json'");
 				request.setRequestHeader('Content-type', 'application/json');
 				request.send(JSON.stringify(data));
 			}
 			else if (typeof(data) == 'string') {
-                console.log("Sense-Content-type: 'text/plain'");
 				request.setRequestHeader('Content-type', 'text/plain');
 				request.send(data);
 			}
@@ -143,7 +135,6 @@ var SenseAPI = (function () {
 		response_header = {};
 		var loc = request.getResponseHeader("Location");
 		var sid = request.getResponseHeader("X-SESSION_ID");
-        console.log("Got sessionID: "+sid);
 		if (loc != null) {
 			response_header['Location'] = loc;
 		}
@@ -173,23 +164,30 @@ var SenseAPI = (function () {
 			timeout: 1000,
 			statusCode: {
 				200: function(response) {
-					var resp;
+					var resp = {};
 					resp.msg = "Server online";
-					resp.status = statusCode;
+					resp.status = 200;
+					resp.online = true;
+					callback(resp);
+				},
+				405: function(response) {
+					var resp = {};
+					resp.msg = "Server online (but request not allowed)";
+					resp.status = 405;
 					resp.online = true;
 					callback(resp);
 				},
 				400: function(response) {
-					var resp;
+					var resp = {};
 					resp.msg = "Server offline";
-					resp.status = statusCode;
+					resp.status = 400;
 					resp.online = false;
 					callback(resp);
 				},
 				0: function(response) {
-					var resp;
+					var resp = {};
 					resp.msg = "Server not even reachable";
-					resp.status = statusCode;
+					resp.status = 0;
 					resp.online = false;
 					callback(resp);
 				}

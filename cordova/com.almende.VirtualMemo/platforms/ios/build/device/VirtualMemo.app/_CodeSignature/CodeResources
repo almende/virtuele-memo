@@ -4,10 +4,6 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>CDVNotification.bundle/beep.wav</key>
-		<data>
-		/kSUVvLLJcbtfXnxFEolil3/NRk=
-		</data>
 		<key>Default-568h@2x~iphone.png</key>
 		<data>
 		SSQaBzC8MgJWeN4IXrktab76oA0=
@@ -38,11 +34,11 @@
 		</data>
 		<key>MainViewController.nib</key>
 		<data>
-		aU753hhKerJF3XRMKTKoY+b9hLA=
+		lpwq57Wzcq5N1bEpfZ4wjxpGbZ0=
 		</data>
 		<key>config.xml</key>
 		<data>
-		8jLT3chwz91cmOdl0koaBSbQ/5g=
+		Z2egDTd6QWda5Wt2H4jqlKJpFTA=
 		</data>
 		<key>de.lproj/Localizable.strings</key>
 		<data>
@@ -118,11 +114,11 @@
 		</data>
 		<key>www/cordova_plugins.js</key>
 		<data>
-		JPH1s9y5FUsSKGNivtSdIgrRv3I=
+		nq4PAlLpsbTe6fSjuQDZi51PPO8=
 		</data>
 		<key>www/css/WotsApp.css</key>
 		<data>
-		6WK2/DJPJOeeZz4wDOgnVAmYNac=
+		A2ROr11B5z5bwxxvjhwPnZdrWSw=
 		</data>
 		<key>www/css/images/CalculatingRoute.png</key>
 		<data>
@@ -1024,9 +1020,13 @@
 		<data>
 		rcDB4/g4YH63bwU6NefhvZTfY7E=
 		</data>
-		<key>www/css/jquery.mobile-1.4.2.min.css</key>
+		<key>www/css/jquery.mobile-1.4.3.css</key>
 		<data>
-		MPE6BqOBtRTazV3u2yKS0j3YXWk=
+		/2sTp44NaBnFbjGUlJrEtnjoCNI=
+		</data>
+		<key>www/css/jquery.mobile-1.4.3.min.css</key>
+		<data>
+		U21KGZsDE8MpPZLtrRzJ4MByHsU=
 		</data>
 		<key>www/css/jquery.mobile.custom.structure.css</key>
 		<data>
@@ -1078,15 +1078,15 @@
 		</data>
 		<key>www/index.html</key>
 		<data>
-		brkaAoWJ2k7klM3sfd/ZN6hbfZQ=
+		C+84mtqRf2eXlti+0Hvm2aBh+HQ=
 		</data>
 		<key>www/js/WotsApp.js</key>
 		<data>
-		iqAW93lOtDU1YORk0JvLKsV3I64=
+		LbKRweOBIGeaEl9d4flwf3Kpi1Y=
 		</data>
 		<key>www/js/ble.js</key>
 		<data>
-		d5c5cqtPfQIpSgUjzrELMxIZNgI=
+		K4JwmVGXCYpZLfpHWhnNfxSG92I=
 		</data>
 		<key>www/js/fastclick.js</key>
 		<data>
@@ -1098,23 +1098,15 @@
 		</data>
 		<key>www/js/index.js</key>
 		<data>
-		SI5ZnepQkEiKOTRn3D4XuyfpM40=
+		FvC5ZGegNR6TXSRwn13HiQQAIeg=
 		</data>
 		<key>www/js/jquery-1.9.1.min.js</key>
 		<data>
 		rknlaZnYKAJydFXwuoO2Os2Qois=
 		</data>
-		<key>www/js/jquery.mobile-1.4.2.min.js</key>
+		<key>www/js/jquery.mobile-1.4.3.min.js</key>
 		<data>
-		AFV4fQbNMNLR3VO+OzR7HHQrow0=
-		</data>
-		<key>www/js/jquery.mobile.custom.js</key>
-		<data>
-		z1WlOzYGcye+XXM8dO+Z8e+acSs=
-		</data>
-		<key>www/js/jquery.mobile.custom.min.js</key>
-		<data>
-		XWr9fY3NFIb5hBKmbjOIlvexYdE=
+		IRXYxGMM+oJLSktrndvJt2pcX84=
 		</data>
 		<key>www/js/localdb.js</key>
 		<data>
@@ -1126,7 +1118,7 @@
 		</data>
 		<key>www/js/senseapi.js</key>
 		<data>
-		0OFLOigyw666LbF+3wxBF9HQ2FY=
+		BVIgV9+EaX71g5poxhCeA2rZTTs=
 		</data>
 		<key>www/logos/600-width/AssemblyPartner.jpg</key>
 		<data>
@@ -1224,6 +1216,10 @@
 		<data>
 		Jwq9seduYJLa44CmpFwHMAK6TMg=
 		</data>
+		<key>www/plugins/de.appplant.cordova.plugin.local-notification/www/local-notification.js</key>
+		<data>
+		J8PFppVOu7HYTM0UqvkDLFqEuyQ=
+		</data>
 		<key>www/plugins/org.apache.cordova.console/www/console-via-logger.js</key>
 		<data>
 		hF7sjNGZlrdzVnwHE+ljLRMXY0A=
@@ -1239,14 +1235,46 @@
 		<key>www/plugins/org.apache.cordova.dialogs/www/notification.js</key>
 		<data>
 		dBjrwxHxwnp5Jn9rA2DWvAC06wI=
+		</data>
+		<key>www/plugins/org.apache.cordova.ibeacon/www/Delegate.js</key>
+		<data>
+		UnfPD+y1RlhKJ+SGtYLNy4qMY3g=
+		</data>
+		<key>www/plugins/org.apache.cordova.ibeacon/www/LocationManager.js</key>
+		<data>
+		Me0R2ux+axcvvbGZ6oHoAi4I4jc=
+		</data>
+		<key>www/plugins/org.apache.cordova.ibeacon/www/Regions.js</key>
+		<data>
+		VuGGhofZizCqhL2CpxgvnDhEOow=
+		</data>
+		<key>www/plugins/org.apache.cordova.ibeacon/www/lib/klass.min.js</key>
+		<data>
+		HzUxxjtxrrZYQbZJbIQEyMAgOlw=
+		</data>
+		<key>www/plugins/org.apache.cordova.ibeacon/www/lib/q.min.js</key>
+		<data>
+		aLFbh+5f0pvgkCIQG7Bd6G2tgOA=
+		</data>
+		<key>www/plugins/org.apache.cordova.ibeacon/www/lib/underscore-min-1.6.js</key>
+		<data>
+		WZlDDmjjJNV4VHPFcttp3tbfqcA=
+		</data>
+		<key>www/plugins/org.apache.cordova.ibeacon/www/model/BeaconRegion.js</key>
+		<data>
+		D3AXXF3Ijeh4ZmL64NWT2dGG2ro=
+		</data>
+		<key>www/plugins/org.apache.cordova.ibeacon/www/model/CircularRegion.js</key>
+		<data>
+		71KweA+6YpGF8A46CqH38e0aLlQ=
+		</data>
+		<key>www/plugins/org.apache.cordova.ibeacon/www/model/Region.js</key>
+		<data>
+		lWJ92KHf8O5DHYui0SqjIETYku0=
 		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>CDVNotification.bundle/beep.wav</key>
-		<data>
-		/kSUVvLLJcbtfXnxFEolil3/NRk=
-		</data>
 		<key>Default-568h@2x~iphone.png</key>
 		<data>
 		SSQaBzC8MgJWeN4IXrktab76oA0=
@@ -1277,11 +1305,11 @@
 		</data>
 		<key>MainViewController.nib</key>
 		<data>
-		aU753hhKerJF3XRMKTKoY+b9hLA=
+		lpwq57Wzcq5N1bEpfZ4wjxpGbZ0=
 		</data>
 		<key>config.xml</key>
 		<data>
-		8jLT3chwz91cmOdl0koaBSbQ/5g=
+		Z2egDTd6QWda5Wt2H4jqlKJpFTA=
 		</data>
 		<key>de.lproj/Localizable.strings</key>
 		<data>
@@ -1357,11 +1385,11 @@
 		</data>
 		<key>www/cordova_plugins.js</key>
 		<data>
-		JPH1s9y5FUsSKGNivtSdIgrRv3I=
+		nq4PAlLpsbTe6fSjuQDZi51PPO8=
 		</data>
 		<key>www/css/WotsApp.css</key>
 		<data>
-		6WK2/DJPJOeeZz4wDOgnVAmYNac=
+		A2ROr11B5z5bwxxvjhwPnZdrWSw=
 		</data>
 		<key>www/css/images/CalculatingRoute.png</key>
 		<data>
@@ -2263,9 +2291,13 @@
 		<data>
 		rcDB4/g4YH63bwU6NefhvZTfY7E=
 		</data>
-		<key>www/css/jquery.mobile-1.4.2.min.css</key>
+		<key>www/css/jquery.mobile-1.4.3.css</key>
 		<data>
-		MPE6BqOBtRTazV3u2yKS0j3YXWk=
+		/2sTp44NaBnFbjGUlJrEtnjoCNI=
+		</data>
+		<key>www/css/jquery.mobile-1.4.3.min.css</key>
+		<data>
+		U21KGZsDE8MpPZLtrRzJ4MByHsU=
 		</data>
 		<key>www/css/jquery.mobile.custom.structure.css</key>
 		<data>
@@ -2317,15 +2349,15 @@
 		</data>
 		<key>www/index.html</key>
 		<data>
-		brkaAoWJ2k7klM3sfd/ZN6hbfZQ=
+		C+84mtqRf2eXlti+0Hvm2aBh+HQ=
 		</data>
 		<key>www/js/WotsApp.js</key>
 		<data>
-		iqAW93lOtDU1YORk0JvLKsV3I64=
+		LbKRweOBIGeaEl9d4flwf3Kpi1Y=
 		</data>
 		<key>www/js/ble.js</key>
 		<data>
-		d5c5cqtPfQIpSgUjzrELMxIZNgI=
+		K4JwmVGXCYpZLfpHWhnNfxSG92I=
 		</data>
 		<key>www/js/fastclick.js</key>
 		<data>
@@ -2337,23 +2369,15 @@
 		</data>
 		<key>www/js/index.js</key>
 		<data>
-		SI5ZnepQkEiKOTRn3D4XuyfpM40=
+		FvC5ZGegNR6TXSRwn13HiQQAIeg=
 		</data>
 		<key>www/js/jquery-1.9.1.min.js</key>
 		<data>
 		rknlaZnYKAJydFXwuoO2Os2Qois=
 		</data>
-		<key>www/js/jquery.mobile-1.4.2.min.js</key>
+		<key>www/js/jquery.mobile-1.4.3.min.js</key>
 		<data>
-		AFV4fQbNMNLR3VO+OzR7HHQrow0=
-		</data>
-		<key>www/js/jquery.mobile.custom.js</key>
-		<data>
-		z1WlOzYGcye+XXM8dO+Z8e+acSs=
-		</data>
-		<key>www/js/jquery.mobile.custom.min.js</key>
-		<data>
-		XWr9fY3NFIb5hBKmbjOIlvexYdE=
+		IRXYxGMM+oJLSktrndvJt2pcX84=
 		</data>
 		<key>www/js/localdb.js</key>
 		<data>
@@ -2365,7 +2389,7 @@
 		</data>
 		<key>www/js/senseapi.js</key>
 		<data>
-		0OFLOigyw666LbF+3wxBF9HQ2FY=
+		BVIgV9+EaX71g5poxhCeA2rZTTs=
 		</data>
 		<key>www/logos/600-width/AssemblyPartner.jpg</key>
 		<data>
@@ -2463,6 +2487,10 @@
 		<data>
 		Jwq9seduYJLa44CmpFwHMAK6TMg=
 		</data>
+		<key>www/plugins/de.appplant.cordova.plugin.local-notification/www/local-notification.js</key>
+		<data>
+		J8PFppVOu7HYTM0UqvkDLFqEuyQ=
+		</data>
 		<key>www/plugins/org.apache.cordova.console/www/console-via-logger.js</key>
 		<data>
 		hF7sjNGZlrdzVnwHE+ljLRMXY0A=
@@ -2478,6 +2506,42 @@
 		<key>www/plugins/org.apache.cordova.dialogs/www/notification.js</key>
 		<data>
 		dBjrwxHxwnp5Jn9rA2DWvAC06wI=
+		</data>
+		<key>www/plugins/org.apache.cordova.ibeacon/www/Delegate.js</key>
+		<data>
+		UnfPD+y1RlhKJ+SGtYLNy4qMY3g=
+		</data>
+		<key>www/plugins/org.apache.cordova.ibeacon/www/LocationManager.js</key>
+		<data>
+		Me0R2ux+axcvvbGZ6oHoAi4I4jc=
+		</data>
+		<key>www/plugins/org.apache.cordova.ibeacon/www/Regions.js</key>
+		<data>
+		VuGGhofZizCqhL2CpxgvnDhEOow=
+		</data>
+		<key>www/plugins/org.apache.cordova.ibeacon/www/lib/klass.min.js</key>
+		<data>
+		HzUxxjtxrrZYQbZJbIQEyMAgOlw=
+		</data>
+		<key>www/plugins/org.apache.cordova.ibeacon/www/lib/q.min.js</key>
+		<data>
+		aLFbh+5f0pvgkCIQG7Bd6G2tgOA=
+		</data>
+		<key>www/plugins/org.apache.cordova.ibeacon/www/lib/underscore-min-1.6.js</key>
+		<data>
+		WZlDDmjjJNV4VHPFcttp3tbfqcA=
+		</data>
+		<key>www/plugins/org.apache.cordova.ibeacon/www/model/BeaconRegion.js</key>
+		<data>
+		D3AXXF3Ijeh4ZmL64NWT2dGG2ro=
+		</data>
+		<key>www/plugins/org.apache.cordova.ibeacon/www/model/CircularRegion.js</key>
+		<data>
+		71KweA+6YpGF8A46CqH38e0aLlQ=
+		</data>
+		<key>www/plugins/org.apache.cordova.ibeacon/www/model/Region.js</key>
+		<data>
+		lWJ92KHf8O5DHYui0SqjIETYku0=
 		</data>
 	</dict>
 	<key>rules</key>

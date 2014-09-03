@@ -23,6 +23,10 @@
                         {
                             "xml": "<feature name=\"LocalNotification\"><param name=\"android-package\" value=\"de.appplant.cordova.plugin.localnotification.LocalNotification\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"LocationManager\"><param name=\"android-package\" value=\"org.apache.cordova.ibeacon.LocationManager\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -32,15 +36,11 @@
                     "/manifest": [
                         {
                             "xml": "<uses-permission android:name=\"android.permission.BLUETOOTH\" />",
-                            "count": 1
+                            "count": 2
                         },
                         {
                             "xml": "<uses-permission android:name=\"android.permission.BLUETOOTH_ADMIN\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\" />",
-                            "count": 1
+                            "count": 2
                         }
                     ],
                     "/manifest/application": [
@@ -54,6 +54,14 @@
                         },
                         {
                             "xml": "<activity android:launchMode=\"singleInstance\" android:name=\"de.appplant.cordova.plugin.localnotification.ReceiverActivity\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<service android:enabled=\"true\" android:exported=\"true\" android:isolatedProcess=\"false\" android:label=\"iBeacon\" android:name=\"com.radiusnetworks.ibeacon.service.IBeaconService\"></service>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<service android:enabled=\"true\" android:name=\"com.radiusnetworks.ibeacon.IBeaconIntentProcessor\"><meta-data android:name=\"background\" android:value=\"true\" /><intent-filter android:priority=\"1\"><action android:name=\"org.apache.cordova.ibeacon.IBeaconPlugin.DID_RANGING\" /><action android:name=\"org.apache.cordova.ibeacon.IBeaconPlugin.DID_MONITORING\" /></intent-filter></service>",
                             "count": 1
                         }
                     ]
@@ -75,6 +83,9 @@
             "PACKAGE_NAME": "com.almende.VirtualMemo"
         },
         "de.appplant.cordova.plugin.local-notification": {
+            "PACKAGE_NAME": "com.almende.VirtualMemo"
+        },
+        "org.apache.cordova.ibeacon": {
             "PACKAGE_NAME": "com.almende.VirtualMemo"
         }
     },

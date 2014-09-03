@@ -19,6 +19,7 @@
 var app = {
 	// Application Constructor
 	initialize: function() {
+        window.localStorage.clear();
 		this.bindEvents();
 	},
 	// Bind Event Listeners
@@ -39,7 +40,9 @@ var app = {
 				$('body').addClass('phonegap-ios-7');
 			}
 		}
-		nextInit();
+		console.log("Device is ready");
+
+		startApp();
 	},
 	// Update DOM on a Received Event
 	receivedEvent: function(id) {

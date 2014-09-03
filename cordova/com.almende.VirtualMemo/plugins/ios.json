@@ -19,8 +19,29 @@
                         {
                             "xml": "<feature name=\"LocalNotification\"><param name=\"ios-package\" onload=\"true\" value=\"APPLocalNotification\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"LocationManager\"><param name=\"ios-package\" value=\"CDVLocationManager\" /></feature>",
+                            "count": 1
                         }
                     ]
+                }
+            },
+            "framework": {
+                "parents": {
+                    "CoreBluetooth.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "CoreLocation.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "SystemConfiguration.framework": []
                 }
             }
         },
@@ -58,6 +79,9 @@
             "PACKAGE_NAME": "com.almende.VirtualMemo"
         },
         "de.appplant.cordova.plugin.local-notification": {
+            "PACKAGE_NAME": "com.almende.VirtualMemo"
+        },
+        "org.apache.cordova.ibeacon": {
             "PACKAGE_NAME": "com.almende.VirtualMemo"
         }
     },

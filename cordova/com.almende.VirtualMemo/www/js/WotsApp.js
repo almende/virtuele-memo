@@ -108,11 +108,11 @@ WotsApp.prototype = {
 
 			// for debugging, enable one of the following pages as first page
 			// congratsPage();
-			//allExhibitorsPage();
+			// allExhibitorsPage();
 			// guideHomePage();
 			// registerPage();
 			// memoOverviewPage();
-			// memoPage();
+			 memoPage();
 		}
 
 		init = function() {
@@ -1348,6 +1348,8 @@ WotsApp.prototype = {
 				}
 				// create sensor and call the noteDB function again
 				console.log("No sensor found, we will create one");
+                console.log("CREATING");
+                csCreateSensor();
 				var index = 0;
 				csExistSensor(index, function() { 
 					console.log("Memo is present");	
