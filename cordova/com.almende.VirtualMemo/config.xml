@@ -14,9 +14,6 @@
     <feature name="BluetoothLePlugin">
         <param name="ios-package" value="BluetoothLePlugin" />
     </feature>
-    <feature name="BeaconPlugin">
-        <param name="ios-package" value="BeaconPlugin" />
-    </feature>
     <icon src="www/img/logo.png" />
     <icon src="www/img/logo.png" platform="android" density="ldpi" />
     <icon src="www/img/logo.png" platform="android" density="mdpi" />

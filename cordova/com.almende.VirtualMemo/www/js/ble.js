@@ -2,27 +2,27 @@ var BLEHandler = function() {
 	var self = this;
 	var addressKey = 'address';
 	var flowerUuid =  '39e1fa00-84a8-11e2-afba-0002a5d5c51b';
-    var iBeaconUuid = 'be3547d7-678e-509f-b677-807ccde69f9a' //'2ca36943-7fde-4f4e-9c08-dda29f079349';
+	var iBeaconUuid = '2ca36943-7fde-4f4e-9c08-dda29f079349';//'be3547d7-678e-509f-b677-807ccde69f9a' //'2ca36943-7fde-4f4e-9c08-dda29f079349';
 	var memoAddress = 'FE:F0:7F:FB:F4:CC';
 	var memoUuid = '1802';
 	var alertLevelServiceUuid = '1802';
 	var alertLevelCharacteristicUuid = '2a06';
-
+	
 	var linkLossServiceUuid = '1803';
 	var linkLossCharacteristicUuid = '2a06';
-
+	
 	var scanTimer = null;
 	var connectTimer = null;
 	var reconnectTimer = null;
-
+	
 	var iOSPlatform = "iOS";
 	var androidPlatform = "Android";
-
+	
 	var memoBug0 = true;
 	var memoBug0_exec = false;
 	var memoBug0_callback = null;
 	var memoBug0_cargs = null;
-
+	
 	/**
 	 * Initialization tries to connect to the BLE chip on the phone. If successful, a scan is started. If there is
 	 * an "address" stored at local memory, we will use that to scan. If the scan is successful we connect to the
@@ -30,53 +30,79 @@ var BLEHandler = function() {
 	 */
 	self.init = function() {
 		bluetoothle.initialize(self.initSuccess, self.initError, {"request": true});
-        self.createBeacon();
-        var beaconRegion = self.createBeacon();
-        var delegate = new locationManager.Delegate().implement({
-
-    didDetermineStateForRegion: function (pluginResult) {
-
-        console.log'[DOM] didDetermineStateForRegion: ' + JSON.stringify(pluginResult));
-
-        cordova.plugins.locationManager.appendToDeviceLog('[DOM] didDetermineStateForRegion: '
-            + JSON.stringify(pluginResult));
-    },
-
-    didStartMonitoringForRegion: function (pluginResult) {
-        console.log('didStartMonitoringForRegion:', pluginResult);
-
-        console.log('didStartMonitoringForRegion:' + JSON.stringify(pluginResult));
-    },
-
-    didRangeBeaconsInRegion: function (pluginResult) {
-        console.log('[DOM] didRangeBeaconsInRegion: ' + JSON.stringify(pluginResult));
-    }
-
-    });
-    locationManager.setDelegate(delegate);
-    locationManager.startMonitoringForRegion(beaconRegion)
-.fail(console.error)
-.done();
-
-    }
-
+		var uuidsToMonitor = [iBeaconUuid];
+		AttendeaseBeacons.monitor(uuidsToMonitor, function() {
+																												return setInterval((function() {
+																																																return AttendeaseBeacons.getBeacons(function(beacons) {
+																																																																																				if (_.isEmpty(beacons)) {
+																																																																																				return console.log("No beacons found.");
+																																																																																				} else {
+																																																																																				return _.each(beacons, function(beacon) {
+																																																																																																		return console.log("" + beacon.uuid + " (" + beacon.major + ", " + beacon.minor + ") " + beacon.proximityString + " (" + beacon.accuracy + " meters)");
+																																																																																																		});
+																																																																																				}
+																																																																																				});
+																																																}), 3000);
+																												});
+		
+		//        var logToDom = function (message) {
+		//            console.log(message);
+		//        };
+		
+		//        var delegate = new cordova.plugins.locationManager.Delegate().implement({
+		//
+		//                                                                                didDetermineStateForRegion: function (pluginResult) {
+		//
+		//                                                                                logToDom('[DOM] didDetermineStateForRegion: ' + JSON.stringify(pluginResult));
+		//
+		//                                                                                cordova.plugins.locationManager.appendToDeviceLog('[DOM] didDetermineStateForRegion: '
+		//                                                                                                                                  + JSON.stringify(pluginResult));
+		//                                                                                },
+		//
+		//                                                                    didEnterRegion:
+		//                                                                    function (pluginResult) {
+		//                                                                                console.log('didEnterRegion:', pluginResult);
+		//                                                                                },           didStartMonitoringForRegion: function (pluginResult) {
+		//                                                                                console.log('didStartMonitoringForRegion:', pluginResult);
+		//
+		//                                                                                logToDom('didStartMonitoringForRegion:' + JSON.stringify(pluginResult));
+		//                                                                                },
+		//
+		//                                                                                didRangeBeaconsInRegion: function (pluginResult) {
+		//                                                                                logToDom('[DOM] didRangeBeaconsInRegion: ' + JSON.stringify(pluginResult));
+		//                                                                                }
+		//
+		//                                                                                });
+		//
+		//        var uuid = iBeaconUuid;
+		//        var identifier = 'n/a';
+		////        var minor;
+		////        var major;
+		//        var beaconRegion = new cordova.plugins.locationManager.BeaconRegion(identifier, uuid);//, major, minor);
+		//
+		//        cordova.plugins.locationManager.setDelegate(delegate);
+		//        cordova.plugins.locationManager.startMonitoringForRegion(beaconRegion)
+		//        .fail(console.error)
+		//        .done();
+	}
+	
+	
 	self.connectDevice = function(address) {
 		console.log("Begining connection to: " + address + " with 5 second timeout");
 		var paramsObj = {"address": address};
+		bluetoothle.cl
 		bluetoothle.connect(self.connectSuccess, self.connectError, paramsObj);
 		self.connectTimer = setTimeout(self.connectTimeout, 5000);
 	}
-
+	
 	self.connectSuccess = function(obj) {
 		if (obj.status == "connected") {
 			console.log("Connected to : " + obj.name + " - " + obj.address);
 			console.log("Write address " + obj.address + " to local storage");
 			window.localStorage.setItem(self.addressKey, obj.address);
 			self.clearConnectTimeout();
-/*
- * 			// is this really necessary
+			// is this really necessary
 			self.tempDisconnectDevice();
-*/
 			if (window.device.platform == iOSPlatform) {
 				console.log("Discovering alert level service");
 				var paramsObj = {"serviceUuids": [alertLevelServiceUuid] };
@@ -85,7 +111,7 @@ var BLEHandler = function() {
 				console.log("Beginning discovery");
 				bluetoothle.discover(self.discoverSuccess, self.discoverError);
 			}
-
+			
 		}
 		else if (obj.status == "connecting") {
 			console.log("Connecting to : " + obj.name + " - " + obj.address);
@@ -95,32 +121,32 @@ var BLEHandler = function() {
 			self.clearConnectTimeout();
 		}
 	}
-
+	
 	self.connectError = function(obj) {
 		console.log("Connect error: " + obj.error + " - " + obj.message);
 		self.clearConnectTimeout();
 	}
-
+	
 	self.connectTimeout = function() {
 		console.log('Connection timed out, stop connection attempts');
 	}
-
-	self.clearConnectTimeout = function() { 
+	
+	self.clearConnectTimeout = function() {
 		console.log("Clearing connect timeout");
 		if (self.connectTimer != null) {
 			clearTimeout(self.connectTimer);
 		}
 	}
-
+	
 	self.isConnected = function(callback) {
 		bluetoothle.isConnected(callback);
 	}
-
+	
 	self.tempDisconnectDevice = function() {
 		console.log("Disconnecting from device to test reconnect");
 		bluetoothle.disconnect(self.tempDisconnectSuccess, self.tempDisconnectError);
 	}
-
+	
 	self.tempDisconnectSuccess = function(obj) {
 		if (obj.status == "disconnected") {
 			console.log("Temp disconnect device and reconnecting in 1 second. Instantly reconnecting can cause issues");
@@ -131,23 +157,23 @@ var BLEHandler = function() {
 			console.log("Unexpected temp disconnect status: " + obj.status);
 		}
 	}
-
+	
 	self.tempDisconnectError = function(obj) {
 		console.log("Temp disconnect error: " + obj.error + " - " + obj.message);
 	}
-
+	
 	self.reconnect = function() {
 		console.log("Reconnecting with 5 second timeout");
 		bluetoothle.reconnect(self.reconnectSuccess, self.reconnectError);
 		self.reconnectTimer = setTimeout(self.reconnectTimeout, 5000);
 	}
-
+	
 	self.reconnectSuccess = function(obj) {
 		if (obj.status == "connected") {
 			console.log("Reconnected to : " + obj.name + " - " + obj.address);
-
+			
 			self.clearReconnectTimeout();
-
+			
 			if (window.device.platform == iOSPlatform) {
 				console.log("Discovering alert level service");
 				var paramsObj = {"serviceUuids": [alertLevelServiceUuid] };
@@ -163,24 +189,24 @@ var BLEHandler = function() {
 			self.disconnectDevice();
 		}
 	}
-
+	
 	self.reconnectError = function(obj) {
 		console.log("Reconnect error: " + obj.error + " - " + obj.message);
 		self.disconnectDevice();
 	}
-
+	
 	self.reconnectTimeout = function() {
 		console.log("Reconnection timed out");
 	}
-
-	self.clearReconnectTimeout = function() { 
+	
+	self.clearReconnectTimeout = function() {
 		console.log("Clearing reconnect timeout");
 		if (self.reconnectTimer != null) {
 			clearTimeout(self.reconnectTimer);
 		}
 	}
-    
-    /**
+	
+	/**
 	 * If scan is successful, connect automatically to the discovered device.
 	 */
 	self.startScanSuccess = function(obj) {
@@ -199,25 +225,25 @@ var BLEHandler = function() {
 			self.clearScanTimeout();
 		}
 	}
-
+	
 	self.getAddress = function() {
 		var address = window.localStorage.getItem(self.addressKey);
 		console.log("Obtained address: " + address);
 		return address;
 	}
-
-	self.clearScanTimeout = function() { 
+	
+	self.clearScanTimeout = function() {
 		console.log('Clearing scanning timeout');
 		if (self.scanTimer != null) 	{
 			clearTimeout(self.scanTimer);
 		}
 	}
-
+	
 	self.scanTimeout = function() {
 		console.log('Scanning timed out, stop scanning');
 		bluetoothle.stopScan(self.stopScanSuccess, self.stopScanError);
 	}
-
+	
 	self.stopScanSuccess = function(obj) {
 		if (obj.status == 'scanStopped') {
 			console.log('Scan was stopped successfully');
@@ -225,38 +251,22 @@ var BLEHandler = function() {
 			console.log('Unexpected stop scan status: ' + obj.status);
 		}
 	}
-
+	
 	self.stopScanError = function(obj) {
 		console.log('Stop scan error: ' + obj.error + ' - ' + obj.message);
 	}
-
+	
 	self.startScanError = function(obj) {
 		console.log('Scan error', obj.status);
-/*		navigator.notification.alert(
-				'Could not find a device using Bluetooth scanning.',
-				null,
-				'Status',
-				'Sorry!');
-*/
+		/*		navigator.notification.alert(
+			'Could not find a device using Bluetooth scanning.',
+			null,
+			'Status',
+			'Sorry!');
+			*/
 	}
-    /**
-     * Function that creates a BeaconRegion data transfer object.
-     *
-     * @throws Error if the BeaconRegion parameters are not valid.
-     */
-    self.createBeacon = function() {
-        
-        var uuid = self.iBeaconUuids; // mandatory
-        var identifier = 'MEMO'; // mandatory
-        var minor; // optional, defaults to wildcard if left empty
-        var major; // optional, defaults to wildcard if left empty
-        
-        // throws an error if the parameters are not valid
-        var beaconRegion = new cordova.plugins.locationManager.BeaconRegion(identifier, uuid, major, minor);
-        
-        return beaconRegion;   
-    }
-
+	
+	
 	self.initSuccess = function(obj) {
 		console.log('Properly connected to BLE chip');
 		console.log('Message', obj.status);
@@ -264,27 +274,27 @@ var BLEHandler = function() {
 			var address = window.localStorage.getItem(self.addressKey);
 			if (address == null) {
 				console.log('No address known, so start scan');
-				var paramsObj = { 'serviceUuids': [memoUuid]};
+				var paramsObj = { };// 'serviceUuids': [memoUuid]};
 				bluetoothle.startScan(self.startScanSuccess, self.startScanError, paramsObj);
 			} else {
 				console.log('Address already known, so connect directly to ', address);
 			}
 		}
 	}
-
+	
 	self.initError = function(obj) {
 		console.log('Connection to BLE chip failed');
 		console.log('Message', obj.status);
 		navigator.notification.alert(
-				'Bluetooth is not turned on, or could not be turned on. Make sure your phone has a Bluetooth 4.+ (BLE) chip.',
-				null,
-				'BLE off?',
-				'Sorry!');
+																															'Bluetooth is not turned on, or could not be turned on. Make sure your phone has a Bluetooth 4.+ (BLE) chip.',
+																															null,
+																															'BLE off?',
+																															'Sorry!');
 	}
-
+	
 	/**
 	 * We found a device that has an alert level service. Now we are gonna iterate through all the services to find
-	 * the specific characteristics. We will subsequently "discover" this characteristic. 
+	 * the specific characteristics. We will subsequently "discover" this characteristic.
 	 */
 	self.alertLevelSuccess = function(obj) {
 		if (obj.status == "discoveredServices")
@@ -292,7 +302,7 @@ var BLEHandler = function() {
 			var serviceUuids = obj.serviceUuids;
 			for (var i = 0; i < serviceUuids.length; i++) {
 				var serviceUuid = serviceUuids[i];
-
+				
 				if (serviceUuid == self.alertLevelServiceUuid) {
 					console.log("Finding alert level characteristics");
 					var paramsObj = {"serviceUuid":alertLevelServiceUuid, "characteristicUuids":[alertLevelCharacteristicUuid]};
@@ -308,12 +318,12 @@ var BLEHandler = function() {
 		}
 		self.disconnectDevice();
 	}
-
+	
 	self.alertLevelError = function(obj) {
 		console.log("Services alert level error: " + obj.error + " - " + obj.message);
 		self.disconnectDevice();
 	}
-
+	
 	self.characteristicsAlertLevelSuccess = function(obj) {
 		if (obj.status == "discoveredCharacteristics") {
 			var characteristicUuids = obj.characteristicUuids;
@@ -321,7 +331,7 @@ var BLEHandler = function() {
 			{
 				console.log("Alert level characteristics found, now discovering descriptor");
 				var characteristicUuid = characteristicUuids[i];
-
+				
 				if (characteristicUuid == alertLevelCharacteristicUuid) {
 					self.writeAlertLevel("middle");
 					//self.readLinkLoss();
@@ -339,13 +349,13 @@ var BLEHandler = function() {
 		}
 		self.disconnectDevice();
 	}
-
+	
 	self.characteristicsAlertLevelError = function(obj)
 	{
 		console.log("Characteristics heart error: " + obj.error + " - " + obj.message);
 		self.disconnectDevice();
 	}
-
+	
 	// function only works on iOS, not on Android
 	self.descriptorsAlertLevelSuccess = function(obj)
 	{
@@ -359,20 +369,20 @@ var BLEHandler = function() {
 			self.disconnectDevice();
 		}
 	}
-
+	
 	// function only works on iOS, not on Android
 	self.descriptorsAlertLevelError = function(obj)
 	{
 		console.log("Descriptors alert error: " + obj.error + " - " + obj.message);
 		self.disconnectDevice();
 	}
-
+	
 	self.discoverSuccess = function(obj)
 	{
 		if (obj.status == "discovered")
 		{
 			console.log("Discovery completed");
-
+			
 			self.writeAlertLevel("middle");
 		}
 		else
@@ -381,13 +391,13 @@ var BLEHandler = function() {
 			self.disconnectDevice();
 		}
 	}
-
+	
 	self.discoverError = function(obj)
 	{
 		console.log("Discover error: " + obj.error + " - " + obj.message);
 		self.disconnectDevice();
 	}
-
+	
 	/**
 	 * Write the alert level, can be "high", "middle", or "low".
 	 */
@@ -404,15 +414,15 @@ var BLEHandler = function() {
 				self.memoBug0_exec = false;
 			}
 		}
-
+		
 		var u8 = new Uint8Array(1);
 		switch(level) {
 			case "high":
 				u8[0]=2;
-			break;
+				break;
 			case "middle":
 				u8[0]=1;
-			break;
+				break;
 			case "low": default:
 				u8[0]=0;
 		};
@@ -429,23 +439,23 @@ var BLEHandler = function() {
 			console.log('Writing was not successful: ' + obj.status);
 		}
 	}
-
+	
 	self.writeAlertLevelError = function(obj) {
 		console.log('Error in writing alert level: ' + obj.status);
 	}
-
+	
 	self.readLinkLoss = function() {
 		console.log("Read link loss level at service " + linkLossServiceUuid + ' and characteristic ' + linkLossCharacteristicUuid);
 		var paramsObj = {"serviceUuid": linkLossServiceUuid, "characteristicUuid": linkLossCharacteristicUuid};
 		bluetoothle.read(self.readLinkLossSuccess, self.readLinkLossError, paramsObj);
 	}
-
+	
 	self.readLinkLossSuccess = function(obj) {
 		if (obj.status == "read")
 		{
 			var bytes = bluetoothle.encodedStringToBytes(obj.value);
 			console.log("Link loss: " + bytes[0]);
-
+			
 			if (self.memoBug0) {
 				console.log("Some stupid bug in memo, requires me to send a read message first");
 				if (self.memoBug0_callback)
@@ -458,22 +468,22 @@ var BLEHandler = function() {
 			self.disconnectDevice();
 		}
 	}
-
+	
 	self.readLinkLossError = function(obj) {
 		console.log('Error in reading link loss level', obj.status);
 		self.writeAlertLevel();
 	}
-
+	
 	self.readBatteryLevel = function() {
 		console.log("Reading battery level, not yet implemented");
 		//var paramsObj = {"serviceUuid":batteryServiceUuid, "characteristicUuid":batteryLevelCharacteristicUuid};
 		//bluetoothle.read(readSuccess, readError, paramsObj);
 	}
-
+	
 	self.disconnectDevice = function() {
 		bluetoothle.disconnect(self.disconnectSuccess, self.disconnectError);
 	}
-
+	
 	self.disconnectSuccess = function(obj)
 	{
 		if (obj.status == "disconnected")
@@ -490,17 +500,17 @@ var BLEHandler = function() {
 			console.log("Unexpected disconnect status: " + obj.status);
 		}
 	}
-
+	
 	self.disconnectError = function(obj)
 	{
 		console.log("Disconnect error: " + obj.error + " - " + obj.message);
 	}
-
+	
 	self.closeDevice = function()
 	{
 		bluetoothle.close(self.closeSuccess, self.closeError);
 	}
-
+	
 	self.closeSuccess = function(obj)
 	{
 		if (obj.status == "closed")
@@ -512,7 +522,7 @@ var BLEHandler = function() {
 			console.log("Unexpected close status: " + obj.status);
 		}
 	}
-
+	
 	self.closeError = function(obj)
 	{
 		console.log("Close error: " + obj.error + " - " + obj.message);
