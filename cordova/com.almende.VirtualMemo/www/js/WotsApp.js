@@ -1482,12 +1482,22 @@ WotsApp.prototype = {
 		 * Communication with the CommonSense database
 		 ******************************************************************************************************/
 
+		csMessage = function(msg, error) {
+			if (error) {
+				console.error("CommonSense: " + msg);
+			} else {
+				console.log("CommonSense: " + msg);
+			}
+		}
+
 		csSuccessCB = function(response) {
-			console.log("Successful CommonSense call: " + response);
+			var msg = "Successful CommonSense call: " + response;
+			csMessage(msg, false);
 		}
 
 		csErrorCB = function(response) {
-			console.log("Error in CommonSense call: " + response);
+			var msg = "General error: " + response;
+			csMessage(msg, true);
 		}
 
 		/**
@@ -1527,10 +1537,13 @@ WotsApp.prototype = {
 							"password": account.password
 						}
 					}
-					console.log("Change username to " + account.email + " and password to " + account.password);
+					var msg = "Change username to " + account.email + " and password to " + 
+						account.password;
+					csMessage(msg, false);
 					sense.createUser(user, createUserSuccessCB, generalErrorCB);
 				} else {
-					console.log("Session with database could not be set up. Device is not yet connected");
+					var msg = "Session with database could not be set up. Device is not yet connected";
+					csMessage(msg, false);
 				}
 			} else {
 				var user = {
@@ -1555,13 +1568,17 @@ WotsApp.prototype = {
 			if (device_as_user) {
 				var account = loginAsDevice();
 				if (account) {
-					console.log("Change username to " + account.email + " and password to " + account.password);
+					var msg = "Change username to " + account.email + " and password to " + 
+						account.password;
+					csMessage(msg, false);
 					sense.createSession(account.email, account.password, createSessionSuccessCB, createSessionErrorCB);
 				} else {
-					console.log("Session with database could not be set up. Device is not yet connected");
+					var msg = "Session with database could not be set up. Device is not yet connected";
+					csMessage(msg, false);
 				}
 			} else {
-				console.log("Create session for user \"" + email + "\" and \"" + password + "\" with CommonSense");
+				var msg = "Create session for user \"" + email + "\" and \"" + password + "\"";
+				csMessage(msg, false);
 				sense.createSession(email, password, createSessionSuccessCB, createSessionErrorCB);
 			}
 		};
@@ -1582,29 +1599,35 @@ WotsApp.prototype = {
 		}
 
 		createSessionErrorCB = function() {
-			console.log("Could not log in, try to create the user");
+			var msg = "Could not log in, try to create the user";
+			csMessage(msg, true);
 			csStart(csCreateUser);
 		};
 
 		createSessionSuccessCB = function(result) {
-			console.log("Successfully logged in, update", result);
+			var msg = "Successfully logged in (" + result + "). Now update sensor.";
+			csMessage(msg, false);
 			updateSensor();
 		};
 
-		generalErrorCB = function(msg) {
-			console.log("Error: ", msg);
+		generalErrorCB = function(err_msg) {
+			var msg = "Error: " + JSON.stringify(err_msg);
+			csMessage(msg, true);
 		};
 
 		createUserSuccessCB = function(result) {
-			console.log(result);
+			var msg = "User created: " + JSON.stringify(result);
+			csMessage(msg, false);
 			var obj = eval('(' + result + ')');
 			var exists = obj && obj.user && obj.user.id;
 			if (exists) {
-				console.log("Created user with id: " + obj.user.id);
+				var msg = "Created user with id: " + obj.user.id;
+				csMessage(msg, false);
 				// TODO: login
 				//csCreateSession();
 			} else {
-				console.log("Could not create user");
+				var msg = "Could not create user";
+				csMessage(msg, true);
 			}
 		};
 
@@ -1614,7 +1637,8 @@ WotsApp.prototype = {
 		};
 
 		csCreateSensor = function() {
-			console.log("Create sensor");
+			var msg = "Create sensor";
+			csMessage(msg, false);
 			var sensorName = "memo"; 
 			var index = 0;
 			var sensorDisplayName = "Memo" + index;
@@ -1629,21 +1653,25 @@ WotsApp.prototype = {
 					"data_type": sensorDataType
 				}
 			}
-			console.log("Data to create the CommonSense sensor ", data);
+			var msg = "Data to create the sensor " + JSON.stringify(data);
+			csMessage(msg, false);
 			sense.createSensor(data, csCreateSensorSuccessCB, generalErrorCB);
 		};
 
 		csCreateSensorSuccessCB = function(result) {
-			console.log("Create sensor result", result);
+			var msg = "Sensor successfully created: " +  JSON.stringify(result);
+			csMessage(msg, false);
 			// it is much safer to use a JSON parser, but for the purpose of example code:
 			var obj = eval('(' + result + ')');
 			var exists = obj && obj.sensor && obj.sensor.id;
 			if (exists) {
-				console.log("Set sensor id: " + obj.sensor.id);
+				var msg = "Set sensor id: " + obj.sensor.id;
+				csMessage(msg, false);
 				wots.sensor_id = obj.sensor.id;
 				noteDB();
 			} else {
-				console.log("Response couldn't be parsed or does not have sensor id field");
+				var msg = "Response couldn't be parsed or does not have sensor id field";
+				csMessage(msg, true);
 			}
 		};
 
@@ -1685,7 +1713,8 @@ WotsApp.prototype = {
 		   }
 		   */
 		csCreateSensorData = function() {
-			console.log("Write new memo to CommonSense database");
+			var msg = "Write new memo to CommonSense database";
+			csMessage(msg, false);
 			if (!wots.sensor_id) {
 				console.log("There is no sensor id stored");
 				return;
@@ -1720,7 +1749,8 @@ WotsApp.prototype = {
 				}
 				]
 			};
-			console.log("Data to write to sensor " + sensor_id + " is ", data);
+			var msg = "Data to write to sensor " + sensor_id + " is " + JSON.stringify(data);
+			csMessage(msg, false);
 			sense.createSensorData(sensor_id, data, csCreateSensorDataSuccessCB, generalErrorCB);
 		};
 

@@ -15,6 +15,10 @@
                         {
                             "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"LocalNotification\"><param name=\"ios-package\" onload=\"true\" value=\"APPLocalNotification\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -51,6 +55,9 @@
             "PACKAGE_NAME": "com.almende.VirtualMemo"
         },
         "org.apache.cordova.console": {
+            "PACKAGE_NAME": "com.almende.VirtualMemo"
+        },
+        "de.appplant.cordova.plugin.local-notification": {
             "PACKAGE_NAME": "com.almende.VirtualMemo"
         }
     },
