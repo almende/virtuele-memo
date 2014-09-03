@@ -40,7 +40,9 @@ var app = {
 				$('body').addClass('phonegap-ios-7');
 			}
 		}
-		nextInit();
+		console.log("Device is ready");
+
+		startApp();
 	},
 	// Update DOM on a Received Event
 	receivedEvent: function(id) {

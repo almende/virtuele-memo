@@ -9,7 +9,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name="com.attendease.ibeacons.AttendeaseBeaconConsumer" />
         <receiver android:name="de.appplant.cordova.plugin.localnotification.Receiver" />
         <receiver android:name="de.appplant.cordova.plugin.localnotification.Restore">
             <intent-filter>
@@ -17,6 +16,14 @@
             </intent-filter>
         </receiver>
         <activity android:launchMode="singleInstance" android:name="de.appplant.cordova.plugin.localnotification.ReceiverActivity" />
+        <service android:enabled="true" android:exported="true" android:isolatedProcess="false" android:label="iBeacon" android:name="com.radiusnetworks.ibeacon.service.IBeaconService" />
+        <service android:enabled="true" android:name="com.radiusnetworks.ibeacon.IBeaconIntentProcessor">
+            <meta-data android:name="background" android:value="true" />
+            <intent-filter android:priority="1">
+                <action android:name="org.apache.cordova.ibeacon.IBeaconPlugin.DID_RANGING" />
+                <action android:name="org.apache.cordova.ibeacon.IBeaconPlugin.DID_MONITORING" />
+            </intent-filter>
+        </service>
     </application>
     <uses-sdk android:minSdkVersion="10" android:targetSdkVersion="19" />
     <uses-permission android:name="android.permission.BLUETOOTH" />

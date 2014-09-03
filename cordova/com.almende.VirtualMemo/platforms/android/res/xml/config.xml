@@ -32,8 +32,7 @@
     <icon density="mdpi" platform="android" src="www/img/logo.png" />
     <icon density="hdpi" platform="android" src="www/img/logo.png" />
     <icon density="xhdpi" platform="android" src="www/img/logo.png" />
-    <feature name="AttendeaseBeacons">
-        <param name="android-package" value="com.attendease.ibeacons.AttendeaseBeacons" />
-        <param name="onload" value="true" />
+    <feature name="LocationManager">
+        <param name="android-package" value="org.apache.cordova.ibeacon.LocationManager" />
     </feature>
 </widget>

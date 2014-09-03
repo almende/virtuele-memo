@@ -1,8 +1,8 @@
 var BLEHandler = function() {
 	var self = this;
 	var addressKey = 'address';
-	var flowerUuid =    '39e1fa00-84a8-11e2-afba-0002a5d5c51b';
-    var iBeaconUuids = ['be3547d7-678e-509f-b677-807ccde69f9a','2ca36943-7fde-4f4e-9c08-dda29f079349'];
+	var flowerUuid =  '39e1fa00-84a8-11e2-afba-0002a5d5c51b';
+    var iBeaconUuid = 'be3547d7-678e-509f-b677-807ccde69f9a' //'2ca36943-7fde-4f4e-9c08-dda29f079349';
 	var memoAddress = 'FE:F0:7F:FB:F4:CC';
 	var memoUuid = '1802';
 	var alertLevelServiceUuid = '1802';
@@ -30,7 +30,34 @@ var BLEHandler = function() {
 	 */
 	self.init = function() {
 		bluetoothle.initialize(self.initSuccess, self.initError, {"request": true});
-        self.scanForIBeaconDevices();
+        self.createBeacon();
+        var beaconRegion = self.createBeacon();
+        var delegate = new locationManager.Delegate().implement({
+
+    didDetermineStateForRegion: function (pluginResult) {
+
+        console.log'[DOM] didDetermineStateForRegion: ' + JSON.stringify(pluginResult));
+
+        cordova.plugins.locationManager.appendToDeviceLog('[DOM] didDetermineStateForRegion: '
+            + JSON.stringify(pluginResult));
+    },
+
+    didStartMonitoringForRegion: function (pluginResult) {
+        console.log('didStartMonitoringForRegion:', pluginResult);
+
+        console.log('didStartMonitoringForRegion:' + JSON.stringify(pluginResult));
+    },
+
+    didRangeBeaconsInRegion: function (pluginResult) {
+        console.log('[DOM] didRangeBeaconsInRegion: ' + JSON.stringify(pluginResult));
+    }
+
+    });
+    locationManager.setDelegate(delegate);
+    locationManager.startMonitoringForRegion(beaconRegion)
+.fail(console.error)
+.done();
+
     }
 
 	self.connectDevice = function(address) {
@@ -153,23 +180,7 @@ var BLEHandler = function() {
 		}
 	}
     
-    self.scanForIBeaconDevices = function(){
-        AttendeaseBeacons.monitor(iBeaconUuids, function() {
-                                  return setInterval((function() {
-                                                      return AttendeaseBeacons.getBeacons(function(beacons) {
-                                                                                          if (_.isEmpty(beacons)) {
-                                                                                          return console.log("No beacons found.");
-                                                                                          } else {
-                                                                                          return _.each(beacons, function(beacon) {
-                                                                                                        return console.log("" + beacon.uuid + " (" + beacon.major + ", " + beacon.minor + ") " + beacon.proximityString + " (" + beacon.accuracy + " meters)");
-                                                                                                        });
-                                                                                          }
-                                                                                          });
-                                                      }), 3000);
-                                  });
-    }
-
-	/**
+    /**
 	 * If scan is successful, connect automatically to the discovered device.
 	 */
 	self.startScanSuccess = function(obj) {
@@ -228,6 +239,23 @@ var BLEHandler = function() {
 				'Sorry!');
 */
 	}
+    /**
+     * Function that creates a BeaconRegion data transfer object.
+     *
+     * @throws Error if the BeaconRegion parameters are not valid.
+     */
+    self.createBeacon = function() {
+        
+        var uuid = self.iBeaconUuids; // mandatory
+        var identifier = 'MEMO'; // mandatory
+        var minor; // optional, defaults to wildcard if left empty
+        var major; // optional, defaults to wildcard if left empty
+        
+        // throws an error if the parameters are not valid
+        var beaconRegion = new cordova.plugins.locationManager.BeaconRegion(identifier, uuid, major, minor);
+        
+        return beaconRegion;   
+    }
 
 	self.initSuccess = function(obj) {
 		console.log('Properly connected to BLE chip');

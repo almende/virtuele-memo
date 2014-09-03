@@ -17,7 +17,11 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"AttendeaseBeacons\"><param name=\"ios-package\" value=\"AttendeaseBeacons\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "xml": "<feature name=\"LocalNotification\"><param name=\"ios-package\" onload=\"true\" value=\"APPLocalNotification\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"LocationManager\"><param name=\"ios-package\" value=\"CDVLocationManager\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -37,12 +41,7 @@
                             "count": 1
                         }
                     ],
-                    "SystemConfiguration.framework": [
-                        {
-                            "xml": "false",
-                            "count": 1
-                        }
-                    ]
+                    "SystemConfiguration.framework": []
                 }
             }
         },
@@ -79,7 +78,10 @@
         "org.apache.cordova.console": {
             "PACKAGE_NAME": "com.almende.VirtualMemo"
         },
-        "com.attendease.ibeacons": {
+        "de.appplant.cordova.plugin.local-notification": {
+            "PACKAGE_NAME": "com.almende.VirtualMemo"
+        },
+        "org.apache.cordova.ibeacon": {
             "PACKAGE_NAME": "com.almende.VirtualMemo"
         }
     },
