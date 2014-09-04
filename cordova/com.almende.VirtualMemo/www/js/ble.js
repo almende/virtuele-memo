@@ -2,7 +2,6 @@ var BLEHandler = function() {
 	var self = this;
 	var addressKey = 'address';
 	var flowerUuid =  '39e1fa00-84a8-11e2-afba-0002a5d5c51b';
-	var iBeaconUuid = '2ca36943-7fde-4f4e-9c08-dda29f079349';//'be3547d7-678e-509f-b677-807ccde69f9a' //'2ca36943-7fde-4f4e-9c08-dda29f079349';
 	var memoAddress = 'FE:F0:7F:FB:F4:CC';
 	var memoUuid = '1802';
 	var alertLevelServiceUuid = '1802';
@@ -29,21 +28,10 @@ var BLEHandler = function() {
 	 * device.
 	 */
 	self.init = function() {
-        	bluetoothle.initialize(self.initSuccess, self.initError, {"request": true});
-         	var region = new ibeacon.Region({
-                                        uuid: iBeaconUuid
-                                        });
-        
-		ibeacon.startRangingBeaconsInRegion({
-                                            region: region,
-                                            didRangeBeacons: function(result) {
-                                            console.log('I see ' + result.beacons.length + ' beacons');
-                                            }
-                                            });
-
-	bluetoothle.initialize(self.initSuccess, self.initError, {"request": true});
-	}
-	
+        bluetoothle.initialize(self.initSuccess, self.initError, {"request": true});
+    }
+    
+   	
 	self.connectDevice = function(address) {
 		console.log("Begining connection to: " + address + " with 5 second timeout");
 		var paramsObj = {"address": address};
@@ -58,13 +46,17 @@ var BLEHandler = function() {
 			window.localStorage.setItem(self.addressKey, obj.address);
 			self.clearConnectTimeout();
 			// is this really necessary, enabled by Suki, so iOS only
+//			if (window.device.platform == iOSPlatform) {
+//				self.tempDisconnectDevice();
+//			}
 			if (window.device.platform == iOSPlatform) {
-				self.tempDisconnectDevice();
-			}
-			if (window.device.platform == iOSPlatform) {
+                if (obj.iBeacon !== undefined) {
 				console.log("Discovering alert level service");
 				var paramsObj = {"serviceUuids": [alertLevelServiceUuid] };
 				bluetoothle.services(self.alertLevelSuccess, self.alertLevelError, paramsObj);
+                } else {
+                    console.log("Ignoring alert for iBeacon.");
+                }
 			} else if (window.device.platform == androidPlatform) {
 				console.log("Beginning discovery");
 				bluetoothle.discover(self.discoverSuccess, self.discoverError);

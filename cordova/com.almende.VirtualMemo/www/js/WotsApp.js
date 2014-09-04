@@ -45,6 +45,8 @@ WotsApp.prototype = {
 		var wots = this;
 
 		var ble = new BLEHandler();
+        
+        var iBeacon = new iBeaconHandler();
 
 		var sense = SenseAPI;
 
@@ -123,15 +125,15 @@ WotsApp.prototype = {
 			init();
 
 			// first page to visit, should be in the end the guidePage for the WOTS conference
-			//guidePage();
+			guidePage();
 
 			// for debugging, enable one of the following pages as first page
 			// congratsPage();
 			// allExhibitorsPage();
 			// guideHomePage();
-			// registerPage();
+			 registerPage();
 			// memoOverviewPage();
-			 memoPage();
+            // memoPage();
 		}
 
 		init = function() {
