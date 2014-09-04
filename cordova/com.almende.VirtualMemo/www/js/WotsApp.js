@@ -25,6 +25,8 @@ function WotsApp() {
 	this.isConnected = false;
 
 	this.platform = null;
+
+	this.enableAllTasksAtAllTimes = false;
 }
 
 /**********************************************************************************************************************
@@ -149,6 +151,9 @@ WotsApp.prototype = {
 				device_as_user = false;
 			}
 			//testing = true;
+			
+			console.log("Users should be able to decide their own order in following stands");
+			wots.enableAllTasksAtAllTimes = true;
 		}
 
 		/*******************************************************************************************************
@@ -293,6 +298,10 @@ WotsApp.prototype = {
 				}
 				var doneClass = "";
 				var enabledClass = "taskDisabled";
+				if (wots.enableAllTasksAtAllTimes) {
+					enabledClass = "taskEnabled";
+				}
+
 				if(exhibitor.status == "done") {
 					pastSomeDone = true;
 					enabledClass = 'taskEnabled';
