@@ -214,7 +214,7 @@
 	"standnumber":"9B.041",
 	"name":"National Instruments Netherlands B.V.",
 	"description":"National Instruments biedt engineers en onderzoekers een geïntegreerd software- en hardwareplatform waarmee de ontwikkeling van meet- en besturingssystemen wordt versneld.",
-	"logo":"nationalinstuments.jpg",
+	"logo":"nationalinstruments.jpg",
 	"address":"Pompmolenlaan 10, 3447 GK Woerden",
 	"tel": "0348-433466",
 	"website": "http://netherlands.ni.com/",
