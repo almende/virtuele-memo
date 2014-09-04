@@ -4,7 +4,6 @@
 	"bleID":1,
 	"standletter":"Q",
 	"name":"DoBots",
-	"bleID":13,
 	"oneliner":"It's in the name. Groups of bots searching, cooperating, grazing and negotiating.",
 	"description":"DoBots are modeled after nature where colonies, flocks, and swarms of animals show intelligent behaviour together.",
 	"logo":"DObots.png",
