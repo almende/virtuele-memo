@@ -9,7 +9,9 @@ var BLEHandler = function() {
 	
 	var linkLossServiceUuid = '1803';
 	var linkLossCharacteristicUuid = '2a06';
-	
+
+    var deviceInformationServiceUuid = '180A';
+    var serialNumberCharacteristicUuid = '2a25';
 	var scanTimer = null;
 	var connectTimer = null;
 	var reconnectTimer = null;
@@ -45,10 +47,6 @@ var BLEHandler = function() {
 			console.log("Write address " + obj.address + " to local storage");
 			window.localStorage.setItem(self.addressKey, obj.address);
 			self.clearConnectTimeout();
-			// is this really necessary, enabled by Suki, so iOS only
-			if (window.device.platform == iOSPlatform) {
-				self.tempDisconnectDevice();
-			}
 			if (window.device.platform == iOSPlatform) {
                 console.log("Discovering alert level service");
 				var paramsObj = {"serviceUuids": [alertLevelServiceUuid] };
@@ -60,6 +58,7 @@ var BLEHandler = function() {
 			
 		}
 		else if (obj.status == "connecting") {
+            console.log("Found BLE device:"+JSON.stringify(obj));
 			console.log("Connecting to : " + obj.name + " - " + obj.address);
 		}
 		else {
@@ -223,9 +222,9 @@ var BLEHandler = function() {
 			if (address == null) {
 				console.log('No address known, so start scan');
 				var paramsObj = {};
-				if (window.device.platform == androidPlatform) {
-					paramsObj = { 'serviceUuids': [memoUuid] };
-				}
+				//if (window.device.platform == androidPlatform) {
+					paramsObj = { 'serviceUuids': [memoUuid, deviceInformationServiceUuid] };
+				//}
 				bluetoothle.startScan(self.startScanSuccess, self.startScanError, paramsObj);
 			} else {
 				console.log('Address already known, so connect directly to ', address);
@@ -253,7 +252,7 @@ var BLEHandler = function() {
 			var serviceUuids = obj.serviceUuids;
 			for (var i = 0; i < serviceUuids.length; i++) {
 				var serviceUuid = serviceUuids[i];
-				
+
 				if (serviceUuid == self.alertLevelServiceUuid) {
 					console.log("Finding alert level characteristics");
 					var paramsObj = {"serviceUuid":alertLevelServiceUuid, "characteristicUuids":[alertLevelCharacteristicUuid]};

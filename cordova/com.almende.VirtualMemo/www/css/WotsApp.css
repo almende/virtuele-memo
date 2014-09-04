@@ -267,7 +267,7 @@ input, button, select, option, textarea {
 .bottomButton {
 	background : #F6F6F6;
 	background : rgba(246, 246, 246, 1);
-	border-style : Solid;
+	border-style : solid;
 	border-color : #7DAA40;
 	border-color : rgba(125, 170, 64, 1);
 	border-width : 1px;
@@ -315,7 +315,6 @@ input, button, select, option, textarea {
 }
 
 #virtualMemoPage * {
-	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
 	-o-user-select: none;
@@ -324,18 +323,17 @@ input, button, select, option, textarea {
 
 #memoHeader {    
 	position:absolute;
-	margin-top:-67px;
-	display: inline-block;  
+	margin-top:-96px;
+	display: inline-block;
+    width:260px;
 }
 
-#memoHeaderRight {    
-	margin-left:128px; 
-	display:inline-flex;
-}
 
-#memoHeaderLeft {    
-	margin-left:10px; 
+#memoHeaderContent {
+	margin-left:10px;
+    margin-right:10px;
 	display:inline-flex;
+    width:100%;
 }
 
 #memoNote {    
@@ -354,12 +352,12 @@ input, button, select, option, textarea {
 	font-size:20px;
 	border-bottom-right-radius: 60px 5px;
 	background: rgb(255,255,136); /* Old browsers */
-	background: -moz-linear-gradient(-45deg, rgba(255,255,136,1) 77%, rgba(255,255,214,1) 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, right bottom, color-stop(77%,rgba(255,255,136,1)), color-stop(100%,rgba(255,255,214,1))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(-45deg, rgba(255,255,136,1) 77%,rgba(255,255,214,1) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(-45deg, rgba(255,255,136,1) 77%,rgba(255,255,214,1) 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(-45deg, rgba(255,255,136,1) 77%,rgba(255,255,214,1) 100%); /* IE10+ */
-	background: linear-gradient(-45deg, rgba(255,255,136,1) 77%,rgba(255,255,214,1) 100%); /* W3C */
+	background: -moz-linear-gradient(-5deg, rgba(255,255,214,1) 10%, rgba(255,255,136,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right bottom, color-stop(10%,rgba(255,255,214,1)), color-stop(100%,rgba(255,255,136,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(-5deg,rgba(255,255,214,1) 10%, rgba(255,255,136,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(-5deg,rgba(255,255,214,1) 10%, rgba(255,255,136,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(-5deg,rgba(255,255,214,1) 10%, rgba(255,255,136,1) 100%); /* IE10+ */
+	background: linear-gradient(-5deg,rgba(255,255,214,1) 10%, rgba(255,255,136,1) 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffff88', endColorstr='#ffff88',GradientType=0 ); /* IE6-9 fallback on horizontal gradient */
 }
 
@@ -404,7 +402,8 @@ input, button, select, option, textarea {
 }
 
 #colorPicker {
-	margin-top: 10px;
+	margin-top: 30px;
+    margin-left: 10px;
 	width:260px; 
 	height:40px;
 	margin-left: auto; 
@@ -426,9 +425,10 @@ input, button, select, option, textarea {
 
 /* input fields for a new memo */
 #memoMetaInfo {
-	width:120px; 
-	margin-left: auto; 
-	margin-right: 0; 
+	width:260px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #memoMetaInfo input {
@@ -440,11 +440,13 @@ input, button, select, option, textarea {
 	text-align: center;
 	margin-top:-75px;
 	font-weight: bold;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #memoAuthor {
 	float: right;
-	margin-top:-68px;
+	margin-top:-100px;
 	margin-right:5px;
 	font-weight: bold;
 }
@@ -452,21 +454,63 @@ input, button, select, option, textarea {
 /* caption shown when nothing chosen yet */
 .memoSelectRepeatPeriod {
 	font-size: 70%;
+    width:260px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* the options for the choices */
 .memoSelectRepeatPeriodArea select {
 	font-size: 70%;
+    text-align: left;
 }
 
+
+/* the options for the choices */
+.memoDateArea input {
+    font-size: 70%;
+    text-align: left;
+}
+
+/* the options for the choices */
+.memoAlertSelectArea select {
+    font-size: 70%;
+    text-align: left;
+}
+
+
+.memoDateArea {
+    float:left;
+    width:260px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.memoAlertSelectArea {
+    float:left;
+    width:260px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* caption shown when nothing chosen yet */
+.memoAlertSelect {
+    font-size: 70%;
+    text-align: center;
+}
 .memoSelectRepeatPeriodArea {
-/*	float:left; */
-	width:90px;
+	float:left;
+	width:260px;
+    text-align: center;
 }
 
 /* remove default jQuery border from input text if in #registerEntry section */
 #memoMetaInfo > .ui-input-text {
-/*	float:left; */
+	float:left;
 	border: 0px;
 }
 
@@ -487,7 +531,7 @@ input, button, select, option, textarea {
 	margin: 15px;    
 	min-height:55px; /* width minus border-top */
 	max-height:55px; 
-	padding-top:15px;
+	padding-top:0px;
 	margin-left:auto;
 	margin-right:auto;
 	position:relative;   
