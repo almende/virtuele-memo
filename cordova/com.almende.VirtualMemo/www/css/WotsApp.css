@@ -18,8 +18,10 @@
 	width:50%; 
 }
 
-.allExhibitorLogo {
+.scaleLogo {
+	width:60%;
 	height:100px;
+	overflow:hidden;
 }
 
 body.phonegap-ios-7 {

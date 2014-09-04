@@ -254,19 +254,19 @@ WotsApp.prototype = {
 					console.log("Information about user lost, maybe due to a refresh. Get info from DB again.");
 					accountDB(accountCheckFinished);
 				} else {
-                    standsDB(showList);
+					standsDB(showList);
 				}
 			});
 		});
 
-        
-        refreshByBeacon = function(nearestBeacon){
-            if (nearestBeacon == null) {
-                updateList(undefined);
-            } else {
-                updateList(nearestBeacon.major);
-            }
-        }
+       		// we are now calling updateList all the time.. 
+		refreshByBeacon = function(nearestBeacon){
+			if (nearestBeacon == null) {
+				updateList(undefined);
+			} else {
+				updateList(nearestBeacon.major);
+			}
+		}
         
 		accountCheckFinished = function() {
 			console.log("Account refreshed, now check if we have the participantCode");
@@ -279,10 +279,10 @@ WotsApp.prototype = {
 			}
 		}
         
-        showList = function() {
-            console.log("Showing list");
-            iBeacon.scanForIBeacons(refreshByBeacon);
-        }
+		showList = function() {
+			console.log("Showing list");
+			iBeacon.scanForIBeacons(refreshByBeacon);
+		}
 
 		updateList = function(nearestStand) {
 			console.log("Update stands");
@@ -365,13 +365,13 @@ WotsApp.prototype = {
 					if (!prevExhibitor) 
 						enabledClass = "taskEnabled";
 				}
-                if (nearestStand !== undefined) {
-                    console.log("Comparing nearestStand "+nearestStand+" with "+exhibitor.bleID);
-                }
-                if (nearestStand !== undefined && exhibitor.bleID !== undefined && exhibitor.bleID == nearestStand) {
-                    doneClass = "taskNear";
-                    enabledClass = "taskNear";
-                }
+				if (nearestStand !== undefined) {
+					console.log("Comparing nearestStand "+nearestStand+" with "+exhibitor.bleID);
+				}
+				if (nearestStand !== undefined && exhibitor.bleID !== undefined && exhibitor.bleID == nearestStand) {
+					doneClass = "taskNear";
+					enabledClass = "taskNear";
+				}
 				console.log("Add exhibitor to the list with name " + exhibitor.name + " and id " + exhibitor.id);
 				$(exhibitorList)
 					.append($('<li/>', { "class":doneClass + ' ' + enabledClass })
@@ -387,17 +387,18 @@ WotsApp.prototype = {
 			} // End for-loop
 			$('#exhibitorList').listview('refresh');
 
-			var finished = true;
-			for (var i = 0; i < route_exhibitors.length; i++) {
-				var exhibitor = route_exhibitors[i];
-				if (exhibitor.status !== "done") {
-					finished = false;
+			if (route_exhibitors && route_exhibitors.length) { 
+				var finished = true;
+				for (var i = 0; i < route_exhibitors.length; i++) {
+					var exhibitor = route_exhibitors[i];
+					if (exhibitor.status !== "done") {
+						finished = false;
+					}
+				}
+				if (finished) {
+					congratsPage();	
 				}
 			}
-			if (finished) {
-				congratsPage();	
-			}
-
 		}
 
 		$('#exhibitorList').on('click', 'li a', function(event) {
