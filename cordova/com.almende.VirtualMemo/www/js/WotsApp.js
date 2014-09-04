@@ -387,17 +387,18 @@ WotsApp.prototype = {
 			} // End for-loop
 			$('#exhibitorList').listview('refresh');
 
-			var finished = true;
-			for (var i = 0; i < route_exhibitors.length; i++) {
-				var exhibitor = route_exhibitors[i];
-				if (exhibitor.status !== "done") {
-					finished = false;
+			if (route_exhibitors && route_exhibitors.length) { 
+				var finished = true;
+				for (var i = 0; i < route_exhibitors.length; i++) {
+					var exhibitor = route_exhibitors[i];
+					if (exhibitor.status !== "done") {
+						finished = false;
+					}
+				}
+				if (finished) {
+					congratsPage();	
 				}
 			}
-			if (finished) {
-				congratsPage();	
-			}
-
 		}
 
 		$('#exhibitorList').on('click', 'li a', function(event) {
