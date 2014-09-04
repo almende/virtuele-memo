@@ -134,9 +134,14 @@ WotsApp.prototype = {
 		init = function() {
 			wots.afterRegistration = calcRoutePage;
 
-			console.log("We are running on the \"" + device.platform + "\" platform");
-			wots.platform = device.platform;
-			console.log("With device name \"" + device.name + "\"");
+			if (window.device) {
+				console.log("We are running on the \"" + device.platform + "\" platform");
+				wots.platform = device.platform;
+				console.log("With device name \"" + device.name + "\"");
+			} else {
+				console.log("We are running in the browser, not a smartphone or tablet");
+				wots.platform = 'browser';
+			}
 
 			if (!wots.platform) {
 				// we are running in chrome, not in Android or iOS at least

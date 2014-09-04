@@ -383,25 +383,24 @@ window.onload = function () {
 <script type="text/javascript" src="js/localdb.js"></script>
 <script type="text/javascript" src="js/md5.js"></script>
 <script type="text/javascript">
+console.log("Initialize application");
 app.initialize();
+
+function startAppInBrowser() {
+	if(window && (window.device == null)) {
+		console.log("In browser, start manually");
+		startApp();
+	}
+}
+
+startAppInBrowser();
+
 function startApp() {
 	console.log("Start WOTS application");
 	wotsApp = new WotsApp();
 	wotsApp.start();
 }
-/*
-onDeviceReady = function() {
-	startApp();
-}
-$(document).ready(function() {
-		console.log("Set height");
-		var $one = $('#one');
-		$one.height($(window).height()-120);
-		for(var i=0; i<100; i++){
-		$one.append('<br/>some item');
-		}
-		})
-*/
+
 </script>
 </body>
 </html>
