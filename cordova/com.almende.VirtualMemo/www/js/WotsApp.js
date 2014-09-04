@@ -51,6 +51,8 @@ WotsApp.prototype = {
 		var localdb = LocalDB;
 
 		var crypto = CryptoJS;
+        
+        var iBeaconUuid = '2ca36943-7fde-4f4e-9c08-dda29f079349';
 
 		$.ajaxSetup({ cache: false });
 
@@ -80,6 +82,7 @@ WotsApp.prototype = {
 			}
 		};
 		$(document).delegate('[data-role="page"]', 'pageinit', function () {
+                        
 			//check for a `data-role="header"` element to add a home button to
 			var $header = $(this).children('[data-role="header"]');
 			if ($header.length) {
@@ -89,8 +92,9 @@ WotsApp.prototype = {
 					{ icon: "home", iconpos : "notext" }));
 			}    
 		});
-
-		var testing = false;
+        
+        // HIER
+        var testing = false;
 		var test_sense = false;
 
 		// This option makes use of the CommonSense database in the way suggested by Sense itself. 

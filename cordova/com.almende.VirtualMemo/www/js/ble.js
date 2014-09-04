@@ -29,22 +29,34 @@ var BLEHandler = function() {
 	 * device.
 	 */
 	self.init = function() {
-		bluetoothle.initialize(self.initSuccess, self.initError, {"request": true});
-		var uuidsToMonitor = [iBeaconUuid];
-		AttendeaseBeacons.monitor(uuidsToMonitor, function() {
-																												return setInterval((function() {
-																																																return AttendeaseBeacons.getBeacons(function(beacons) {
-																																																																																				if (_.isEmpty(beacons)) {
-																																																																																				return console.log("No beacons found.");
-																																																																																				} else {
-																																																																																				return _.each(beacons, function(beacon) {
-																																																																																																		return console.log("" + beacon.uuid + " (" + beacon.major + ", " + beacon.minor + ") " + beacon.proximityString + " (" + beacon.accuracy + " meters)");
-																																																																																																		});
-																																																																																				}
-																																																																																				});
-																																																}), 3000);
-																												});
-		
+               bluetoothle.initialize(self.initSuccess, self.initError, {"request": true});
+        var region = new ibeacon.Region({
+                                        uuid: iBeaconUuid
+                                        });
+        
+        ibeacon.startRangingBeaconsInRegion({
+                                            region: region,
+                                            didRangeBeacons: function(result) {
+                                            console.log('I see ' + result.beacons.length + ' beacons');
+                                            }
+                                            });
+
+//		var uuidsToMonitor = [iBeaconUuid];
+//		AttendeaseBeacons.monitor(uuidsToMonitor, function() {
+//																												return setInterval((function() {
+//																																																return AttendeaseBeacons.getBeacons(function(beacons) {
+//																																																																																				if (_.isEmpty(beacons)) {
+//																																																																																				return console.log("No beacons found.");
+//																																																																																				} else {
+//																																																																																				console.log("found beacon!");
+//																																																																																				return _.each(beacons, function(beacon) {
+//																																																																																																		return console.log("" + beacon.uuid + " (" + beacon.major + ", " + beacon.minor + ") " + beacon.proximityString + " (" + beacon.accuracy + " meters)");
+//																																																																																																		});
+//																																																																																				}
+//																																																																																				});
+//																																																}), 3000);
+//																												});
+//		
 		//        var logToDom = function (message) {
 		//            console.log(message);
 		//        };

@@ -13,12 +13,6 @@
                             "count": 3
                         }
                     ],
-                    "AudioToolbox.framework": [
-                        {
-                            "xml": "true",
-                            "count": 1
-                        }
-                    ],
                     "CoreLocation.framework": [
                         {
                             "xml": "false",
@@ -30,12 +24,22 @@
                             "xml": "false",
                             "count": 1
                         }
+                    ],
+                    "AudioToolbox.framework": [
+                        {
+                            "xml": "true",
+                            "count": 1
+                        }
                     ]
                 }
             },
             "config.xml": {
                 "parents": {
                     "/*": [
+                        {
+                            "xml": "<feature name=\"AttendeaseBeacons\"><param name=\"ios-package\" value=\"AttendeaseBeacons\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
                         {
                             "xml": "<feature name=\"BluetoothLePlugin\"><param name=\"ios-package\" value=\"BluetoothLePlugin\" /></feature>",
                             "count": 1
@@ -59,10 +63,6 @@
                         {
                             "xml": "<feature name=\"LocationManager\"><param name=\"ios-package\" value=\"CDVLocationManager\" /></feature>",
                             "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"AttendeaseBeacons\"><param name=\"ios-package\" value=\"AttendeaseBeacons\" /><param name=\"onload\" value=\"true\" /></feature>",
-                            "count": 1
                         }
                     ]
                 }
@@ -80,6 +80,9 @@
         }
     },
     "installed_plugins": {
+        "com.attendease.ibeacons": {
+            "PACKAGE_NAME": "com.almende.VirtualMemo"
+        },
         "com.randdusing.bluetoothle": {
             "PACKAGE_NAME": "com.almende.VirtualMemo"
         },
@@ -93,9 +96,6 @@
             "PACKAGE_NAME": "com.almende.VirtualMemo"
         },
         "org.apache.cordova.ibeacon": {
-            "PACKAGE_NAME": "com.almende.VirtualMemo"
-        },
-        "com.attendease.ibeacons": {
             "PACKAGE_NAME": "com.almende.VirtualMemo"
         }
     },
