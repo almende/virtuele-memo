@@ -241,6 +241,7 @@ window.onload = function () {
 	<div id="questionLayer">
 		<div id="questionShield"></div>
 		<p id="questionReminderParticipantCode" align="right"></p>
+		<p id="questionReminderPassCode" align="right"></p>
 		<div id="questionItself">
 			<h2>IJsbrekervraag</h2>
 			<p id="questionParagraph">In welke stad is Almende gevestigd?</p>
@@ -386,14 +387,13 @@ console.log("Initialize application");
 app.initialize();
 
 function startAppInBrowser() {
-	if(window && (window.device == null)) {
-		console.log("In browser, start manually");
-		startApp();
-	}
+	console.log("In browser, start manually");
+	startApp();
 }
 
 if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
 	 // document.addEventListener("deviceready", onDeviceReady, false);
+	console.log("Detected a mobile device");
 } else {
 	startAppInBrowser(); //this is the browser
 }
