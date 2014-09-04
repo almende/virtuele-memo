@@ -155,9 +155,9 @@ WotsApp.prototype = {
 			// congratsPage();
 			// allExhibitorsPage();
 			// guideHomePage();
-			 //registerPage();
+			registerPage();
 			// memoOverviewPage();
-             memoPage();
+            //memoPage();
 		}
 
 		init = function() {
@@ -1207,7 +1207,7 @@ WotsApp.prototype = {
 
 		accountDB = function(callback) {
 			if (!wots.db) {
-				wots.db = window.openDatabase("memo", "1.0", "Memo", 1000000);
+				wots.db = window.openDatabase("memo1", "1.0", "Memo", 1000000);
 				localdb.init(wots.db);
 			}
 			if (testing) {
@@ -1302,7 +1302,7 @@ WotsApp.prototype = {
 		standsDB = function(callback) {
 			console.log("Get stands from database");
 			if (!wots.db) {
-				wots.db = window.openDatabase("memo", "1.0", "Memo", 1000000);
+				wots.db = window.openDatabase("memo1", "1.0", "Memo", 1000000);
 				localdb.init(wots.db);
 			}
 
@@ -1361,7 +1361,7 @@ WotsApp.prototype = {
 
 		standsUpdateDB = function(callback) {
 			if (!wots.db) {
-				wots.db = window.openDatabase("memo", "1.0", "Memo", 1000000);
+				wots.db = window.openDatabase("memo1", "1.0", "Memo", 1000000);
 				localdb.init(wots.db);
 			}
 
@@ -1393,6 +1393,9 @@ WotsApp.prototype = {
 			if (!wots.db) {
 				wots.db = window.openDatabase("memo", "1.0", "Memo", 1000000);
 				localdb.init(wots.db);
+                if (testing) {
+                    wots.db.removeMemos();
+                }
 			}
 			var sensor_id = getSensor();
 			if (sensor_id) {
