@@ -162,7 +162,7 @@ var BLEHandler = function() {
 			self.clearScanTimeout();
 			self.connectDevice(obj.address);
 		} else if (obj.status == 'scanStarted') {
-			console.log('Scan was started successfully, stopping in 10 seconds');
+			//console.log('Scan was started successfully, stopping in 10 seconds');
 			self.scanTimer = setTimeout(self.scanTimeout, 10000);
 		} else {
 			console.log('Unexpected start scan status: ' + obj.status);
@@ -174,7 +174,9 @@ var BLEHandler = function() {
 	
 	self.getAddress = function() {
 		var address = window.localStorage.getItem(self.addressKey);
-		console.log("Obtained address: " + address);
+		if (address) {
+			console.log("Obtained address: " + address);
+		}
 		return address;
 	}
 	
@@ -186,13 +188,13 @@ var BLEHandler = function() {
 	}
 	
 	self.scanTimeout = function() {
-		console.log('Scanning timed out, stop scanning');
+		//console.log('Scanning timed out, stop scanning');
 		bluetoothle.stopScan(self.stopScanSuccess, self.stopScanError);
 	}
 	
 	self.stopScanSuccess = function(obj) {
 		if (obj.status == 'scanStopped') {
-			console.log('Scan was stopped successfully');
+			//console.log('Scan was stopped successfully');
 		} else {
 			console.log('Unexpected stop scan status: ' + obj.status);
 		}
@@ -215,7 +217,7 @@ var BLEHandler = function() {
 	
 	self.initSuccess = function(obj) {
 		console.log('Properly connected to BLE chip');
-		console.log('Message', obj.status);
+		console.log('Status: ' + JSON.stringify(obj.status));
 		if (obj.status == 'initialized') {
 			var address = window.localStorage.getItem(self.addressKey);
 			if (address == null) {

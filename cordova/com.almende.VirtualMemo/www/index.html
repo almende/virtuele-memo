@@ -90,6 +90,11 @@ window.onload = function () {
 	<ul>                                                                                                    
 		<li><a href="#guideMemo" class="virtualMemoTab" data-icon="heart" data-transition="none">Some banner</a></li>
 	</ul> 
+	<div data-role="panel" class="virtualMemoPanel" data-display="reveal" data-theme="b">
+		<div id="statusBarFill"></div>
+		<ul data-role="listview">
+		</ul>
+	</div>
 </div>
 
 <div data-role="page" id="guideMemo">
@@ -157,6 +162,11 @@ window.onload = function () {
 		<div id="calculating">
 		</div>
 	</div>
+	<div data-role="panel" class="virtualMemoPanel" data-display="reveal" data-theme="b">
+		<div id="statusBarFill"></div>
+		<ul data-role="listview">
+		</ul>
+	</div>
 </div>
 
 <div data-role="page" id="exhibitorListPage">
@@ -177,6 +187,11 @@ window.onload = function () {
 			</ul>
 		</div>
 	</div>
+	<div data-role="panel" class="virtualMemoPanel" data-display="reveal" data-theme="b">
+		<div id="statusBarFill"></div>
+		<ul data-role="listview">
+		</ul>
+	</div>
 </div>
 
 <div data-role="page" id="allExhibitorsPage">
@@ -188,29 +203,11 @@ window.onload = function () {
 		<ul data-role="listview" id="allExhibitorsList"></ul>
 	</div>
 
-	<div data-role="panel" id="virtualMemoPanel0" data-display="reveal" data-theme="b">
+	<div data-role="panel" class="virtualMemoPanel" data-display="reveal" data-theme="b">
 		<div id="statusBarFill"></div>
 		<ul data-role="listview">
-			<li><a href="#virtualMemoPage">Memo</a></li>
-			<li><a href="#memoOverviewPage">Alle memos</a></li>
-			<li><a href="#allExhibitorsPage">Partners</a></li>
-			<li><a href="#exhibitorListPage">WOTS Opdracht</a></li>
-			<li><a href="#guideMemo">Help - WOTS</a></li>
-			<li><a href="#guideHomeMemo">Help - memo</a></li>
-			<li><a href="#registerPage">Account</a></li>
 		</ul>
 	</div>
-</div>
-
-<div data-role="page" id="allExhibitorsPageD">
-	<div data-role="header" data-position='fixed'>                                                                  
-		<h1 class="ui-title" role="heading" aria-level="1">Scroll test</h1>                                     
-	</div>                                                                                                          
-
-	<div role="main">                                                                                               
-		<ul data-role="listview" id="one">                                                                      
-		</ul>                                                                                                   
-	</div>                   
 </div>
 
 <div data-role="page" id="allExhibitorsDetailsPage">
@@ -224,6 +221,12 @@ window.onload = function () {
 		<p id="allExhibitorTel"></p>
 		<p id="allExhibitorWebsite"></p>
 		<p id="allExhibitorEmail"></p>
+	</div>
+
+	<div data-role="panel" class="virtualMemoPanel" data-display="reveal" data-theme="b">
+		<div id="statusBarFill"></div>
+		<ul data-role="listview">
+		</ul>
 	</div>
 </div>
 
@@ -261,10 +264,6 @@ window.onload = function () {
 	<div role="main" class="ui-content" style="padding:0px">
 		<div id="colorPicker" align="center">
 			<ul></ul>
-		</div>
-		<div id="connection">
-			<p>
-			</p>
 		</div>
 		<div id="memoMetaInfo">
 			<input type="text" name="location" id="memoLocation" placeholder="Lokatie" value=""/>
@@ -308,6 +307,10 @@ window.onload = function () {
 				<p>The system</p>
 			</div>
 		</div>
+		<div id="connection" align="center">
+			<p>
+			</p>
+		</div>
 	</div>
 
 	<div data-role="footer" data-id="footer1" data-position="fixed">
@@ -320,16 +323,9 @@ window.onload = function () {
 
 	</div>
 
-	<div data-role="panel" id="virtualMemoPanel" data-display="reveal" data-theme="b">
+	<div data-role="panel" class="virtualMemoPanel" data-display="reveal" data-theme="b">
 		<div id="statusBarFill"></div>
 		<ul data-role="listview">
-			<li><a href="#virtualMemoPage">Memo</a></li>
-			<li><a href="#memoOverviewPage">Alle memos</a></li>
-			<li><a href="#allExhibitorsPage">Partners</a></li>
-			<li><a href="#exhibitorListPage">WOTS Opdracht</a></li>
-			<li><a href="#guideMemo">Help - WOTS</a></li>
-			<li><a href="#guideHomeMemo">Help - memo</a></li>
-			<li><a href="#registerPage">Account</a></li>
 		</ul>
 	</div>
 </div>
@@ -367,13 +363,12 @@ window.onload = function () {
 
 	</div>
 
-	<div data-role="panel" id="virtualMemoPanel" data-display="reveal" data-theme="b">
+	<div data-role="panel" class="virtualMemoPanel" data-display="reveal" data-theme="b">
 		<div id="statusBarFill"></div>
 		<ul data-role="listview">
-			<li><a href="">Alle magneten</a></li>
-			<li><a href="">Magneet beheren</a></li>
 		</ul>
 	</div>
+
 </div>
 
 <script type="text/javascript" src="js/index.js"></script>
@@ -394,7 +389,11 @@ function startAppInBrowser() {
 	}
 }
 
-//startAppInBrowser();
+if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
+	 // document.addEventListener("deviceready", onDeviceReady, false);
+} else {
+	startAppInBrowser(); //this is the browser
+}
 
 function startApp() {
 	console.log("Start WOTS application");

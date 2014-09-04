@@ -85,6 +85,8 @@ WotsApp.prototype = {
 				}
 			}
 		};
+
+		// add home button to each page that has a header
 		$(document).delegate('[data-role="page"]', 'pageinit', function () {
                         
 			//check for a `data-role="header"` element to add a home button to
@@ -94,6 +96,26 @@ WotsApp.prototype = {
 				//then turn it into a jQuery Mobile button widget
 				$header.append($('<a />', { class : 'ui-btn-right', href : '#virtualMemoPage' }).buttonMarkup(
 					{ icon: "home", iconpos : "notext" }));
+			}    
+		});
+
+		// add menu options 
+		$('.virtualMemoPanel ul').append('<li><a href="#virtualMemoPage">Memo</a></li>');
+		$('.virtualMemoPanel ul').append('<li><a href="#memoOverviewPage">Alle memos</a></li>');
+		$('.virtualMemoPanel ul').append('<li><a href="#allExhibitorsPage">Partners</a></li>');
+		$('.virtualMemoPanel ul').append('<li><a href="#exhibitorListPage">WOTS Opdracht</a></li>');
+		$('.virtualMemoPanel ul').append('<li><a href="#guideMemo">Help - WOTS</a></li>');
+		$('.virtualMemoPanel ul').append('<li><a href="#guideHomeMemo">Help - memo</a></li>');
+		$('.virtualMemoPanel ul').append('<li><a href="#registerPage">Account</a></li>');
+
+		// add swipe gesture to all pages with a panel
+		$(document).delegate('[data-role="page"]', 'pageinit', function () {
+			//check for a `data-role="panel"` element to add swiperight action to
+			var $panel = $(this).children('[data-role="panel"]');
+			if ($panel.length) {
+				$(this).on('swiperight', function(event) {
+					$panel.panel("open");
+				});
 			}    
 		});
 
@@ -289,7 +311,7 @@ WotsApp.prototype = {
 					exhibitor = wots.exhibitors[c];
 					// console.log("Is stand " + exhibitor.standletter + " on the route?");
 					if (wots.route[r] == exhibitor.standletter) {
-						console.log("Found exhibitor", JSON.stringify(exhibitor));
+						//console.log("Found exhibitor",  JSON.stringify(exhibitor));
 						route_exhibitors.push(exhibitor);
 						break;
 					}
@@ -385,10 +407,11 @@ WotsApp.prototype = {
 			event.preventDefault();
 		});
 
+		/*
 		$('#exhibitorListPage').on('swiperight', function(event) {
-			$('#virtualMemoPanel').panel("open");
+			$('#exhibitorListPage .virtualMemoPanel').panel("open");
 		});
-
+		*/
 		/*******************************************************************************************************
 		 * The list of exhibitors
 		 ******************************************************************************************************/
@@ -460,7 +483,7 @@ WotsApp.prototype = {
 		*/
 		$('#allExhibitorsPage').on('swiperight', function(event) {
 			console.log("Open panel in partner list");
-			$('#virtualMemoPanel0').panel("open");
+			$('#allExhibitorsPage .virtualMemoPanel').panel("open");
 		});
 
 		/*******************************************************************************************************
@@ -566,12 +589,6 @@ WotsApp.prototype = {
 			$.mobile.changePage("#virtualMemoPage", {transition:'none', hashChange:true});
 		};
 
-		// on Android horizontal swipe distance might be too wide, you'll have to swipe far and fast...
-		// do something about it!
-		$('#virtualMemoPage').on('swiperight', function(event) {
-			$('#virtualMemoPanel').panel("open");
-		});
-
 		$('#virtualMemoPage').on('pagecreate',function(e,data) { 
 			console.log("Add colors");
 			var colors = [ "0000ff", "00ff00", "00ffff", "ff0000", "ff00ff", "ffff00" ];
@@ -629,12 +646,14 @@ WotsApp.prototype = {
 			if (!wots.platform) {
 				return;
 			}
-			console.log("Query bluetooth address");
+			//console.log("Query bluetooth address");
 			var address = ble.getAddress();
 			if (!address) {
 				$('#connection').text('Geen magneet in de buurt');
-			} else {
-				$('#connection').text('Magneet ' + address + ' gevonden');
+			} 
+
+			if (address) {
+				$('#connection').text('Magneet ' + address);
 				if (wots.address === address) {
 					//console.log("Address is already known");
 				} else {
@@ -756,10 +775,6 @@ WotsApp.prototype = {
 			console.log("Memo overview page. Register new user, or adapt user registration details");
 			$.mobile.changePage("#memoOverviewPage", {transition:'slide', hashChange:true});
 		}
-
-		$('#memoOverviewPage').on('swiperight', function(event) {
-			$('#virtualMemoPanel').panel("open");
-		});
 
 		/*******************************************************************************************************
 		 * The functionality to communicate over Bluetooth Low-Energy
@@ -1599,7 +1614,8 @@ WotsApp.prototype = {
 				if (response.online) {
 					call(email, password);
 				} else {
-					console.error(response.msg);
+					var msg = "Check server failure: " + response.msg;
+					csMessage(msg, true);
 				}
 			});
 		}
@@ -1632,7 +1648,10 @@ WotsApp.prototype = {
 					csMessage(msg, false);
 					sense.createUser(user, createUserSuccessCB, generalErrorCB);
 				} else {
-					var msg = "Session with database could not be set up. Device is not yet connected";
+					var msg = "Create a user in the database is not possible. " + 
+						"Device is not yet connected. " + 
+						"To connect to CommonSense we need the Memo Bluetooth address " +
+						"to login to our account";
 					csMessage(msg, false);
 				}
 			} else {
@@ -1663,7 +1682,10 @@ WotsApp.prototype = {
 					csMessage(msg, false);
 					sense.createSession(account.email, account.password, createSessionSuccessCB, createSessionErrorCB);
 				} else {
-					var msg = "Session with database could not be set up. Device is not yet connected";
+					var msg = "Session with database could not be set up. " + 
+						"Device is not yet connected. " + 
+						"To connect to CommonSense we need the Memo Bluetooth address " +
+						"to login to our account.";
 					csMessage(msg, false);
 				}
 			} else {
