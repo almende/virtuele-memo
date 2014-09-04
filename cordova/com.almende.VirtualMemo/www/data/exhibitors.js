@@ -1,6 +1,7 @@
 [
 	{
 		"id":"assemblypartner",
+        "bleID":1,
 		"standletter":"A",
 		"standnumber":"9A.086",
 		"name":"AssemblyPartner",
@@ -19,6 +20,7 @@
 	},
 	{
 		"id":"azteco",
+        "bleID":2,
 		"standletter":"B",
 		"standnumber":"9A.081",
 		"name":"Azteco Electronics",
@@ -37,6 +39,7 @@
 	},
 	{
 		"id":"cnrood",
+        "bleID":3,
 		"standletter":"C",
 		"standnumber":"9A.032",
 		"name":"C.N. Rood",
@@ -56,6 +59,7 @@
 	{
 		"id":"dandmechatronics",
 		"standletter":"D",
+        "bleID":11,
 		"standnumber":"9A.014",
 		"name":"D&D Mechatronics",
 		"description":"D&D Mechatronics is gespecialiseerd in het vervaardigen van functionele test apparatuur, elektronica prototyping en soldeer carriers voor de elektronica industrie.",
@@ -91,6 +95,7 @@
 	},
 	{
 		"id":"devlab",
+        "bleID":12,
 		"standletter":"F",
 		"standnumber":"9C.064",
 		"name":"Devlab",
@@ -292,6 +297,7 @@
 		"id":"dobots",
 		"standletter":"Q",
 		"name":"DoBots",
+        "bleID":13,
 		"oneliner":"It's in the name. Groups of bots searching, cooperating, grazing and negotiating.",
 		"description":"DoBots are modeled after nature where colonies, flocks, and swarms of animals show intelligent behaviour together.",
 		"logo":"DObots.png",

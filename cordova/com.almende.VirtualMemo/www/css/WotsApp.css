@@ -633,6 +633,10 @@ input, button, select, option, textarea {
 	background-image:url(images/ExhibitorDoneBoth.png);
 }
 
+#exhibitorList > li.taskNear > a {
+	background-image:url(images/ExhibitorDoneNone_Beacon.png);
+}
+
 #exhibitorList > li.taskDoneUp > a {
 	background-image:url(images/ExhibitorDoneUp.png);
 }

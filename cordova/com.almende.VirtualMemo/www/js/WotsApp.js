@@ -47,7 +47,7 @@ WotsApp.prototype = {
 		var wots = this;
 
 		var ble = new BLEHandler();
-        
+
         var iBeacon = new iBeaconHandler();
 
 		var sense = SenseAPI;
@@ -232,11 +232,20 @@ WotsApp.prototype = {
 					console.log("Information about user lost, maybe due to a refresh. Get info from DB again.");
 					accountDB(accountCheckFinished);
 				} else {
-					standsDB(updateList);
+                    standsDB(showList);
 				}
 			});
 		});
 
+        
+        refreshByBeacon = function(nearestBeacon){
+            if (nearestBeacon == null) {
+                updateList(undefined);
+            } else {
+                updateList(nearestBeacon.major);
+            }
+        }
+        
 		accountCheckFinished = function() {
 			console.log("Account refreshed, now check if we have the participantCode");
 			if (!wots.participantCode) {
@@ -244,11 +253,16 @@ WotsApp.prototype = {
 				registerPage();
 			} else {
 				interpretCode(wots.participantCode);
-				standsDB(updateList);
+				standsDB(showList);
 			}
 		}
+        
+        showList = function() {
+            console.log("Showing list");
+            iBeacon.scanForIBeacons(refreshByBeacon);
+        }
 
-		updateList = function() {
+		updateList = function(nearestStand) {
 			console.log("Update stands");
 			// remove previous list
 			$("#exhibitorList").empty();
@@ -275,7 +289,7 @@ WotsApp.prototype = {
 					exhibitor = wots.exhibitors[c];
 					// console.log("Is stand " + exhibitor.standletter + " on the route?");
 					if (wots.route[r] == exhibitor.standletter) {
-						console.log("Found exhibitor", exhibitor);
+						console.log("Found exhibitor", JSON.stringify(exhibitor));
 						route_exhibitors.push(exhibitor);
 						break;
 					}
@@ -329,6 +343,13 @@ WotsApp.prototype = {
 					if (!prevExhibitor) 
 						enabledClass = "taskEnabled";
 				}
+                if (nearestStand !== undefined) {
+                    console.log("Comparing nearestStand "+nearestStand+" with "+exhibitor.bleID);
+                }
+                if (nearestStand !== undefined && exhibitor.bleID !== undefined && exhibitor.bleID == nearestStand) {
+                    doneClass = "taskNear";
+                    enabledClass = "taskNear";
+                }
 				console.log("Add exhibitor to the list with name " + exhibitor.name + " and id " + exhibitor.id);
 				$(exhibitorList)
 					.append($('<li/>', { "class":doneClass + ' ' + enabledClass })

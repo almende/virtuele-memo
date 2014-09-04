@@ -1,6 +1,8 @@
 #!/bin/sh
 cd ..
 sudo npm install -g ios-sim
+cordova platform remove ios
+cordova platform add ios
 cordova plugin add org.apache.cordova.console
 cordova plugin add https://github.com/randdusing/BluetoothLE.git
 cordova plugin add org.apache.cordova.device

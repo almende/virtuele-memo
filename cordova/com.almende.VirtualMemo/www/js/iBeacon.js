@@ -5,7 +5,8 @@ var iBeaconHandler = function() {
                                     uuid: iBeaconUuid
                                     });
     self.scanForIBeacons = function(callback) {
-    ibeacon.startRangingBeaconsInRegion({
+        console.log("Started to scan for beacons");
+        ibeacon.startRangingBeaconsInRegion({
                                         region: region,
                                         didRangeBeacons: function(result) {
                                         if (result.beacons.length == 0)
@@ -23,10 +24,10 @@ var iBeaconHandler = function() {
                                         ibeacon.stopMonitoringForRegion({
                                                                         region: region
                                                                         });
-                                        if (nearestBeacon != null)
+                                        //if (nearestBeacon != null)
                                             callback(nearestBeacon);
-                                        }
-                                        });
-    
+                                        //}
+                                        }});
+        callback(null);
     }
 }

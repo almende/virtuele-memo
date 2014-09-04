@@ -46,17 +46,13 @@ var BLEHandler = function() {
 			window.localStorage.setItem(self.addressKey, obj.address);
 			self.clearConnectTimeout();
 			// is this really necessary, enabled by Suki, so iOS only
-//			if (window.device.platform == iOSPlatform) {
-//				self.tempDisconnectDevice();
-//			}
 			if (window.device.platform == iOSPlatform) {
-                if (obj.iBeacon !== undefined) {
-				console.log("Discovering alert level service");
+				self.tempDisconnectDevice();
+			}
+			if (window.device.platform == iOSPlatform) {
+                console.log("Discovering alert level service");
 				var paramsObj = {"serviceUuids": [alertLevelServiceUuid] };
 				bluetoothle.services(self.alertLevelSuccess, self.alertLevelError, paramsObj);
-                } else {
-                    console.log("Ignoring alert for iBeacon.");
-                }
 			} else if (window.device.platform == androidPlatform) {
 				console.log("Beginning discovery");
 				bluetoothle.discover(self.discoverSuccess, self.discoverError);
