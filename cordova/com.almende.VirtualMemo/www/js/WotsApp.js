@@ -92,9 +92,24 @@ WotsApp.prototype = {
 					{ icon: "home", iconpos : "notext" }));
 			}    
 		});
-        
-        // HIER
-        var testing = false;
+
+		/*
+		var region = new ibeacon.Region({
+			uuid: '2CA36943-7FDE-4F4E-9C08-DDA29F079349'
+		});
+
+		ibeacon.startRangingBeaconsInRegion({
+			region: region,
+			didRangeBeacons: function(result) {
+				console.log('I see ' + result.beacons.length + ' beacons');
+				if (result.beacons.length === 1) {
+					console.log('Details: ' + JSON.stringify(result.beacons[0]));
+				}
+			}
+		});
+		*/
+
+		var testing = false;
 		var test_sense = false;
 
 		// This option makes use of the CommonSense database in the way suggested by Sense itself. 

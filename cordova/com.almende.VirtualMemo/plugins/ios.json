@@ -10,19 +10,7 @@
                     "CoreBluetooth.framework": [
                         {
                             "xml": "false",
-                            "count": 3
-                        }
-                    ],
-                    "CoreLocation.framework": [
-                        {
-                            "xml": "false",
                             "count": 2
-                        }
-                    ],
-                    "SystemConfiguration.framework": [
-                        {
-                            "xml": "false",
-                            "count": 1
                         }
                     ],
                     "AudioToolbox.framework": [
@@ -37,10 +25,6 @@
                 "parents": {
                     "/*": [
                         {
-                            "xml": "<feature name=\"AttendeaseBeacons\"><param name=\"ios-package\" value=\"AttendeaseBeacons\" /><param name=\"onload\" value=\"true\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"BluetoothLePlugin\"><param name=\"ios-package\" value=\"BluetoothLePlugin\" /></feature>",
                             "count": 1
                         },
@@ -53,15 +37,15 @@
                             "count": 1
                         },
                         {
+                            "xml": "<feature name=\"IBeaconPlugin\"><param name=\"ios-package\" value=\"IBeaconPlugin\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
                             "count": 1
                         },
                         {
                             "xml": "<feature name=\"Notification\"><param name=\"ios-package\" value=\"CDVNotification\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"LocationManager\"><param name=\"ios-package\" value=\"CDVLocationManager\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -80,22 +64,19 @@
         }
     },
     "installed_plugins": {
-        "com.attendease.ibeacons": {
-            "PACKAGE_NAME": "com.almende.VirtualMemo"
-        },
         "com.randdusing.bluetoothle": {
             "PACKAGE_NAME": "com.almende.VirtualMemo"
         },
         "de.appplant.cordova.plugin.local-notification": {
             "PACKAGE_NAME": "com.almende.VirtualMemo"
         },
+        "eu.mobilion.ibeacon": {
+            "PACKAGE_NAME": "com.almende.VirtualMemo"
+        },
         "org.apache.cordova.console": {
             "PACKAGE_NAME": "com.almende.VirtualMemo"
         },
         "org.apache.cordova.dialogs": {
-            "PACKAGE_NAME": "com.almende.VirtualMemo"
-        },
-        "org.apache.cordova.ibeacon": {
             "PACKAGE_NAME": "com.almende.VirtualMemo"
         }
     },

@@ -29,80 +29,24 @@ var BLEHandler = function() {
 	 * device.
 	 */
 	self.init = function() {
-               bluetoothle.initialize(self.initSuccess, self.initError, {"request": true});
-        var region = new ibeacon.Region({
+        	bluetoothle.initialize(self.initSuccess, self.initError, {"request": true});
+         	var region = new ibeacon.Region({
                                         uuid: iBeaconUuid
                                         });
         
-        ibeacon.startRangingBeaconsInRegion({
+		ibeacon.startRangingBeaconsInRegion({
                                             region: region,
                                             didRangeBeacons: function(result) {
                                             console.log('I see ' + result.beacons.length + ' beacons');
                                             }
                                             });
 
-//		var uuidsToMonitor = [iBeaconUuid];
-//		AttendeaseBeacons.monitor(uuidsToMonitor, function() {
-//																												return setInterval((function() {
-//																																																return AttendeaseBeacons.getBeacons(function(beacons) {
-//																																																																																				if (_.isEmpty(beacons)) {
-//																																																																																				return console.log("No beacons found.");
-//																																																																																				} else {
-//																																																																																				console.log("found beacon!");
-//																																																																																				return _.each(beacons, function(beacon) {
-//																																																																																																		return console.log("" + beacon.uuid + " (" + beacon.major + ", " + beacon.minor + ") " + beacon.proximityString + " (" + beacon.accuracy + " meters)");
-//																																																																																																		});
-//																																																																																				}
-//																																																																																				});
-//																																																}), 3000);
-//																												});
-//		
-		//        var logToDom = function (message) {
-		//            console.log(message);
-		//        };
-		
-		//        var delegate = new cordova.plugins.locationManager.Delegate().implement({
-		//
-		//                                                                                didDetermineStateForRegion: function (pluginResult) {
-		//
-		//                                                                                logToDom('[DOM] didDetermineStateForRegion: ' + JSON.stringify(pluginResult));
-		//
-		//                                                                                cordova.plugins.locationManager.appendToDeviceLog('[DOM] didDetermineStateForRegion: '
-		//                                                                                                                                  + JSON.stringify(pluginResult));
-		//                                                                                },
-		//
-		//                                                                    didEnterRegion:
-		//                                                                    function (pluginResult) {
-		//                                                                                console.log('didEnterRegion:', pluginResult);
-		//                                                                                },           didStartMonitoringForRegion: function (pluginResult) {
-		//                                                                                console.log('didStartMonitoringForRegion:', pluginResult);
-		//
-		//                                                                                logToDom('didStartMonitoringForRegion:' + JSON.stringify(pluginResult));
-		//                                                                                },
-		//
-		//                                                                                didRangeBeaconsInRegion: function (pluginResult) {
-		//                                                                                logToDom('[DOM] didRangeBeaconsInRegion: ' + JSON.stringify(pluginResult));
-		//                                                                                }
-		//
-		//                                                                                });
-		//
-		//        var uuid = iBeaconUuid;
-		//        var identifier = 'n/a';
-		////        var minor;
-		////        var major;
-		//        var beaconRegion = new cordova.plugins.locationManager.BeaconRegion(identifier, uuid);//, major, minor);
-		//
-		//        cordova.plugins.locationManager.setDelegate(delegate);
-		//        cordova.plugins.locationManager.startMonitoringForRegion(beaconRegion)
-		//        .fail(console.error)
-		//        .done();
+	bluetoothle.initialize(self.initSuccess, self.initError, {"request": true});
 	}
-	
 	
 	self.connectDevice = function(address) {
 		console.log("Begining connection to: " + address + " with 5 second timeout");
 		var paramsObj = {"address": address};
-		bluetoothle.cl
 		bluetoothle.connect(self.connectSuccess, self.connectError, paramsObj);
 		self.connectTimer = setTimeout(self.connectTimeout, 5000);
 	}
@@ -113,8 +57,10 @@ var BLEHandler = function() {
 			console.log("Write address " + obj.address + " to local storage");
 			window.localStorage.setItem(self.addressKey, obj.address);
 			self.clearConnectTimeout();
-			// is this really necessary
-			self.tempDisconnectDevice();
+			// is this really necessary, enabled by Suki, so iOS only
+			if (window.device.platform == iOSPlatform) {
+				self.tempDisconnectDevice();
+			}
 			if (window.device.platform == iOSPlatform) {
 				console.log("Discovering alert level service");
 				var paramsObj = {"serviceUuids": [alertLevelServiceUuid] };
@@ -269,7 +215,7 @@ var BLEHandler = function() {
 	}
 	
 	self.startScanError = function(obj) {
-		console.log('Scan error', obj.status);
+		console.log('Scan error' + JSON.stringify(obj.status));
 		/*		navigator.notification.alert(
 			'Could not find a device using Bluetooth scanning.',
 			null,
@@ -286,7 +232,10 @@ var BLEHandler = function() {
 			var address = window.localStorage.getItem(self.addressKey);
 			if (address == null) {
 				console.log('No address known, so start scan');
-				var paramsObj = { };// 'serviceUuids': [memoUuid]};
+				var paramsObj = {};
+				if (window.device.platform == androidPlatform) {
+					paramsObj = { 'serviceUuids': [memoUuid] };
+				}
 				bluetoothle.startScan(self.startScanSuccess, self.startScanError, paramsObj);
 			} else {
 				console.log('Address already known, so connect directly to ', address);
@@ -298,10 +247,10 @@ var BLEHandler = function() {
 		console.log('Connection to BLE chip failed');
 		console.log('Message', obj.status);
 		navigator.notification.alert(
-																															'Bluetooth is not turned on, or could not be turned on. Make sure your phone has a Bluetooth 4.+ (BLE) chip.',
-																															null,
-																															'BLE off?',
-																															'Sorry!');
+				'Bluetooth is not turned on, or could not be turned on. Make sure your phone has a Bluetooth 4.+ (BLE) chip.',
+				null,
+				'BLE off?',
+				'Sorry!');
 	}
 	
 	/**
