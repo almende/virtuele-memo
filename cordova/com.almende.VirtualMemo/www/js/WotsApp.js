@@ -25,6 +25,8 @@ function WotsApp() {
 	this.isConnected = false;
 
 	this.platform = null;
+
+	this.enableAllTasksAtAllTimes = false;
 }
 
 /**********************************************************************************************************************
@@ -139,9 +141,14 @@ WotsApp.prototype = {
 		init = function() {
 			wots.afterRegistration = calcRoutePage;
 
-			console.log("We are running on the \"" + device.platform + "\" platform");
-			wots.platform = device.platform;
-			console.log("With device name \"" + device.name + "\"");
+			if (window.device) {
+				console.log("We are running on the \"" + device.platform + "\" platform");
+				wots.platform = device.platform;
+				console.log("With device name \"" + device.name + "\"");
+			} else {
+				console.log("We are running in the browser, not a smartphone or tablet");
+				wots.platform = 'browser';
+			}
 
 			if (!wots.platform) {
 				// we are running in chrome, not in Android or iOS at least
@@ -149,6 +156,9 @@ WotsApp.prototype = {
 				device_as_user = false;
 			}
 			//testing = true;
+			
+			console.log("Users should be able to decide their own order in following stands");
+			wots.enableAllTasksAtAllTimes = true;
 		}
 
 		/*******************************************************************************************************
@@ -293,6 +303,10 @@ WotsApp.prototype = {
 				}
 				var doneClass = "";
 				var enabledClass = "taskDisabled";
+				if (wots.enableAllTasksAtAllTimes) {
+					enabledClass = "taskEnabled";
+				}
+
 				if(exhibitor.status == "done") {
 					pastSomeDone = true;
 					enabledClass = 'taskEnabled';
