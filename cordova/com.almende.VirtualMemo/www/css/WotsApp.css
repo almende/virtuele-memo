@@ -327,18 +327,21 @@ input, button, select, option, textarea {
 
 #memoHeader {    
 	position:absolute;
-	margin-top:-96px;
+	margin-top:-66px;
+	margin-left:6px;
 	display: inline-block;
-    width:260px;
+ 	width:260px;
 }
 
-
+/*
 #memoHeaderContent {
-	margin-left:10px;
-    margin-right:10px;
-	display:inline-flex;
-    width:100%;
+	position:absolute;
+	margin-top:-66px;
+	margin-left:6px;
+	display: inline-block;
+ 	width:260px;
 }
+*/
 
 #memoNote {    
 /*	text-align:center; */
@@ -430,9 +433,9 @@ input, button, select, option, textarea {
 /* input fields for a new memo */
 #memoMetaInfo {
 	width:260px;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #memoMetaInfo input {
@@ -444,13 +447,13 @@ input, button, select, option, textarea {
 	text-align: center;
 	margin-top:-75px;
 	font-weight: bold;
-    margin-left: auto;
-    margin-right: auto;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #memoAuthor {
 	float: right;
-	margin-top:-100px;
+	margin-top:-70px;
 	margin-right:5px;
 	font-weight: bold;
 }
@@ -523,27 +526,47 @@ input, button, select, option, textarea {
 	font-size: 32px;
 }
 
+/* allow buttons to display on the same line */
+.menu-button { display:inline-block; }
+
+/* make button float on the right */
+.menu-button-right { position:relative; display:block; float:right; }
+
 /**********************************************************************************************************************
  *
  * Memo overview
- *
- *********************************************************************************************************************/
-
-#memoNoteMini {    
-/*	text-align:center; */
+	
 	width: 75px;    
 	margin: 15px;    
-	min-height:55px; /* width minus border-top */
+	min-height:55px; // width minus border-top
 	max-height:55px; 
 	padding-top:0px;
 	margin-left:auto;
 	margin-right:auto;
 	position:relative;   
 	border:1px solid #E8E8E8;  
-	border-top:20px solid #fdfd86; /* top part where the glue resides... */
+	border-top:20px solid #fdfd86; // top part where the glue resides
 	font-family:"Reenie Beanie" !important;
 	font-size:20px;
-	border-bottom-right-radius: 50px 5px; /* severity of the fold at the right bottom */
+	border-bottom-right-radius: 50px 5px;  // severity of fold at right bottom
+
+ *
+ *********************************************************************************************************************/
+
+#memoNoteMini {    
+	width: 275px;    
+	margin: 25px;    
+	min-height:175px; 
+	max-height:175px;
+	padding-top:15px;
+	margin-left:auto;
+	margin-right:auto;
+	position:relative;   
+	border:1px solid #E8E8E8;  
+	border-top:60px solid #fdfd86; 
+	font-family:"Reenie Beanie" !important;
+	font-size:20px;
+	border-bottom-right-radius: 60px 5px;
 	background: rgb(255,255,136); /* Old browsers */
 	background: -moz-linear-gradient(-45deg, rgba(255,255,136,1) 77%, rgba(255,255,214,1) 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, right bottom, color-stop(77%,rgba(255,255,136,1)), color-stop(100%,rgba(255,255,214,1))); /* Chrome,Safari4+ */
@@ -559,15 +582,31 @@ input, button, select, option, textarea {
 	margin-left: 0;
 }
 
+#memoHeaderCenter {    
+	position:absolute;
+	margin-top:-40px;
+	margin-left:6px;
+	display: inline-block;
+ 	width:260px;
+}
+/*
 #memoHeaderCenter {
 	margin-top:-15px;
 	margin-left:8px; 
 	display:inline-flex;
 }
-
+*/
 #memoBriefCaption {
-	margin-top:-55px;
-	margin-left:4px;
+	text-align: center;
+	margin-top:-65px;
+	font-weight: bold;
+	margin-left:auto;
+	margin-right: auto;
+}
+
+#memoTextBox {
+	height: 200px;
+	max-height: 200px;
 }
 
 /**********************************************************************************************************************

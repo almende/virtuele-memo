@@ -124,6 +124,7 @@ WotsApp.prototype = {
 		var testing = false;
 		var test_sense = false;
 		var delete_mysql_stands = false;
+		var testing_memo_overview = false;
 
 		// This option makes use of the CommonSense database in the way suggested by Sense itself. 
 		// It creates a user for every device. 
@@ -811,31 +812,45 @@ WotsApp.prototype = {
 
 			var devices = ble.getAllDevices();
 			console.log("We found the devices: " + JSON.stringify(devices));
-			if (devices && devices.length) { 
+
+			if (testing_memo_overview) {
+				var dev = {};
+				dev.address = 'test';
+				dev.name = 'Memo';
+				devices['test'] = dev;
+				update_memo_overview = false;
+			}
+
+			if (devices) { 
 				// just clear list, todo: check if devices changed... and only update changed ones
 				$('#memoNoteSet ul').empty();
 
-				for (var i = 0; i < devices.length; i++) {
-					console.log("Add device: " + JSON.stringify(devices[i]));
+				var i = 0;
+				for (var address in devices) {
+					var device = devices[address];
+					console.log("Add device: " + JSON.stringify(device));
 					var $li = $('<li/>');
 					var $memodiv = $('<div/>', {'id': 'memoNoteMini', 'data-memo-overview-id': i});
-					var $memocaptiontext = $('<p/>').text("memo " + i);
+					var $memocaptiontext = $('<p/>').text(address);
 					var $memocaption = $('<div/>', {'id': 'memoBriefCaption' });
 					var $memoheader = $('<div/>', {'id': 'memoHeaderCenter'});
-					var memodelete = '<a href="#deleteMemoBlock" id="deleteMemoBlock" data-role="button"' +
-						'data-icon="delete" data-iconpos="notext" data-transition="none"></a>';
-					var memoalert = '<a href="#sendAlert" id="sendAlert" data-role="button"' +
-						'data-icon="check" data-iconpos="notext" data-transition="none"></a>';
-					$memoheader.append(memodelete);
-					$memoheader.append(memoalert);
+					var $memodelete = $('<a href="#deleteMemoBlock" id="deleteMemoBlock" data-role="button"' +
+						'data-icon="delete" data-iconpos="notext" data-transition="none" class="menu-button"></a>');
+					var $memoalert = $('<a href="#sendAlert" id="sendAlert" data-role="button"' +
+						'data-icon="check" data-iconpos="notext" data-transition="none" class="menu-button-right"></a>');
+					$memoheader.append($memodelete);
+					$memoheader.append($memoalert);
 
 					$memocaption.append($memocaptiontext);
 					$memodiv.append($memocaption);
 					$memodiv.append($memoheader);
 					$li.append($memodiv);
-					$('#memoNoteSet ul').append($li);
+					$('#memoListView').append($li).trigger('create');
+					i++;
 				}
 			}
+
+			//$('#memoListView').listview('refresh');
 
 			setTimeout(function () {
 				updateMemoOverview();
