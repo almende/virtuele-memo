@@ -268,14 +268,21 @@ window.onload = function () {
 
 <div data-role="page" id="virtualMemoPage">
 	<div role="main" class="ui-content" style="padding:0px">
-		<div id="colorPicker" align="center">
-			<ul></ul>
-		</div>
-		<div id="memoMetaInfo">
-			<input type="text" name="location" id="memoLocation" placeholder="Lokatie" value=""/>
-			<input type="date" name="date" id="memoDate" placeholder="Date" value=""/>
-			<input type="number" name="alert" id="memoAlert" placeholder="Alert" min="0" max="3"/>
-			<div class="memoSelectRepeatPeriodArea">
+        <div id="colorPicker" align="center">
+            <ul></ul>
+        </div>
+		<div id="memoMetaInfo" align="center">
+            <div class="dateArea">
+                <input type="date" name="date" id="memoDate" placeholder="Date" title="Date" alt="Select date" value=""/>
+            </div>
+            <div class="memoAlertSelectArea" align="center">
+                <select class="memoAlertSelect" id="memoAlert">
+                    <option value="0" selected>no alert</option>
+                    <option value="1">flash LEDs</option>
+                    <option value="2">sound signal</option>
+                </select>
+            </div>
+			<div class="memoSelectRepeatPeriodArea" align="center">
 				<select class="memoSelectRepeatPeriod" id="memoRepeat">
 					<option value="none" selected>no repetition</option>
 					<option value="day">every day</option>
@@ -290,18 +297,20 @@ window.onload = function () {
 		<div class="clear-floats"></div>
 		<div id="memoNote" data-memo-id="0">
 			<div id="memoHeader">
-				<div id="memoHeaderLeft">
+				<table id="memoHeaderContent"><tr><td width="1">
 					<a href="#prevMemo" id="prevMemo" data-role="button" 
 						data-icon="arrow-l" data-iconpos="notext" data-transition="none"></a>
+                </td><td width="1">
 					<a href="#nextMemo" id="nextMemo" data-role="button" 
 						data-icon="arrow-r" data-iconpos="notext" data-transition="none"></a>
-				</div>
-				<div id="memoHeaderRight">
+                </td>&nbsp;<td>
+                </td><td width="1">
 					<a href="#deleteMemo" id="deleteMemo" data-role="button" 
 						data-icon="delete" data-iconpos="notext" data-transition="none"></a>
+                </td><td width="1">
 					<a href="#saveMemo" id="saveMemo" data-role="button" 
 						data-icon="check" data-iconpos="notext" data-transition="none"></a>
-				</div>
+				</td></tr></table>
 			</div>
 			<div id="memoTitle">
 				<p>Hoi!</p>

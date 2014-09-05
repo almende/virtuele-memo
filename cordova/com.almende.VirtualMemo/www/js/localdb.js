@@ -226,6 +226,16 @@ var LocalDB = (function () {
 		queryDB(query, param, donotProcess, callback, cargs);
 	}
 
+    /**
+     * Create table for memos
+     */
+    api.removeMemos = function(callback, cargs) {
+        var query = 'DROP TABLE IF EXISTS NOTES';
+        var param = [];
+        queryDB(query, param, donotProcess, callback, cargs);
+    }
+
+
 	/**
 	 * Check if any memo does exist
 	 */

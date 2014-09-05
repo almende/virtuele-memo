@@ -9,7 +9,9 @@ var BLEHandler = function() {
 	
 	var linkLossServiceUuid = '1803';
 	var linkLossCharacteristicUuid = '2a06';
-	
+
+    var deviceInformationServiceUuid = '180a';
+    var serialNumberCharacteristicUuid = '2a25';
 	var scanTimer = null;
 	var connectTimer = null;
 	var reconnectTimer = null;
@@ -43,16 +45,12 @@ var BLEHandler = function() {
 		if (obj.status == "connected") {
 			console.log("Connected to : " + obj.name + " - " + obj.address);
 			console.log("Write address " + obj.address + " to local storage");
-			window.localStorage.setItem(self.addressKey, obj.address);
-			self.clearConnectTimeout();
-			// is this really necessary, enabled by Suki, so iOS only
+            window.localStorage.setItem(addressKey,obj.address);
+            self.clearConnectTimeout();
 			if (window.device.platform == iOSPlatform) {
-				self.tempDisconnectDevice();
-			}
-			if (window.device.platform == iOSPlatform) {
-                console.log("Discovering alert level service");
-				var paramsObj = {"serviceUuids": [alertLevelServiceUuid] };
-				bluetoothle.services(self.alertLevelSuccess, self.alertLevelError, paramsObj);
+                console.log("Discovering alert level and device information service");
+                var paramsObj = {"serviceUuids": [deviceInformationServiceUuid] };
+				bluetoothle.services(self.deviceInfoSuccess, self.alertLevelError, paramsObj);
 			} else if (window.device.platform == androidPlatform) {
 				console.log("Beginning discovery");
 				bluetoothle.discover(self.discoverSuccess, self.discoverError);
@@ -60,6 +58,7 @@ var BLEHandler = function() {
 			
 		}
 		else if (obj.status == "connecting") {
+            console.log("Found BLE device:"+JSON.stringify(obj));
 			console.log("Connecting to : " + obj.name + " - " + obj.address);
 		}
 		else {
@@ -122,8 +121,8 @@ var BLEHandler = function() {
 			
 			if (window.device.platform == iOSPlatform) {
 				console.log("Discovering alert level service");
-				var paramsObj = {"serviceUuids": [alertLevelServiceUuid] };
-				bluetoothle.services(self.alertLevelSuccess, self.alertLevelError, paramsObj);
+				var paramsObj = {"serviceUuids": [deviceInformationServiceUuid] };
+				bluetoothle.services(self.deviceInfoSuccess, self.alertLevelError, paramsObj);
 			} else if (window.device.platform == androidPlatform) {
 				console.log("Beginning discovery");
 				bluetoothle.discover(self.discoverSuccess, self.discoverError);
@@ -219,13 +218,13 @@ var BLEHandler = function() {
 		console.log('Properly connected to BLE chip');
 		console.log('Status: ' + JSON.stringify(obj.status));
 		if (obj.status == 'initialized') {
-			var address = window.localStorage.getItem(self.addressKey);
+			var address = window.localStorage.getItem(addressKey);
 			if (address == null) {
 				console.log('No address known, so start scan');
 				var paramsObj = {};
-				if (window.device.platform == androidPlatform) {
-					paramsObj = { 'serviceUuids': [memoUuid] };
-				}
+				//if (window.device.platform == androidPlatform) {
+					paramsObj = { 'serviceUuids': [memoUuid, deviceInformationServiceUuid] };
+				//}
 				bluetoothle.startScan(self.startScanSuccess, self.startScanError, paramsObj);
 			} else {
 				console.log('Address already known, so connect directly to ', address);
@@ -242,6 +241,50 @@ var BLEHandler = function() {
 				'BLE off?',
 				'Sorry!');
 	}
+
+    /**
+     * We found a device that has an device info service. Now we are gonna iterate through all the services to find
+     * the specific characteristics. We will subsequently "discover" this characteristic.
+     */
+    self.deviceInfoSuccess = function(obj) {
+        if (obj.status == "discoveredServices")
+        {
+            var serviceUuids = obj.serviceUuids;
+            for (var i = 0; i < serviceUuids.length; i++) {
+                var serviceUuid = serviceUuids[i];
+
+                if (serviceUuid == deviceInformationServiceUuid) {
+                    console.log("Finding device information characteristics");
+                    var paramsObj = {"serviceUuid":deviceInformationServiceUuid, "characteristicUuids":[serialNumberCharacteristicUuid]};
+                    bluetoothle.characteristics(function(result){
+                        console.log(JSON.stringify(result));
+                        bluetoothle.read(function(readData){
+                            console.log("Updating address " + readData.value + " to local storage");
+                            window.localStorage.setItem(addressKey,readData.value);
+                            if (window.device.platform == iOSPlatform) {
+                                console.log("Discovering alert level service");
+                                var paramsObj = {"serviceUuids": [alertLevelServiceUuid] };
+                                bluetoothle.services(self.alertLevelSuccess, self.alertLevelError, paramsObj);
+                            } else if (window.device.platform == androidPlatform) {
+                                console.log("Beginning discovery");
+                                bluetoothle.discover(self.discoverSuccess, self.discoverError);
+                            }
+                        },console.log,  {"serviceUuid":deviceInformationServiceUuid, "characteristicUuid":serialNumberCharacteristicUuid});
+
+                }, console.log, paramsObj);
+                return;
+                }
+            }
+            console.log("Error: device info service not found");
+        }
+        else
+        {
+            console.log("Unexpected services device info status: " + obj.status);
+        }
+        self.disconnectDevice();
+    }
+
+
 	
 	/**
 	 * We found a device that has an alert level service. Now we are gonna iterate through all the services to find
@@ -253,12 +296,12 @@ var BLEHandler = function() {
 			var serviceUuids = obj.serviceUuids;
 			for (var i = 0; i < serviceUuids.length; i++) {
 				var serviceUuid = serviceUuids[i];
-				
-				if (serviceUuid == self.alertLevelServiceUuid) {
+
+				if (serviceUuid == alertLevelServiceUuid) {
 					console.log("Finding alert level characteristics");
 					var paramsObj = {"serviceUuid":alertLevelServiceUuid, "characteristicUuids":[alertLevelCharacteristicUuid]};
 					bluetoothle.characteristics(self.characteristicsAlertLevelSuccess, self.characteristicsAlertLevelError, paramsObj);
-					return;
+                    return;
 				}
 			}
 			console.log("Error: alert level service not found");
@@ -333,7 +376,7 @@ var BLEHandler = function() {
 		if (obj.status == "discovered")
 		{
 			console.log("Discovery completed");
-			
+
 			self.writeAlertLevel("middle");
 		}
 		else
@@ -353,35 +396,37 @@ var BLEHandler = function() {
 	 * Write the alert level, can be "high", "middle", or "low".
 	 */
 	self.writeAlertLevel = function(level) {
-		if (self.memoBug0) {
-			if (!self.memoBug0_exec) {
-				self.memoBug0_callback = self.writeAlertLevel;
-				self.memoBug0_cargs = level;
-				self.memoBug0_exec = true;
-				self.readLinkLoss();
-				return;
-			} else {
-				self.memoBug0_callback = null;
-				self.memoBug0_exec = false;
-			}
-		}
-		
-		var u8 = new Uint8Array(1);
-		switch(level) {
-			case "high":
-				u8[0]=2;
-				break;
-			case "middle":
-				u8[0]=1;
-				break;
-			case "low": default:
-				u8[0]=0;
-		};
-		var v = bluetoothle.bytesToEncodedString(u8);
-		console.log("Write alert level " + level + " (encoded as " + v + ") at service " + alertLevelServiceUuid + ' and characteristic ' + alertLevelCharacteristicUuid);
-		var paramsObj = {"serviceUuid": alertLevelServiceUuid, "characteristicUuid": alertLevelCharacteristicUuid, "value": v };
-		bluetoothle.write(self.writeAlertLevelSuccess, self.writeAlertLevelError, paramsObj);
-	}
+            if (memoBug0) {
+                if (!self.memoBug0_exec) {
+                    self.memoBug0_callback = self.writeAlertLevel;
+                    self.memoBug0_cargs = level;
+                    self.memoBug0_exec = true;
+                    self.readLinkLoss();
+                    return;
+                } else {
+                    self.memoBug0_callback = null;
+                    self.memoBug0_exec = false;
+                }
+            }
+
+            var u8 = new Uint8Array(2);
+            switch(level) {
+                case "high":
+
+                    u8[0]=2;
+                    break;
+                case "middle":
+                    u8[0]=1;
+                    break;
+                case "low": default:
+                u8[0]=0;
+            };
+            var v = bluetoothle.bytesToEncodedString(u8);
+            console.log("Write alert level " + level + " (encoded as " + v + ") at service " + alertLevelServiceUuid + ' and characteristic ' + alertLevelCharacteristicUuid);
+            var paramsObj = {"serviceUuid": alertLevelServiceUuid, "characteristicUuid": alertLevelCharacteristicUuid, "value": v };
+            bluetoothle.write(self.writeAlertLevelSuccess,console.log,paramsObj);
+        }
+
 	
 	self.writeAlertLevelSuccess = function(obj) {
 		if (obj.status == 'written') {
@@ -407,7 +452,7 @@ var BLEHandler = function() {
 			var bytes = bluetoothle.encodedStringToBytes(obj.value);
 			console.log("Link loss: " + bytes[0]);
 			
-			if (self.memoBug0) {
+			if (memoBug0) {
 				console.log("Some stupid bug in memo, requires me to send a read message first");
 				if (self.memoBug0_callback)
 					self.memoBug0_callback(self.memoBug0_cargs);
@@ -422,7 +467,7 @@ var BLEHandler = function() {
 	
 	self.readLinkLossError = function(obj) {
 		console.log('Error in reading link loss level', obj.status);
-		self.writeAlertLevel();
+		self.memoBug0_callback(self.memoBug0_cargs);
 	}
 	
 	self.readBatteryLevel = function() {

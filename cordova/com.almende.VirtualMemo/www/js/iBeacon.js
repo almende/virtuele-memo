@@ -46,6 +46,9 @@ var iBeaconHandler = function() {
 				ibeacon.stopMonitoringForRegion({
 					region: region
 				});
+                  ibeacon.stopRangingBeaconsInRegion({
+                                            region: region
+                                        });
 				//if (nearestBeacon != null)
 				callback(nearestBeacon);
 				//}

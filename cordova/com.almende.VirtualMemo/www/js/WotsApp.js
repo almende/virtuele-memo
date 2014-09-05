@@ -134,15 +134,15 @@ WotsApp.prototype = {
 			init();
 
 			// first page to visit, should be in the end the guidePage for the WOTS conference
-			guidePage();
+			//guidePage();
 
 			// for debugging, enable one of the following pages as first page
 			// congratsPage();
 			// allExhibitorsPage();
 			// guideHomePage();
-			 registerPage();
+			// registerPage();
 			// memoOverviewPage();
-			// memoPage();
+			memoPage();
 		}
 
 		init = function() {
@@ -615,6 +615,7 @@ WotsApp.prototype = {
 					console.log("Set color to: " + color);
 					setMemoColor(color);
 				});
+                $('#datePicker input').valueAsDate = new Date();
 				$('#colorPicker ul').append($li);
 			}
 
@@ -745,8 +746,8 @@ WotsApp.prototype = {
 			var nr = parseInt(color, 16);
 			var grad0 = (nr+inc0).toString(16);
 			var grad1 = (nr+inc1).toString(16);
-			console.log("Apply gradients from: " + grad0 + " to " + grad1);
-			$('#memoNote').css('background', 'linear-gradient(-45deg, #' + grad0 + ' 77%,#' + grad1 + ' 100%)');
+			console.log("Apply gradients from: " + grad1 + " to " + grad0);
+			$('#memoNote').css('background', 'linear-gradient(-5deg, #' + grad1 + ' 10%,#' + grad0 + ' 100%)');
 			// exception for dark blue
 			if (nr == parseInt("0000ff", 16)) {
 				console.log("Set font color to white");
@@ -1219,7 +1220,7 @@ WotsApp.prototype = {
 
 		accountDB = function(callback) {
 			if (!wots.db) {
-				wots.db = window.openDatabase("memo", "1.0", "Memo", 1000000);
+				wots.db = window.openDatabase("memo1", "1.0", "Memo", 1000000);
 				localdb.init(wots.db);
 			}
 			if (testing) {
@@ -1314,7 +1315,7 @@ WotsApp.prototype = {
 		standsDB = function(callback) {
 			console.log("Get stands from database");
 			if (!wots.db) {
-				wots.db = window.openDatabase("memo", "1.0", "Memo", 1000000);
+				wots.db = window.openDatabase("memo1", "1.0", "Memo", 1000000);
 				localdb.init(wots.db);
 			}
 
@@ -1377,7 +1378,7 @@ WotsApp.prototype = {
 
 		standsUpdateDB = function(callback) {
 			if (!wots.db) {
-				wots.db = window.openDatabase("memo", "1.0", "Memo", 1000000);
+				wots.db = window.openDatabase("memo1", "1.0", "Memo", 1000000);
 				localdb.init(wots.db);
 			}
 
@@ -1415,6 +1416,9 @@ WotsApp.prototype = {
 			if (!wots.db) {
 				wots.db = window.openDatabase("memo", "1.0", "Memo", 1000000);
 				localdb.init(wots.db);
+                if (testing) {
+                    wots.db.removeMemos();
+                }
 			}
 			var sensor_id = getSensor();
 			if (sensor_id) {
