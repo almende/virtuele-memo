@@ -217,13 +217,15 @@ window.onload = function () {
 
 	<div>
 		<p text-align="center">
-		<img class="allExhibitorLogo" src="logos/600-width/almendedefRGB.png" id="allExhibitorLogo"></img>
+			<img class="scaledLogo" src="logos/600-width/almendedefRGB.png" id="allExhibitorLogo"></img>
 		</p>
-		<p id="allExhibitorDescription"</p>
-		<p id="allExhibitorAddress"></p>
-		<p id="allExhibitorTel"></p>
-		<p id="allExhibitorWebsite"></p>
-		<p id="allExhibitorEmail"></p>
+		<div id="leftmargin">
+			<p id="allExhibitorDescription"</p>
+			<p id="allExhibitorAddress"></p>
+			<p id="allExhibitorTel"></p>
+			<p id="allExhibitorWebsite"></p>
+			<p id="allExhibitorEmail"></p>
+		</div>
 	</div>
 
 	<div data-role="panel" class="virtualMemoPanel" data-display="reveal" data-theme="b">
@@ -246,13 +248,13 @@ window.onload = function () {
 			<h2>IJsbrekervraag</h2>
 			<p id="questionParagraph">In welke stad is Almende gevestigd?</p>
 		</div>
-		<input type="text" name="passcode" id="passcode" value="" placeholder="Voer de pincode die je krijgt v/d standhouder hier in"/>
+		<input type="text" name="passcode" id="passcode" value="" placeholder="Pincode gegeven door de standhouder"/>
 	</div>
 	<canvas id="triangle" height="100" width="100%">Triangle</canvas>
 
-	<div>
-		<img class="exhibitorLogo" src="logos/600-width/almendedefRGB.png" id="exhibitorLogo"></img>
-	</div>
+	<p text-align="center">
+		<img class="scaledLogo" src="logos/600-width/almendedefRGB.png" id="exhibitorLogo"></img>
+	</p>
 
 	<div data-role="footer" data-id="footer1" data-position="fixed">
 		<div data-role="navbar">

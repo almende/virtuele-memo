@@ -366,6 +366,11 @@ WotsApp.prototype = {
 					enabledClass = "taskNear";
 				}
 				console.log("Add exhibitor to the list with name " + exhibitor.name + " and id " + exhibitor.id);
+
+				var subtitle = exhibitor.oneliner;
+				if (!subtitle || (subtitle == "")) {
+					subtitle = exhibitor.description;
+				}
 				$(exhibitorList)
 					.append($('<li/>', { "class":doneClass + ' ' + enabledClass })
 							.append($('<a/>', {
@@ -374,7 +379,7 @@ WotsApp.prototype = {
 								'data-id':exhibitor.id
 							})
 								.append('<span>' + exhibitor.name + '</span>')
-								.append('<p>' + exhibitor.oneliner + '</p>')
+								.append('<p>' + subtitle + '</p>')
 							       )
 					       );
 			} // End for-loop
@@ -438,6 +443,10 @@ WotsApp.prototype = {
 					if (typeof exhibitor.oneliner == 'undefined') {
 						exhibitor.oneliner = '';
 					}
+					var subtitle = exhibitor.oneliner;
+					if (!subtitle || (subtitle == "")) {
+						subtitle = exhibitor.description;
+					}
 					allExhibitorsList.append($('<li/>', "class:taskDownSelf taskEnabled")
 						.append(
 							$('<a/>', {
@@ -446,7 +455,7 @@ WotsApp.prototype = {
 								'data-id':exhibitor.id
 							})
 							.append('<span>' + exhibitor.name + '</span>')
-							.append('<p>' + exhibitor.oneliner + '</p>')
+							.append('<p>' + subtitle + '</p>')
 						       )
 						);
 				}
@@ -494,11 +503,17 @@ WotsApp.prototype = {
 				if (exhibitor.name) {
 					$('#allExhibitorsDetailsPage .ui-title').text(exhibitor.name);
 				}
+				if (exhibitor.description) {
+					$('#allExhibitorDescription').text(exhibitor.description);
+				}
 				if (exhibitor.address) {
 					$('#allExhibitorAddress').text(exhibitor.address);
 				}
 				if (exhibitor.tel) {
-					$('#allExhibitorTel').text('tel:' + exhibitor.tel);
+					var spaceless_tel = exhibitor.tel.replace(/\s+/g, '');
+					var clickable_tel = '<a href="tel:' + spaceless_tel + '">tel: ' + 
+						exhibitor.tel + '</a>';
+					$('#allExhibitorTel').html(clickable_tel);
 				}
 				if (exhibitor.website) {
 					$('#allExhibitorWebsite').html('<a href="' + exhibitor.website + '">' +
