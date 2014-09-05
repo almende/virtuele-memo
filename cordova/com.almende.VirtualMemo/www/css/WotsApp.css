@@ -409,9 +409,11 @@ input, button, select, option, textarea {
 }
 
 #colorPicker {
-	margin-top: 30px;
+    display: inline;
+    float:left;
+	margin-top: 25px;
     margin-left: 10px;
-	width:260px; 
+	width:160px;
 	height:40px;
 	margin-left: auto; 
 	margin-right: auto;
@@ -451,8 +453,14 @@ input, button, select, option, textarea {
 	margin-right: auto;
 }
 
+#memoFooter {
+    margin-top:-70px;
+}
+
 #memoAuthor {
-	float: right;
+    display: inline;
+    width: 260px;
+    float: right;
 	margin-top:-70px;
 	margin-right:5px;
 	font-weight: bold;
