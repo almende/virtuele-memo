@@ -27,6 +27,8 @@ var BLEHandler = function() {
 	var memoBug0_cargs = null;
 	var discover_all = false;
 
+    var defaultAlertLevel = "middle";
+
 	var devices = {};
 
 	/**
@@ -38,6 +40,10 @@ var BLEHandler = function() {
 		console.log('Try to connect to BLE chip (will ask to turn on Bluetooth to the user)');
 		bluetoothle.initialize(self.initSuccess, self.initError, {"request": true});
 	}
+
+    self.setDefaultAlertLevel = function(level) {
+        defaultAlertLevel = level;
+    }
 
 	self.connectDevice = function(address) {
 		console.log("Connect to " + address + " with 5 second timeout");
@@ -206,12 +212,28 @@ var BLEHandler = function() {
 		return devices;
 	}
 
-	self.setAddress = function(address) {
+	self.setAddress = function(address, callback, alertLevel) {
 		console.log("Set address to: " +  address);
-		window.localStorage.setItem(addressKey, address);
-		self.disconnectDevice(function() {
-			self.connectDevice(address);
-		});
+		window.localStorage.removeItem(addressKey);
+        var closed = function(disconnectResult) {
+            console.log("Closed connection");
+            bluetoothle.initialize(
+                function(result) {
+                    console.log("Initialized connection");
+                    if (result.status == "initialized") {
+                        self.connectDevice(address);
+                        callback();
+                    }
+                },
+                console.log
+            );
+        };
+        var disconnected = function() {
+            console.log("Disconnected connection");
+            bluetoothle.close(closed,closed);
+        };
+        this.setDefaultAlertLevel(alertLevel);
+        bluetoothle.disconnect(disconnected,disconnected);
 	}
 
 	self.getAddress = function() {
@@ -271,7 +293,7 @@ var BLEHandler = function() {
 		console.log('Properly connected to BLE chip, status: ' + JSON.stringify(obj.status));
 		if (obj.status == 'initialized') {
 			var address = window.localStorage.getItem(addressKey);
-			if (!address || discover_all) {
+            if (!address || discover_all) {
 				if (!address) {
 					console.log('No address known, so start scan');
 				} else {
@@ -392,7 +414,7 @@ var BLEHandler = function() {
 				var characteristicUuid = characteristicUuids[i];
 
 				if (characteristicUuid == alertLevelCharacteristicUuid) {
-					self.writeAlertLevel("middle");
+					self.writeAlertLevel(defaultAlertLevel);
 					//self.readLinkLoss();
 					return;
 					//var paramsObj = {"serviceUuid": self.alertLevelServiceUuid, "characteristicUuid": self.alertLevelCharacteristicUuid};
@@ -442,7 +464,7 @@ var BLEHandler = function() {
 		{
 			console.log("Discovery completed");
 
-			self.writeAlertLevel("middle");
+			self.writeAlertLevel(defaultAlertLevel);
 		}
 		else
 		{
@@ -535,9 +557,9 @@ var BLEHandler = function() {
 	}
 	
 	self.readBatteryLevel = function() {
-		console.log("Reading battery level, not y// implemented");
-		//var paramsObj = {"serviceUuid":batteryServiceUuid, "characteristicUuid":batteryLevelCha//cteristicUuid};
-	readSuccesshle.read(readSuccess, readError, paramsObj);
+		console.log("Reading battery level, not yet implemented");
+		//var paramsObj = {"serviceUuid":batteryServiceUuid, "characteristicUuid":batteryLevelCharacteristicUuid};
+	    //bluetoothle.read(readSuccess, readError, paramsObj);
 	}
 	
 	self.disconnectDevice = function(disconnectSuccessCB, disconnectErrorCB) {

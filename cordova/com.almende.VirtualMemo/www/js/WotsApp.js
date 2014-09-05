@@ -856,15 +856,10 @@ WotsApp.prototype = {
                         // select a new memo
                         console.log('Clicked on memo #'+i);
                         var address = $(this).attr('data-id');
-                        if (wots.address != address) {
-                            ble.setAddress(address);
-                            //wots.address = address;
-                        }
-                        console.log('Send alert from the GUI');
-                        ble.writeAlertLevel("high");
-                        setTimeout(function stopAlert() {
-                            ble.writeAlertLevel("low");
-                        }, 5000);
+                        console.log('Connection to memo '+address);
+                        //wots.address = address;
+                        ble.setAddress(address,memoPage, "high");
+
                     });
 
                     i++;
