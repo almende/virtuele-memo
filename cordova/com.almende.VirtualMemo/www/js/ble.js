@@ -238,9 +238,9 @@ var BLEHandler = function() {
 
 	self.getAddress = function() {
 		var address = window.localStorage.getItem(addressKey);
-		if (address) {
-			console.log("Obtained address: " + address);
-		}
+		//if (address) {
+		//	console.log("Obtained address: " + address);
+		//}
 		return address;
 	}
 
@@ -474,8 +474,7 @@ var BLEHandler = function() {
 			//console.log("Android: Discovery completed. The result is huge: " + JSON.stringify(obj));
 			for (s in obj.services) {
 				var service = obj.services[s];
-				//console.log("****");
-				console.log("Android: service " + JSON.stringify(service));
+				//console.log("Android: service " + JSON.stringify(service));
 				if (service.serviceUuid == deviceInformationServiceUuid) {
 					console.log("Android: found device information service");
 					for (c in service.characteristics) {

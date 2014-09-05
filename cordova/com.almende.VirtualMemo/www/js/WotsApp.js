@@ -618,7 +618,7 @@ WotsApp.prototype = {
 					console.log("Set color to: " + color);
 					setMemoColor(color);
 				});
-                $('#datePicker input').valueAsDate = new Date();
+				$('#datePicker input').valueAsDate = new Date();
 				$('#colorPicker ul').append($li);
 			}
 
@@ -742,14 +742,14 @@ WotsApp.prototype = {
 					var shift = (color.length-2 - c) * 4;
 					inc0 = 100 << shift;
 					inc1 = 200 << shift;
-					console.log("Shift is: " + shift + ", color.length: " + color.length + ", c:" + c );
+					// console.log("Shift is: " + shift + ", color.length: " + color.length + ", c:" + c );
 					break;
 				}
 			}
 			var nr = parseInt(color, 16);
 			var grad0 = (nr+inc0).toString(16);
 			var grad1 = (nr+inc1).toString(16);
-			console.log("Apply gradients from: " + grad1 + " to " + grad0);
+			//console.log("Apply gradients from: " + grad1 + " to " + grad0);
 			$('#memoNote').css('background', 'linear-gradient(-5deg, #' + grad1 + ' 10%,#' + grad0 + ' 100%)');
 			// exception for dark blue
 			if (nr == parseInt("0000ff", 16)) {
@@ -851,22 +851,20 @@ WotsApp.prototype = {
                      * The functionality to communicate over Bluetooth Low-Energy
                      ******************************************************************************************************/
 
-                        // coupling with a button is simple through an on-click event through jQuery
-                    $('#sendAlert_'+i).on("click", function(event) {
-                        // select a new memo
-                        console.log('Clicked on memo #'+i);
-                        var address = $(this).attr('data-id');
-                        console.log('Connection to memo '+address);
-                        //wots.address = address;
-                        ble.setAddress(address,memoPage, "high");
+					// coupling with a button is simple through an on-click event through jQuery
+					$('#sendAlert_'+i).on("click", function(event) {
+						// select a new memo
+						console.log('Clicked on memo #'+i);
+						var address = $(this).attr('data-id');
+						console.log('Connection to memo '+address);
+						//wots.address = address;
+						ble.setAddress(address,memoPage, "high");
 
-                    });
+					});
 
-                    i++;
+					i++;
 				}
 			}
-
-			//$('#memoListView').listview('refresh');
 
 			setTimeout(function () {
 				updateMemoOverview();
@@ -1485,15 +1483,15 @@ WotsApp.prototype = {
 			if (!wots.db) {
 				wots.db = window.openDatabase("memo", "1.0", "Memo", 1000000);
 				localdb.init(wots.db);
-                if (testing) {
-                    wots.db.removeMemos();
-                    wots.db.createMemos();
-                }
+				if (testing) {
+					wots.db.removeMemos();
+					wots.db.createMemos();
+				}
 			}
 			var sensor_id = getSensor();
 			if (sensor_id) {
 				// get specific memo out of database
-				console.log("Get sensor out of database using sensor_id");
+				console.log("Get sensor out of database using sensor_id " + sensor_id);
 				localdb.existMemo(sensor_id, sensorKnown);
 			} else {
 				// get most recent memo out local database
@@ -1515,49 +1513,59 @@ WotsApp.prototype = {
 				if (result) {
 					console.error(result);
 				}
-				// create sensor and call the noteDB function again
-				console.log("No sensor found, we will create one");
-                console.log("CREATING");
-                csCreateSensor();
+				console.log("No sensor found locally, we will check if one exists on the server");
 				var index = 0;
 				csExistSensor(index, function() { 
-					console.log("Memo is present");	
+					console.log("Sensor unknown, but memo block is present on server," +
+						" so sensor id could be obtained");
+					// sensor id is set now, retry with known sensor id
+					noteDB();
 				},
 				function() {
-					console.log("Create memo if not yet present in CommonSense");
-					//csGetSensorData();
-					csCreateSensorData();
+					// create sensor, in csCreateSensor on success, noteDB will be called in
+					// csCreateSensorSuccessCB
+					console.log("Create memo block because it is not present in CommonSense");
+					csCreateSensor();
+					//console.log("And write immediately the first memo note");
+					//csCreateSensorData();
 				})
 				return;
 			}
 			console.log("Result (should be sensor_id) " + result);
-			wots.sensor_id = result;
+			setSensor(result);
 
 			// next step! create sensor data
 			updateSensorData();
 		}
 
 		sensorKnown = function(errcode, result) {
+			// on error, we have not sufficient local data, we need it from the server
 			if (errcode) {
 				if (!getSensor()) {
 					console.log("Do not call this function if sensor id is not known");
 					return;
 				}
-				console.log("Error: " + errcode);
-				if (errcode == localdb.ERR_EMPTY_TABLE || errcode == localdb.ERR_GENERAL) {
+				console.log("An (anticipated) error from the local db: " + errcode);
+				if ((errcode == localdb.ERR_EMPTY_TABLE) || (errcode == localdb.ERR_GENERAL)) {
 					if (!wots.sensor_id) {
 						console.error("Mmmm... we should have a sensor id here");
 						return;
 					}
+					console.log("Empty table or general error. Fill local database");
+					// we create the table itself
 					localdb.createMemos();
 					// create memo in database and call noteDB function again
 					console.log("Create memo with id " + wots.sensor_id + " in local database");
-					localdb.createMemo(wots.sensor_id, noteDB);
+					localdb.createMemo(wots.sensor_id, 
+							noteDB);
 				} else if (errcode == localdb.ERR_COMPARE) {
 					// just add memo, although there is already one there, perhaps person deleted it
 					// in the commonsense database
 					console.log("Create new memo in local database");
-					localdb.createMemo(wots.sensor_id, noteDB);
+					localdb.createMemo(wots.sensor_id, 
+							noteDB);
+				} else {
+					console.error("An unknown error! " + errcode);
 				}
 				return;
 			}
@@ -1570,18 +1578,24 @@ WotsApp.prototype = {
 		}
 
 		updateSensorData = function() {
-			console.log("Load sensor data");
+			console.log("First load sensor data from CommonSense");
 			loadSensorData();
 
+			console.log("Now write memo if necessary");
 			var index = 0;
 			csExistSensor(index, function() { 
-				console.log("Memo is present");	
+				console.log("Memo block is present. Write to CommonSense");	
+				// we have wots.memo through loadSensorData
+				// we now get current memo 
+				var memo = getCurrentMemo();
+				// we can now write all of it to CommonSense again
+				csCreateSensorData();
 			},
 			function() {
-				console.log("Create memo if not yet present in CommonSense");
+				console.log("Create memo note if not yet present in CommonSense");
 				//csGetSensorData();
 				csCreateSensorData();
-			})
+			});
 		}
 
 		queryNoteDB = function(tx) {
@@ -1795,7 +1809,7 @@ WotsApp.prototype = {
 		};
 
 		loginAsDevice = function() {
-            if (ble.getAddress() == null) return null;
+			if (ble.getAddress() == null) return null;
 			if (!deviceAvailable()) return null;
 			var email = "memo@"+ble.getAddress();
 			var password = 'memo:' + ble.getAddress();
@@ -1871,7 +1885,7 @@ WotsApp.prototype = {
 		};
 
 		csCreateSensorSuccessCB = function(result) {
-			var msg = "Sensor successfully created: " +  JSON.stringify(result);
+			var msg = "Sensor successfully created: " + JSON.stringify(result);
 			csMessage(msg, false);
 			// it is much safer to use a JSON parser, but for the purpose of example code:
 			var obj = eval('(' + result + ')');
@@ -1879,7 +1893,7 @@ WotsApp.prototype = {
 			if (exists) {
 				var msg = "Set sensor id: " + obj.sensor.id;
 				csMessage(msg, false);
-				wots.sensor_id = obj.sensor.id;
+				setSensor(obj.sensor.id);
 				noteDB();
 			} else {
 				var msg = "Response couldn't be parsed or does not have sensor id field";
@@ -1887,6 +1901,9 @@ WotsApp.prototype = {
 			}
 		};
 
+		/*
+		 * Check if there is a specific sensor with known id. This is coupled to the index of the memo page.
+		 */
 		csExistSensor = function(index, successCB, errorCB) {
 			console.log("Get sensors");
 			var data = {};
@@ -1899,9 +1916,10 @@ WotsApp.prototype = {
 					//console.log("Sensor: ", sensor);
 					if (sensor.name === "memo") {
 						if (sensor.display_name === search_term) {
-							console.log("Found sensor!");
-							wots.sensor_id = sensor.id;
+							console.log("Found sensor with id " + sensor.id);
+							setSensor(sensor.id);
 							successCB();
+							return;
 						} else {
 							console.log("Found memo sensor, but with different id");
 							console.log("Compared " + sensor.display_name + " with " + search_term);
@@ -1910,22 +1928,23 @@ WotsApp.prototype = {
 					}	
 				}
 				errorCB();
-			},
-				generalErrorCB);			
+			}, generalErrorCB);			
 		}
-		/*
-		   csGetSensors = function() {
-		   console.log("Get sensors");
-		   var data = {};
-		   sense.sensors(data, csGetSensorsSuccessCB, generalErrorCB);
-		   }
 
-		   csGetSensorsSuccessCB = function(result) {
-		   console.log("Found sensors", result);
-		   }
-		   */
+		/*	
+		csGetSensors = function() {
+			console.log("Get sensors");
+			var data = {};
+			sense.sensors(data, csGetSensorsSuccessCB, generalErrorCB);
+		}
+
+		csGetSensorsSuccessCB = function(result) {
+			console.log("Found sensors", result);
+		}
+		*/
+
 		csCreateSensorData = function() {
-			var msg = "Write new memo to CommonSense database";
+			var msg = "Write new memo note to CommonSense database";
 			csMessage(msg, false);
 			if (!wots.sensor_id) {
 				console.log("There is no sensor id stored");
@@ -1984,24 +2003,57 @@ WotsApp.prototype = {
 			memo_id = (memo_id + wots.memos.length + 1) % wots.memos.length;
 			displaySensorData(memo_id);
 		};
-		/*
-		   csGetSensorData = function(index) {
-		   if (!wots.sensor_id) {
-		   console.log("There is no sensor id stored");
-		   return;
-		   }
-		   var sensor_id = wots.sensor_id;
-		   var memo_id = getCurrentMemoId();
-		   var data = {};
-		   console.log("Get sensor data from CommonSense");
-		   sense.sensorData(sensor_id, data, csGetSensorDataSuccessCB, generalErrorCB);
-		   };
 
-		   csGetSensorDataSuccessCB = function(result) {
 
-		   console.log(result);
-		   };
-		   */
+	/*	// there is already loadData
+		csGetSensorData = function() {
+			if (!wots.sensor_id) {
+				console.log("There is no sensor id stored");
+				return;
+			}
+			var sensor_id = wots.sensor_id;
+			var memo_id = getCurrentMemoId();
+			var data = {};
+			console.log("Get sensor data from CommonSense");
+			sense.sensorData(sensor_id, data, function successCB() {
+				console.log("Retrieved data: " + JSON.stringify(data));
+			}, 
+			generalErrorCB);
+		};
+
+		csGetSensorDataSuccessCB = function(result) {
+			console.log(result);
+		};
+*/
+		/* // there is loadData ... 
+		csExistSensorData = function(index, page, successCB, errorCB) {
+			console.log("Get sensors");
+			var data = {};
+			sense.sensors(data, function(result) {
+				var obj = JSON.parse(result);
+				var search_term = "Memo" + index;
+				//console.log("Result existence: ", obj.sensors); 
+				for (var i = 0; i < obj.sensors.length; i++) {
+					var sensor = obj.sensors[i];
+					//console.log("Sensor: ", sensor);
+					if (sensor.name === "memo") {
+						if (sensor.display_name === search_term) {
+							console.log("Found sensor with id " + sensor.id);
+							setSensor(sensor.id);
+							successCB();
+							return;
+						} else {
+							console.log("Found memo sensor, but with different id");
+							console.log("Compared " + sensor.display_name + " with " + search_term);
+							continue;
+						}
+					}	
+				}
+				errorCB();
+			}, generalErrorCB);			
+		}
+		*/	
+		   
 		getCurrentMemo = function() {
 			var memoId = getCurrentMemoId();
 			if (!wots.memos) {
@@ -2025,6 +2077,7 @@ WotsApp.prototype = {
 		};
 
 		displaySensorData = function(page) {
+			console.log("Go to memo page: " + page);
 			if (!wots.memos) {
 				console.log("There is no array of memos");
 				return;
@@ -2039,7 +2092,7 @@ WotsApp.prototype = {
 				console.log("There is no sensor data, drop out");
 				return;
 			}
-			console.log(sensor);
+			console.log("Display sensor: " + JSON.stringify(sensor));
 			var memo = eval('(' + sensor.value + ')');
 			console.log("Memo", memo);
 			$('#memoText').val(memo.text);
@@ -2062,6 +2115,9 @@ WotsApp.prototype = {
 			console.log("Error?", result);
 		};
 
+		/**
+		 * Get the data from the CommonSense database
+		 */
 		loadSensorData = function() {
 			var param = {};
 			var sensor_id = wots.sensor_id;
@@ -2072,6 +2128,9 @@ WotsApp.prototype = {
 			sense.sensorData(sensor_id, param, loadSensorDataSuccessCB, generalErrorCB);
 		};
 
+		/**
+		 * Update the data in wots.memos.
+		 */
 		loadSensorDataSuccessCB = function(result) {
 			if (!result) {
 				console.log("Error: no data returned, while it stated to be successful...");
@@ -2081,7 +2140,7 @@ WotsApp.prototype = {
 
 			// fill array with memo's
 			var obj = eval('(' + result + ')');
-			console.log("Store array", obj);
+			console.log("Store array of memos: " + JSON.stringify(obj));
 
 			if (!obj.data) {
 				console.log("Memo array should be wrapped into a data field");

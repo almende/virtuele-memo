@@ -20,15 +20,20 @@ var LocalDB = (function () {
 
 	// private variables
 
+	var suki_hack = true;
+
 	var db;
 
 	donotProcess = function(result, callback, cargs) {
 		if (typeof(callback) == "function") {
 			callback(result, cargs);
 		} else {
-			console.log("Error, callback not defined. Result will get lost");
+			console.log("Error, callback not defined. Result " + JSON.stringify(result) + " will get lost");
 		}
 	};
+
+	noCallback = function(args) {
+	}
 
 	processFirst = function(results, param, callback, cargs) {
 		// TODO check for proper fields
@@ -138,11 +143,16 @@ var LocalDB = (function () {
 	api.init = function(database) {
 		db = database;
 	}
-	
-	api.SUCCESS = 0;
-	api.ERR_EMPTY_TABLE = 1;
-	api.ERR_FIELD_ABSENT = 2;
-	api.ERR_COMPARE = 3;
+
+	/**
+	 * Error fields for external use
+	 */
+
+	api.SUCCESS = SUCCESS;
+	api.ERR_GENERAL = ERR_GENERAL;
+	api.ERR_EMPTY_TABLE = ERR_EMPTY_TABLE;
+	api.ERR_FIELD_ABSENT = ERR_FIELD_ABSENT;
+	api.ERR_COMPARE = ERR_COMPARE;
 	
 	/**
 	 * Create table for users
@@ -196,8 +206,10 @@ var LocalDB = (function () {
 	 * Check if a specific memo exists with field "sensor_id" equal to the parameter value sensor_id
 	 */
 	api.existMemo = function(sensor_id, callback, cargs) {
-        api.createMemos();
-        var query =  'SELECT * FROM NOTES';
+		if (suki_hack) {
+        		api.createMemos(noCallback);
+		}
+		var query =  'SELECT * FROM NOTES';
 		var param = [];
 		var pargs = {
 			key: 'sensor_id',
@@ -210,7 +222,9 @@ var LocalDB = (function () {
 	 * Get a random memo from the database.
 	 */
 	api.getMemo = function(callback, cargs) {
-        api.createMemos();
+		if (suki_hack) {
+        		api.createMemos(noCallback);
+		}
 		var query =  'SELECT * FROM NOTES';
 		var param = [];
 		var pargs = {
@@ -228,26 +242,26 @@ var LocalDB = (function () {
 		queryDB(query, param, donotProcess, callback, cargs);
 	}
 
-    /**
-     * Create table for memos
-     */
-    api.removeMemos = function(callback, cargs) {
-        var query = 'DROP TABLE IF EXISTS NOTES';
-        var param = [];
-        queryDB(query, param, donotProcess, callback, cargs);
-    }
-
+	/**
+	 * Delete table for memos
+	 */
+	api.removeMemos = function(callback, cargs) {
+		var query = 'DROP TABLE IF EXISTS NOTES';
+		var param = [];
+		queryDB(query, param, donotProcess, callback, cargs);
+	}
 
 	/**
 	 * Check if any memo does exist
 	 */
 	api.existMemos = function(callback, cargs) {
-        api.createMemos();
-        var query =  'SELECT * FROM NOTES';
+		if (suki_hack) {
+        		api.createMemos(noCallback); // Anne: sure, then this function is pretty useless...
+		}
+        	var query =  'SELECT * FROM NOTES';
 		var param = [];
 		queryDB(query, param, donotProcess, callback, cargs);
 	}
-
 
 	return api;
 }());
