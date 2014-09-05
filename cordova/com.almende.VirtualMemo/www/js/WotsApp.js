@@ -670,7 +670,7 @@ WotsApp.prototype = {
 			} 
 
 			if (address) {
-				$('#connection').text('Magneet ' + address);
+				$('#connection').text('Magneet ' + ble.getAddress());
 				if (wots.address === address) {
 					//console.log("Address is already known");
 				} else {
@@ -1271,7 +1271,7 @@ WotsApp.prototype = {
 
 		accountDB = function(callback) {
 			if (!wots.db) {
-				wots.db = window.openDatabase("memo1", "1.0", "Memo", 1000000);
+				wots.db = window.openDatabase("memo5", "1.0", "Memo", 1000000);
 				localdb.init(wots.db);
 			}
 			if (testing) {
@@ -1366,7 +1366,7 @@ WotsApp.prototype = {
 		standsDB = function(callback) {
 			console.log("Get stands from database");
 			if (!wots.db) {
-				wots.db = window.openDatabase("memo1", "1.0", "Memo", 1000000);
+				wots.db = window.openDatabase("memo5", "1.0", "Memo", 1000000);
 				localdb.init(wots.db);
 			}
 
@@ -1429,7 +1429,7 @@ WotsApp.prototype = {
 
 		standsUpdateDB = function(callback) {
 			if (!wots.db) {
-				wots.db = window.openDatabase("memo1", "1.0", "Memo", 1000000);
+				wots.db = window.openDatabase("memo5", "1.0", "Memo", 1000000);
 				localdb.init(wots.db);
 			}
 
@@ -1469,6 +1469,7 @@ WotsApp.prototype = {
 				localdb.init(wots.db);
                 if (testing) {
                     wots.db.removeMemos();
+                    wots.db.createMemos();
                 }
 			}
 			var sensor_id = getSensor();
@@ -1776,9 +1777,10 @@ WotsApp.prototype = {
 		};
 
 		loginAsDevice = function() {
+            if (ble.getSerialNumberCharacteristicUuid() == null) return null;
 			if (!deviceAvailable()) return null;
-			var email = wots.address;
-			var password = 'MEMO:' + wots.address;
+			var email = ble.getSerialNumberCharacteristicUuid();
+			var password = 'MEMO:' + ble.getSerialNumberCharacteristicUuid();
 			password = CryptoJS.MD5(password).toString();
 			return { 'email': email, 'password': password };
 		}
