@@ -26,6 +26,10 @@ var BLEHandler = function() {
 	var memoBug0_callback = null;
 	var memoBug0_cargs = null;
 	
+	var discover_all = false;
+
+	var devices = {};
+
 	/**
 	 * Initialization tries to connect to the BLE chip on the phone. If successful, a scan is started. If there is
 	 * an "address" stored at local memory, we will use that to scan. If the scan is successful we connect to the
@@ -36,7 +40,7 @@ var BLEHandler = function() {
 	}
 
 	self.connectDevice = function(address) {
-		console.log("Begining connection to: " + address + " with 5 second timeout");
+		console.log("Connect to " + address + " with 5 second timeout");
 		var paramsObj = {"address": address};
 		bluetoothle.connect(self.connectSuccess, self.connectError, paramsObj);
 		self.connectTimer = setTimeout(self.connectTimeout, 5000);
@@ -156,9 +160,14 @@ var BLEHandler = function() {
 	self.startScanSuccess = function(obj) {
 		if (obj.status == 'scanResult') {
 			console.log('Yes, we are successful and found a device in our scan');
-			bluetoothle.stopScan(self.stopScanSuccess, self.stopScanError);
-			self.clearScanTimeout();
-			self.connectDevice(obj.address);
+			if (discover_all) {
+				console.log("Found device: " + obj.address);
+				devices[devices.length] = obj;
+			} else {
+				bluetoothle.stopScan(self.stopScanSuccess, self.stopScanError);
+				self.clearScanTimeout();
+				self.connectDevice(obj.address);
+			}
 		} else if (obj.status == 'scanStarted') {
 			//console.log('Scan was started successfully, stopping in 10 seconds');
 			self.scanTimer = setTimeout(self.scanTimeout, 10000);
@@ -169,7 +178,28 @@ var BLEHandler = function() {
 			self.clearScanTimeout();
 		}
 	}
-	
+
+	/**
+	 * Discover all devices. This means that stopScan should not be called after the first successful find of a 
+	 * device, but we should continue finding all devices.
+	*/
+	self.discoverAll = function(enable) {
+		discover_all = enable;
+		/*
+		bluetoothle.isScanning(function(obj) {
+			if (obj.isScanning) {
+				bluetoothle.stopScan(..,..);
+			} else {
+
+			}
+		});
+		*/
+	}
+
+	self.getAllDevices = function() {
+		return devices;
+	}
+
 	self.getAddress = function() {
 		var address = window.localStorage.getItem(self.addressKey);
 		if (address) {
@@ -186,6 +216,11 @@ var BLEHandler = function() {
 	}
 	
 	self.scanTimeout = function() {
+		/*
+		if (discover_all) {
+			discover_all = false;
+		}
+		*/
 		//console.log('Scanning timed out, stop scanning');
 		bluetoothle.stopScan(self.stopScanSuccess, self.stopScanError);
 	}
@@ -217,8 +252,12 @@ var BLEHandler = function() {
 		console.log('Status: ' + JSON.stringify(obj.status));
 		if (obj.status == 'initialized') {
 			var address = window.localStorage.getItem(addressKey);
-			if (address == null) {
-				console.log('No address known, so start scan');
+			if (!address || discover_all) {
+				if (!address) {
+					console.log('No address known, so start scan');
+				} else {
+					console.log("Start scan because of discover all flag");
+				}
 				var paramsObj = {};
 				if (window.device.platform == iOSPlatform) {
 					// iOS implements an OR operation, either of the Uuids found is okay

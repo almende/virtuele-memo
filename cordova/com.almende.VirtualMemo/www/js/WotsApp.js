@@ -119,6 +119,8 @@ WotsApp.prototype = {
 			}    
 		});
 
+		var update_memo_overview = false;
+
 		var testing = false;
 		var test_sense = false;
 		var delete_mysql_stands = false;
@@ -789,6 +791,55 @@ WotsApp.prototype = {
 		memoOverviewPage = function() {
 			console.log("Memo overview page. Register new user, or adapt user registration details");
 			$.mobile.changePage("#memoOverviewPage", {transition:'slide', hashChange:true});
+		}
+
+		$('#memoOverviewPage').on('pagebeforeshow',function(event) { 
+			console.log("Start querying for multiple memos");
+			ble.discoverAll(true);
+			update_memo_overview = true;
+			updateMemoOverview();
+		});
+		
+		$('#memoOverviewPage').on('pagebeforehide',function(event) { 
+			console.log("Stop querying for multiple memos. Resume normal operation.");
+			update_memo_overview = false;
+			ble.discoverAll(false);
+		});
+
+		updateMemoOverview = function() {
+			if (!update_memo_overview) return;
+
+			var devices = ble.getAllDevices();
+			console.log("We found the devices: " + JSON.stringify(devices));
+			if (devices && devices.length) { 
+				// just clear list, todo: check if devices changed... and only update changed ones
+				$('#memoNoteSet ul').empty();
+
+				for (var i = 0; i < devices.length; i++) {
+					console.log("Add device: " + JSON.stringify(devices[i]));
+					var $li = $('<li/>');
+					var $memodiv = $('<div/>', {'id': 'memoNoteMini', 'data-memo-overview-id': i});
+					var $memocaptiontext = $('<p/>').text("memo " + i);
+					var $memocaption = $('<div/>', {'id': 'memoBriefCaption' });
+					var $memoheader = $('<div/>', {'id': 'memoHeaderCenter'});
+					var memodelete = '<a href="#deleteMemoBlock" id="deleteMemoBlock" data-role="button"' +
+						'data-icon="delete" data-iconpos="notext" data-transition="none"></a>';
+					var memoalert = '<a href="#sendAlert" id="sendAlert" data-role="button"' +
+						'data-icon="check" data-iconpos="notext" data-transition="none"></a>';
+					$memoheader.append(memodelete);
+					$memoheader.append(memoalert);
+
+					$memocaption.append($memocaptiontext);
+					$memodiv.append($memocaption);
+					$memodiv.append($memoheader);
+					$li.append($memodiv);
+					$('#memoNoteSet ul').append($li);
+				}
+			}
+
+			setTimeout(function () {
+				updateMemoOverview();
+			}, 3000); 
 		}
 
 		/*******************************************************************************************************
