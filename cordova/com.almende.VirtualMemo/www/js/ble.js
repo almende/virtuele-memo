@@ -28,7 +28,7 @@ var BLEHandler = function() {
 	
 	var discover_all = false;
 
-	var devices = {};
+	var devices = [];
 
 	/**
 	 * Initialization tries to connect to the BLE chip on the phone. If successful, a scan is started. If there is
