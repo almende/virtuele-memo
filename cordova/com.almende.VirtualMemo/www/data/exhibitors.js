@@ -178,7 +178,7 @@
 	"standnumber":"9B.057",
 	"name":"Eurocircuits",
 	"description":"Eurocircuits - PCB prototypes en kleine series tem 16 lagen, beschikbaar via een gestroomlijnde en eenvoudige 'Online one-stop shop'.",
-	"logo":"Eurocircuits.jpg",
+	"logo":"Eurocircuits.png",
 	"address":"Antwerpsesteenweg 66, 2800 Mechelen, België",
 	"tel": "+32 15 28 16 30",
 	"website": "www.eurocircuits.com",

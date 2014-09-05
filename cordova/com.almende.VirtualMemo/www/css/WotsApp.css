@@ -18,11 +18,22 @@
 	width:50%; 
 }
 
+.allExhibitorLogo {
+	display: block;
+	max-width: 80%;
+	max-height: 100px;
+	width: auto;
+	height: auto;
+	margin: auto; // enable centering
+}
+
+/*
 .scaleLogo {
 	width:60%;
 	height:100px;
 	overflow:hidden;
 }
+*/
 
 body.phonegap-ios-7 {
 	margin-top: 20px;
