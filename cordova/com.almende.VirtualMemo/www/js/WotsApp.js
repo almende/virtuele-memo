@@ -836,7 +836,7 @@ WotsApp.prototype = {
 					var $memoheader = $('<div/>', {'id': 'memoHeaderCenter'});
 					var $memodelete = $('<a href="#deleteMemoBlock" id="deleteMemoBlock" data-role="button"' +
 						'data-icon="delete" data-iconpos="notext" data-transition="none" class="menu-button"></a>');
-					var $memoalert = $('<a href="#sendAlert" id="sendAlert" data-role="button"' +
+					var $memoalert = $('<a href="#sendAlert" id="sendAlert_'+i+'" data-role="button"' + ' data-id="'+address+'" '+
 						'data-icon="check" data-iconpos="notext" data-transition="none" class="menu-button-right"></a>');
 					$memoheader.append($memodelete);
 					$memoheader.append($memoalert);
@@ -846,7 +846,28 @@ WotsApp.prototype = {
 					$memodiv.append($memoheader);
 					$li.append($memodiv);
 					$('#memoListView').append($li).trigger('create');
-					i++;
+
+                    /*******************************************************************************************************
+                     * The functionality to communicate over Bluetooth Low-Energy
+                     ******************************************************************************************************/
+
+                        // coupling with a button is simple through an on-click event through jQuery
+                    $('#sendAlert_'+i).on("click", function(event) {
+                        // select a new memo
+                        console.log('Clicked on memo #'+i);
+                        var address = $(this).attr('data-id');
+                        if (wots.address != address) {
+                            ble.setAddress(address);
+                            //wots.address = address;
+                        }
+                        console.log('Send alert from the GUI');
+                        ble.writeAlertLevel("high");
+                        setTimeout(function stopAlert() {
+                            ble.writeAlertLevel("low");
+                        }, 5000);
+                    });
+
+                    i++;
 				}
 			}
 
@@ -856,25 +877,6 @@ WotsApp.prototype = {
 				updateMemoOverview();
 			}, 3000); 
 		}
-
-		/*******************************************************************************************************
-		 * The functionality to communicate over Bluetooth Low-Energy
-		 ******************************************************************************************************/
-
-		// coupling with a button is simple through an on-click event through jQuery
-		$('#sendAlert').on('click', function(event) {
-			// select a new memo
-			var address = $(this).attr('data-id');
-			if (wots.address != address) {
-				ble.setAddress(address);
-				//wots.address = address;
-			}
-			console.log('Send alert from the GUI');
-			ble.writeAlertLevel("high");
-			setTimeout(function stopAlert() {
-				ble.writeAlertLevel("low");
-			}, 5000); 
-		});
 
 		/*******************************************************************************************************
 		 * The guide that explains the treasure hunt on the WOTS conference
