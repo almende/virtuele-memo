@@ -206,6 +206,14 @@ var BLEHandler = function() {
 		return devices;
 	}
 
+	self.setAddress = function(address) {
+		console.log("Set address to: " +  address);
+		window.localStorage.setItem(addressKey, address);
+		self.disconnectDevice(function() {
+			self.connectDevice(address);
+		});
+	}
+
 	self.getAddress = function() {
 		var address = window.localStorage.getItem(addressKey);
 		if (address) {
@@ -247,7 +255,11 @@ var BLEHandler = function() {
 	}
 
 	self.startScanError = function(obj) {
-		console.log('Scan error' + JSON.stringify(obj.status));
+		if (obj.status) {
+			console.log('Scan error: ' + JSON.stringify(obj.status));
+		} else {
+			console.log('Undefined scan error');
+		}
 		/*		navigator.notification.alert(
 			'Could not find a device using Bluetooth scanning.',
 			null,
@@ -528,8 +540,10 @@ var BLEHandler = function() {
 	readSuccesshle.read(readSuccess, readError, paramsObj);
 	}
 	
-	self.disconnectDevice = function() {
-		bluetoothle.disconnect(self.disconnectSuccess, self.disconnectError);
+	self.disconnectDevice = function(disconnectSuccessCB, disconnectErrorCB) {
+		var discError = disconnectErrorCB || self.disconnectError;
+		var discSuccess = disconnectSuccessCB || self.disconnectSuccess;
+		bluetoothle.disconnect(discSuccess, discError);
 	}
 	
 	self.disconnectSuccess = function(obj)

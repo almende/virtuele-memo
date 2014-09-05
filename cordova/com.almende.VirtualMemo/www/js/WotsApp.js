@@ -863,6 +863,12 @@ WotsApp.prototype = {
 
 		// coupling with a button is simple through an on-click event through jQuery
 		$('#sendAlert').on('click', function(event) {
+			// select a new memo
+			var address = $(this).attr('data-id');
+			if (wots.address != address) {
+				ble.setAddress(address);
+				//wots.address = address;
+			}
 			console.log('Send alert from the GUI');
 			ble.writeAlertLevel("high");
 			setTimeout(function stopAlert() {
