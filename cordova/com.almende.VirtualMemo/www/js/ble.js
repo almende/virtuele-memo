@@ -414,7 +414,7 @@ var BLEHandler = function() {
 				var characteristicUuid = characteristicUuids[i];
 
 				if (characteristicUuid == alertLevelCharacteristicUuid) {
-					self.writeAlertLevel(defaultAlertLevel);
+					self.writeAlertLevel(defaultAlertLevel, 1000);
 					//self.readLinkLoss();
 					return;
 					//var paramsObj = {"serviceUuid": self.alertLevelServiceUuid, "characteristicUuid": self.alertLevelCharacteristicUuid};
@@ -464,7 +464,7 @@ var BLEHandler = function() {
 		{
 			console.log("Discovery completed");
 
-			self.writeAlertLevel(defaultAlertLevel);
+			self.writeAlertLevel(defaultAlertLevel, 1000);
 		}
 		else
 		{
@@ -482,7 +482,7 @@ var BLEHandler = function() {
 	/**
 	 * Write the alert level, can be "high", "middle", or "low".
 	 */
-	self.writeAlertLevel = function(level) {
+	self.writeAlertLevel = function(level, durationInMs) {
             if (memoBug0) {
                 if (!self.memoBug0_exec) {
                     self.memoBug0_callback = self.writeAlertLevel;
@@ -511,6 +511,10 @@ var BLEHandler = function() {
             console.log("Write alert level " + level + " (encoded as " + v + ") at service " + alertLevelServiceUuid + ' and characteristic ' + alertLevelCharacteristicUuid);
             var paramsObj = {"serviceUuid": alertLevelServiceUuid, "characteristicUuid": alertLevelCharacteristicUuid, "value": v };
             bluetoothle.write(self.writeAlertLevelSuccess,console.log,paramsObj);
+            if (durationInMs !== undefined)
+                setTimeout(function () {
+                    self.writeAlertLevel("low");
+                }, durationInMs);
         }
 
 	
