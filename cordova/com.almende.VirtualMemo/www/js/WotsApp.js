@@ -48,7 +48,7 @@ WotsApp.prototype = {
 
 		var ble = new BLEHandler();
 
-        var iBeacon = new iBeaconHandler();
+		var iBeacon = new iBeaconHandler();
 
 		var sense = SenseAPI;
 
@@ -56,7 +56,7 @@ WotsApp.prototype = {
 
 		var crypto = CryptoJS;
         
-        var iBeaconUuid = '2ca36943-7fde-4f4e-9c08-dda29f079349';
+		var iBeaconUuid = '2ca36943-7fde-4f4e-9c08-dda29f079349';
 
 		$.ajaxSetup({ cache: false });
 
@@ -119,24 +119,9 @@ WotsApp.prototype = {
 			}    
 		});
 
-		/*
-		var region = new ibeacon.Region({
-			uuid: '2CA36943-7FDE-4F4E-9C08-DDA29F079349'
-		});
-
-		ibeacon.startRangingBeaconsInRegion({
-			region: region,
-			didRangeBeacons: function(result) {
-				console.log('I see ' + result.beacons.length + ' beacons');
-				if (result.beacons.length === 1) {
-					console.log('Details: ' + JSON.stringify(result.beacons[0]));
-				}
-			}
-		});
-		*/
-
 		var testing = false;
 		var test_sense = false;
+		var delete_mysql_stands = false;
 
 		// This option makes use of the CommonSense database in the way suggested by Sense itself. 
 		// It creates a user for every device. 
@@ -155,9 +140,9 @@ WotsApp.prototype = {
 			// congratsPage();
 			// allExhibitorsPage();
 			// guideHomePage();
-			registerPage();
+			// registerPage();
 			// memoOverviewPage();
-            //memoPage();
+			memoPage();
 		}
 
 		init = function() {
@@ -177,6 +162,8 @@ WotsApp.prototype = {
 				console.log("Just disable the device-as-user option");
 				device_as_user = false;
 			}
+			// For testing purposes
+			//delete_mysql_stands = true;
 			//testing = true;
 			
 			console.log("Users should be able to decide their own order in following stands");
@@ -281,7 +268,11 @@ WotsApp.prototype = {
         
 		showList = function() {
 			console.log("Showing list");
-			iBeacon.scanForIBeacons(refreshByBeacon);
+			if (typeof iBeacon.scanForIBeacons != 'undefined') {
+				iBeacon.scanForIBeacons(refreshByBeacon);
+			} else {
+				updateList(undefined);
+			}
 		}
 
 		updateList = function(nearestStand) {
@@ -305,6 +296,8 @@ WotsApp.prototype = {
 			var route_exhibitors = [];
 
 			// find exhibitor information for the route
+			console.log("Establish route of length " + wots.route.length + " out of " + 
+					wots.exhibitors.length + " participants in total");
 			for (var r = 0; r < wots.route.length; r++) {
 				var exhibitor;
 				for (var c = 0; c < wots.exhibitors.length; c++) {
@@ -373,6 +366,11 @@ WotsApp.prototype = {
 					enabledClass = "taskNear";
 				}
 				console.log("Add exhibitor to the list with name " + exhibitor.name + " and id " + exhibitor.id);
+
+				var subtitle = exhibitor.oneliner;
+				if (!subtitle || (subtitle == "")) {
+					subtitle = exhibitor.description;
+				}
 				$(exhibitorList)
 					.append($('<li/>', { "class":doneClass + ' ' + enabledClass })
 							.append($('<a/>', {
@@ -381,7 +379,7 @@ WotsApp.prototype = {
 								'data-id':exhibitor.id
 							})
 								.append('<span>' + exhibitor.name + '</span>')
-								.append('<p>' + exhibitor.oneliner + '</p>')
+								.append('<p>' + subtitle + '</p>')
 							       )
 					       );
 			} // End for-loop
@@ -445,6 +443,10 @@ WotsApp.prototype = {
 					if (typeof exhibitor.oneliner == 'undefined') {
 						exhibitor.oneliner = '';
 					}
+					var subtitle = exhibitor.oneliner;
+					if (!subtitle || (subtitle == "")) {
+						subtitle = exhibitor.description;
+					}
 					allExhibitorsList.append($('<li/>', "class:taskDownSelf taskEnabled")
 						.append(
 							$('<a/>', {
@@ -453,7 +455,7 @@ WotsApp.prototype = {
 								'data-id':exhibitor.id
 							})
 							.append('<span>' + exhibitor.name + '</span>')
-							.append('<p>' + exhibitor.oneliner + '</p>')
+							.append('<p>' + subtitle + '</p>')
 						       )
 						);
 				}
@@ -501,11 +503,17 @@ WotsApp.prototype = {
 				if (exhibitor.name) {
 					$('#allExhibitorsDetailsPage .ui-title').text(exhibitor.name);
 				}
+				if (exhibitor.description) {
+					$('#allExhibitorDescription').text(exhibitor.description);
+				}
 				if (exhibitor.address) {
 					$('#allExhibitorAddress').text(exhibitor.address);
 				}
 				if (exhibitor.tel) {
-					$('#allExhibitorTel').text('tel:' + exhibitor.tel);
+					var spaceless_tel = exhibitor.tel.replace(/\s+/g, '');
+					var clickable_tel = '<a href="tel:' + spaceless_tel + '">tel: ' + 
+						exhibitor.tel + '</a>';
+					$('#allExhibitorTel').html(clickable_tel);
 				}
 				if (exhibitor.website) {
 					$('#allExhibitorWebsite').html('<a href="' + exhibitor.website + '">' +
@@ -557,6 +565,11 @@ WotsApp.prototype = {
 						console.log("There is no participant code set, something went wrong?");
 					} else {
 						$('#questionReminderParticipantCode').text("Deelnemercode: " + wots.participantCode);
+						if (exhibitor.passcode) {
+							$('#questionReminderPassCode').text("Pincode: " + exhibitor.passcode);
+						} else {
+							$('#questionReminderPassCode').text("");
+						}
 					}
 				}
 			} else {
@@ -655,7 +668,7 @@ WotsApp.prototype = {
 			} 
 
 			if (address) {
-				$('#connection').text('Magneet ' + address);
+				$('#connection').text('Magneet ' + ble.getAddress());
 				if (wots.address === address) {
 					//console.log("Address is already known");
 				} else {
@@ -1207,7 +1220,7 @@ WotsApp.prototype = {
 
 		accountDB = function(callback) {
 			if (!wots.db) {
-				wots.db = window.openDatabase("memo1", "1.0", "Memo", 1000000);
+				wots.db = window.openDatabase("memo5", "1.0", "Memo", 1000000);
 				localdb.init(wots.db);
 			}
 			if (testing) {
@@ -1302,7 +1315,7 @@ WotsApp.prototype = {
 		standsDB = function(callback) {
 			console.log("Get stands from database");
 			if (!wots.db) {
-				wots.db = window.openDatabase("memo1", "1.0", "Memo", 1000000);
+				wots.db = window.openDatabase("memo5", "1.0", "Memo", 1000000);
 				localdb.init(wots.db);
 			}
 
@@ -1317,7 +1330,10 @@ WotsApp.prototype = {
 		 * Create new database table if it does not exist yet, and query or create the stand owner information.
 		 */
 		queryStandsDB = function(tx) {
-			tx.executeSql('CREATE TABLE IF NOT EXISTS STANDS (id, status)');
+			if (delete_mysql_stands) {
+				tx.executeSql('DROP TABLE IF EXISTS STANDS');
+			}
+			tx.executeSql('CREATE TABLE IF NOT EXISTS STANDS (id, status, passcode)');
 			tx.executeSql('SELECT * FROM STANDS', [], queryStandsSuccess, errorCB);
 		}
 
@@ -1348,12 +1364,13 @@ WotsApp.prototype = {
 					}
 				}
 				if (!found) {
-					//console.log("Add stand holder " + id);
+					console.log("Add stand holder " + id);
 					wots.exhibitors[c].status = 'undefined';
 					var status = wots.exhibitors[c].status;
-					//console.log("With status: " + status); 
-					tx.executeSql('INSERT INTO STANDS (id, status) VALUES ("' + id + '","' + 
-								status + '")');
+					var passcode = wots.exhibitors[c].passcode;
+					console.log("With status: " + status + " and passcode " + passcode); 
+					tx.executeSql('INSERT INTO STANDS (id, status, passcode) VALUES ("' + id + '","' + 
+								 status + '","' + passcode + '")');
 				}
 			}
 			return true;
@@ -1361,7 +1378,7 @@ WotsApp.prototype = {
 
 		standsUpdateDB = function(callback) {
 			if (!wots.db) {
-				wots.db = window.openDatabase("memo1", "1.0", "Memo", 1000000);
+				wots.db = window.openDatabase("memo5", "1.0", "Memo", 1000000);
 				localdb.init(wots.db);
 			}
 
@@ -1377,11 +1394,17 @@ WotsApp.prototype = {
 		 */
 		queryStandsUpdateStatus = function(tx, results) {
 			var exhibitor = wots.exhibitorsById[wots.selectedExhibitorId];
-			if (!exhibitor) return false;
+			if (!exhibitor) {
+				console.error("Something wrong. Want to update exhibitor, but it doesn't exist!");
+				return false;
+			}
 
 			var id = exhibitor.id;
 			var status = exhibitor.status;
-			tx.executeSql('UPDATE STANDS SET status="' + status + '" WHERE id="' + id + '"');
+			var passcode = exhibitor.passcode;
+			console.log("Update stand holder " + id + " with passcode " + passcode);
+			tx.executeSql('UPDATE STANDS SET status="' + status 
+					+ '", passcode="' + passcode + '" WHERE id="' + id + '"');
 			return true;
 		}
 
@@ -1395,6 +1418,7 @@ WotsApp.prototype = {
 				localdb.init(wots.db);
                 if (testing) {
                     wots.db.removeMemos();
+                    wots.db.createMemos();
                 }
 			}
 			var sensor_id = getSensor();
@@ -1556,11 +1580,12 @@ WotsApp.prototype = {
 			console.log(" with stand letter ", letter);
 			var success = checkPasscode(letter, wots.passcode);
 			if (success) {
-				// clear code
-				$('#passcode').val('');
 				// update status and go back to main screen
 				console.log("Update status of " + exhibitor.name + " as fulfilled");
 				exhibitor.status = "done";
+				exhibitor.passcode = wots.passcode; 
+				// clear code
+				$('#passcode').val('');
 				standsUpdateDB();
 				wotsPage();
 			}
@@ -1701,9 +1726,10 @@ WotsApp.prototype = {
 		};
 
 		loginAsDevice = function() {
+            if (ble.getSerialNumberCharacteristicUuid() == null) return null;
 			if (!deviceAvailable()) return null;
-			var email = wots.address;
-			var password = 'MEMO:' + wots.address;
+			var email = ble.getSerialNumberCharacteristicUuid();
+			var password = 'MEMO:' + ble.getSerialNumberCharacteristicUuid();
 			password = CryptoJS.MD5(password).toString();
 			return { 'email': email, 'password': password };
 		}

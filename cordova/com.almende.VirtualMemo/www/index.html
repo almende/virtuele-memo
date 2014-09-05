@@ -216,14 +216,16 @@ window.onload = function () {
 	</div>
 
 	<div>
-		<div class="scaleLogo">
-		<img class="allExhibitorLogo" src="logos/600-width/almendedefRGB.png" id="allExhibitorLogo" align="center"></img>
+		<p text-align="center">
+			<img class="scaledLogo" src="logos/600-width/almendedefRGB.png" id="allExhibitorLogo"></img>
+		</p>
+		<div id="leftmargin">
+			<p id="allExhibitorDescription"</p>
+			<p id="allExhibitorAddress"></p>
+			<p id="allExhibitorTel"></p>
+			<p id="allExhibitorWebsite"></p>
+			<p id="allExhibitorEmail"></p>
 		</div>
-		<p id="allExhibitorDescription"</p>
-		<p id="allExhibitorAddress"></p>
-		<p id="allExhibitorTel"></p>
-		<p id="allExhibitorWebsite"></p>
-		<p id="allExhibitorEmail"></p>
 	</div>
 
 	<div data-role="panel" class="virtualMemoPanel" data-display="reveal" data-theme="b">
@@ -241,17 +243,18 @@ window.onload = function () {
 	<div id="questionLayer">
 		<div id="questionShield"></div>
 		<p id="questionReminderParticipantCode" align="right"></p>
+		<p id="questionReminderPassCode" align="right"></p>
 		<div id="questionItself">
 			<h2>IJsbrekervraag</h2>
 			<p id="questionParagraph">In welke stad is Almende gevestigd?</p>
 		</div>
-		<input type="text" name="passcode" id="passcode" value="" placeholder="Voer de pincode die je krijgt v/d standhouder hier in"/>
+		<input type="text" name="passcode" id="passcode" value="" placeholder="Pincode gegeven door de standhouder"/>
 	</div>
 	<canvas id="triangle" height="100" width="100%">Triangle</canvas>
 
-	<div>
-		<img class="exhibitorLogo" src="logos/600-width/almendedefRGB.png" id="exhibitorLogo"></img>
-	</div>
+	<p text-align="center">
+		<img class="scaledLogo" src="logos/600-width/almendedefRGB.png" id="exhibitorLogo"></img>
+	</p>
 
 	<div data-role="footer" data-id="footer1" data-position="fixed">
 		<div data-role="navbar">
@@ -395,14 +398,13 @@ console.log("Initialize application");
 app.initialize();
 
 function startAppInBrowser() {
-	if(window && (window.device == null)) {
-		console.log("In browser, start manually");
-		startApp();
-	}
+	console.log("In browser, start manually");
+	startApp();
 }
 
 if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
 	 // document.addEventListener("deviceready", onDeviceReady, false);
+	console.log("Detected a mobile device");
 } else {
 	startAppInBrowser(); //this is the browser
 }

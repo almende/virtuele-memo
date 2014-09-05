@@ -4,7 +4,6 @@
 	"bleID":1,
 	"standletter":"Q",
 	"name":"DoBots",
-	"bleID":13,
 	"oneliner":"It's in the name. Groups of bots searching, cooperating, grazing and negotiating.",
 	"description":"DoBots are modeled after nature where colonies, flocks, and swarms of animals show intelligent behaviour together.",
 	"logo":"DObots.png",
@@ -13,11 +12,12 @@
 	"website": "www.dobots.nl",
 	"email": "info@dobots.nl",
 	"questions": [
-	{ "question": "Wat is reshoring?", "answer": "undefined", "type": "text", "length": 4},
-	{ "question": "Wat is de ideale afmeting voor een schoonmaakrobot?", "answer": "undefined", "type": "text", "length": 4},
-	{ "question": "Welke banen zouden het makkelijkst door robots kunnen worden vervangen?", "answer": "undefined", "type": "number", "length": 4 }
+		{ "question": "Wat is reshoring?", "answer": "undefined", "type": "text", "length": 4},
+		{ "question": "Wat is de ideale afmeting voor een schoonmaakrobot?", "answer": "undefined", "type": "text", "length": 4},
+		{ "question": "Welke banen zouden het makkelijkst door robots kunnen worden vervangen?", "answer": "undefined", "type": "number", "length": 4 }
 	],
-		"status": "disabled"
+	"status": "disabled",
+	"passcode": "0900"
 },
 {
 	"id":"assemblypartner",
@@ -178,7 +178,7 @@
 	"standnumber":"9B.057",
 	"name":"Eurocircuits",
 	"description":"Eurocircuits - PCB prototypes en kleine series tem 16 lagen, beschikbaar via een gestroomlijnde en eenvoudige 'Online one-stop shop'.",
-	"logo":"Eurocircuits.jpg",
+	"logo":"Eurocircuits.png",
 	"address":"Antwerpsesteenweg 66, 2800 Mechelen, België",
 	"tel": "+32 15 28 16 30",
 	"website": "www.eurocircuits.com",

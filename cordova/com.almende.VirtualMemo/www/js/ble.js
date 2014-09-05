@@ -1,8 +1,10 @@
 var BLEHandler = function() {
 	var self = this;
 	var addressKey = 'address';
-	var flowerUuid =  '39e1fa00-84a8-11e2-afba-0002a5d5c51b';
+	var flowerUuid = '39e1fa00-84a8-11e2-afba-0002a5d5c51b';
 	var memoAddress = 'FE:F0:7F:FB:F4:CC';
+
+	// there is no specific memoServiceUuid, so we pick the alert level one
 	var memoUuid = '1802';
 	var alertLevelServiceUuid = '1802';
 	var alertLevelCharacteristicUuid = '2a06';
@@ -10,8 +12,8 @@ var BLEHandler = function() {
 	var linkLossServiceUuid = '1803';
 	var linkLossCharacteristicUuid = '2a06';
 
-    var deviceInformationServiceUuid = '180a';
-    var serialNumberCharacteristicUuid = '2a25';
+	var deviceInformationServiceUuid = '180a';
+	var serialNumberCharacteristicUuid = '2a25';
 	var scanTimer = null;
 	var connectTimer = null;
 	var reconnectTimer = null;
@@ -19,7 +21,7 @@ var BLEHandler = function() {
 	var iOSPlatform = "iOS";
 	var androidPlatform = "Android";
 	
-	var memoBug0 = true;
+	var memoBug0 = false;
 	var memoBug0_exec = false;
 	var memoBug0_callback = null;
 	var memoBug0_cargs = null;
@@ -30,9 +32,8 @@ var BLEHandler = function() {
 	 * device.
 	 */
 	self.init = function() {
-        bluetoothle.initialize(self.initSuccess, self.initError, {"request": true});
-    }
-
+		bluetoothle.initialize(self.initSuccess, self.initError, {"request": true});
+	}
 
 	self.connectDevice = function(address) {
 		console.log("Begining connection to: " + address + " with 5 second timeout");
@@ -45,23 +46,21 @@ var BLEHandler = function() {
 		if (obj.status == "connected") {
 			console.log("Connected to : " + obj.name + " - " + obj.address);
 			console.log("Write address " + obj.address + " to local storage");
-            window.localStorage.setItem(addressKey,obj.address);
+			window.localStorage.setItem(addressKey,obj.address);
             self.clearConnectTimeout();
 			if (window.device.platform == iOSPlatform) {
-                console.log("Discovering alert level and device information service");
-                var paramsObj = {"serviceUuids": [deviceInformationServiceUuid] };
+				console.log("Discovering alert level and device information service");
+				var paramsObj = {"serviceUuids": [deviceInformationServiceUuid] };
+				//var paramsObj = {"serviceUuids": [alertLevelServiceUuid] };
 				bluetoothle.services(self.deviceInfoSuccess, self.alertLevelError, paramsObj);
 			} else if (window.device.platform == androidPlatform) {
 				console.log("Beginning discovery");
 				bluetoothle.discover(self.discoverSuccess, self.discoverError);
 			}
-
-		}
-		else if (obj.status == "connecting") {
-            console.log("Found BLE device:"+JSON.stringify(obj));
+		} else if (obj.status == "connecting") {
+			console.log("Found BLE device:"+JSON.stringify(obj));
 			console.log("Connecting to : " + obj.name + " - " + obj.address);
-		}
-		else {
+		} else {
 			console.log("Unexpected connect status: " + obj.status);
 			self.clearConnectTimeout();
 		}
@@ -172,12 +171,20 @@ var BLEHandler = function() {
 	}
 
 	self.getAddress = function() {
-		var address = window.localStorage.getItem(self.addressKey);
+		var address = window.localStorage.getItem(addressKey);
 		if (address) {
 			console.log("Obtained address: " + address);
 		}
 		return address;
 	}
+
+    self.getSerialNumberCharacteristicUuid = function(){
+        var uuid = window.localStorage.getItem(serialNumberCharacteristicUuid);
+        if (uuid) {
+            console.log("Obtained uuid: " + address);
+        }
+        return uuid;
+    }
 
 	self.clearScanTimeout = function() {
 		console.log('Clearing scanning timeout');
@@ -212,8 +219,6 @@ var BLEHandler = function() {
 			'Sorry!');
 			*/
 	}
-
-
 	self.initSuccess = function(obj) {
 		console.log('Properly connected to BLE chip');
 		console.log('Status: ' + JSON.stringify(obj.status));
@@ -222,9 +227,14 @@ var BLEHandler = function() {
 			if (address == null) {
 				console.log('No address known, so start scan');
 				var paramsObj = {};
-				//if (window.device.platform == androidPlatform) {
+				if (window.device.platform == iOSPlatform) {
+					// iOS implements an OR operation, either of the Uuids found is okay
 					paramsObj = { 'serviceUuids': [memoUuid, deviceInformationServiceUuid] };
-				//}
+				} else if (window.device.platform == androidPlatform) {
+					// Android has an AND operation, deviceInformationServiceUuid does not seem to
+					// be advertised, so this fails on Android
+					paramsObj = { 'serviceUuids': [memoUuid] };
+				}
 				bluetoothle.startScan(self.startScanSuccess, self.startScanError, paramsObj);
 			} else {
 				console.log('Address already known, so connect directly to ', address);
@@ -242,47 +252,51 @@ var BLEHandler = function() {
 				'Sorry!');
 	}
 
-    /**
-     * We found a device that has an device info service. Now we are gonna iterate through all the services to find
-     * the specific characteristics. We will subsequently "discover" this characteristic.
-     */
-    self.deviceInfoSuccess = function(obj) {
-        if (obj.status == "discoveredServices")
-        {
-            var serviceUuids = obj.serviceUuids;
-            for (var i = 0; i < serviceUuids.length; i++) {
-                var serviceUuid = serviceUuids[i];
+	/**
+	 * We found a device that has an device info service. Now we are gonna iterate through all the services to find
+	 * the specific characteristics. We will subsequently "discover" this characteristic.
+	 */
+	self.deviceInfoSuccess = function(obj) {
+		if (obj.status == "discoveredServices")
+		{
+			console.log("Discovered services. Iterate through them to get the right service");
+			var serviceUuids = obj.serviceUuids;
+			for (var i = 0; i < serviceUuids.length; i++) {
+				var serviceUuid = serviceUuids[i];
 
-                if (serviceUuid == deviceInformationServiceUuid) {
-                    console.log("Finding device information characteristics");
-                    var paramsObj = {"serviceUuid":deviceInformationServiceUuid, "characteristicUuids":[serialNumberCharacteristicUuid]};
-                    bluetoothle.characteristics(function(result){
-                        console.log(JSON.stringify(result));
-                        bluetoothle.read(function(readData){
-                            console.log("Updating address " + readData.value + " to local storage");
-                            window.localStorage.setItem(addressKey,readData.value);
-                            if (window.device.platform == iOSPlatform) {
-                                console.log("Discovering alert level service");
-                                var paramsObj = {"serviceUuids": [alertLevelServiceUuid] };
-                                bluetoothle.services(self.alertLevelSuccess, self.alertLevelError, paramsObj);
-                            } else if (window.device.platform == androidPlatform) {
-                                console.log("Beginning discovery");
-                                bluetoothle.discover(self.discoverSuccess, self.discoverError);
-                            }
-                        },console.log,  {"serviceUuid":deviceInformationServiceUuid, "characteristicUuid":serialNumberCharacteristicUuid});
+				if (serviceUuid == deviceInformationServiceUuid) {
+					console.log("Finding device information characteristics");
+					var paramsObj = {"serviceUuid":deviceInformationServiceUuid, 
+						"characteristicUuids":[serialNumberCharacteristicUuid]};
+					bluetoothle.characteristics(function(result){
+						console.log(JSON.stringify(result));
+						bluetoothle.read(function(readData){
+							console.log("Updating address " + readData.value + " to local storage");
+							window.localStorage.setItem(serialNumberCharacteristicUuid,readData.value);
+							if (window.device.platform == iOSPlatform) {
+								console.log("Discovering alert level service");
+								var paramsObj = {"serviceUuids": [alertLevelServiceUuid] };
+								bluetoothle.services(self.alertLevelSuccess, self.alertLevelError, paramsObj);
+							} else if (window.device.platform == androidPlatform) {
+								console.log("Beginning discovery");
+								bluetoothle.discover(self.discoverSuccess, self.discoverError);
+							}
+						},
+						console.log,  {"serviceUuid":deviceInformationServiceUuid, 
+							"characteristicUuid":serialNumberCharacteristicUuid});
 
-                }, console.log, paramsObj);
-                return;
-                }
-            }
-            console.log("Error: device info service not found");
-        }
-        else
-        {
-            console.log("Unexpected services device info status: " + obj.status);
-        }
-        self.disconnectDevice();
-    }
+					}, console.log, paramsObj);
+					return;
+				}
+			}
+			console.log("Error: device info service not found");
+		}
+		else
+		{
+			console.log("Unexpected services device info status: " + obj.status);
+		}
+		self.disconnectDevice();
+	}
 
 
 
