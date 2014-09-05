@@ -27,7 +27,7 @@ var BLEHandler = function() {
 	var memoBug0_cargs = null;
 	var discover_all = false;
 
-	var devices = [];
+	var devices = {};
 
 	/**
 	 * Initialization tries to connect to the BLE chip on the phone. If successful, a scan is started. If there is
@@ -35,6 +35,7 @@ var BLEHandler = function() {
 	 * device.
 	 */
 	self.init = function() {
+		console.log('Try to connect to BLE chip (will ask to turn on Bluetooth to the user)');
 		bluetoothle.initialize(self.initSuccess, self.initError, {"request": true});
 	}
 
@@ -161,7 +162,8 @@ var BLEHandler = function() {
 			console.log('Yes, we are successful and found a device in our scan');
 			if (discover_all) {
 				console.log("Found device: " + obj.address);
-				devices[devices.length] = obj;
+				//devices[devices.length] = obj;
+				devices[obj.address] = obj;
 			} else {
 				bluetoothle.stopScan(self.stopScanSuccess, self.stopScanError);
 				self.clearScanTimeout();
@@ -183,7 +185,12 @@ var BLEHandler = function() {
 	 * device, but we should continue finding all devices.
 	*/
 	self.discoverAll = function(enable) {
+		console.log("Set discovery to: " + enable);
 		discover_all = enable;
+		if (discover_all) {
+			// reinitialize
+			self.init();
+		}
 		/*
 		bluetoothle.isScanning(function(obj) {
 			if (obj.isScanning) {
@@ -223,11 +230,6 @@ var BLEHandler = function() {
 	}
 
 	self.scanTimeout = function() {
-		/*
-		if (discover_all) {
-			discover_all = false;
-		}
-		*/
 		//console.log('Scanning timed out, stop scanning');
 		bluetoothle.stopScan(self.stopScanSuccess, self.stopScanError);
 	}
@@ -254,8 +256,7 @@ var BLEHandler = function() {
 			*/
 	}
 	self.initSuccess = function(obj) {
-		console.log('Properly connected to BLE chip');
-		console.log('Status: ' + JSON.stringify(obj.status));
+		console.log('Properly connected to BLE chip, status: ' + JSON.stringify(obj.status));
 		if (obj.status == 'initialized') {
 			var address = window.localStorage.getItem(addressKey);
 			if (!address || discover_all) {

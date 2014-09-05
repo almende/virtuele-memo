@@ -297,32 +297,19 @@ window.onload = function () {
 		<div class="clear-floats"></div>
 		<div id="memoNote" data-memo-id="0">
 			<div id="memoHeader">
-				<table id="memoHeaderContent">
-					<tr>
-						<td width="1">
-							<a href="#prevMemo" id="prevMemo" data-role="button" 
-								data-icon="arrow-l" data-iconpos="notext" data-transition="none"></a>
-						</td>
-						<td width="1">
-							<a href="#nextMemo" id="nextMemo" data-role="button" 
-								data-icon="arrow-r" data-iconpos="notext" data-transition="none"></a>
-						</td>&nbsp;
-						<td></td>
-						<td width="1">
-							<a href="#deleteMemo" id="deleteMemo" data-role="button" 
-								data-icon="delete" data-iconpos="notext" data-transition="none"></a>
-						</td>
-						<td width="1">
-							<a href="#saveMemo" id="saveMemo" data-role="button" 
-								data-icon="check" data-iconpos="notext" data-transition="none"></a>
-						</td>
-					</tr>
-				</table>
+				<a href="#prevMemo" id="prevMemo" class="menu-button" data-role="button" 
+					data-icon="arrow-l" data-iconpos="notext" data-transition="none"></a>
+				<a href="#nextMemo" id="nextMemo" class="menu-button" data-role="button" 
+					data-icon="arrow-r" data-iconpos="notext" data-transition="none"></a>
+				<a href="#deleteMemo" id="deleteMemo" class="menu-button-right" data-role="button" 
+					data-icon="delete" data-iconpos="notext" data-transition="none"></a>
+				<a href="#saveMemo" id="saveMemo" class="menu-button-right" data-role="button" 
+					data-icon="check" data-iconpos="notext" data-transition="none"></a>
 			</div>
 			<div id="memoTitle">
 				<p>Hoi!</p>
 			</div>
-			<div>
+			<div id="memoTextBox">
 				<textarea id="memoText">Lijm de Virtuele Memo op je koelkast. Gebruik het als boodschappenlijstje voor je huisgenoot, een kooklijst, of als herinnering voor jezelf om naar de kapper te gaan op zaterdag. :-)</textarea>
 			</div>
 			<div id="memoAuthor">
@@ -364,22 +351,7 @@ window.onload = function () {
 	<div role="main" class="ui-content" style="padding:0px">
 		<div class="clear-floats"></div>
 		<div id="memoNoteSet">
-			<ul>
-				<!--
-				<li>
-				<div id="memoNoteMini" data-memo-overview-id="0">
-					<div id="memoBriefCaption">
-						<p>memo</p>
-					</div>
-					<div id="memoHeaderCenter">
-						<a href="#deleteMemoBlock" id="deleteMemoBlock" data-role="button" 
-							data-icon="delete" data-iconpos="notext" data-transition="none"></a>
-						<a href="#sendAlert" id="sendAlert" data-role="button" 
-							data-icon="check" data-iconpos="notext" data-transition="none"></a>
-					</div>
-				</div>
-				</li>
-				-->
+			<ul data-role="listview" id="memoListView">
 			</ul>
 		</div>
 	</div>
