@@ -23,7 +23,7 @@ var BLEHandler = function() {
 	var memoBug0_exec = false;
 	var memoBug0_callback = null;
 	var memoBug0_cargs = null;
-	
+
 	/**
 	 * Initialization tries to connect to the BLE chip on the phone. If successful, a scan is started. If there is
 	 * an "address" stored at local memory, we will use that to scan. If the scan is successful we connect to the
@@ -32,15 +32,15 @@ var BLEHandler = function() {
 	self.init = function() {
         bluetoothle.initialize(self.initSuccess, self.initError, {"request": true});
     }
-    
-   	
+
+
 	self.connectDevice = function(address) {
 		console.log("Begining connection to: " + address + " with 5 second timeout");
 		var paramsObj = {"address": address};
 		bluetoothle.connect(self.connectSuccess, self.connectError, paramsObj);
 		self.connectTimer = setTimeout(self.connectTimeout, 5000);
 	}
-	
+
 	self.connectSuccess = function(obj) {
 		if (obj.status == "connected") {
 			console.log("Connected to : " + obj.name + " - " + obj.address);
@@ -55,7 +55,7 @@ var BLEHandler = function() {
 				console.log("Beginning discovery");
 				bluetoothle.discover(self.discoverSuccess, self.discoverError);
 			}
-			
+
 		}
 		else if (obj.status == "connecting") {
             console.log("Found BLE device:"+JSON.stringify(obj));
@@ -66,32 +66,32 @@ var BLEHandler = function() {
 			self.clearConnectTimeout();
 		}
 	}
-	
+
 	self.connectError = function(obj) {
 		console.log("Connect error: " + obj.error + " - " + obj.message);
 		self.clearConnectTimeout();
 	}
-	
+
 	self.connectTimeout = function() {
 		console.log('Connection timed out, stop connection attempts');
 	}
-	
+
 	self.clearConnectTimeout = function() {
 		console.log("Clearing connect timeout");
 		if (self.connectTimer != null) {
 			clearTimeout(self.connectTimer);
 		}
 	}
-	
+
 	self.isConnected = function(callback) {
 		bluetoothle.isConnected(callback);
 	}
-	
+
 	self.tempDisconnectDevice = function() {
 		console.log("Disconnecting from device to test reconnect");
 		bluetoothle.disconnect(self.tempDisconnectSuccess, self.tempDisconnectError);
 	}
-	
+
 	self.tempDisconnectSuccess = function(obj) {
 		if (obj.status == "disconnected") {
 			console.log("Temp disconnect device and reconnecting in 1 second. Instantly reconnecting can cause issues");
@@ -102,23 +102,23 @@ var BLEHandler = function() {
 			console.log("Unexpected temp disconnect status: " + obj.status);
 		}
 	}
-	
+
 	self.tempDisconnectError = function(obj) {
 		console.log("Temp disconnect error: " + obj.error + " - " + obj.message);
 	}
-	
+
 	self.reconnect = function() {
 		console.log("Reconnecting with 5 second timeout");
 		bluetoothle.reconnect(self.reconnectSuccess, self.reconnectError);
 		self.reconnectTimer = setTimeout(self.reconnectTimeout, 5000);
 	}
-	
+
 	self.reconnectSuccess = function(obj) {
 		if (obj.status == "connected") {
 			console.log("Reconnected to : " + obj.name + " - " + obj.address);
-			
+
 			self.clearReconnectTimeout();
-			
+
 			if (window.device.platform == iOSPlatform) {
 				console.log("Discovering alert level service");
 				var paramsObj = {"serviceUuids": [deviceInformationServiceUuid] };
@@ -134,23 +134,23 @@ var BLEHandler = function() {
 			self.disconnectDevice();
 		}
 	}
-	
+
 	self.reconnectError = function(obj) {
 		console.log("Reconnect error: " + obj.error + " - " + obj.message);
 		self.disconnectDevice();
 	}
-	
+
 	self.reconnectTimeout = function() {
 		console.log("Reconnection timed out");
 	}
-	
+
 	self.clearReconnectTimeout = function() {
 		console.log("Clearing reconnect timeout");
 		if (self.reconnectTimer != null) {
 			clearTimeout(self.reconnectTimer);
 		}
 	}
-	
+
 	/**
 	 * If scan is successful, connect automatically to the discovered device.
 	 */
@@ -170,7 +170,7 @@ var BLEHandler = function() {
 			self.clearScanTimeout();
 		}
 	}
-	
+
 	self.getAddress = function() {
 		var address = window.localStorage.getItem(self.addressKey);
 		if (address) {
@@ -178,19 +178,19 @@ var BLEHandler = function() {
 		}
 		return address;
 	}
-	
+
 	self.clearScanTimeout = function() {
 		console.log('Clearing scanning timeout');
 		if (self.scanTimer != null) 	{
 			clearTimeout(self.scanTimer);
 		}
 	}
-	
+
 	self.scanTimeout = function() {
 		//console.log('Scanning timed out, stop scanning');
 		bluetoothle.stopScan(self.stopScanSuccess, self.stopScanError);
 	}
-	
+
 	self.stopScanSuccess = function(obj) {
 		if (obj.status == 'scanStopped') {
 			//console.log('Scan was stopped successfully');
@@ -198,11 +198,11 @@ var BLEHandler = function() {
 			console.log('Unexpected stop scan status: ' + obj.status);
 		}
 	}
-	
+
 	self.stopScanError = function(obj) {
 		console.log('Stop scan error: ' + obj.error + ' - ' + obj.message);
 	}
-	
+
 	self.startScanError = function(obj) {
 		console.log('Scan error' + JSON.stringify(obj.status));
 		/*		navigator.notification.alert(
@@ -212,8 +212,8 @@ var BLEHandler = function() {
 			'Sorry!');
 			*/
 	}
-	
-	
+
+
 	self.initSuccess = function(obj) {
 		console.log('Properly connected to BLE chip');
 		console.log('Status: ' + JSON.stringify(obj.status));
@@ -231,7 +231,7 @@ var BLEHandler = function() {
 			}
 		}
 	}
-	
+
 	self.initError = function(obj) {
 		console.log('Connection to BLE chip failed');
 		console.log('Message', obj.status);
@@ -285,7 +285,7 @@ var BLEHandler = function() {
     }
 
 
-	
+
 	/**
 	 * We found a device that has an alert level service. Now we are gonna iterate through all the services to find
 	 * the specific characteristics. We will subsequently "discover" this characteristic.
@@ -312,12 +312,12 @@ var BLEHandler = function() {
 		}
 		self.disconnectDevice();
 	}
-	
+
 	self.alertLevelError = function(obj) {
 		console.log("Services alert level error: " + obj.error + " - " + obj.message);
 		self.disconnectDevice();
 	}
-	
+
 	self.characteristicsAlertLevelSuccess = function(obj) {
 		if (obj.status == "discoveredCharacteristics") {
 			var characteristicUuids = obj.characteristicUuids;
@@ -325,7 +325,7 @@ var BLEHandler = function() {
 			{
 				console.log("Alert level characteristics found, now discovering descriptor");
 				var characteristicUuid = characteristicUuids[i];
-				
+
 				if (characteristicUuid == alertLevelCharacteristicUuid) {
 					self.writeAlertLevel("middle");
 					//self.readLinkLoss();
@@ -409,10 +409,9 @@ var BLEHandler = function() {
                 }
             }
 
-            var u8 = new Uint8Array(2);
+            var u8 = new Uint8Array(1);
             switch(level) {
                 case "high":
-
                     u8[0]=2;
                     break;
                 case "middle":
@@ -471,9 +470,9 @@ var BLEHandler = function() {
 	}
 	
 	self.readBatteryLevel = function() {
-		console.log("Reading battery level, not yet implemented");
-		//var paramsObj = {"serviceUuid":batteryServiceUuid, "characteristicUuid":batteryLevelCharacteristicUuid};
-		//bluetoothle.read(readSuccess, readError, paramsObj);
+		console.log("Reading battery level, not y// implemented");
+		//var paramsObj = {"serviceUuid":batteryServiceUuid, "characteristicUuid":batteryLevelCha//cteristicUuid};
+	readSuccesshle.read(readSuccess, readError, paramsObj);
 	}
 	
 	self.disconnectDevice = function() {
