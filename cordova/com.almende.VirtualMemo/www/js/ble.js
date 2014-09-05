@@ -48,8 +48,8 @@ var BLEHandler = function() {
 	self.connectSuccess = function(obj) {
 		if (obj.status == "connected") {
 			console.log("Connected to : " + obj.name + " - " + obj.address);
-			console.log("Write address " + obj.address + " to local storage");
-			window.localStorage.setItem(addressKey,obj.address);
+			//console.log("Write address " + obj.address + " to local storage");
+			//window.localStorage.setItem(addressKey,obj.address);
             self.clearConnectTimeout();
 			if (window.device.platform == iOSPlatform) {
 				console.log("Discovering alert level and device information service");
@@ -207,13 +207,13 @@ var BLEHandler = function() {
 		return address;
 	}
 
-    self.getSerialNumberCharacteristicUuid = function(){
-        var uuid = window.localStorage.getItem(serialNumberCharacteristicUuid);
-        if (uuid) {
-            console.log("Obtained uuid: " + address);
-        }
-        return uuid;
-    }
+//    self.getSerialNumberCharacteristicUuid = function(){
+//        var uuid = window.localStorage.getItem(serialNumberCharacteristicUuid);
+//        if (uuid) {
+//            console.log("Obtained uuid: " + address);
+//        }
+//        return uuid;
+//    }
 
 	self.clearScanTimeout = function() {
 		console.log('Clearing scanning timeout');
@@ -310,7 +310,7 @@ var BLEHandler = function() {
 						console.log(JSON.stringify(result));
 						bluetoothle.read(function(readData){
 							console.log("Updating address " + readData.value + " to local storage");
-							window.localStorage.setItem(serialNumberCharacteristicUuid,readData.value);
+							window.localStorage.setItem(addressKey,readData.value);
 							if (window.device.platform == iOSPlatform) {
 								console.log("Discovering alert level service");
 								var paramsObj = {"serviceUuids": [alertLevelServiceUuid] };

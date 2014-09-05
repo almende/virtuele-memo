@@ -1777,10 +1777,10 @@ WotsApp.prototype = {
 		};
 
 		loginAsDevice = function() {
-            if (ble.getSerialNumberCharacteristicUuid() == null) return null;
+            if (ble.getAddress() == null) return null;
 			if (!deviceAvailable()) return null;
-			var email = ble.getSerialNumberCharacteristicUuid();
-			var password = 'MEMO:' + ble.getSerialNumberCharacteristicUuid();
+			var email = "memo@"+ble.getAddress();
+			var password = 'memo:' + ble.getAddress();
 			password = CryptoJS.MD5(password).toString();
 			return { 'email': email, 'password': password };
 		}

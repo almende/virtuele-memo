@@ -196,7 +196,8 @@ var LocalDB = (function () {
 	 * Check if a specific memo exists with field "sensor_id" equal to the parameter value sensor_id
 	 */
 	api.existMemo = function(sensor_id, callback, cargs) {
-		var query =  'SELECT * FROM NOTES';
+        api.createMemos();
+        var query =  'SELECT * FROM NOTES';
 		var param = [];
 		var pargs = {
 			key: 'sensor_id',
@@ -209,6 +210,7 @@ var LocalDB = (function () {
 	 * Get a random memo from the database.
 	 */
 	api.getMemo = function(callback, cargs) {
+        api.createMemos();
 		var query =  'SELECT * FROM NOTES';
 		var param = [];
 		var pargs = {
@@ -240,7 +242,8 @@ var LocalDB = (function () {
 	 * Check if any memo does exist
 	 */
 	api.existMemos = function(callback, cargs) {
-		var query =  'SELECT * FROM NOTES';
+        api.createMemos();
+        var query =  'SELECT * FROM NOTES';
 		var param = [];
 		queryDB(query, param, donotProcess, callback, cargs);
 	}
