@@ -573,7 +573,9 @@ WotsApp.prototype = {
 					} else {
 						$('#questionReminderParticipantCode').text("Deelnemercode: " + wots.participantCode);
 						if (exhibitor.passcode) {
-							$('#questionReminderPassCode').text("Pincode: " + exhibitor.passcode);
+							//$('#questionReminderPassCode').text("Pincode: " + exhibitor.passcode);
+							// doesn't work yet, todo
+							$('#questionReminderPassCode').text("");
 						} else {
 							$('#questionReminderPassCode').text("");
 						}
