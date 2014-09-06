@@ -2254,6 +2254,7 @@ WotsApp.prototype = {
 				window.plugin.notification.local.add({
 					id: memo.id,
 					title: memo.title,
+					message: memo.text,
 					date: date,
 					autoCancel: true}
 				, function() {
