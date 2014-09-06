@@ -1204,59 +1204,65 @@ WotsApp.prototype = {
 			var blue = wots.participantCode[10].charCodeAt(0) - 48;
 			var red = wots.participantCode[12].charCodeAt(0) - 48;
 			var SSBR = ascii * 100 + blue * 10 + red;
-			//	console.log("SSBR code becomes: " + SSBR); 
-			var expPincode = (SSBR * 16981) % 10000;
+			//console.log("SSBR code becomes: " + SSBR); 
+			$.getJSON('data/code.js', function(data) {
+				var hidden_factor = data.factor;
+				console.log("Use factor: " + hidden_factor);
+				var expPincode = Math.floor(((SSBR * 16981) / hidden_factor) % 10000);
 
-			var pincode = 0;
-			for (var p = 0; p < 4; ++p) {
-				var dp = passcode.charCodeAt(p) - 48;
-				pincode *= 10;
-				pincode += dp;
-			}
-			if (pincode != expPincode) {
-				var msg = "Help! Pincode " + pincode + " is incorrect";
-				wrongCodeAlert(msg);
-				console.log("Help! " + pincode + " should have been " + expPincode);
-				return false;
-			} else {
-				console.log("Yes! Pincode was correct. Now check checksum");
-			}
-
-			// now do a checksum
-			var expChecksum = 0;
-			for (var c = 0; c < 3; ++c) {
-				var loc = c*2+4;
-				var letter = wots.participantCode[loc];
-				var dn = letter.charCodeAt(0) - 48;
-				expChecksum *= 10;
-				expChecksum += dn;
-			}
-			console.log("Expected checksum is: " + expChecksum);
-
-			var insanely_large_number = 0;
-			for (var c = 0; c < 14; ++c) {
-				if ((c == 2) || (c == 4) || (c==6) || (c==8)) continue; //exclude checksum and underscore
-				var ascii = 0;
-				if (c && !(c % 2)) { // even, but excluding c==0 (so all numbers)
-					ascii = wots.participantCode[c].charCodeAt(0) - 48;
-				} else { // odd (so, all letters)
-					ascii = wots.participantCode[c].charCodeAt(0) - 65 + 10;
+				var pincode = 0;
+				for (var p = 0; p < 4; ++p) {
+					var dp = passcode.charCodeAt(p) - 48;
+					pincode *= 10;
+					pincode += dp;
 				}
-				insanely_large_number *= 10;
-				insanely_large_number += ascii;
-			}
-			console.log("The insanely large number became:" + insanely_large_number);
-			var checksum = insanely_large_number % 997;
-			console.log("Calculated checksum: " + checksum);
+				if (pincode != expPincode) {
+					//var msg = "Help! Pincode " + pincode + " is incorrect";
+					wrongCodeAlert(msg);
+					//console.log("Help! " + pincode + " should have been " + expPincode);
+					return false;
+				} else {
+					console.log("Yes! Pincode was correct. Now check checksum");
+				}
 
-			if (checksum != expChecksum) {
-				var msg = "Help checksums do not match";
-				wrongCodeAlert(msg);
-				//				console.log("Help! checksums do not match");
-				return false;
-			}
-			console.log("Checksum was correct!");
-			return true;
+				// now do a checksum
+				var expChecksum = 0;
+				for (var c = 0; c < 3; ++c) {
+					var loc = c*2+4;
+					var letter = wots.participantCode[loc];
+					var dn = letter.charCodeAt(0) - 48;
+					expChecksum *= 10;
+					expChecksum += dn;
+				}
+				console.log("Expected checksum is: " + expChecksum);
+
+				var insanely_large_number = 0;
+				var insanely_large_number_in_text = "";
+				for (var c = 0; c < 14; ++c) {
+					if ((c == 2) || (c == 4) || (c==6) || (c==8)) continue; //exclude checksum and underscore
+					var ascii = 0;
+					if (c && !(c % 2)) { // even, but excluding c==0 (so all numbers)
+						ascii = wots.participantCode[c].charCodeAt(0) - 48;
+					} else { // odd (so, all letters)
+						ascii = wots.participantCode[c].charCodeAt(0) - 65 + 10;
+					}
+					insanely_large_number *= 10;
+					insanely_large_number += ascii;
+					insanely_large_number_in_text = insanely_large_number_in_text + '.' + ascii;
+				}
+				console.log("The insanely large number became:" + insanely_large_number);
+				var checksum = insanely_large_number % 997;
+				console.log("Calculated checksum: " + checksum);
+
+				if (checksum != expChecksum) {
+					var msg = "Help checksums do not match";
+					wrongCodeAlert(msg);
+					//				console.log("Help! checksums do not match");
+					return false;
+				}
+				console.log("Checksum was correct!");
+				return true;
+			});
 		}
 
 		registerNow = function(username, password, email, participantCode) {
