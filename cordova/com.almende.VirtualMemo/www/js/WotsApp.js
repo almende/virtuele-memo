@@ -19,6 +19,8 @@ function WotsApp() {
 	this.calculated = false;
 	this.memos = [];
 
+	this.current_memo = {};
+
 	this.afterRegistration = null;
 	this.address = null;
 	this.updateAddress = false;
@@ -57,6 +59,8 @@ WotsApp.prototype = {
 		var crypto = CryptoJS;
         
 		var iBeaconUuid = '2ca36943-7fde-4f4e-9c08-dda29f079349';
+		
+		var defaultMemoText = "Lijm de Virtuele Memo op je koelkast. Gebruik het als boodschappenlijstje voor je huisgenoot, een kooklijst, of als herinnering voor jezelf om naar de kapper te gaan op zaterdag. :-)";
 
 		$.ajaxSetup({ cache: false });
 
@@ -622,11 +626,18 @@ WotsApp.prototype = {
 				$('#colorPicker ul').append($li);
 			}
 
+			$('#memoText').text(defaultMemoText);
+
 			$('#saveMemo').on('click', function(event) {
+				var new_id = wots.memos.length;
+				console.log("Save new memo note with id " + new_id);
+				updateCurrentMemoId(new_id);
+				setAsideMemo();
 				updateSensor();
 			});
 
 			$('#deleteMemo').on('click', function(event) {
+				console.log("Delete memo note");
 				deleteSensorData();
 			});
 
@@ -1575,12 +1586,16 @@ WotsApp.prototype = {
 				}
 				return;
 			}
-			// we have a correct sensor id, now store data
 			console.log("Result (should be sensor_id) " + result);
 			setSensor(result);
 
-			// next step! create sensor data
-			updateSensorData();
+			csExistSpecificSensor(result, function() {
+				// next step! create sensor data
+				updateSensorData();
+			}, function() {
+				// sensor does not exist
+				csCreateSensor();
+			});
 		}
 
 		updateSensorData = function() {
@@ -1838,7 +1853,7 @@ WotsApp.prototype = {
 		createSessionSuccessCB = function(result) {
 			var msg = "Successfully logged in (" + result + "). Now update sensor.";
 			csMessage(msg, false);
-			updateSensor();
+			updateSensor(true);
 		};
 
 		generalErrorCB = function(err_msg) {
@@ -1862,9 +1877,16 @@ WotsApp.prototype = {
 			}
 		};
 
-		updateSensor = function() {
-			console.log("Update sensor");
+		updateSensor = function(first_time) {
+			console.log("Update the entire memo block");
 			noteDB();
+			if (first_time) {
+				// display the last memo first, this does not work
+				//if (wots.memos.length) {
+				//var memo_id = wots.memos.length-1;
+				//displaySensorData(memo_id);
+				//}
+			}
 		};
 
 		csCreateSensor = function() {
@@ -1907,7 +1929,7 @@ WotsApp.prototype = {
 		};
 
 		/*
-		 * Check if there is a specific sensor with known id. This is coupled to the index of the memo page.
+		 * Check if there is a unknown sensor with a known name. This is coupled to the index of the memo page.
 		 */
 		csExistSensor = function(index, successCB, errorCB) {
 			console.log("Get sensors");
@@ -1936,6 +1958,11 @@ WotsApp.prototype = {
 			}, generalErrorCB);			
 		}
 
+		csExistSpecificSensor = function(index, successCB, errorCB) {
+			console.log("Get specific sensor");
+			sense.sensor(index, successCB, errorCB);
+		}
+
 		/*	
 		csGetSensors = function() {
 			console.log("Get sensors");
@@ -1948,8 +1975,29 @@ WotsApp.prototype = {
 		}
 		*/
 
-		csCreateSensorData = function() {
-			var msg = "Write new memo note to CommonSense database";
+		memoExists = function(memoId) {
+			var debug = true;
+
+			if (debug) {
+				var ids = "";
+				for (m in wots.memos) {
+					var memo = wots.memos[m];
+					console.log("Memo: " + JSON.stringify(memo));
+					ids += memo.id + ' ';
+				}
+				console.log("Current memos: " + ids + " and searching for " + memoId);
+			}
+			for (m in wots.memos) {
+				var memo = wots.memos[m];
+				if (memo.id == memoId) {
+					return true;
+				}
+			}
+			return false;
+		}
+
+		csCreateSensorData = function() {			
+			var msg = "Try to write new memo note to CommonSense database";
 			csMessage(msg, false);
 			if (!wots.sensor_id) {
 				console.log("There is no sensor id stored");
@@ -1957,8 +2005,43 @@ WotsApp.prototype = {
 			}
 			var sensor_id = wots.sensor_id;
 
-			var memoId = $('#memoNote').data('memo-id');
-			var memoText = $('#memoText').val();
+			if (!wots.current_memo || wots.current_memo.text == "") {
+				console.log("No current memo set");
+				return;
+			}
+
+			//var memoId = $('#memoNote').data('memo-id');
+			var memoId = wots.current_memo.id;
+
+			if (typeof memoId === 'undefined') {
+				var msg = "There is no current memo set. Probably at startup, so no need to write";
+				csMessage(msg, false);
+				return;
+			}
+
+			if (memoExists(memoId)) {
+				var msg = "But memo already exists in CommonSense database!";
+				csMessage(msg, false);
+				return;
+			} 
+
+			var memoText = wots.current_memo.text;
+			//var memoText = $('#memoText').val();
+
+			if (memoText == defaultMemoText) {
+				var msg = "Do not store default memo";
+				csMessage(msg, false);
+				return;
+			}
+
+			var memoLocation = wots.current_memo.location;
+			var memoAlert = wots.current_memo.alert;
+			var memoDate = wots.current_memo.date;
+			var memoRepeat = wots.current_memo.repeat;
+			var memoColor = wots.current_memo.color;
+			var memoAuthor = wots.current_memo.author;
+			var memoTitle = wots.current_memo.title;
+			/*
 			var memoLocation = $('#memoLocation').val();
 			var memoAlert = $('#memoAlert').val();
 			var memoDate = $('#memoDate').val();
@@ -1966,6 +2049,7 @@ WotsApp.prototype = {
 			var memoColor = $('#memoNote').data('memo-color');
 			var memoAuthor = wots.username;
 			var memoTitle = $('#memoTitle').val();
+			*/
 			var memoData = {
 				"id": memoId,
 				"text": memoText,
@@ -1989,6 +2073,20 @@ WotsApp.prototype = {
 			csMessage(msg, false);
 			sense.createSensorData(sensor_id, data, csCreateSensorDataSuccessCB, generalErrorCB);
 		};
+		
+		setAsideMemo = function() {
+			var memo = wots.current_memo;
+			memo.id = $('#memoNote').data('memo-id');
+			memo.text = $('#memoText').val();
+			memo.location = $('#memoLocation').val();
+			memo.alert = $('#memoAlert').val();
+			memo.date = $('#memoDate').val();
+			memo.repeat = $('#memoRepeat').val();
+			memo.color = $('#memoNote').data('memo-color');
+			memo.author = wots.username;
+			memo.title = $('#memoTitle').val();
+			console.log("Memo set apart is ", memo);
+		}
 
 		deleteSensorData = function() {
 			if (wots.memos <= 1) {
@@ -1998,65 +2096,23 @@ WotsApp.prototype = {
 			var memo_id = getCurrentMemoId();
 			var memo = getCurrentMemo();
 			if (!memo) return;
-			var data_id = memo.id;
+			var data_id = memo.data_id;
 			var sensor_id = wots.sensor_id;
-			console.log("Delete memo in CommonSense");
+			console.log("Delete memo " + data_id + " in CommonSense");
 			sense.deleteSensorData(sensor_id, data_id, csSuccessCB, csErrorCB);
-			console.log("Delete memo locally");
+			console.log("Delete memo " + memo_id + " locally");
 			wots.memos.splice(memo_id, 1);
-			console.log("Move to and display next memo");
-			memo_id = (memo_id + wots.memos.length + 1) % wots.memos.length;
+			memo_id = (memo_id + wots.memos.length) % wots.memos.length;
+			console.log("Move to and display next memo " + memo_id);
 			displaySensorData(memo_id);
 		};
 
 
 	/*	// there is already loadData
 		csGetSensorData = function() {
-			if (!wots.sensor_id) {
-				console.log("There is no sensor id stored");
-				return;
-			}
-			var sensor_id = wots.sensor_id;
-			var memo_id = getCurrentMemoId();
-			var data = {};
-			console.log("Get sensor data from CommonSense");
-			sense.sensorData(sensor_id, data, function successCB() {
-				console.log("Retrieved data: " + JSON.stringify(data));
-			}, 
-			generalErrorCB);
-		};
-
-		csGetSensorDataSuccessCB = function(result) {
-			console.log(result);
-		};
 */
 		/* // there is loadData ... 
 		csExistSensorData = function(index, page, successCB, errorCB) {
-			console.log("Get sensors");
-			var data = {};
-			sense.sensors(data, function(result) {
-				var obj = JSON.parse(result);
-				var search_term = "Memo" + index;
-				//console.log("Result existence: ", obj.sensors); 
-				for (var i = 0; i < obj.sensors.length; i++) {
-					var sensor = obj.sensors[i];
-					//console.log("Sensor: ", sensor);
-					if (sensor.name === "memo") {
-						if (sensor.display_name === search_term) {
-							console.log("Found sensor with id " + sensor.id);
-							setSensor(sensor.id);
-							successCB();
-							return;
-						} else {
-							console.log("Found memo sensor, but with different id");
-							console.log("Compared " + sensor.display_name + " with " + search_term);
-							continue;
-						}
-					}	
-				}
-				errorCB();
-			}, generalErrorCB);			
-		}
 		*/	
 		   
 		getCurrentMemo = function() {
@@ -2097,9 +2153,10 @@ WotsApp.prototype = {
 				console.log("There is no sensor data, drop out");
 				return;
 			}
-			console.log("Display sensor: " + JSON.stringify(sensor));
-			var memo = eval('(' + sensor.value + ')');
-			console.log("Memo", memo);
+			console.log("Display memo: " + JSON.stringify(sensor));
+			var memo = sensor;
+			//var memo = eval('(' + sensor.value + ')');
+			//console.log("Memo", memo);
 			$('#memoText').val(memo.text);
 			$('#memoLocation').val(memo.location);
 			if (!memo.author) memo.author = 'Een onbekende';
@@ -2115,6 +2172,8 @@ WotsApp.prototype = {
 		csCreateSensorDataSuccessCB = function(result) {
 			if (!result) {
 				//console.log("Adding sensor data should not result in a response, so this is fine");
+				console.log("Reload sensor data from commonsense");
+				loadSensorData();
 				return;
 			}
 			console.log("Error?", result);
@@ -2152,13 +2211,26 @@ WotsApp.prototype = {
 				return;
 			}
 
-			wots.memos = obj.data;
+			for (m in obj.data) {
+				var csmemo = obj.data[m];
+				if (!csmemo.value) {
+					console.error("Memo note should have a value object");
+					continue;
+				}
+				var memo = eval('(' + csmemo.value + ')');
+				wots.memos[memo.id] = memo;
+				memo['data_id'] = csmemo.id;
+			}
+			//wots.memos = obj.data;
 
 			if (!wots.memos) {
 				console.log("Huh, memo object is empty");
 				return;
 			}
 			console.log("Loaded " + wots.memos.length + " memos");
+
+			// display new loaded data
+			// displaySensorData(0);
 		};
 
 		/**
