@@ -661,7 +661,7 @@ WotsApp.prototype = {
 		};
 
 		updateConnectionState = function() {
-			if (!wots.platform || (wots.platform === 'browser') {
+			if (!wots.platform || (wots.platform === 'browser')) {
 				return;
 			}
 			//console.log("Query bluetooth address");
@@ -692,7 +692,7 @@ WotsApp.prototype = {
 		};
 
 		reinitializeBluetooth = function() {
-			if (!wots.platform || (wots.platform === 'browser') {
+			if (!wots.platform || (wots.platform === 'browser')) {
 				return;
 			}
 			if (!wots.address) {
@@ -1508,6 +1508,11 @@ WotsApp.prototype = {
 			wots.sensor_id = sensor_id;
 		}
 
+		/**
+		 * In the local database there is no sensor id known. This does however not mean that there is no
+		 * sensor in the CommonSense database, so we have to check if any sensor with the proper name exists
+		 * over there. This is where we assume that the sensor is called "Memo0".
+		 */
 		sensorUnknown = function(errcode, result) {
 			if (errcode) {
 				if (result) {
@@ -1522,12 +1527,9 @@ WotsApp.prototype = {
 					noteDB();
 				},
 				function() {
-					// create sensor, in csCreateSensor on success, noteDB will be called in
-					// csCreateSensorSuccessCB
+					// create sensor, after csCreateSensor noteDB will be called in csCreateSensorSuccessCB
 					console.log("Create memo block because it is not present in CommonSense");
 					csCreateSensor();
-					//console.log("And write immediately the first memo note");
-					//csCreateSensorData();
 				})
 				return;
 			}
@@ -1538,6 +1540,10 @@ WotsApp.prototype = {
 			updateSensorData();
 		}
 
+		/**
+		 * There is locally a sensor id known. However, this does not mean that the sensor id on the 
+		 * CommonSense server exists. It might be deleted for example.
+		 */
 		sensorKnown = function(errcode, result) {
 			// on error, we have not sufficient local data, we need it from the server
 			if (errcode) {
@@ -1672,7 +1678,6 @@ WotsApp.prototype = {
 				standsUpdateDB();
 				wotsPage();
 			}
-
 		}
 
 		$('#calculatingPage').on('pagecreate', function() {
@@ -2136,7 +2141,7 @@ WotsApp.prototype = {
 				console.log("Error: no data returned, while it stated to be successful...");
 				return;
 			}
-			//console.log("Received results", result);
+			console.log("Loading of sensor data from CommonSense is successful");
 
 			// fill array with memo's
 			var obj = eval('(' + result + ')');
