@@ -160,7 +160,7 @@ WotsApp.prototype = {
 				wots.platform = 'browser';
 			}
 
-			if (!wots.platform) {
+			if (wots.platform === 'browser') {
 				// we are running in chrome, not in Android or iOS at least
 				console.log("Just disable the device-as-user option");
 				device_as_user = false;
@@ -661,7 +661,7 @@ WotsApp.prototype = {
 		};
 
 		updateConnectionState = function() {
-			if (!wots.platform) {
+			if (!wots.platform || (wots.platform === 'browser') {
 				return;
 			}
 			//console.log("Query bluetooth address");
@@ -692,7 +692,7 @@ WotsApp.prototype = {
 		};
 
 		reinitializeBluetooth = function() {
-			if (!wots.platform) {
+			if (!wots.platform || (wots.platform === 'browser') {
 				return;
 			}
 			if (!wots.address) {
@@ -1316,9 +1316,9 @@ WotsApp.prototype = {
 					localdb.createUsers(function createUser() {
 						var user = {
 							'username': wots.username,
-						'password': wots.password,
-						'email': wots.email,
-						'code': wots.participantCode
+							'password': wots.password,
+							'email': wots.email,
+							'code': wots.participantCode
 						}
 						var msg = "Create user: " + JSON.stringify(user); 
 						dbMessage(msg, false);
