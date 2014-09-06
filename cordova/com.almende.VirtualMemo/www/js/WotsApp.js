@@ -2160,9 +2160,9 @@ WotsApp.prototype = {
 			$('#memoText').val(memo.text);
 			$('#memoLocation').val(memo.location);
 			if (!memo.author) memo.author = 'Een onbekende';
-			$('#memoAuthor').val(memo.author);
+			$('#memoAuthor p').text(memo.author);
 			if (!memo.title) memo.title = 'Welkom';
-			$('#memoTitle').val(memo.title);
+			$('#memoTitle p').text(memo.title);
 			$('#memoAlert').val(memo.alert);
 			$('#memoDate').val(memo.date);
 			$('#memoRepeat').val(memo.repeat);
@@ -2231,7 +2231,28 @@ WotsApp.prototype = {
 
 			// display new loaded data
 			// displaySensorData(0);
+			setAllAlerts();
 		};
+
+		setAllAlerts = function() {
+			if (!window.plugin || !window.plugin.notification) {
+				console.log("Cannot set alerts, plugin not installed");
+				return;
+			}
+			for (m in wots.memos) {
+				var memo = wots.memos[m];
+				var now = new Date().getTime();
+				var date = new Date(now + 60 * 1000); // one minute from now
+				window.plugin.notification.local.add({
+					id: memo.id,
+					title: memo.title,
+					date: date,
+					autoCancel: true}
+				, function() {
+					console.log("An alarm has been set off");
+				});
+			}
+		}
 
 		/**
 		 * The more normal way to cope with a device that can be shared with multiple people is to use groups. 
