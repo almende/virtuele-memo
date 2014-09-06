@@ -141,7 +141,7 @@ WotsApp.prototype = {
 			init();
 
 			// first page to visit, should be in the end the guidePage for the WOTS conference
-			//guidePage();
+			guidePage();
 
 			// for debugging, enable one of the following pages as first page
 			// congratsPage();
@@ -149,7 +149,7 @@ WotsApp.prototype = {
 			// guideHomePage();
 			// registerPage();
 			// memoOverviewPage();
-			memoPage();
+			//memoPage();
 		}
 
 		init = function() {
