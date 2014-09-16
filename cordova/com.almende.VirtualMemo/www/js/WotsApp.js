@@ -1219,9 +1219,10 @@ WotsApp.prototype = {
 					pincode += dp;
 				}
 				if (pincode != expPincode) {
-					//var msg = "Help! Pincode " + pincode + " is incorrect";
+					var msg = "Help! Pincode " + pincode + " is incorrect";
 					wrongCodeAlert(msg);
-					//console.log("Help! " + pincode + " should have been " + expPincode);
+					console.log("Help! " + pincode + " should have been " + expPincode);
+					console.log("Pincode was incorrect");
 					return false;
 				} else {
 					console.log("Yes! Pincode was correct. Now check checksum");
