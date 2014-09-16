@@ -1189,17 +1189,19 @@ WotsApp.prototype = {
 		}
 
 		// check the password
-		checkPasscode = function(letter, passcode) {
+		checkPasscode = function(letter, passcode, callback) {
 			if (wots.participantCode.length != 14) {
 				console.log("Participant code is not of length 14");
-				return false
+				callback(false);
+				return;
 			} else {
 				console.log("Participant code is: " + wots.participantCode);
 			}
 			if (passcode.length != 4) {
 				var msg = "Passcode is not of length 4";
 				wrongCodeAlert(msg);
-				return false;
+				callback(false);
+				return;
 			}
 			var ascii = letter.charCodeAt(0) - 65 + 10;
 			//	console.log("Stand letter " + letter + " becomes " + ascii);
@@ -1223,7 +1225,8 @@ WotsApp.prototype = {
 					wrongCodeAlert(msg);
 					console.log("Help! " + pincode + " should have been " + expPincode);
 					console.log("Pincode was incorrect");
-					return false;
+					callback(false);
+					return;
 				} else {
 					console.log("Yes! Pincode was correct. Now check checksum");
 				}
@@ -1261,10 +1264,12 @@ WotsApp.prototype = {
 					var msg = "Help checksums do not match";
 					wrongCodeAlert(msg);
 					//				console.log("Help! checksums do not match");
-					return false;
+					callback(false);
+					return;
 				}
 				console.log("Checksum was correct!");
-				return true;
+				callback(true);
+				return;
 			});
 		}
 
@@ -1691,17 +1696,20 @@ WotsApp.prototype = {
 			console.log("Select exhibitor", exhibitor);
 			var letter = exhibitor.standletter;
 			console.log(" with stand letter ", letter);
-			var success = checkPasscode(letter, wots.passcode);
-			if (success) {
-				// update status and go back to main screen
-				console.log("Update status of " + exhibitor.name + " as fulfilled");
-				exhibitor.status = "done";
-				exhibitor.passcode = wots.passcode; 
-				// clear code
-				$('#passcode').val('');
-				standsUpdateDB();
-				wotsPage();
-			}
+			checkPasscode(letter, wots.passcode, function(success) {
+				if (success) {
+					// update status and go back to main screen
+					console.log("Update status of " + exhibitor.name + " as fulfilled");
+					exhibitor.status = "done";
+					exhibitor.passcode = wots.passcode; 
+					// clear code
+					$('#passcode').val('');
+					standsUpdateDB();
+					wotsPage();
+				} else {
+					console.log("Wrong passcode, do nothing");
+				}
+			})
 		}
 
 		$('#calculatingPage').on('pagecreate', function() {
