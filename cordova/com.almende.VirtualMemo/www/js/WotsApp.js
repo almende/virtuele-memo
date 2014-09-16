@@ -57,6 +57,9 @@ WotsApp.prototype = {
 		var localdb = LocalDB;
 
 		var crypto = CryptoJS;
+
+        var iOSPlatform = "iOS";
+        var androidPlatform = "Android";
         
 		var iBeaconUuid = '2ca36943-7fde-4f4e-9c08-dda29f079349';
 		
@@ -2248,7 +2251,11 @@ WotsApp.prototype = {
 
 			// display new loaded data
 			// displaySensorData(0);
-			setAllAlerts();
+            if (window.device.platform == androidPlatform) {
+                setAllAlerts();
+            }  else if (window.device.platform == iOSPlatform) {
+                console.log("FIXME: Need to call setAllAlerts() for iOS.");// FIXME
+            }
 		};
 
 		setAllAlerts = function() {
