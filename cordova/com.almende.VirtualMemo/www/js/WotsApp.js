@@ -58,9 +58,9 @@ WotsApp.prototype = {
 
 		var crypto = CryptoJS;
 
-        var iOSPlatform = "iOS";
-        var androidPlatform = "Android";
-        
+		var iOSPlatform = "iOS";
+		var androidPlatform = "Android";
+
 		var iBeaconUuid = '2ca36943-7fde-4f4e-9c08-dda29f079349';
 		
 		var defaultMemoText = "Lijm de Virtuele Memo op je koelkast. Gebruik het als boodschappenlijstje voor je huisgenoot, een kooklijst, of als herinnering voor jezelf om naar de kapper te gaan op zaterdag. :-)";
@@ -564,7 +564,9 @@ WotsApp.prototype = {
 					if (typeof exhibitor.activeQuestion != 'undefined') {
 						questionText = exhibitor.activeQuestion.question;
 					}
-					$('#passcode').keyup( function(event) {
+					$('#passcode').unbind('.check');
+					// we bind a new keyup event here
+					$('#passcode').bind('keyup.check', function (event) {
 						if (event.keyCode == 13) {
 							var passcode = $('#passcode').val();
 							checkWotsPasscode(passcode);        	
@@ -1266,7 +1268,6 @@ WotsApp.prototype = {
 				if (checksum != expChecksum) {
 					var msg = "Help checksums do not match";
 					wrongCodeAlert(msg);
-					//				console.log("Help! checksums do not match");
 					callback(false);
 					return;
 				}
@@ -1983,18 +1984,6 @@ WotsApp.prototype = {
 			sense.sensor(index, successCB, errorCB);
 		}
 
-		/*	
-		csGetSensors = function() {
-			console.log("Get sensors");
-			var data = {};
-			sense.sensors(data, csGetSensorsSuccessCB, generalErrorCB);
-		}
-
-		csGetSensorsSuccessCB = function(result) {
-			console.log("Found sensors", result);
-		}
-		*/
-
 		memoExists = function(memoId) {
 			var debug = true;
 
@@ -2030,7 +2019,6 @@ WotsApp.prototype = {
 				return;
 			}
 
-			//var memoId = $('#memoNote').data('memo-id');
 			var memoId = wots.current_memo.id;
 
 			if (typeof memoId === 'undefined') {
@@ -2046,7 +2034,6 @@ WotsApp.prototype = {
 			} 
 
 			var memoText = wots.current_memo.text;
-			//var memoText = $('#memoText').val();
 
 			if (memoText == defaultMemoText) {
 				var msg = "Do not store default memo";
@@ -2061,15 +2048,6 @@ WotsApp.prototype = {
 			var memoColor = wots.current_memo.color;
 			var memoAuthor = wots.current_memo.author;
 			var memoTitle = wots.current_memo.title;
-			/*
-			var memoLocation = $('#memoLocation').val();
-			var memoAlert = $('#memoAlert').val();
-			var memoDate = $('#memoDate').val();
-			var memoRepeat = $('#memoRepeat').val();
-			var memoColor = $('#memoNote').data('memo-color');
-			var memoAuthor = wots.username;
-			var memoTitle = $('#memoTitle').val();
-			*/
 			var memoData = {
 				"id": memoId,
 				"text": memoText,
@@ -2251,11 +2229,11 @@ WotsApp.prototype = {
 
 			// display new loaded data
 			// displaySensorData(0);
-            if (window.device.platform == androidPlatform) {
-                setAllAlerts();
-            }  else if (window.device.platform == iOSPlatform) {
-                console.log("FIXME: Need to call setAllAlerts() for iOS.");// FIXME
-            }
+			if (window.device.platform == androidPlatform) {
+				setAllAlerts();
+			}  else if (window.device.platform == iOSPlatform) {
+				console.log("FIXME: Need to call setAllAlerts() for iOS.");// FIXME
+			}
 		};
 
 		setAllAlerts = function() {
