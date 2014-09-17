@@ -577,7 +577,8 @@ WotsApp.prototype = {
 						console.log("There is no participant code set, something went wrong?");
 					} else {
 						$('#questionReminderParticipantCode').text("Deelnemercode: " + wots.participantCode);
-						if (exhibitor.passcode) {
+						if (exhibitor.passcode && (typeof(exhibitor.passcode) != 'undefined') 
+								&& (exhibitor.passcode != 'undefined')) {
 							$('#questionReminderPassCode').text("Pincode: " + exhibitor.passcode);
 							// doesn't work yet, todo
 							//$('#questionReminderPassCode').text("");

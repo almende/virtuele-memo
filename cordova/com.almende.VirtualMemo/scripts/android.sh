@@ -34,6 +34,11 @@ login() {
 	cd /home/anne/myscripts/devices/android && ./wots.sh
 }
 
+release() {
+	cd .. && cordova build android --release
+	adb_install platforms/android/ant-build/VirtualMemo-release.apk
+}
+
 all() {
 	build
 	sleep 1
@@ -46,6 +51,9 @@ all() {
 case "$cmd" in 
 	build)
 		build
+		;;
+	release)
+		release
 		;;
 	upload)
 		upload

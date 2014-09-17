@@ -16,8 +16,7 @@
 		{ "question": "Wat is de ideale afmeting voor een schoonmaakrobot?", "answer": "undefined", "type": "text", "length": 4},
 		{ "question": "Welke banen zouden het makkelijkst door robots kunnen worden vervangen?", "answer": "undefined", "type": "number", "length": 4 }
 	],
-	"status": "disabled",
-	"passcode": "0900"
+	"status": "disabled"
 },
 {
 	"id":"assemblypartner",
