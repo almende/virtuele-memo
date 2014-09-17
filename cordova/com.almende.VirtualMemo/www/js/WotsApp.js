@@ -286,7 +286,7 @@ WotsApp.prototype = {
 		}
 
 		updateList = function(nearestStand) {
-			console.log("Update stands");
+			console.log("Update stands in the user interface");
 			// remove previous list
 			$("#exhibitorList").empty();
 			var prevExhibitor = null;
@@ -578,9 +578,9 @@ WotsApp.prototype = {
 					} else {
 						$('#questionReminderParticipantCode').text("Deelnemercode: " + wots.participantCode);
 						if (exhibitor.passcode) {
-							//$('#questionReminderPassCode').text("Pincode: " + exhibitor.passcode);
+							$('#questionReminderPassCode').text("Pincode: " + exhibitor.passcode);
 							// doesn't work yet, todo
-							$('#questionReminderPassCode').text("");
+							//$('#questionReminderPassCode').text("");
 						} else {
 							$('#questionReminderPassCode').text("");
 						}
@@ -1443,30 +1443,38 @@ WotsApp.prototype = {
 		queryStandsSuccess = function(tx, results) {
 			var len = results.rows.length;
 			console.log("Number of stand owners in the database: " + len);
-			if (results.rowsAffected) return false;
+			if (results.rowsAffected) {
+				console.log("Return on a write query. We continue only after a select query");
+				return false;
+			}
 
 			// iterate through all exhibitors, and if not present, create entry in table
 			for (var c = 0; c < wots.exhibitors.length; c++) {
 
 				var id = wots.exhibitors[c].id;
 
+				// search in results variable returned from database
 				var found = false;
 				for (var i=0; i<len; i++) {
 					//console.log("Find stand holder " + id);
 					if (results.rows.item(i).id == id) {
+						// update local data about this stand holder
+						wots.exhibitors[c].passcode = results.rows.item(i).passcode;
 						wots.exhibitors[c].status = results.rows.item(i).status;
 						found = true;
 						break;
 					}
 				}
+
+				// not found in database, so store exhibitor in the database
 				if (!found) {
 					console.log("Add stand holder " + id);
 					wots.exhibitors[c].status = 'undefined';
 					var status = wots.exhibitors[c].status;
 					var passcode = wots.exhibitors[c].passcode;
 					console.log("With status: " + status + " and passcode " + passcode); 
-					tx.executeSql('INSERT INTO STANDS (id, status, passcode) VALUES ("' + id + '","' + 
-								 status + '","' + passcode + '")');
+					tx.executeSql('INSERT INTO STANDS (id, status, passcode) VALUES ("' + id + 
+						'","' + status + '","' + passcode + '")');
 				}
 			}
 			return true;
@@ -1706,6 +1714,8 @@ WotsApp.prototype = {
 					console.log("Update status of " + exhibitor.name + " as fulfilled");
 					exhibitor.status = "done";
 					exhibitor.passcode = wots.passcode; 
+					console.log("Set status to " + exhibitor.status + " and passcode " +
+						exhibitor.passcode);
 					// clear code
 					$('#passcode').val('');
 					standsUpdateDB();
