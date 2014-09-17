@@ -35,7 +35,7 @@ login() {
 }
 
 release() {
-	cd .. && cordova build android --release
+	cordova build android --release
 	adb_install platforms/android/ant-build/VirtualMemo-release.apk
 }
 
