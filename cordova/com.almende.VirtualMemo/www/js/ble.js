@@ -446,7 +446,7 @@ var BLEHandler = function() {
 		self.disconnectDevice();
 	}
 
-	// function only works on iOS, not on Android
+	// function is only meant for iOS, not for Android
 	self.descriptorsAlertLevelSuccess = function(obj)
 	{
 		if (obj.status == "discoveredDescriptors")
@@ -460,7 +460,7 @@ var BLEHandler = function() {
 		}
 	}
 
-	// function only works on iOS, not on Android
+	// function is only meant for iOS, not for Android
 	self.descriptorsAlertLevelError = function(obj)
 	{
 		console.log("Descriptors alert error: " + obj.error + " - " + obj.message);

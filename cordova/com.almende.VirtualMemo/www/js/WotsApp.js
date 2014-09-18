@@ -21,6 +21,8 @@ function WotsApp() {
 
 	this.current_memo = {};
 
+	this.mode = '';
+
 	this.afterRegistration = null;
 	this.address = null;
 	this.updateAddress = false;
@@ -142,6 +144,7 @@ WotsApp.prototype = {
 
 			console.log("Started the WOTS application");
 			init();
+			setNotificationTriggers();
 
 			// first page to visit, should be in the end the guidePage for the WOTS conference
 			guidePage();
@@ -256,7 +259,8 @@ WotsApp.prototype = {
 			});
 		});
 
-       		// we are now calling updateList all the time.. 
+       		// todo: we are now calling updateList all the time... this should actually only be done when 
+		// something changed
 		refreshByBeacon = function(nearestBeacon){
 			if (nearestBeacon == null) {
 				updateList(undefined);
@@ -277,8 +281,9 @@ WotsApp.prototype = {
 		}
         
 		showList = function() {
-			console.log("Showing list");
+			console.log("Showing list of stand owners on the route");
 			if (typeof iBeacon.scanForIBeacons != 'undefined') {
+				console.log("Start scanning for iBeacons");
 				iBeacon.scanForIBeacons(refreshByBeacon);
 			} else {
 				updateList(undefined);
@@ -434,6 +439,7 @@ WotsApp.prototype = {
 		// this loads exhibitor information from a local .js data file, but doesn't know how to store state
 		// information...
 		$('#allExhibitorsPage').on('pageshow', function() {
+			wots.mode = 'conference';
 			$.getJSON('data/exhibitors.js', function(data) {
 				var allExhibitorsList = $('#allExhibitorsList');
 				console.log("Update list of all exhibitors");
@@ -618,6 +624,10 @@ WotsApp.prototype = {
 			$.mobile.changePage("#virtualMemoPage", {transition:'none', hashChange:true});
 		};
 
+		$('#virtualMemoPage').on('pageshow',function(e,data) { 
+			wots.mode = 'home';
+		});
+
 		$('#virtualMemoPage').on('pagecreate',function(e,data) { 
 			console.log("Add colors");
 			var colors = [ "0000ff", "00ff00", "00ffff", "ff0000", "ff00ff", "ffff00" ];
@@ -650,15 +660,25 @@ WotsApp.prototype = {
 			});
 
 			$('#prevMemo').on('click', function(event) {
+				if (wots.memos.length <= 1) return;
 				var memo_id = getCurrentMemoId();
-				memo_id = (memo_id + wots.memos.length - 1) % wots.memos.length;	
-				displaySensorData(memo_id);
+				var attempts = 0;
+				do {
+					memo_id = (memo_id + wots.memos.length - 1) % wots.memos.length;
+					var errcode = displaySensorData(memo_id);
+					attempts++;
+				} while (errcode == 2 || attempts > 3);
 			});
 
 			$('#nextMemo').on('click', function(event) {
+				if (wots.memos.length <= 1) return;
 				var memo_id = getCurrentMemoId();
-				memo_id = (memo_id + wots.memos.length + 1) % wots.memos.length;
-				displaySensorData(memo_id);
+				var attempts = 0;
+				do {
+					memo_id = (memo_id + wots.memos.length + 1) % wots.memos.length;
+					var errcode = displaySensorData(memo_id);
+					attempts++;
+				} while (errcode == 2 || attempts > 3);
 			});
 
 			// call function that queries for the address at regular times
@@ -2150,17 +2170,17 @@ WotsApp.prototype = {
 			console.log("Go to memo page: " + page);
 			if (!wots.memos) {
 				console.log("There is no array of memos");
-				return;
+				return 1;
 			}
 			if (wots.memos.length < page) {
 				console.log("Array of memos is not long enough");
-				return;
+				return 1;
 			}
 			updateCurrentMemoId(page);
 			var sensor = wots.memos[page];
 			if (!sensor) {
-				console.log("There is no sensor data, drop out");
-				return;
+				console.log("There is no sensor data at this page, go to next");
+				return 2;
 			}
 			console.log("Display memo: " + JSON.stringify(sensor));
 			var memo = sensor;
@@ -2176,6 +2196,7 @@ WotsApp.prototype = {
 			$('#memoDate').val(memo.date);
 			$('#memoRepeat').val(memo.repeat);
 			setMemoColor(memo.color);
+			return 0;
 		}
 
 		csCreateSensorDataSuccessCB = function(result) {
@@ -2240,13 +2261,23 @@ WotsApp.prototype = {
 
 			// display new loaded data
 			// displaySensorData(0);
-			if (window.device.platform == androidPlatform) {
-				setAllAlerts();
-			}  else if (window.device.platform == iOSPlatform) {
-				console.log("FIXME: Need to call setAllAlerts() for iOS.");// FIXME
-			}
+			goThroughAlerts();
+
+			//if (window.device.platform == androidPlatform) {
+			//	setAllAlerts();
+			//}  else if (window.device.platform == iOSPlatform) {
+			//	console.log("FIXME: Need to call setAllAlerts() for iOS.");// FIXME
+			//}
 		};
 
+		/*
+		 * This makes sense if we have time-specific alerts. However, what we want is an alert that will be
+		 * triggered if someone gets close to the fridge, just at the moment that he/she gets close to the 
+		 * fridge. We do not want to figure out if someone is close to the fridge at a very specific time and
+		 * then decide to send or not send something. What if someone was just putting the garbage outside and
+		 * misses an alert in that way. That doesn't make sense. So, instead of setAllAlerts, we need only
+		 * goThroughAlerts() to go through alerts and initiate them if their day is set today.
+		 */
 		setAllAlerts = function() {
 			if (!window.plugin || !window.plugin.notification) {
 				console.log("Cannot set alerts, plugin not installed");
@@ -2258,13 +2289,88 @@ WotsApp.prototype = {
 				var date = new Date(now + 60 * 1000); // one minute from now
 				window.plugin.notification.local.add({
 					id: memo.id,
-					title: memo.title,
-					message: memo.text,
 					date: date,
+					message: memo.text,
+					title: memo.title,
 					autoCancel: true}
 				, function() {
 					console.log("An alarm has been set off");
 				});
+			}
+		}
+
+		goThroughAlerts = function() {
+			console.log("Go through current alerts");
+			for (m in wots.memos) {
+				var memo = wots.memos[m];
+				if (memo.date && typeof memo.date != 'undefined') {
+					console.log("Check if " + memo.date + " is today");
+					var memo_arr = memo.date.split('-');
+					console.log("Array length of date: " + memo_arr.length);
+					if (memo_arr.length != 3) continue;
+					var memo_year = Number(memo_arr[0]);
+					var memo_month = Number(memo_arr[1]);
+					var memo_day = Number(memo_arr[2]);
+					var now = new Date();
+					var year = now.getFullYear();
+					var month = now.getMonth() + 1;
+					var day = now.getDate();
+					//console.log(memo_year + "vs" + year);
+					//console.log(memo_month + "vs" + month);
+					//console.log(memo_day + "vs" + day);
+					if (memo_year == year && memo_month == month && memo_day == day) {
+						console.log("Bingo, alert is for today!");
+						createNotification(memo);
+					}
+				} else {
+					console.log("Date undefined: " + memo.date);
+				}
+			}
+		}
+
+		createNotification = function(memo) {
+			console.log("Create notification with alert type " + memo.alert);
+			var now = new Date().getTime();
+			var seconds = 10; // 10 seconds from now
+			var date = new Date(now + seconds * 1000); 
+			var json = JSON.stringify( memo );
+			window.plugin.notification.local.add({
+				id: memo.id,
+				date: date,
+				message: memo.text,
+				title: memo.title,
+				json: json,
+				autoCancel: false
+				}
+				/* // callback does not seem to work
+				, function() {
+					console.log("An alarm has been set off");
+					var m = JSON.parse(json);
+					console.log("Json: " + m);
+					if (m.alert == 'sound signal') {
+						ble.writeAlertLevel('high', 3000);
+					} else if (m.alert == 'flash LEDs') {
+						ble.writeAlertLevel('middle', 5000);
+					}
+				}, json */
+				);
+		}
+
+		setNotificationTriggers = function() {
+			window.plugin.notification.local.ontrigger = function(id, state, json) {
+				for (m in wots.memos) {
+					var memo = wots.memos[m];
+					if (memo.id == id) {
+						console.log("An alarm has been set off for memo " + memo.id);
+						console.log("Also sound alarm on device itself " + memo.alert);
+						if (memo.alert == 2) {
+							ble.writeAlertLevel('high', 3000);
+						} else if (memo.alert == 1) {
+							ble.writeAlertLevel('middle', 5000);
+						}
+						break;
+					}
+				}
 			}
 		}
 
