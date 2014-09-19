@@ -2,7 +2,7 @@ var iBeaconHandler = function() {
 	var self = this;
 	var iBeaconUuid = '2ca36943-7fde-4f4e-9c08-dda29f079349';
 
-	if (typeof iBeacon === 'undefined') {
+	if (typeof ibeacon === 'undefined') {
 		console.error("Object ibeacon is not defined. Are you calling this after document ready?");
 		return;
 	}

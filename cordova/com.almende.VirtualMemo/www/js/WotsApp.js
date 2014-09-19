@@ -1,3 +1,4 @@
+var databaseName = "MEMO_TEST_DATABASE";
 function WotsApp() {
 
 	/**************************************************************************************************************
@@ -579,14 +580,14 @@ WotsApp.prototype = {
 						}
 					});
 
-                    $('#passcode').bind('keypress', function (event) {
-                        if (event.keyCode == 13) {
-                            var passcode = $('#passcode').val();
-                            checkWotsPasscode(passcode);
-                        }
-                    });
+//                    $('#passcode').bind('keypress', function (event) {
+//                        if (event.keyCode == 13) {
+//                            var passcode = $('#passcode').val();
+//                            checkWotsPasscode(passcode);
+//                        }
+//                    });
 
-                    $('#passcode').bind('focusout', function (event) {
+                    $('#passcode').bind('focusout.check', function (event) {
                             var passcode = $('#passcode').val();
                             checkWotsPasscode(passcode);
                     });
@@ -826,7 +827,16 @@ WotsApp.prototype = {
 			$('#congratsPageMain').css('background-image', 'url(css/images/congrats.png)' );
 			var congratsHeader = "<h1>Gefeliciteerd!</h1>";
 			$('#congratsHeader').empty().append(congratsHeader);
-			var congratsText = "Je hebt de route succesvol afgelegd.</br></br>Je mag de standhouder nu om de Virtuele Memo vragen!";
+            var exhibitor;
+            for (var c = 0; c < wots.exhibitors.length; c++) {
+                exhibitor = wots.exhibitors[c];
+                // console.log("Is stand " + exhibitor.standletter + " on the route?");
+                if (wots.route[wots.route.length-1] == exhibitor.standletter) {
+                    console.log("Inform to get gadget @ exhibitor: ",  JSON.stringify(exhibitor));
+                    break;
+                }
+            }
+			var congratsText = "Je hebt de route succesvol afgelegd.</br></br>Je mag de "+exhibitor.name+" standhouder nu om de Virtuele Memo vragen!";
 			$('#congratsText').empty().append(congratsText);
 			var btn= $('<input type="button" class="bottomButton" value="ga verder"/>');
 			btn.on('click', function(event) {
@@ -1350,7 +1360,7 @@ WotsApp.prototype = {
 
 		accountDB = function(callback) {
 			if (!wots.db) {
-				wots.db = window.openDatabase("memo", "1.0", "Memo", 1000000);
+				wots.db = window.openDatabase(databaseName, "1.0", "Memo", 1000000);
 				localdb.init(wots.db);
 			}
 			if (testing) {
@@ -1445,7 +1455,7 @@ WotsApp.prototype = {
 		standsDB = function(callback) {
 			console.log("Get stands from database");
 			if (!wots.db) {
-				wots.db = window.openDatabase("memo", "1.0", "Memo", 1000000);
+				wots.db = window.openDatabase(databaseName, "1.0", "Memo", 1000000);
 				localdb.init(wots.db);
 			}
 
@@ -1493,8 +1503,9 @@ WotsApp.prototype = {
 					//console.log("Find stand holder " + id);
 					if (results.rows.item(i).id == id) {
 						// update local data about this stand holder
-						wots.exhibitors[c].passcode = results.rows.item(i).passcode;
-						wots.exhibitors[c].status = results.rows.item(i).status;
+                        wots.exhibitors[c].passcode = results.rows.item(i).passcode;
+                        wots.exhibitors[c].status = results.rows.item(i).status;
+
 						found = true;
 						break;
 					}
@@ -1516,7 +1527,7 @@ WotsApp.prototype = {
 
 		standsUpdateDB = function(callback) {
 			if (!wots.db) {
-				wots.db = window.openDatabase("memo", "1.0", "Memo", 1000000);
+				wots.db = window.openDatabase(databaseName, "1.0", "Memo", 1000000);
 				localdb.init(wots.db);
 			}
 
@@ -1540,9 +1551,9 @@ WotsApp.prototype = {
 			var id = exhibitor.id;
 			var status = exhibitor.status;
 			var passcode = exhibitor.passcode;
-			console.log("Update stand holder " + id + " with passcode " + passcode);
-			tx.executeSql('UPDATE STANDS SET status="' + status 
-					+ '", passcode="' + passcode + '" WHERE id="' + id + '"');
+			console.log("Update stand holder " + id + " with passcode " + passcode + " and status " + status);
+            tx.executeSql('UPDATE STANDS SET status="' + status
+					+ '", passcode="' + passcode + '" WHERE id="' + id + '"', console.log);
 			return true;
 		}
 
@@ -1552,7 +1563,7 @@ WotsApp.prototype = {
 
 		noteDB = function() {
 			if (!wots.db) {
-				wots.db = window.openDatabase("memo", "1.0", "Memo", 1000000);
+				wots.db = window.openDatabase(databaseName, "1.0", "Memo", 1000000);
 				localdb.init(wots.db);
 				if (testing) {
 					wots.db.removeMemos();
@@ -1752,7 +1763,7 @@ WotsApp.prototype = {
 						exhibitor.passcode);
 					// clear code
 					$('#passcode').val('');
-					standsUpdateDB();
+                    standsUpdateDB();
 					wotsPage();
 				} else {
 					console.log("Wrong passcode, do nothing");
@@ -2381,6 +2392,15 @@ WotsApp.prototype = {
 						} else if (memo.alert == 1) {
 							ble.writeAlertLevel('middle', 5000);
 						}
+                        if (window.device.platform == iOSPlatform) {
+                            navigator.notification.alert(
+                                JSON.parse(json).text,
+                                function(){}, // Specify a function to be called
+                                JSON.parse(json).title,
+                                "OK"
+                            );
+                            // I just asume here that on android the message already is displayed on the device.
+                        }
 						break;
 					}
 				}
