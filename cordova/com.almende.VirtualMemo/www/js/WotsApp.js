@@ -571,13 +571,26 @@ WotsApp.prototype = {
 						questionText = exhibitor.activeQuestion.question;
 					}
 					$('#passcode').unbind('.check');
-					// we bind a new keyup event here
-					$('#passcode').bind('keyup.check', function (event) {
+					// we bind a new keypress (because keyup does not work on iOS) event here
+					$('#passcode').bind('keypress.check', function (event) {
 						if (event.keyCode == 13) {
 							var passcode = $('#passcode').val();
 							checkWotsPasscode(passcode);        	
 						}
 					});
+
+                    $('#passcode').bind('keypress', function (event) {
+                        if (event.keyCode == 13) {
+                            var passcode = $('#passcode').val();
+                            checkWotsPasscode(passcode);
+                        }
+                    });
+
+                    $('#passcode').bind('focusout', function (event) {
+                            var passcode = $('#passcode').val();
+                            checkWotsPasscode(passcode);
+                    });
+
 					$('#questionParagraph').text(questionText);
 					if (!wots.participantCode) {
 						console.log("There is no participant code set, something went wrong?");
@@ -1113,22 +1126,22 @@ WotsApp.prototype = {
 			center.append(btn);
 
 			// make sure we can enter our way through the entry fields
-			$('#username').keyup( function(event) {
+			$('#username').keypress( function(event) {
 				if (event.keyCode == 13) {
 					$("#password").focus();
 				}
 			});
-			$('#password').keyup( function(event) {
+			$('#password').keypress( function(event) {
 				if (event.keyCode == 13) {
 					$("#email").focus();
 				}
 			});
-			$('#email').keyup( function(event) {
+			$('#email').keypress( function(event) {
 				if (event.keyCode == 13) {
 					$("#participantcode").focus();
 				}
 			});
-			$('#participantcode').keyup( function(event) {
+			$('#participantcode').keypress( function(event) {
 				if (event.keyCode == 13) {
 					$('.bottomButton').click();
 				}
