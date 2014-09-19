@@ -104,7 +104,7 @@ WotsApp.prototype = {
 			if ($header.length) {
 				//create a link with a `href` attribute and a `class` attribute,
 				//then turn it into a jQuery Mobile button widget
-				$header.append($('<a />', { class : 'ui-btn-right', href : '#virtualMemoPage' }).buttonMarkup(
+				$header.append($('<a />', { class : 'ui-btn-right', style : 'margin-top: 15px;', href : '#virtualMemoPage' }).buttonMarkup(
 					{ icon: "home", iconpos : "notext" }));
 			}    
 		});
@@ -259,6 +259,10 @@ WotsApp.prototype = {
 				}
 			});
 		});
+
+        $('#exhibitorListPage').on('pagehide', function() {
+            iBeacon.stopScanForIBeacons();
+        });
 
        		// todo: we are now calling updateList all the time... this should actually only be done when 
 		// something changed
