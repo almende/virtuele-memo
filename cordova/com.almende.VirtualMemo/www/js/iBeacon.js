@@ -43,16 +43,19 @@ var iBeaconHandler = function() {
 						console.log("Found multiple beacons, disposing: " + JSON.stringify(result.beacons[i]));
 					}
 				}
-				ibeacon.stopMonitoringForRegion({
-					region: region
-				});
-                  ibeacon.stopRangingBeaconsInRegion({
-                                            region: region
-                                        });
+
 				//if (nearestBeacon != null)
 				callback(nearestBeacon);
 				//}
 		}});
 	callback(null);
 }
+    self.stopScanForIBeacons = function() {
+        ibeacon.stopMonitoringForRegion({
+            region: region
+        });
+        ibeacon.stopRangingBeaconsInRegion({
+            region: region
+        });
+    }
 }

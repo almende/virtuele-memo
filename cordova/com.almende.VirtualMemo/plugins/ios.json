@@ -41,11 +41,19 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
+                            "xml": "<feature name=\"LocalNotification\"><param name=\"ios-package\" value=\"LocalNotification\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<plugin name=\"LocalNotification\" value=\"LocalNotification\" />",
                             "count": 1
                         },
                         {
                             "xml": "<feature name=\"Notification\"><param name=\"ios-package\" value=\"CDVNotification\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -73,10 +81,13 @@
         "eu.mobilion.ibeacon": {
             "PACKAGE_NAME": "com.almende.VirtualMemo"
         },
-        "org.apache.cordova.console": {
+        "jp.wizcorp.phonegap.plugin.localNotificationPlugin": {
             "PACKAGE_NAME": "com.almende.VirtualMemo"
         },
         "org.apache.cordova.dialogs": {
+            "PACKAGE_NAME": "com.almende.VirtualMemo"
+        },
+        "org.apache.cordova.console": {
             "PACKAGE_NAME": "com.almende.VirtualMemo"
         }
     },

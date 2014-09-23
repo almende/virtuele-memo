@@ -1,3 +1,4 @@
+var databaseName = "MEMO_TEST_DATABASE";
 function WotsApp() {
 
 	/**************************************************************************************************************
@@ -103,7 +104,7 @@ WotsApp.prototype = {
 			if ($header.length) {
 				//create a link with a `href` attribute and a `class` attribute,
 				//then turn it into a jQuery Mobile button widget
-				$header.append($('<a />', { class : 'ui-btn-right', href : '#virtualMemoPage' }).buttonMarkup(
+				$header.append($('<a />', { class : 'ui-btn-right', style : 'margin-top: 15px;', href : '#virtualMemoPage' }).buttonMarkup(
 					{ icon: "home", iconpos : "notext" }));
 			}    
 		});
@@ -258,6 +259,10 @@ WotsApp.prototype = {
 				}
 			});
 		});
+
+        $('#exhibitorListPage').on('pagehide', function() {
+            iBeacon.stopScanForIBeacons();
+        });
 
        		// todo: we are now calling updateList all the time... this should actually only be done when 
 		// something changed
@@ -571,13 +576,26 @@ WotsApp.prototype = {
 						questionText = exhibitor.activeQuestion.question;
 					}
 					$('#passcode').unbind('.check');
-					// we bind a new keyup event here
-					$('#passcode').bind('keyup.check', function (event) {
+					// we bind a new keypress (because keyup does not work on iOS) event here
+					$('#passcode').bind('keypress.check', function (event) {
 						if (event.keyCode == 13) {
 							var passcode = $('#passcode').val();
 							checkWotsPasscode(passcode);        	
 						}
 					});
+
+//                    $('#passcode').bind('keypress', function (event) {
+//                        if (event.keyCode == 13) {
+//                            var passcode = $('#passcode').val();
+//                            checkWotsPasscode(passcode);
+//                        }
+//                    });
+
+                    $('#passcode').bind('focusout.check', function (event) {
+                            var passcode = $('#passcode').val();
+                            checkWotsPasscode(passcode);
+                    });
+
 					$('#questionParagraph').text(questionText);
 					if (!wots.participantCode) {
 						console.log("There is no participant code set, something went wrong?");
@@ -813,7 +831,16 @@ WotsApp.prototype = {
 			$('#congratsPageMain').css('background-image', 'url(css/images/congrats.png)' );
 			var congratsHeader = "<h1>Gefeliciteerd!</h1>";
 			$('#congratsHeader').empty().append(congratsHeader);
-			var congratsText = "Je hebt de route succesvol afgelegd.</br></br>Je mag de standhouder nu om de Virtuele Memo vragen!";
+            var exhibitor;
+            for (var c = 0; c < wots.exhibitors.length; c++) {
+                exhibitor = wots.exhibitors[c];
+                // console.log("Is stand " + exhibitor.standletter + " on the route?");
+                if (wots.route[wots.route.length-1] == exhibitor.standletter) {
+                    console.log("Inform to get gadget @ exhibitor: ",  JSON.stringify(exhibitor));
+                    break;
+                }
+            }
+			var congratsText = "Je hebt de route succesvol afgelegd.</br></br>Je mag de "+exhibitor.name+" standhouder nu om de Virtuele Memo vragen!";
 			$('#congratsText').empty().append(congratsText);
 			var btn= $('<input type="button" class="bottomButton" value="ga verder"/>');
 			btn.on('click', function(event) {
@@ -1113,22 +1140,22 @@ WotsApp.prototype = {
 			center.append(btn);
 
 			// make sure we can enter our way through the entry fields
-			$('#username').keyup( function(event) {
+			$('#username').keypress( function(event) {
 				if (event.keyCode == 13) {
 					$("#password").focus();
 				}
 			});
-			$('#password').keyup( function(event) {
+			$('#password').keypress( function(event) {
 				if (event.keyCode == 13) {
 					$("#email").focus();
 				}
 			});
-			$('#email').keyup( function(event) {
+			$('#email').keypress( function(event) {
 				if (event.keyCode == 13) {
 					$("#participantcode").focus();
 				}
 			});
-			$('#participantcode').keyup( function(event) {
+			$('#participantcode').keypress( function(event) {
 				if (event.keyCode == 13) {
 					$('.bottomButton').click();
 				}
@@ -1337,7 +1364,7 @@ WotsApp.prototype = {
 
 		accountDB = function(callback) {
 			if (!wots.db) {
-				wots.db = window.openDatabase("memo", "1.0", "Memo", 1000000);
+				wots.db = window.openDatabase(databaseName, "1.0", "Memo", 1000000);
 				localdb.init(wots.db);
 			}
 			if (testing) {
@@ -1432,7 +1459,7 @@ WotsApp.prototype = {
 		standsDB = function(callback) {
 			console.log("Get stands from database");
 			if (!wots.db) {
-				wots.db = window.openDatabase("memo", "1.0", "Memo", 1000000);
+				wots.db = window.openDatabase(databaseName, "1.0", "Memo", 1000000);
 				localdb.init(wots.db);
 			}
 
@@ -1480,8 +1507,9 @@ WotsApp.prototype = {
 					//console.log("Find stand holder " + id);
 					if (results.rows.item(i).id == id) {
 						// update local data about this stand holder
-						wots.exhibitors[c].passcode = results.rows.item(i).passcode;
-						wots.exhibitors[c].status = results.rows.item(i).status;
+                        wots.exhibitors[c].passcode = results.rows.item(i).passcode;
+                        wots.exhibitors[c].status = results.rows.item(i).status;
+
 						found = true;
 						break;
 					}
@@ -1503,7 +1531,7 @@ WotsApp.prototype = {
 
 		standsUpdateDB = function(callback) {
 			if (!wots.db) {
-				wots.db = window.openDatabase("memo", "1.0", "Memo", 1000000);
+				wots.db = window.openDatabase(databaseName, "1.0", "Memo", 1000000);
 				localdb.init(wots.db);
 			}
 
@@ -1527,9 +1555,9 @@ WotsApp.prototype = {
 			var id = exhibitor.id;
 			var status = exhibitor.status;
 			var passcode = exhibitor.passcode;
-			console.log("Update stand holder " + id + " with passcode " + passcode);
-			tx.executeSql('UPDATE STANDS SET status="' + status 
-					+ '", passcode="' + passcode + '" WHERE id="' + id + '"');
+			console.log("Update stand holder " + id + " with passcode " + passcode + " and status " + status);
+            tx.executeSql('UPDATE STANDS SET status="' + status
+					+ '", passcode="' + passcode + '" WHERE id="' + id + '"', console.log);
 			return true;
 		}
 
@@ -1539,7 +1567,7 @@ WotsApp.prototype = {
 
 		noteDB = function() {
 			if (!wots.db) {
-				wots.db = window.openDatabase("memo", "1.0", "Memo", 1000000);
+				wots.db = window.openDatabase(databaseName, "1.0", "Memo", 1000000);
 				localdb.init(wots.db);
 				if (testing) {
 					wots.db.removeMemos();
@@ -1739,7 +1767,7 @@ WotsApp.prototype = {
 						exhibitor.passcode);
 					// clear code
 					$('#passcode').val('');
-					standsUpdateDB();
+                    standsUpdateDB();
 					wotsPage();
 				} else {
 					console.log("Wrong passcode, do nothing");
@@ -2368,6 +2396,15 @@ WotsApp.prototype = {
 						} else if (memo.alert == 1) {
 							ble.writeAlertLevel('middle', 5000);
 						}
+                        if (window.device.platform == iOSPlatform) {
+                            navigator.notification.alert(
+                                JSON.parse(json).text,
+                                function(){}, // Specify a function to be called
+                                JSON.parse(json).title,
+                                "OK"
+                            );
+                            // I just asume here that on android the message already is displayed on the device.
+                        }
 						break;
 					}
 				}
