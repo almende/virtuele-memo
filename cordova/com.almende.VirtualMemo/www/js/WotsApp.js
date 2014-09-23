@@ -104,8 +104,15 @@ WotsApp.prototype = {
 			if ($header.length) {
 				//create a link with a `href` attribute and a `class` attribute,
 				//then turn it into a jQuery Mobile button widget
-				$header.append($('<a />', { class : 'ui-btn-right', style : 'margin-top: 15px;', href : '#virtualMemoPage' }).buttonMarkup(
-					{ icon: "home", iconpos : "notext" }));
+                        	if (window.device.platform == iOSPlatform) {
+					$header.append($('<a />', { 
+						class : 'ui-btn-right', style : 'margin-top: 15px;', href : '#virtualMemoPage' }).buttonMarkup(
+						{ icon: "home", iconpos : "notext" }));
+				} else {
+					$header.append($('<a />', { 
+						class : 'ui-btn-right', href : '#virtualMemoPage' }).buttonMarkup(
+						{ icon: "home", iconpos : "notext" }));
+				}
 			}    
 		});
 
@@ -260,9 +267,12 @@ WotsApp.prototype = {
 			});
 		});
 
-        $('#exhibitorListPage').on('pagehide', function() {
-            iBeacon.stopScanForIBeacons();
-        });
+		$('#exhibitorListPage').on('pagehide', function() {
+			if (typeof iBeacon.scanForIBeacons != 'undefined') {
+				console.log("Stop scanning for iBeacons");
+				iBeacon.stopScanForIBeacons();
+			}
+		});
 
        		// todo: we are now calling updateList all the time... this should actually only be done when 
 		// something changed
@@ -972,7 +982,7 @@ WotsApp.prototype = {
 				registerPage();
 			} else {
 				var page = parseInt(np);
-				console.log("Go to page" + page);
+				console.log("Swipe left, go to page " + page);
 				guideSubPage(page);
 			}
 		});
@@ -982,7 +992,7 @@ WotsApp.prototype = {
 			var page = parseInt(cp);
 			if (page != 0) {
 				page--;	
-				console.log("Go to page" + page);
+				console.log("Swipe right, go to page" + page);
 				guideSubPage(page);
 			}
 		});
@@ -1045,7 +1055,9 @@ WotsApp.prototype = {
 				console.log("Create status bar");
 				for (var i = 0; i < wots.guideHomeSubPageCnt; i++) {
 					//console.log("Create status bar item " + i);
-					var $li = $('<li/>', {'class': 'guideHomeSubPageBtn pageDisabled', 'id': i});
+					var prefix = 'homeGuidePage';
+					var $li = $('<li/>', {'class': 'guideHomeSubPageBtn pageDisabled', 'id': 
+						prefix + i});
 					$li.on('click', function(event) {
 						id=$(this).attr ( "id" );
 						guideHomeSubPage(id);
@@ -1062,18 +1074,22 @@ WotsApp.prototype = {
 			if (!np) {
 				registerPage();
 			} else {
-				var page = parseInt(np);
-				console.log("Go to page" + page);
+				var prefix = 'homeGuidePage';
+				var page = parseInt(np.slice(prefix.length));
+				//var page = parseInt(np);
+				console.log("Swipe left, go to next page " + page);
 				guideHomeSubPage(page);
 			}
 		});
 
 		$('#guideHomeMemo').on('swiperight', function() {
 			var cp = $('.guideHomeSubPageBtn.pageEnabled').last().attr('id');
-			var page = parseInt(cp);
+			var prefix = 'homeGuidePage';
+			var page = parseInt(cp.slice(prefix.length));
+			//var page = parseInt(cp);
 			if (page != 0) {
 				page--;	
-				console.log("Go to page" + page);
+				console.log("Swipe right, go to previous page" + page);
 				guideHomeSubPage(page);
 			}
 		});
@@ -1082,27 +1098,27 @@ WotsApp.prototype = {
 			if (!p) {
 				p = 0;
 			}
-			console.log("Go to page " + p);
+			console.log("Home guide - go to page " + p);
 			var page = parseInt(p);
 			switch(page) {
 				case 0: $('#guideHomeSubPage').css('background-image', 'url(css/images/guidehome_page0.png)' );
-					$('.guideHomeSubPageBtn#' + page).removeClass('pageDisabled').addClass('pageEnabled');
-					$('.guideHomeSubPageBtn#1').removeClass('pageEnabled').addClass('pageDisabled');
-					$('.guideHomeSubPageBtn#2').removeClass('pageEnabled').addClass('pageDisabled');
+					$('.guideHomeSubPageBtn#homeGuidePage' + page).removeClass('pageDisabled').addClass('pageEnabled');
+					$('.guideHomeSubPageBtn#homeGuidePage1').removeClass('pageEnabled').addClass('pageDisabled');
+					$('.guideHomeSubPageBtn#homeGuidePage2').removeClass('pageEnabled').addClass('pageDisabled');
 					var explanation = $('<p/>').text(wots.guideHome[page].description);
 					$('#guideHomeExplanation').empty().append(explanation);
 					break;
 				case 1: $('#guideHomeSubPage').css('background-image', 'url(css/images/guidehome_page1.png)' );
-					$('.guideHomeSubPageBtn#0').removeClass('pageDisabled').addClass('pageEnabled');
-					$('.guideHomeSubPageBtn#' + page).removeClass('pageDisabled').addClass('pageEnabled');
-					$('.guideHomeSubPageBtn#2').removeClass('pageEnabled').addClass('pageDisabled');
+					$('.guideHomeSubPageBtn#homeGuidePage0').removeClass('pageDisabled').addClass('pageEnabled');
+					$('.guideHomeSubPageBtn#homeGuidePage' + page).removeClass('pageDisabled').addClass('pageEnabled');
+					$('.guideHomeSubPageBtn#homeGuidePage2').removeClass('pageEnabled').addClass('pageDisabled');
 					var explanation = $('<p/>').text(wots.guideHome[page].description);
 					$('#guideHomeExplanation').empty().append(explanation);
 					break;
 				case 2: $('#guideHomeSubPage').css('background-image', 'url(css/images/guidehome_page2.png)' );
-					$('.guideHomeSubPageBtn#0').removeClass('pageDisabled').addClass('pageEnabled');
-					$('.guideHomeSubPageBtn#1').removeClass('pageDisabled').addClass('pageEnabled');
-					$('.guideHomeSubPageBtn#' + page).removeClass('pageDisabled').addClass('pageEnabled');
+					$('.guideHomeSubPageBtn#homeGuidePage0').removeClass('pageDisabled').addClass('pageEnabled');
+					$('.guideHomeSubPageBtn#homeGuidePage1').removeClass('pageDisabled').addClass('pageEnabled');
+					$('.guideHomeSubPageBtn#homeGuidePage' + page).removeClass('pageDisabled').addClass('pageEnabled');
 					var explanation = $('<p/>').text(wots.guideHome[page].description);
 					$('#guideHomeExplanation').empty().append(explanation);
 					var btn= $('<input type="button" class="bottomButton" value="eerste memo"/>');
@@ -1264,7 +1280,7 @@ WotsApp.prototype = {
 			//console.log("SSBR code becomes: " + SSBR); 
 			$.getJSON('data/code.js', function(data) {
 				var hidden_factor = data.factor;
-				console.log("Use factor: " + hidden_factor);
+				//console.log("Use factor: " + hidden_factor);
 				var expPincode = Math.floor(((SSBR * 16981) / hidden_factor) % 10000);
 
 				var pincode = 0;
@@ -1276,7 +1292,7 @@ WotsApp.prototype = {
 				if (pincode != expPincode) {
 					var msg = "Help! Pincode " + pincode + " is incorrect";
 					wrongCodeAlert(msg);
-					console.log("Help! " + pincode + " should have been " + expPincode);
+					//console.log("Help! " + pincode + " should have been " + expPincode);
 					console.log("Pincode was incorrect");
 					callback(false);
 					return;
