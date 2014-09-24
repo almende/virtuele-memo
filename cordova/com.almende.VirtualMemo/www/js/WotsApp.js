@@ -124,6 +124,7 @@ WotsApp.prototype = {
 		$('.virtualMemoPanel ul').append('<li><a href="#guideMemo">Help - WOTS</a></li>');
 		$('.virtualMemoPanel ul').append('<li><a href="#guideHomeMemo">Help - memo</a></li>');
 		$('.virtualMemoPanel ul').append('<li><a href="#registerPage">Account</a></li>');
+		$('.virtualMemoPanel ul').append('<li><a href="#resetPage">Reset</a></li>');
 
 		// add swipe gesture to all pages with a panel
 		$(document).delegate('[data-role="page"]', 'pageinit', function () {
@@ -841,15 +842,15 @@ WotsApp.prototype = {
 			$('#congratsPageMain').css('background-image', 'url(css/images/congrats.png)' );
 			var congratsHeader = "<h1>Gefeliciteerd!</h1>";
 			$('#congratsHeader').empty().append(congratsHeader);
-            var exhibitor;
-            for (var c = 0; c < wots.exhibitors.length; c++) {
-                exhibitor = wots.exhibitors[c];
-                // console.log("Is stand " + exhibitor.standletter + " on the route?");
-                if (wots.route[wots.route.length-1] == exhibitor.standletter) {
-                    console.log("Inform to get gadget @ exhibitor: ",  JSON.stringify(exhibitor));
-                    break;
-                }
-            }
+			var exhibitor;
+			for (var c = 0; c < wots.exhibitors.length; c++) {
+				exhibitor = wots.exhibitors[c];
+				// console.log("Is stand " + exhibitor.standletter + " on the route?");
+				if (wots.route[wots.route.length-1] == exhibitor.standletter) {
+					console.log("Inform to get gadget @ exhibitor: ",  JSON.stringify(exhibitor));
+					break;
+				}
+			}
 			var congratsText = "Je hebt de route succesvol afgelegd.</br></br>Je mag de "+exhibitor.name+" standhouder nu om de Virtuele Memo vragen!";
 			$('#congratsText').empty().append(congratsText);
 			var btn= $('<input type="button" class="bottomButton" value="ga verder"/>');
@@ -1281,6 +1282,7 @@ WotsApp.prototype = {
 			$.getJSON('data/code.js', function(data) {
 				var hidden_factor = data.factor;
 				//console.log("Use factor: " + hidden_factor);
+				//var expPincode = Math.floor(((SSBR * 16981) / hidden_factor) % 10000);
 				var expPincode = Math.floor(((SSBR * 16981) / hidden_factor) % 10000);
 
 				var pincode = 0;
@@ -1292,7 +1294,7 @@ WotsApp.prototype = {
 				if (pincode != expPincode) {
 					var msg = "Help! Pincode " + pincode + " is incorrect";
 					wrongCodeAlert(msg);
-					//console.log("Help! " + pincode + " should have been " + expPincode);
+					console.log("Help! " + pincode + " should have been " + expPincode);
 					console.log("Pincode was incorrect");
 					callback(false);
 					return;
@@ -1472,6 +1474,9 @@ WotsApp.prototype = {
 		 * Get stand data from the local database
 		 ******************************************************************************************************/
 
+		/**
+		 * Gets information from the local database
+		 */
 		standsDB = function(callback) {
 			console.log("Get stands from database");
 			if (!wots.db) {
@@ -1523,8 +1528,8 @@ WotsApp.prototype = {
 					//console.log("Find stand holder " + id);
 					if (results.rows.item(i).id == id) {
 						// update local data about this stand holder
-                        wots.exhibitors[c].passcode = results.rows.item(i).passcode;
-                        wots.exhibitors[c].status = results.rows.item(i).status;
+						wots.exhibitors[c].passcode = results.rows.item(i).passcode;
+						wots.exhibitors[c].status = results.rows.item(i).status;
 
 						found = true;
 						break;
@@ -1535,6 +1540,7 @@ WotsApp.prototype = {
 				if (!found) {
 					console.log("Add stand holder " + id);
 					wots.exhibitors[c].status = 'undefined';
+					//wots.exhibitors[c].passcode = 'undefined';
 					var status = wots.exhibitors[c].status;
 					var passcode = wots.exhibitors[c].passcode;
 					console.log("With status: " + status + " and passcode " + passcode); 
@@ -1545,6 +1551,9 @@ WotsApp.prototype = {
 			return true;
 		}
 
+		/**
+		 * Write information to the database
+		 */
 		standsUpdateDB = function(callback) {
 			if (!wots.db) {
 				wots.db = window.openDatabase(databaseName, "1.0", "Memo", 1000000);
@@ -1572,7 +1581,7 @@ WotsApp.prototype = {
 			var status = exhibitor.status;
 			var passcode = exhibitor.passcode;
 			console.log("Update stand holder " + id + " with passcode " + passcode + " and status " + status);
-            tx.executeSql('UPDATE STANDS SET status="' + status
+			tx.executeSql('UPDATE STANDS SET status="' + status
 					+ '", passcode="' + passcode + '" WHERE id="' + id + '"', console.log);
 			return true;
 		}
@@ -2426,6 +2435,29 @@ WotsApp.prototype = {
 				}
 			}
 		}
+
+		/*******************************************************************************************************
+		 * Reset button
+		 ******************************************************************************************************/
+
+		$('#resetPage').on('pagecreate', function() {
+
+			// button handler
+			$('#resetBtn').on('click', function(event) { 
+				console.log("Reset last stand owner");
+				var exhibitor;
+				for (var c = 0; c < wots.exhibitors.length; c++) {
+					exhibitor = wots.exhibitors[c];
+					if (wots.route[wots.route.length-1] == exhibitor.standletter) {
+						exhibitor.status = undefined;
+						exhibitor.passcode = undefined;
+						standsUpdateDB(wotsPage);
+						break;
+					}
+				}
+			});
+		});
+
 
 		/**
 		 * The more normal way to cope with a device that can be shared with multiple people is to use groups. 
