@@ -1294,7 +1294,7 @@ WotsApp.prototype = {
 				if (pincode != expPincode) {
 					var msg = "Help! Pincode " + pincode + " is incorrect";
 					wrongCodeAlert(msg);
-					console.log("Help! " + pincode + " should have been " + expPincode);
+					//console.log("Help! " + pincode + " should have been " + expPincode);
 					console.log("Pincode was incorrect");
 					callback(false);
 					return;
