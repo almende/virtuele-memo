@@ -61,6 +61,9 @@ WotsApp.prototype = {
 
 		var crypto = CryptoJS;
 
+		// size reduce to 100.000 bytes
+		var databaseSize = 100000;
+
 		var iOSPlatform = "iOS";
 		var androidPlatform = "Android";
 
@@ -368,6 +371,7 @@ WotsApp.prototype = {
 				}
 
 				if(exhibitor.status == "done") {
+					console.log("Display status of " + exhibitor.id + " as done");
 					pastSomeDone = true;
 					enabledClass = 'taskEnabled';
 					// set css such that the graphical elements can be combined
@@ -601,11 +605,13 @@ WotsApp.prototype = {
 //                            checkWotsPasscode(passcode);
 //                        }
 //                    });
-
-                    $('#passcode').bind('focusout.check', function (event) {
-                            var passcode = $('#passcode').val();
-                            checkWotsPasscode(passcode);
-                    });
+					// suki, suddenly you bind two events!
+                        		if (window.device.platform == iOSPlatform) {
+						$('#passcode').bind('focusout.check', function (event) {
+							var passcode = $('#passcode').val();
+							checkWotsPasscode(passcode);
+						});
+					}
 
 					$('#questionParagraph').text(questionText);
 					if (!wots.participantCode) {
@@ -1382,7 +1388,7 @@ WotsApp.prototype = {
 
 		accountDB = function(callback) {
 			if (!wots.db) {
-				wots.db = window.openDatabase(databaseName, "1.0", "Memo", 1000000);
+				wots.db = window.openDatabase(databaseName, "1.0", "Memo", databaseSize);
 				localdb.init(wots.db);
 			}
 			if (testing) {
@@ -1480,7 +1486,7 @@ WotsApp.prototype = {
 		standsDB = function(callback) {
 			console.log("Get stands from database");
 			if (!wots.db) {
-				wots.db = window.openDatabase(databaseName, "1.0", "Memo", 1000000);
+				wots.db = window.openDatabase(databaseName, "1.0", "Memo", databaseSize);
 				localdb.init(wots.db);
 			}
 
@@ -1513,8 +1519,10 @@ WotsApp.prototype = {
 			var len = results.rows.length;
 			console.log("Number of stand owners in the database: " + len);
 			if (results.rowsAffected) {
-				console.log("Return on a write query. We continue only after a select query");
-				return false;
+				// this goes wrong on Samsung S2, S3, so we cannot return false here
+				//console.log("Return on a write query. We continue only after a select query");
+				console.log("Something changed, but go on");
+				//return false;
 			}
 
 			// iterate through all exhibitors, and if not present, create entry in table
@@ -1556,7 +1564,7 @@ WotsApp.prototype = {
 		 */
 		standsUpdateDB = function(callback) {
 			if (!wots.db) {
-				wots.db = window.openDatabase(databaseName, "1.0", "Memo", 1000000);
+				wots.db = window.openDatabase(databaseName, "1.0", "Memo", databaseSize);
 				localdb.init(wots.db);
 			}
 
@@ -1592,7 +1600,7 @@ WotsApp.prototype = {
 
 		noteDB = function() {
 			if (!wots.db) {
-				wots.db = window.openDatabase(databaseName, "1.0", "Memo", 1000000);
+				wots.db = window.openDatabase(databaseName, "1.0", "Memo", databaseSize);
 				localdb.init(wots.db);
 				if (testing) {
 					wots.db.removeMemos();
@@ -1792,8 +1800,8 @@ WotsApp.prototype = {
 						exhibitor.passcode);
 					// clear code
 					$('#passcode').val('');
-                    standsUpdateDB();
-					wotsPage();
+					// suki, why here?
+					standsUpdateDB(wotsPage);
 				} else {
 					console.log("Wrong passcode, do nothing");
 				}
