@@ -1,6 +1,6 @@
 #!/bin/sh
 
-help_msg="Usage: $0 {build|upload|log|login|all|help}"
+help_msg="Usage: $0 {build|upload|log|login|all|uninstall|help}"
 
 help() {
 	echo $help_msg
@@ -23,6 +23,10 @@ upload() {
 	adb uninstall com.almende.VirtualMemo
 	adb install platforms/android/ant-build/VirtualMemo-debug.apk
 	adb shell am start -n com.almende.VirtualMemo/.VirtualMemo
+}
+
+uninstall() {
+	adb uninstall com.almende.VirtualMemo
 }
 
 log() {
@@ -63,6 +67,9 @@ case "$cmd" in
 		;;
 	login)
 		login
+		;;
+	uninstall)
+		uninstall
 		;;
 	all)
 		all
