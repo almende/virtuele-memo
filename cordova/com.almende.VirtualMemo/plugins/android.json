@@ -13,19 +13,23 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"LocalNotification\"><param name=\"android-package\" value=\"de.appplant.cordova.plugin.localnotification.LocalNotification\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"Notification\"><param name=\"android-package\" value=\"org.apache.cordova.dialogs.Notification\" /></feature>",
                             "count": 1
                         },
                         {
                             "xml": "<feature name=\"IBeaconPlugin\"><param name=\"android-package\" value=\"eu.mobilion.ibeacon.IBeaconPlugin\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"LocalNotification\"><param name=\"android-package\" value=\"jp.wizcorp.phonegap.plugin.localNotification.LocalNotification\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"LocalNotification\"><param name=\"android-package\" value=\"de.appplant.cordova.plugin.localnotification.LocalNotification\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -44,10 +48,30 @@
                         },
                         {
                             "xml": "<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\" />",
+                            "count": 2
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.VIBRATE\" />",
                             "count": 1
                         }
                     ],
                     "/manifest/application": [
+                        {
+                            "xml": "<service android:name=\"com.radiusnetworks.ibeacon.service.IBeaconService\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<service android:name=\"com.radiusnetworks.ibeacon.IBeaconIntentProcessor\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<receiver android:name=\"jp.wizcorp.phonegap.plugin.localNotification.AlarmReceiver\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<receiver android:name=\"jp.wizcorp.phonegap.plugin.localNotification.AlarmRestoreOnBoot\"><intent-filter><action android:name=\"android.intent.action.BOOT_COMPLETED\" /></intent-filter></receiver>",
+                            "count": 1
+                        },
                         {
                             "xml": "<receiver android:name=\"de.appplant.cordova.plugin.localnotification.Receiver\" />",
                             "count": 1
@@ -59,14 +83,6 @@
                         {
                             "xml": "<activity android:launchMode=\"singleInstance\" android:name=\"de.appplant.cordova.plugin.localnotification.ReceiverActivity\" />",
                             "count": 1
-                        },
-                        {
-                            "xml": "<service android:name=\"com.radiusnetworks.ibeacon.service.IBeaconService\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<service android:name=\"com.radiusnetworks.ibeacon.IBeaconIntentProcessor\" />",
-                            "count": 1
                         }
                     ]
                 }
@@ -77,9 +93,6 @@
         "com.randdusing.bluetoothle": {
             "PACKAGE_NAME": "com.almende.VirtualMemo"
         },
-        "de.appplant.cordova.plugin.local-notification": {
-            "PACKAGE_NAME": "com.almende.VirtualMemo"
-        },
         "org.apache.cordova.console": {
             "PACKAGE_NAME": "com.almende.VirtualMemo"
         },
@@ -87,6 +100,12 @@
             "PACKAGE_NAME": "com.almende.VirtualMemo"
         },
         "eu.mobilion.ibeacon": {
+            "PACKAGE_NAME": "com.almende.VirtualMemo"
+        },
+        "jp.wizcorp.phonegap.plugin.localNotificationPlugin": {
+            "PACKAGE_NAME": "com.almende.VirtualMemo"
+        },
+        "de.appplant.cordova.plugin.local-notification": {
             "PACKAGE_NAME": "com.almende.VirtualMemo"
         }
     },

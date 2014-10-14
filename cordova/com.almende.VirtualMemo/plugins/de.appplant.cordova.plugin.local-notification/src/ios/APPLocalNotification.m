@@ -20,6 +20,7 @@
  */
 
 #import "APPLocalNotification.h"
+#import <Cordova/CDVAvailability.h>
 
 @interface APPLocalNotification (Private)
 
@@ -101,15 +102,18 @@
         NSArray* arguments = [command arguments];
         NSMutableDictionary* properties = [arguments objectAtIndex:0];
 
+        UILocalNotification* notification;
         NSString* id = [properties objectForKey:@"id"];
 
         if ([self isNotificationScheduledWithId:id]) {
-            UILocalNotification* notification = [self notificationWithId:id];
+            notification = [self notificationWithId:id];
+        }
 
+        if (notification) {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.3 * NSEC_PER_SEC),
                            dispatch_get_main_queue(), ^{
-                [self cancelNotification:notification fireEvent:NO];
-            });
+                               [self cancelNotification:notification fireEvent:NO];
+                           });
         }
 
         [self scheduleNotificationWithProperties:properties];
@@ -207,6 +211,71 @@
         [self.commandDelegate sendPluginResult:result
                                     callbackId:command.callbackId];
     }];
+}
+
+/**
+ * Informs if the app has the permission to show
+ * badges and local notifications.
+ *
+ * @param callback
+ *      The function to be exec as the callback
+ */
+- (void) hasPermission:(CDVInvokedUrlCommand *)command
+{
+    [self.commandDelegate runInBackground:^{
+        CDVPluginResult* result;
+        BOOL hasPermission = [self hasPermissionToSheduleNotifications];
+
+        result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
+                                     messageAsBool:hasPermission];
+
+        [self.commandDelegate sendPluginResult:result
+                                    callbackId:command.callbackId];
+    }];
+}
+
+/**
+ * Ask for permission to show badges.
+ *
+ * @param callback
+ *      The function to be exec as the callback
+ */
+- (void) promptForPermission:(CDVInvokedUrlCommand *)command
+{
+    if (IsAtLeastiOSVersion(@"8.0")) {
+        UIUserNotificationType types;
+        UIUserNotificationSettings *settings;
+
+        types = UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound;
+
+        settings = [UIUserNotificationSettings settingsForTypes:types
+                                                     categories:nil];
+
+        [self.commandDelegate runInBackground:^{
+            [[UIApplication sharedApplication]
+             registerUserNotificationSettings:settings];
+        }];
+    }
+}
+
+/**
+ * If the app has the permission to show badges.
+ */
+- (BOOL) hasPermissionToSheduleNotifications
+{
+    if (IsAtLeastiOSVersion(@"8.0")) {
+        UIUserNotificationType types;
+        UIUserNotificationSettings *settings;
+
+        settings = [[UIApplication sharedApplication]
+                    currentUserNotificationSettings];
+
+        types = UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound;
+
+        return (settings.types & types);
+    } else {
+        return YES;
+    }
 }
 
 /**
@@ -510,7 +579,8 @@
 
     for (UILocalNotification* notification in notifications)
     {
-        NSString* notId = [notification.userInfo objectForKey:@"id"];
+        NSString* notId = [[notification.userInfo objectForKey:@"id"]
+                           stringValue];
 
         if ([notId isEqualToString:id]) {
             return notification;

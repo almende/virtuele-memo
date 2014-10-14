@@ -35,47 +35,6 @@
 <script type='application/javascript' src='js/jquery.mobile-1.4.3.min.js'></script>
 <script type='application/javascript' src='cordova.js'></script>
 
-<!--
-The following is Stefan's code. I don't know what it does. But it suddenly leads to crappy scrolling behaviour on
-Android phones. Probably the pagecontainer({ defaults: true; }) call. Just don't use it if we don't need it.
-<script type='application/javascript' src='js/fastclick.js'></script>
-<script type="text/javascript">
-var wotsAppNofInits = 0;
-
-function nextInit() {
-	wotsAppNofInits++;
-	console.log("Number of inits of WOTS app: " + wotsAppNofInits);
-	$( ".ui-body-a" ).pagecontainer({ defaults: true });
-	if(wotsAppNofInits == 2) {
-		var activePage = $.mobile.activePage;
-		if($(activePage).attr('id') == 'exhibitorListPage')
-			$('#exhibitorList').listview('refresh');
-		FastClick.attach(document.body);
-	}
-}
-$(document).on("mobileinit", function() { nextInit(); });
-</script>
-<script type="text/javascript">
-function onLoad() {
-	if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
-		// add event listener in case of running on mobile
-		// note that you cannot test in browser on mobile now...
-		console.log("Add event listener for deviceReady");
-		document.addEventListener("deviceready", onDeviceReady, false);
-	} else {
-		// just call onDeviceReady when testing in browser on laptop
-		console.log("Just call onDeviceReady");
-		onDeviceReady();
-	}
-}
-//mmm, then onDeviceRead does not exist..
-window.onload = function () {
-	//nextInit();
-	onLoad();
-}
-</script>
--->
-
 <title>Virtuele Memo</title>
 </head>
 
@@ -89,26 +48,13 @@ window.onload = function () {
 <div data-role="page" id="optionalBanner">
 	<h1>Should have some banner here</h1>
 	<ul>                                                                                                    
-		<li><a href="#guideMemo" class="virtualMemoTab" data-icon="heart" data-transition="none">Some banner</a></li>
+		<li><a href="#guideHomeMemo" class="virtualMemoTab" data-icon="heart" data-transition="none">Some banner</a></li>
 	</ul> 
 	<div data-role="panel" class="virtualMemoPanel" data-display="reveal" data-theme="b">
 		<div id="statusBarFill"></div>
 		<ul data-role="listview">
 		</ul>
 	</div>
-</div>
-
-<div data-role="page" id="guideMemo">
-	<div data-role="header" data-position='fixed'>
-		<h1 class="ui-title" role="heading" aria-level="1">Uitleg</h1>
-	</div>
-
-	<div id="guideMain" role="main">
-		<div id="guideSubPage">
-		</div>
-	</div>
-	<div id="guideStatusBar"></div>
-	<div id="guideExplanation"></div>
 </div>
 
 <div data-role="page" id="guideHomeMemo">
@@ -124,20 +70,6 @@ window.onload = function () {
 	<div id="guideHomeExplanation"></div>
 </div>
 
-<div data-role="page" id="congratsPage">
-	<div data-role="header" data-position='fixed'>
-		<h1 class="ui-title" role="heading" aria-level="1">Gefeliciteerd</h1>
-	</div>
-
-	<div id="congratsPageMain" role="main">
-	</div>
-	<div id="congratsPageMainBody">
-		<div id="congratsHeader"></div>
-		<div id="congratsText"></div>
-	</div>
-	<div id="congratsBottom"></div>
-</div>
-
 <div data-role="page" id="registerPage">
 	<div data-role="header" data-position='fixed'>
 		<h1 class="ui-title" role="heading" aria-level="1">Registreer</h1>
@@ -148,51 +80,9 @@ window.onload = function () {
 			<input type="text" name="name" id="username" value="" placeholder="Your name"/>
 			<input type="password" name="password" id="password" value="" placeholder="Password"/>
 			<input type="text" name="email" id="email" value="" placeholder="Email"/>
-			<input type="text" name="participantcode" id="participantcode" value="" placeholder="Code"/>
 		</div>
 	</div>
 	<div id="registerExplanation"></div>
-</div>
-
-<div data-role="page" id="calculatingPage">
-	<div data-role="header" data-position='fixed'>
-		<h1 class="ui-title" role="heading" aria-level="1">Route berekenen</h1>
-	</div>
-
-	<div role="main">
-		<div id="calculating">
-		</div>
-	</div>
-	<div data-role="panel" class="virtualMemoPanel" data-display="reveal" data-theme="b">
-		<div id="statusBarFill"></div>
-		<ul data-role="listview">
-		</ul>
-	</div>
-</div>
-
-<div data-role="page" id="exhibitorListPage">
-	<div data-role="header" data-position='fixed'>
-		<h1 class="ui-title" role="heading" aria-level="1">Opdrachten</h1>
-	</div>
-
-	<div role="main">
-		<ul data-role="listview" id="exhibitorList">
-		</ul>
-	</div>
-
-	<div data-role="footer" data-id="footer1" data-position="fixed">
-		<div data-role="navbar">
-			<ul>
-				<li><a href="#exhibitorListPage" class="ui-btn-active ui-state-persist virtualMemoTab" data-icon="heart" data-transition="none">WOTS Opdracht</a></li>
-				<li><a href="#virtualMemoPage" class="virtualMemoTab" data-icon="mail" data-transition="none">Virtuele Memo</a></li>
-			</ul>
-		</div>
-	</div>
-	<div data-role="panel" class="virtualMemoPanel" data-display="reveal" data-theme="b">
-		<div id="statusBarFill"></div>
-		<ul data-role="listview">
-		</ul>
-	</div>
 </div>
 
 <div data-role="page" id="allExhibitorsPage">
@@ -233,39 +123,6 @@ window.onload = function () {
 		<div id="statusBarFill"></div>
 		<ul data-role="listview">
 		</ul>
-	</div>
-</div>
-
-<div data-role="page" id="exhibitorDetailsPage">
-	<div data-role="header" data-add-back-btn="true" data-position='fixed'>
-		<h1 class="ui-title" role="heading" aria-level="1">Almende</h1>
-	</div>
-
-	<div id="questionLayer">
-		<div id="questionShield"></div>
-		<p id="questionReminderParticipantCode" align="right"></p>
-		<p id="questionReminderPassCode" align="right"></p>
-		<div id="questionItself">
-			<h2>IJsbrekervraag</h2>
-			<p id="questionParagraph">In welke stad is Almende gevestigd?</p>
-		</div>
-		<input type="text" name="passcode" id="passcode" value="" placeholder="Pincode gegeven door de standhouder"/>
-		<!-- should be number, but does not trigger keyup return -->
-		<!-- <input type="number" name="passcode" id="passcode" value="" placeholder="Pincode gegeven door de standhouder"/> -->
-	</div>
-	<canvas id="triangle" height="100" width="100%">Triangle</canvas>
-
-	<p text-align="center">
-		<img class="scaledLogo" src="logos/600-width/almendedefRGB.png" id="exhibitorLogo"></img>
-	</p>
-
-	<div data-role="footer" data-id="footer1" data-position="fixed">
-		<div data-role="navbar">
-			<ul>
-				<li><a href="#exhibitorListPage" class="ui-btn-active ui-state-persist virtualMemoTab" data-icon="heart" data-transition="none">WOTS Opdracht</a></li>
-				<li><a href="#virtualMemoPage" class="virtualMemoTab" data-icon="mail" data-transition="none">Virtuele Memo</a></li>
-			</ul>
-		</div>
 	</div>
 </div>
 
@@ -326,16 +183,6 @@ window.onload = function () {
 		</div>
 	</div>
 
-	<div data-role="footer" data-id="footer1" data-position="fixed">
-		<div data-role="navbar">
-			<ul>
-				<li><a href="#exhibitorListPage" class="virtualMemoTab" data-icon="heart" data-transition="none">WOTS Opdracht</a></li>
-				<li><a href="#virtualMemoPage" class="ui-btn-active ui-state-persist virtualMemoTab" data-icon="mail" data-transition="none">Virtuele Memo</a></li>
-			</ul>
-		</div>
-
-	</div>
-
 	<div data-role="panel" class="virtualMemoPanel" data-display="reveal" data-theme="b">
 		<div id="statusBarFill"></div>
 		<ul data-role="listview">
@@ -358,16 +205,6 @@ window.onload = function () {
 			<ul data-role="listview" id="memoListView">
 			</ul>
 		</div>
-	</div>
-
-	<div data-role="footer" data-id="footer1" data-position="fixed">
-		<div data-role="navbar">
-			<ul>
-				<li><a href="#exhibitorListPage" class="virtualMemoTab" data-icon="heart" data-transition="none">WOTS Opdracht</a></li>
-				<li><a href="#virtualMemoPage" class="ui-btn-active ui-state-persist virtualMemoTab" data-icon="mail" data-transition="none">Virtuele Memo</a></li>
-			</ul>
-		</div>
-
 	</div>
 
 	<div data-role="panel" class="virtualMemoPanel" data-display="reveal" data-theme="b">
@@ -415,7 +252,7 @@ if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/))
 }
 
 function startApp() {
-	console.log("Start WOTS application");
+	console.log("Start application");
 	wotsApp = new WotsApp();
 	wotsApp.start();
 }

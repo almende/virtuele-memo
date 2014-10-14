@@ -9,7 +9,7 @@
 	"logo":"DObots.png",
 	"address":"Westerstraat 50, 3016 DJ Rotterdam",
 	"tel": "010-4049444",
-	"website": "www.dobots.nl",
+	"website": "http://www.dobots.nl",
 	"email": "info@dobots.nl",
 	"questions": [
 		{ "question": "Wat is reshoring?", "answer": "undefined", "type": "text", "length": 4},
@@ -28,7 +28,7 @@
 	"logo":"AssemblyPartner.jpg",
 	"address":"Kamerlingh Onnesweg 1, 3316 GK Dordrecht",
 	"tel": "078-6525444",
-	"website": "www.assemblypartner.nl",
+	"website": "http://www.assemblypartner.nl",
 	"email": "info@assemblypartner.nl",
 	"questions": [
 	{ "question":"Hoeveel printen voor Quooker, de kokend water kraan, produceert AssemblyPartner per week?", "answer":"", "type":"text", "length":4},
@@ -47,7 +47,7 @@
 	"logo":"azteco.png",
 	"address":"Schrijnwerkersstraat 11, 3334KH Zwijndrecht",
 	"tel": "078-6299966",
-	"website": "www.azteco.nl",
+	"website": "http://www.azteco.nl",
 	"email": "verkoop@azteco.nl",
 	"questions": [
 	{ "question":"Weet u de toepassing van galvanische scheiding voor USB?", "answer":"", "type":"text", "length":4},
@@ -66,7 +66,7 @@
 	"logo":"CN_Rood.jpg",
 	"address":"Blauw-roodlaan 280, 2718 SK Zoetermeer",
 	"tel": "079-3600018",
-	"website": "www.cnrood.com",
+	"website": "http://www.cnrood.com",
 	"email": "info@cnrood.com",
 	"questions": [
 	{ "question":"Hoeveel jaar is C.N. Rood actief in de technologie?", "answer":"", "type":"text", "length":4},
@@ -85,7 +85,7 @@
 	"logo":"DD.png",
 	"address":"Laan de Wijze 23, 5835 DS Beugen (Boxmeer), Nederland",
 	"tel": "+31(0)485 322102",
-	"website": "www.d-d.nu",
+	"website": "http://www.d-d.nu",
 	"email": "info@d-d.nu",
 	"questions": [
 	{ "question":"Wat heeft D&D Mechatronics bijgedragen aan de gadget?", "answer":"", "type":"text", "length":4},
@@ -103,7 +103,7 @@
 	"logo":"DARE_Measurements.jpg",
 	"address":"Vijzelmolenlaan 7, 3447 GX Woerden",
 	"tel": "0348 430 979",
-	"website": "www.dare.nl",
+	"website": "http://www.dare.nl",
 	"email": "measurements@dare.nl",
 	"questions": [
 	{ "question":"", "answer":"", "type":"text", "length":4},
@@ -122,7 +122,7 @@
 	"logo":"DevLab_logo.jpg",
 	"address":"Horsten 1, MMP 0.10, 5612 AX Eindhoven",
 	"tel": "040-2939906",
-	"website": "www.devlab.nl",
+	"website": "http://www.devlab.nl",
 	"email": "info@devlab.nl",
 	"questions": [
 	{ "question":"Wat voor invloed denk je dat 3d printing gaat hebben op toekomstige productiemethoden van elektronische producten?", "answer":"", "type":"text", "length":4},
@@ -141,7 +141,7 @@
 	"logo":"Distrelec.jpg",
 	"address":"Techniekweg 44, 3542 DT Utrecht",
 	"tel": "+31 30 265 01 50",
-	"website": "www.distrelec.nl",
+	"website": "http://www.distrelec.nl",
 	"email": "sales.nl@distrelec.com",
 	"questions": [
 	{ "question":"Wat is nieuw bij Distrelec?", "answer":"", "type":"text", "length":4},
@@ -161,7 +161,7 @@
 	"logo":"Elincom.jpg",
 	"address":"Klaverbaan 101, 2908 KD Capelle aan den IJssel",
 	"tel": "+31-(0)10- 26 40 270",
-	"website": "www.elincom.nl",
+	"website": "http://www.elincom.nl",
 	"email": "info@elincom.nl",
 	"questions": [
 	{ "question":"Hoe lang is Elincom al actief in de markt voor elektronica en industriële automatisering?", "answer":"", "type":"text", "length":4},
@@ -180,7 +180,7 @@
 	"logo":"Eurocircuits.png",
 	"address":"Antwerpsesteenweg 66, 2800 Mechelen, België",
 	"tel": "+32 15 28 16 30",
-	"website": "www.eurocircuits.com",
+	"website": "http://www.eurocircuits.com",
 	"email": "euro@eurocircuits.com",
 	"questions": [
 	{ "question":"Wie is de producent van de PCB van het gadget, de Virtuele Memo?", "answer":"", "type":"text", "length":4},
@@ -235,7 +235,7 @@
 	"logo":"Nijkerk_Muratia.jpg",
 	"address":"Tommaso Albinonistraat 9, 1083HM Amsterdam",
 	"tel": "020 5041424",
-	"website": "www.nijkerk-ne.com",
+	"website": "http://www.nijkerk-ne.com",
 	"email": "Info@nijkerk.nl",
 	"questions": [
 	{ "question":"Hoeveel electronische display-technologien heeft Nijkerk Electronics op de stand?", "answer":"", "type":"text", "length":4},
@@ -270,7 +270,7 @@
 	"logo":"Phoenix_Contact_Logo_600p.jpg",
 	"address":"Hengelder 56, 6902 AL Zevenaar",
 	"tel": "(0316) 59 17 20",
-	"website": "www.phoenixcontact.nl",
+	"website": "http://www.phoenixcontact.nl",
 	"email": "sales@phoenixcontact.nl",
 	"questions": [
 	{ "question":"Zijn uw ontwerpen al geoptimaliseerd voor volautomatische productie?", "answer":"", "type":"text", "length":4},
@@ -289,7 +289,7 @@
 	"logo":"PM_komponenten.png",
 	"address":"Postbus 297, 7000 AG Doetinchem",
 	"tel": "0314 368 368",
-	"website": "www.pmkomponenten.nl",
+	"website": "http://www.pmkomponenten.nl",
 	"email": "info@pmkomponenten.nl",
 	"questions": [
 	{ "question":"Welke innovatieve techniek heeft BOPLA ontwikkeld?", "answer":"", "type":"text", "length":4},
@@ -308,7 +308,7 @@
 	"logo":"romex_logo.jpg",
 	"address":"Remmerden 5, 3911 TZ Rhenen",
 	"tel": "+31-317398787",
-	"website": "www.romex.nl",
+	"website": "http://www.romex.nl",
 	"email": "info@romex.nl",
 	"questions": [
 	{ "question":"Hoe kunnen we eenvoudig en snel controleren of een geproduceerde printplaat goed geassembleerd is en goed functioneert?", "answer":"", "type":"text", "length":4},
@@ -327,7 +327,7 @@
 	"logo":"Salland.png",
 	"address":"Katwolderweg 15, 8041AC Zwolle",
 	"tel": "+31 (0) 38 4540864",
-	"website": "www.sallandelectronics.nl",
+	"website": "http://www.sallandelectronics.nl",
 	"email": "info@sallandelectronics.nl",
 	"questions": [
 	{ "question":"Waar staat de afkorting BLE voor?", "answer":"", "type":"text", "length":4},
@@ -346,7 +346,7 @@
 	"logo":"TMsystems.png",
 	"address":"Centaurusweg 148-b, 5015 TA Tilburg",
 	"tel": "013 463 95 40",
-	"website": "www.TMsystems.nl",
+	"website": "http://www.TMsystems.nl",
 	"email": "info@TMsystems.nl",
 	"questions": [
 	{ "question":"Noem een van de dataloggermerken welke op de stand van T&M Systems worden getoond?", "answer":"", "type":"text", "length":4},
@@ -365,7 +365,7 @@
 	"logo":"tbp_electronics.JPG",
 	"address":"Vlakbodem 10, 3247 CP Dirksland",
 	"tel": "+31 187 602 744",
-	"website": "www.tbp.nl",
+	"website": "http://www.tbp.nl",
 	"email": "info@tbp.nl",
 	"questions": [
 	{ "question":"Kent u de voordelen van early involvement?", "answer":"", "type":"text", "length":4},
@@ -383,7 +383,7 @@
 	"logo":"Texim_Europe.png",
 	"address":"Elektrostraat 17, 7483 PG Haaksbergen",
 	"tel": "+31 (0)53 573 33 33",
-	"website": "www.texim-europe.com",
+	"website": "http://www.texim-europe.com",
 	"email": "info@texim-europe.com",
 	"questions": [
 	{ "question":"Hoe kunnen wij u van dienst zijn?", "answer":"", "type":"text", "length":4}
@@ -400,7 +400,7 @@
 	"logo":"Wurth_Elektronik.JPG",
 	"address":"Het sterrenbeeld 35, 5215 MK s- Hertogenbosch",
 	"tel": "+31 73 629 1570",
-	"website": "www.we-online.com",
+	"website": "http://www.we-online.com",
 	"email": "eisos-netherlands@we-online.com",
 	"questions": [
 	{ "question":"Opzoek naar een efficiënte DC/DC voeding voor op je print, maar weinig tijd/kennis om er zelf één volledig te ontwikkelen?", "answer":"", "type":"text", "length":4},
