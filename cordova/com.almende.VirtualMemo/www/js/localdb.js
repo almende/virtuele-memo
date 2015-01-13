@@ -163,6 +163,16 @@ var LocalDB = (function () {
 		queryDB(query, param, donotProcess, callback, cargs);
 	}
 
+
+    /**
+     * Create table for devices
+     */
+    api.createDevices = function(callback, cargs) {
+        var query = 'CREATE TABLE IF NOT EXISTS DEVICE (device_id, uuid)';
+        var param = [];
+        queryDB(query, param, donotProcess, callback, cargs);
+    }
+
 	/**
 	 * Delete table for users
 	 */
@@ -188,7 +198,7 @@ var LocalDB = (function () {
 		var query =  'SELECT * FROM MEMO';
 		var param = [];
 		var pargs = {
-			key: '*',
+			key: '*'
 		}
 		queryExtDB(query, param, processFirst, pargs, callback, cargs);
 	}
@@ -202,7 +212,47 @@ var LocalDB = (function () {
 		queryDB(query, param, donotProcess, callback, cargs);
 	}
 
-	/**
+    /*
+     * save the device mapping
+     */
+    api.saveDeviceMapping = function(device_id, uuid, callback, cargs) {
+        api.createDevices(function() {
+            var query = 'INSERT INTO DEVICE (device_id, uuid) VALUES (?, ?)';
+            var param = [device_id, uuid];
+            queryDB(query, param, donotProcess, callback, cargs);
+        });
+    }
+
+    api.deleteMapping = function(callback, cargs) {
+        var query = 'DROP TABLE IF EXISTS DEVICE';
+        var param = [];
+        queryDB(query, param, donotProcess, callback, cargs);
+    }
+               
+    api.getDeviceUUIDbyDeviceId =function(device_id, callback, cargs) {
+        api.createDevices(function() {
+            var query =  'SELECT * FROM DEVICE WHERE device_id = ?';
+            var param = [device_id];
+            var pargs = {
+                key: '*'
+            }
+            queryExtDB(query, param, processFirst, pargs, callback, cargs);
+        });
+    }
+
+    api.getDeviceIdByDeviceUUID =function(uuid, callback, cargs) {
+        api.createDevices(function() {
+            var query =  'SELECT * FROM DEVICE WHERE uuid = ?';
+            var param = [uuid];
+            var pargs = {
+                key: '*'
+            }
+            queryExtDB(query, param, processFirst, pargs, callback, cargs);
+        });
+    }
+
+
+    /**
 	 * Check if a specific memo exists with field "sensor_id" equal to the parameter value sensor_id
 	 */
 	api.existMemo = function(sensor_id, callback, cargs) {

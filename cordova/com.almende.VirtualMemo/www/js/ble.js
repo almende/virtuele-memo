@@ -29,6 +29,8 @@ var BLEHandler = function() {
 
 	var defaultAlertLevel = "middle";
 
+    var connected = true;
+
 	var devices = {};
 
 	/**
@@ -117,9 +119,11 @@ var BLEHandler = function() {
 	}
 
 	self.reconnect = function() {
-		console.log("Reconnecting with 5 second timeout");
-		bluetoothle.reconnect(self.reconnectSuccess, self.reconnectError);
-		self.reconnectTimer = setTimeout(self.reconnectTimeout, 5000);
+        if (self.connected) {
+            console.log("Reconnecting with 5 second timeout");
+            bluetoothle.reconnect(self.reconnectSuccess, self.reconnectError);
+            self.reconnectTimer = setTimeout(self.reconnectTimeout, 5000);
+        }
 	}
 
 	self.reconnectSuccess = function(obj) {
@@ -173,7 +177,19 @@ var BLEHandler = function() {
 			} else {
 				bluetoothle.stopScan(self.stopScanSuccess, self.stopScanError);
 				self.clearScanTimeout();
-				self.connectDevice(obj.address);
+                LocalDB.getDeviceUUIDbyDeviceId(obj.address, function(errcode, result, cargs) {
+                   if (errcode == 0 && result) {
+                       console.log("Found mapping: "+JSON.stringify(result));
+                       self.connected = false;
+                       window.localStorage.setItem(addressKey,result.uuid);
+                   } else if (errcode == 0) {
+                       console.log("No mapping found connecting to device with address: "+obj.address);
+                       self.connected = true;
+                       self.connectDevice(obj.address);
+                   } else  {
+                       console.log("Received error code "+errcode+" during device mapping.");
+                   }
+                });
 			}
 		} else if (obj.status == 'scanStarted') {
 			//console.log('Scan was started successfully, stopping in 10 seconds');
@@ -347,6 +363,9 @@ var BLEHandler = function() {
 						bluetoothle.read(function(readData){
 							console.log("iOS: Updating address " + readData.value + " to local storage");
 							window.localStorage.setItem(addressKey,readData.value);
+                            LocalDB.saveDeviceMapping(obj.address,readData.value,function(){
+                                console.log("Stored device ID mapping of "+obj.address+" to "+readData.value)
+                            });
 							if (window.device.platform == iOSPlatform) {
 								console.log("iOS: Discovering alert level service");
 								var paramsObj = {"serviceUuids": [alertLevelServiceUuid] };

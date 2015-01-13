@@ -811,6 +811,7 @@ WotsApp.prototype = {
 			}
 			if (testing) {
 				localdb.deleteUsers();
+                localdb.deleteMapping();
 			}
 			localdb.createUsers();
 			var msg = "Get user";

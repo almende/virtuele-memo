@@ -1,5 +1,5 @@
 {
-    "version": "0.7.6",
+    "version": "0.7.7",
     "name": "de.appplant.cordova.plugin.local-notification",
     "cordova_name": "LocalNotification",
     "description": "A bunch of local-notification plugins for Cordova 3.x.x",
