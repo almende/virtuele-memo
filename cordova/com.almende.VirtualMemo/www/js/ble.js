@@ -30,8 +30,10 @@ var BLEHandler = function() {
 	var defaultAlertLevel = "middle";
 
     var connected = true;
+    var hasDevice = null;
 
-	var devices = {};
+
+    var devices = {};
 
 	/**
 	 * Initialization tries to connect to the BLE chip on the phone. If successful, a scan is started. If there is
@@ -56,7 +58,8 @@ var BLEHandler = function() {
 
 	self.connectSuccess = function(obj) {
 		if (obj.status == "connected") {
-			console.log("Connected to : " + obj.name + " - " + obj.address);
+            self.connected = true;
+            console.log("Connected to : " + obj.name + " - " + obj.address);
 			//console.log("Write address " + obj.address + " to local storage");
 			//window.localStorage.setItem(addressKey,obj.address);
 			self.clearConnectTimeout();
@@ -116,6 +119,7 @@ var BLEHandler = function() {
 
 	self.tempDisconnectError = function(obj) {
 		console.log("Temp disconnect error: " + obj.error + " - " + obj.message);
+        self.reconnect();
 	}
 
 	self.reconnect = function() {
@@ -150,12 +154,21 @@ var BLEHandler = function() {
 
 	self.reconnectError = function(obj) {
 		console.log("Reconnect error: " + obj.error + " - " + obj.message);
-		self.disconnectDevice();
+		if (bluetoothle.isConnected(function(){self.disconnectDevice();}));
 	}
 
 	self.reconnectTimeout = function() {
 		console.log("Reconnection timed out");
-	}
+        if (window.device.platform == iOSPlatform) {
+            // iOS implements an OR operation, either of the Uuids found is okay
+            paramsObj = { 'serviceUuids': [memoUuid, deviceInformationServiceUuid] };
+        } else if (window.device.platform == androidPlatform) {
+            // Android has an AND operation, deviceInformationServiceUuid does not seem to
+            // be advertised, so this fails on Android
+            paramsObj = { 'serviceUuids': [memoUuid] };
+        }
+        bluetoothle.startScan(self.startScanSuccess, self.startScanError, paramsObj);
+    }
 
 	self.clearReconnectTimeout = function() {
 		console.log("Clearing reconnect timeout");
@@ -180,14 +193,13 @@ var BLEHandler = function() {
                 LocalDB.getDeviceUUIDbyDeviceId(obj.address, function(errcode, result, cargs) {
                    if (errcode == 0 && result) {
                        console.log("Found mapping: "+JSON.stringify(result));
-                       self.connected = false;
+                       self.hasDevice = obj.address;
                        window.localStorage.setItem(addressKey,result.uuid);
-                   } else if (errcode == 0) {
-                       console.log("No mapping found connecting to device with address: "+obj.address);
-                       self.connected = true;
                        self.connectDevice(obj.address);
-                   } else  {
-                       console.log("Received error code "+errcode+" during device mapping.");
+                   } else if (self.hasDevice == null) { //if (errcode == 0) {
+                       console.log("No mapping found connecting to device with address: "+obj.address);
+                       self.hasDevice = obj.address;
+                       self.connectDevice(obj.address);
                    }
                 });
 			}
