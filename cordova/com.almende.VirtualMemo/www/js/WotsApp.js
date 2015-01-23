@@ -101,7 +101,13 @@ WotsApp.prototype = {
 			}
 		};
 
-		// add home button to each page that has a header
+        document.addEventListener("pause", onPause, false);
+
+        function onPause() {
+            ble.doBackGroundScan();
+        }
+
+        // add home button to each page that has a header
 		$(document).delegate('[data-role="page"]', 'pageinit', function () {
                         
 			//check for a `data-role="header"` element to add a home button to

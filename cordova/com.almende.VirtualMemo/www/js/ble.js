@@ -31,6 +31,7 @@ var BLEHandler = function() {
 
     var connected = true;
     var hasDevice = null;
+    var backgroundMode = false;
 
 
     var devices = {};
@@ -48,6 +49,19 @@ var BLEHandler = function() {
 	self.setDefaultAlertLevel = function(level) {
 		defaultAlertLevel = level;
 	}
+
+    self.doBackGroundScan = function() {
+        backgroundMode = true;
+        if (window.device.platform == iOSPlatform) {
+            // iOS implements an OR operation, either of the Uuids found is okay
+            paramsObj = { 'serviceUuids': [memoUuid, deviceInformationServiceUuid] };
+        } else if (window.device.platform == androidPlatform) {
+            // Android has an AND operation, deviceInformationServiceUuid does not seem to
+            // be advertised, so this fails on Android
+            paramsObj = { 'serviceUuids': [memoUuid] };
+        }
+        bluetoothle.startScan(self.startScanSuccess, self.startScanError, paramsObj);
+    }
 
 	self.connectDevice = function(address) {
 		console.log("Connect to " + address + " with 5 second timeout");
@@ -205,7 +219,8 @@ var BLEHandler = function() {
 			}
 		} else if (obj.status == 'scanStarted') {
 			//console.log('Scan was started successfully, stopping in 10 seconds');
-			self.scanTimer = setTimeout(self.scanTimeout, 10000);
+            if (!backgroundMode)
+			    self.scanTimer = setTimeout(self.scanTimeout, 10000);
 		} else {
 			console.log('Unexpected start scan status: ' + obj.status);
 			console.log('Stopping scan');
